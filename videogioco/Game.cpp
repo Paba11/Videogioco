@@ -4,6 +4,7 @@
 
 #include "Game.h"
 
+
 Game::Game() {
     this->window = nullptr;
 }

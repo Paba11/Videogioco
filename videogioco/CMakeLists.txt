@@ -7,6 +7,7 @@ set(SFML_DIR "/opt/homebrew/Cellar/sfml/2.5.1_2/lib/cmake/SFML")
 find_package(SFML 2.5 COMPONENTS graphics audio REQUIRED)
 include_directories(${SFML_INCLUDE_DIR})
 
+
 add_executable( videogioco                  main.cpp
                 Game.h                      Game.cpp)
 
