@@ -17,9 +17,15 @@ public:
     Game();
     ~Game();
 
-    //Methods
+    //Methods to update the game and display the correct images
     void update();
     void render();
+
+    //Method to manage the events
+    void pollEvents();
+
+    //Method to check if the window is still open, so if the game is running
+    const bool getWindowIsOpen();
 
 private:
     sf::RenderWindow* window;
