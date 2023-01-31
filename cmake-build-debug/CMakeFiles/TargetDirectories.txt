@@ -1,0 +1,3 @@
+/Users/Paba/Desktop/VIDEOGIOCO/cmake-build-debug/CMakeFiles/videogioco.dir
+/Users/Paba/Desktop/VIDEOGIOCO/cmake-build-debug/CMakeFiles/edit_cache.dir
+/Users/Paba/Desktop/VIDEOGIOCO/cmake-build-debug/CMakeFiles/rebuild_cache.dir
