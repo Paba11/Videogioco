@@ -1,5 +1,1 @@
-/Applications/CLion.app/Contents/bin/cmake/mac/bin/cmake -DCMAKE_BUILD_TYPE=Debug -DCMAKE_MAKE_PROGRAM=/Applications/CLion.app/Contents/bin/ninja/mac/ninja -G Ninja -S /Users/Paba/Desktop/VIDEOGIOCO/videogioco -B /Users/Paba/Desktop/VIDEOGIOCO/videogioco/cmake-build-debug
--- Found SFML 2.5.1 in /opt/homebrew/Cellar/sfml/2.5.1_2/lib/cmake/SFML
--- Configuring done
--- Generating done
--- Build files have been written to: /Users/Paba/Desktop/VIDEOGIOCO/videogioco/cmake-build-debug
+CMakeLists.txt not found in /Users/Paba/Desktop/VIDEOGIOCO/videogioco Select CMakeLists.txt
