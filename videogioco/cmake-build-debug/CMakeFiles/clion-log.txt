@@ -1,1 +1,0 @@
-CMakeLists.txt not found in /Users/Paba/Desktop/VIDEOGIOCO/videogioco Select CMakeLists.txt

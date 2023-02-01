@@ -8,14 +8,17 @@
 Game::Game() {
     initVariables();
     initWindow();
+    initWaiter();
 }
 
 Game::~Game() {
     delete this->window;
+    delete this->waiter;
 }
 
 void Game::update() {
     this->pollEvents();
+    this->updateMousePos();
 }
 
 void Game::render() {
@@ -25,6 +28,7 @@ void Game::render() {
     this->window->clear();
 
     //Draw Game
+    this->waiter->render(*this->window);
 
     this->window->display();
 }
@@ -35,9 +39,14 @@ void Game::initVariables() {
 
 void Game::initWindow() {
     /*
-     * initialize the window of the game with a specific size and a name on the toolbar
+     * Initialize the window of the game with a specific size and a name on the toolbar
+     * It also limits the speed rate of the computer in order to not overflow the game
+     * and not disable the vertical synchronization
      */
+
     this->window = new sf::RenderWindow(sf::VideoMode::getDesktopMode(), "VideoGame");
+    this->window->setFramerateLimit(144);
+    this->window->setVerticalSyncEnabled(false);
 }
 
 const bool Game::getWindowIsOpen() {
@@ -46,7 +55,7 @@ const bool Game::getWindowIsOpen() {
 
 void Game::pollEvents() {
     /*
-     * Manage the events of the game take as input from the user in order to do the right actions
+     * Manage the events
      */
     while (this->window->pollEvent(this->ev))
     {
@@ -58,11 +67,23 @@ void Game::pollEvents() {
             case sf::Event::KeyPressed:
                 if (this->ev.key.code == sf::Keyboard::Escape)
                     this->window->close();
-                //else if ()
+                else
+                    waiter->updateMovement(this->ev);
                 break;
         }
     }
 
+}
+
+void Game::updateMousePos() {
+    /*
+     * Set the variable mousePos to the pixel in which the mouse is pointing (respect to the game window)
+     */
+    this->mousePos = sf::Mouse::getPosition(*this->window);
+}
+
+void Game::initWaiter() {
+    this->waiter = new Waiter();
 }
 
 

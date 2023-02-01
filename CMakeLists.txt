@@ -9,7 +9,9 @@ include_directories(${SFML_INCLUDE_DIR})
 
 
 add_executable( videogioco                  main.cpp
-                Game.h                      Game.cpp)
+                Game.h                      Game.cpp
+                GameCharacter.h             GameCharacter.cpp
+                Waiter.h                    Waiter.cpp)
 
 
 target_link_libraries(videogioco sfml-graphics sfml-audio)
