@@ -9,6 +9,8 @@ include_directories(${SFML_INCLUDE_DIR})
 
 
 add_executable( videogioco                  main.cpp
+                Customer.h                  Customer.cpp
+                Dish.h                      Dish.cpp
                 Game.h                      Game.cpp
                 GameCharacter.h             GameCharacter.cpp
                 Waiter.h                    Waiter.cpp)

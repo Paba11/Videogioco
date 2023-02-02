@@ -15,10 +15,10 @@ class GameCharacter {
 public:
     //Constructor & Destructor
     GameCharacter();
-    ~GameCharacter();
+    virtual ~GameCharacter();
 
     //Method to Update GameCharacter variables and to display it on the screen
-    void update();
+    virtual void update();
     void render(sf::RenderTarget& target);
 
 protected:

@@ -17,12 +17,15 @@ public:
     ~Waiter();
 
     //Method to manage the game events
-    void pollEvent();
+    //void pollEvent();
 
     //Method to move the waiter
     void updateMovement(sf::Event ev);
     void move();
     void setAnimation();
+
+    //Methods to interact with the customer
+    void interact();
 
 protected:
     //Methods' override to init the texture and the sprite
@@ -30,7 +33,7 @@ protected:
     void initSprite() override;
 
     //Attributes of the waiter
-    int speed;
+    float speed;
     int ability;
     Type type;
     Actions state;

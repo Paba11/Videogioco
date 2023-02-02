@@ -18,7 +18,7 @@ Game::~Game() {
 
 void Game::update() {
     this->pollEvents();
-    this->updateMousePos();
+    //this->updateMousePos();
 }
 
 void Game::render() {
@@ -44,7 +44,9 @@ void Game::initWindow() {
      * and not disable the vertical synchronization
      */
 
-    this->window = new sf::RenderWindow(sf::VideoMode::getDesktopMode(), "VideoGame");
+    videoMode.width = 800;
+    videoMode.height = 600;
+    this->window = new sf::RenderWindow(videoMode, "VideoGame");
     this->window->setFramerateLimit(144);
     this->window->setVerticalSyncEnabled(false);
 }

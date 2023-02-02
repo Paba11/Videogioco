@@ -8,6 +8,7 @@ Waiter::Waiter() {
     initTexture();
     initSprite();
     this->state = STANDING;
+    this->speed = 1;
 }
 
 Waiter::~Waiter() {
@@ -34,50 +35,52 @@ void Waiter::updateMovement(sf::Event ev) {
     switch(this->state)
     {
         case STANDING:
-            if (ev.key.code == sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
+            if (ev.key.code == sf::Keyboard::A)
             {
                 this->state = MOVING_LEFT;
-                setAnimation();
+                //setAnimation();
                 move();
             }
-            else if (ev.key.code == sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
+            else if (ev.key.code == sf::Keyboard::D)
             {
                 this->state = MOVING_RIGHT;
-                setAnimation();
+                //setAnimation();
                 move();
             }
-            else if (ev.key.code == sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
+            else if (ev.key.code == sf::Keyboard::W)
             {
                 this->state = MOVING_UP;
-                setAnimation();
+                //setAnimation();
                 move();
             }
-            else if (ev.key.code == sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
+            else if (ev.key.code == sf::Keyboard::S)
             {
                 this->state = MOVING_DOWN;
-                setAnimation();
+                //setAnimation();
                 move();
             }
             break;
     }
     this->state = STANDING;
-    setAnimation();
+    //setAnimation();
 }
 
 void Waiter::move() {
     switch(this->state)
     {
         case MOVING_LEFT:
-            this->sprite.move(-1.0f, 0.f);
+            this->sprite.move(this-> speed * (-1.0f), this-> speed * (0.f));
             break;
         case MOVING_RIGHT:
-            this->sprite.move(1.0f, 0.f);
+            this->sprite.move(this-> speed * (1.0f), this-> speed * (0.f));
             break;
         case MOVING_UP:
-            this->sprite.move(0.f, 1.0f);
+            this->sprite.move(this-> speed * (0.f), this-> speed * (-1.0f));
             break;
         case MOVING_DOWN:
-            this->sprite.move(0.f, -1.0f);
+            this->sprite.move(this-> speed * (0.f), this-> speed * (1.0f));
+            break;
+        case STANDING:
             break;
     }
 }
@@ -116,5 +119,10 @@ void Waiter::setAnimation() {
             }
             break;
     }
+}
+
+void Waiter::interact() {
+
+
 }
 
