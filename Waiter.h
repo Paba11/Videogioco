@@ -5,9 +5,11 @@
 #ifndef VIDEOGIOCO_WAITER_H
 #define VIDEOGIOCO_WAITER_H
 
+#include "Dish.h"
 #include "GameCharacter.h"
+#include "Order.h"
 
-enum Type {BOY, GIRL};
+enum Genre {BOY, GIRL};
 enum Actions {MOVING_UP, MOVING_DOWN, MOVING_LEFT, MOVING_RIGHT, STANDING};
 
 class Waiter final : public GameCharacter {
@@ -25,7 +27,16 @@ public:
     void setAnimation();
 
     //Methods to interact with the customer
-    void interact();
+    void interact(sf::Event ev);
+    bool distanceT();
+    bool distanceK();
+    void pickUp();
+    void putDown();
+    void takeOrder();
+    void giveOrder();
+
+    //Getters & Setters
+    const sf::Vector2f& getPosition() const;
 
 protected:
     //Methods' override to init the texture and the sprite
@@ -35,8 +46,11 @@ protected:
     //Attributes of the waiter
     float speed;
     int ability;
-    Type type;
+    Genre genre;
     Actions state;
+    Dish* dish;
+    Order* order;
+    bool isClose;
 
 };
 

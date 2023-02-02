@@ -8,7 +8,8 @@ Waiter::Waiter() {
     initTexture();
     initSprite();
     this->state = STANDING;
-    this->speed = 1;
+    this->speed = 5;
+    this->isClose = false;
 }
 
 Waiter::~Waiter() {
@@ -28,7 +29,7 @@ void Waiter::initSprite() {
      */
     this->sprite.setTexture(this->texture);
 
-    this->sprite.setScale(0.5f, 0.5f);
+    this->sprite.setScale(0.3f, 0.3f);
 }
 
 void Waiter::updateMovement(sf::Event ev) {
@@ -69,16 +70,16 @@ void Waiter::move() {
     switch(this->state)
     {
         case MOVING_LEFT:
-            this->sprite.move(this-> speed * (-1.0f), this-> speed * (0.f));
+            this->sprite.move(this->speed * (-1.0f), this->speed * (0.f));
             break;
         case MOVING_RIGHT:
-            this->sprite.move(this-> speed * (1.0f), this-> speed * (0.f));
+            this->sprite.move(this->speed * (1.0f), this->speed * (0.f));
             break;
         case MOVING_UP:
-            this->sprite.move(this-> speed * (0.f), this-> speed * (-1.0f));
+            this->sprite.move(this->speed * (0.f), this->speed * (-1.0f));
             break;
         case MOVING_DOWN:
-            this->sprite.move(this-> speed * (0.f), this-> speed * (1.0f));
+            this->sprite.move(this->speed * (0.f), this->speed * (1.0f));
             break;
         case STANDING:
             break;
@@ -121,8 +122,55 @@ void Waiter::setAnimation() {
     }
 }
 
-void Waiter::interact() {
+void Waiter::interact(sf::Event ev) {
+    switch(ev.type)
+    {
+        case ev.KeyPressed:
+            if(ev.key.code == sf::Keyboard::J)
+            {
+                if(this->order && distanceT())
+                    giveOrder();
+                else if(distanceK())
+                    takeOrder();
+            }
+            else if(ev.key.code == sf::Keyboard::K)
+            {
+                if(this->dish && distanceT())
+                    putDown();
+                else if(distanceK())
+                    pickUp();
+            }
+            isClose = false;
+            break;
 
+    }
+}
 
+bool Waiter::distanceK() {
+
+}
+
+void Waiter::pickUp() {
+
+}
+
+void Waiter::putDown() {
+
+}
+
+void Waiter::takeOrder() {
+
+}
+
+void Waiter::giveOrder() {
+
+}
+
+bool Waiter::distanceT() {
+    return false;
+}
+
+const sf::Vector2f &Waiter::getPosition() const {
+    return this->sprite.getPosition();
 }
 

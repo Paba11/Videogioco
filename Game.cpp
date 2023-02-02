@@ -8,12 +8,22 @@
 Game::Game() {
     initVariables();
     initWindow();
+    initTexture();
+    initBackground();
     initWaiter();
 }
 
 Game::~Game() {
     delete this->window;
     delete this->waiter;
+
+    /*
+    //Delete Textures
+    for(auto &i : this->textures)
+    {
+        delete i.second;
+    }
+     */
 }
 
 void Game::update() {
@@ -28,6 +38,8 @@ void Game::render() {
     this->window->clear();
 
     //Draw Game
+    this->renderMap();
+
     this->waiter->render(*this->window);
 
     this->window->display();
@@ -44,8 +56,8 @@ void Game::initWindow() {
      * and not disable the vertical synchronization
      */
 
-    videoMode.width = 800;
-    videoMode.height = 600;
+    videoMode.width = 1164;
+    videoMode.height = 882;
     this->window = new sf::RenderWindow(videoMode, "VideoGame");
     this->window->setFramerateLimit(144);
     this->window->setVerticalSyncEnabled(false);
@@ -86,6 +98,80 @@ void Game::updateMousePos() {
 
 void Game::initWaiter() {
     this->waiter = new Waiter();
+}
+
+
+void Game::initTexture() {
+    /*
+     * Allocate space on the pointer for each specific instance.
+     * Load the texture from the file
+    */
+
+    //Load the texture of the background
+    this->textures["RestaurantMap"] = new sf::Texture;
+    if(!textures["RestaurantMap"]->loadFromFile("../Textures/RestaurantMap.png"))
+    {
+        std::cout << "ERROR::GAME::CAN'T LOAD TEXTURE MAP FILE" << std::endl;
+    }
+
+    /*
+    //Load the Appetizers
+    this->textures["Appetizer1"] = new sf::Texture;
+    if(!this->textures["Appetizer1"]->loadFromFile("../Textures/Appetizer1.png"))
+        {
+            std::cout << "ERROR::GAME::CAN'T LOAD TEXTURE FILE" << std::endl;
+        }
+    this->textures["Appetizer2"] = new sf::Texture;
+    if(!this->textures["Appetizer2"]->loadFromFile("../Textures/Appetizer2.png"))
+    {
+        std::cout << "ERROR::GAME::CAN'T LOAD TEXTURE FILE" << std::endl;
+    }
+    this->textures["Appetizer3"] = new sf::Texture;
+    if(!this->textures["Appetizer3"]->loadFromFile("../Textures/Appetizer3.png"))
+    {
+        std::cout << "ERROR::GAME::CAN'T LOAD TEXTURE FILE" << std::endl;
+    }
+
+    //Load the Main Courses
+    this->textures["Main1"] = new sf::Texture;
+    if(!this->textures["Main1"]->loadFromFile("../Textures/Main1.png"))
+    {
+        std::cout << "ERROR::GAME::CAN'T LOAD TEXTURE FILE" << std::endl;
+    }
+    this->textures["Main2"] = new sf::Texture;
+    if(!this->textures["Main2"]->loadFromFile("../Textures/Main2.png"))
+    {
+        std::cout << "ERROR::GAME::CAN'T LOAD TEXTURE FILE" << std::endl;
+    }
+    this->textures["Main3"] = new sf::Texture;
+    if(!this->textures["Main3"]->loadFromFile("../Textures/Main3.png"))
+    {
+        std::cout << "ERROR::GAME::CAN'T LOAD TEXTURE FILE" << std::endl;
+    }
+    this->textures["Main4"] = new sf::Texture;
+    if(!this->textures["Main4"]->loadFromFile("../Textures/Main4.png"))
+    {
+        std::cout << "ERROR::GAME::CAN'T LOAD TEXTURE FILE" << std::endl;
+    }
+     */
+}
+
+std::map<std::string, sf::Texture *> &Game::getTextures() {
+    return this->textures;
+}
+
+void Game::initBackground() {
+    /*
+     * Initialize the map texture and connect it to a sprite
+     */
+
+    this->background.setTexture(*this->textures["RestaurantMap"]);
+    this->background.setScale(3.f,3.f);
+
+}
+
+void Game::renderMap() {
+    this->window->draw(this->background);
 }
 
 

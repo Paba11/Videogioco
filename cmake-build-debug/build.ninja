@@ -81,6 +81,20 @@ build CMakeFiles/videogioco.dir/GameCharacter.cpp.o: CXX_COMPILER__videogioco_De
   OBJECT_DIR = CMakeFiles/videogioco.dir
   OBJECT_FILE_DIR = CMakeFiles/videogioco.dir
 
+build CMakeFiles/videogioco.dir/Map.cpp.o: CXX_COMPILER__videogioco_Debug /Users/Paba/Desktop/VIDEOGIOCO/Map.cpp || cmake_object_order_depends_target_videogioco
+  DEP_FILE = CMakeFiles/videogioco.dir/Map.cpp.o.d
+  FLAGS = -g -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX13.1.sdk -mmacosx-version-min=13.0 -std=gnu++2b
+  INCLUDES = -isystem /opt/homebrew/Cellar/sfml/2.5.1_2/include
+  OBJECT_DIR = CMakeFiles/videogioco.dir
+  OBJECT_FILE_DIR = CMakeFiles/videogioco.dir
+
+build CMakeFiles/videogioco.dir/Order.cpp.o: CXX_COMPILER__videogioco_Debug /Users/Paba/Desktop/VIDEOGIOCO/Order.cpp || cmake_object_order_depends_target_videogioco
+  DEP_FILE = CMakeFiles/videogioco.dir/Order.cpp.o.d
+  FLAGS = -g -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX13.1.sdk -mmacosx-version-min=13.0 -std=gnu++2b
+  INCLUDES = -isystem /opt/homebrew/Cellar/sfml/2.5.1_2/include
+  OBJECT_DIR = CMakeFiles/videogioco.dir
+  OBJECT_FILE_DIR = CMakeFiles/videogioco.dir
+
 build CMakeFiles/videogioco.dir/Waiter.cpp.o: CXX_COMPILER__videogioco_Debug /Users/Paba/Desktop/VIDEOGIOCO/Waiter.cpp || cmake_object_order_depends_target_videogioco
   DEP_FILE = CMakeFiles/videogioco.dir/Waiter.cpp.o.d
   FLAGS = -g -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX13.1.sdk -mmacosx-version-min=13.0 -std=gnu++2b
@@ -96,7 +110,7 @@ build CMakeFiles/videogioco.dir/Waiter.cpp.o: CXX_COMPILER__videogioco_Debug /Us
 #############################################
 # Link the executable videogioco
 
-build videogioco: CXX_EXECUTABLE_LINKER__videogioco_Debug CMakeFiles/videogioco.dir/main.cpp.o CMakeFiles/videogioco.dir/Customer.cpp.o CMakeFiles/videogioco.dir/Dish.cpp.o CMakeFiles/videogioco.dir/Game.cpp.o CMakeFiles/videogioco.dir/GameCharacter.cpp.o CMakeFiles/videogioco.dir/Waiter.cpp.o | /opt/homebrew/Cellar/sfml/2.5.1_2/lib/libsfml-graphics.2.5.1.dylib /opt/homebrew/Cellar/sfml/2.5.1_2/lib/libsfml-audio.2.5.1.dylib /opt/homebrew/Cellar/sfml/2.5.1_2/lib/libsfml-window.2.5.1.dylib /opt/homebrew/Cellar/sfml/2.5.1_2/lib/libsfml-system.2.5.1.dylib
+build videogioco: CXX_EXECUTABLE_LINKER__videogioco_Debug CMakeFiles/videogioco.dir/main.cpp.o CMakeFiles/videogioco.dir/Customer.cpp.o CMakeFiles/videogioco.dir/Dish.cpp.o CMakeFiles/videogioco.dir/Game.cpp.o CMakeFiles/videogioco.dir/GameCharacter.cpp.o CMakeFiles/videogioco.dir/Map.cpp.o CMakeFiles/videogioco.dir/Order.cpp.o CMakeFiles/videogioco.dir/Waiter.cpp.o | /opt/homebrew/Cellar/sfml/2.5.1_2/lib/libsfml-graphics.2.5.1.dylib /opt/homebrew/Cellar/sfml/2.5.1_2/lib/libsfml-audio.2.5.1.dylib /opt/homebrew/Cellar/sfml/2.5.1_2/lib/libsfml-window.2.5.1.dylib /opt/homebrew/Cellar/sfml/2.5.1_2/lib/libsfml-system.2.5.1.dylib
   FLAGS = -g -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX13.1.sdk -mmacosx-version-min=13.0
   LINK_LIBRARIES = -Wl,-rpath,/opt/homebrew/Cellar/sfml/2.5.1_2/lib  /opt/homebrew/Cellar/sfml/2.5.1_2/lib/libsfml-graphics.2.5.1.dylib  /opt/homebrew/Cellar/sfml/2.5.1_2/lib/libsfml-audio.2.5.1.dylib  /opt/homebrew/Cellar/sfml/2.5.1_2/lib/libsfml-window.2.5.1.dylib  /opt/homebrew/Cellar/sfml/2.5.1_2/lib/libsfml-system.2.5.1.dylib
   OBJECT_DIR = CMakeFiles/videogioco.dir

@@ -13,6 +13,8 @@ add_executable( videogioco                  main.cpp
                 Dish.h                      Dish.cpp
                 Game.h                      Game.cpp
                 GameCharacter.h             GameCharacter.cpp
+                Map.h                       Map.cpp
+                Order.h                     Order.cpp
                 Waiter.h                    Waiter.cpp)
 
 
