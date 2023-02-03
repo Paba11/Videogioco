@@ -36,3 +36,22 @@ void GameCharacter::initSprite() {
     this->sprite.setTexture(this->texture);
 
 }
+
+const sf::FloatRect GameCharacter::getBounds() const {
+    return this->sprite.getGlobalBounds();
+}
+
+void GameCharacter::setPositionW(sf::Vector2f pos) {
+    /*
+     * Set the position of the waiter inside the map
+     */
+    this->sprite.setPosition(pos);
+
+}
+
+void GameCharacter::setPositionW(float x, float y) {
+    /*
+     * Set the position of the waiter inside the map
+     */
+    this->sprite.setPosition(x, y);
+}

@@ -29,6 +29,7 @@ public:
     void update();
     void render();
     void renderMap();
+    void updateCollision();
 
     //Method to manage the events
     void pollEvents();
@@ -41,6 +42,7 @@ public:
 
     //Getter & Setter for the attributes
     std::map<std::string, sf::Texture*>& getTextures();
+
 
 private:
     //Group of textures uploaded in a container, each one is accessible by his own name

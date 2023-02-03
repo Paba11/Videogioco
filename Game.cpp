@@ -27,7 +27,8 @@ Game::~Game() {
 }
 
 void Game::update() {
-    this->pollEvents();
+    pollEvents();
+    updateCollision();
     //this->updateMousePos();
 }
 
@@ -38,7 +39,7 @@ void Game::render() {
     this->window->clear();
 
     //Draw Game
-    this->renderMap();
+    renderMap();
 
     this->waiter->render(*this->window);
 
@@ -173,5 +174,38 @@ void Game::initBackground() {
 void Game::renderMap() {
     this->window->draw(this->background);
 }
+
+void Game::updateCollision() {
+    /*
+     * Avoid the collision with the border of the map
+     */
+
+    //Left side of the map collision
+    if(this->waiter->getBounds().left < 0.f)
+    {
+        this->waiter->setPositionW(0.f, this->waiter->getPosition().y);
+    }
+
+    //Upper side of the map collision
+    if(this->waiter->getBounds().top < 0.f)
+    {
+        this->waiter->setPositionW(this->waiter->getPosition().x, 0.f);
+    }
+
+    //Right side of the map collision
+    if(this->waiter->getBounds().left + this->waiter->getBounds().width >= this->window->getSize().x)
+    {
+        this->waiter->setPositionW(this->window->getSize().x - this->waiter->getBounds().width,
+                                   this->waiter->getPosition().y);
+    }
+
+    //Bottom side of the map collision
+    if(this->waiter->getBounds().top + this->waiter->getBounds().height >= this->window->getSize().y)
+    {
+        this->waiter->setPositionW(this->waiter->getPosition().x,
+                                   this->window->getSize().y - this->waiter->getBounds().height);
+    }
+}
+
 
 

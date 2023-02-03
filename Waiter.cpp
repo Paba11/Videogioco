@@ -8,7 +8,7 @@ Waiter::Waiter() {
     initTexture();
     initSprite();
     this->state = STANDING;
-    this->speed = 5;
+    this->speed = 10;
     this->isClose = false;
 }
 
@@ -173,4 +173,5 @@ bool Waiter::distanceT() {
 const sf::Vector2f &Waiter::getPosition() const {
     return this->sprite.getPosition();
 }
+
 

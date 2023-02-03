@@ -21,6 +21,13 @@ public:
     virtual void update();
     void render(sf::RenderTarget& target);
 
+    //Method to have the borders of the GameCharacter
+    const sf::FloatRect getBounds() const;
+
+    //Methods to modify GameCharacter position
+    void setPositionW(sf::Vector2f pos);
+    void setPositionW(float x, float y);
+
 protected:
     sf::Sprite sprite;
     sf::Texture texture;
