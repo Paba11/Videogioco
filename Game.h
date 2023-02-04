@@ -10,6 +10,7 @@
 #include "Waiter.h"
 #include "Map.h"
 #include "Customer.h"
+#include "Table.h"
 #include <SFML/Graphics.hpp>
 #include <SFML/Window.hpp>
 #include <SFML/System.hpp>
@@ -58,6 +59,7 @@ private:
     Waiter* waiter;
     Dish* dish;
     Customer* customer;
+    Table* table;
 
     //BackGround;
     sf::Sprite background;
@@ -70,6 +72,7 @@ private:
     void initWindow();
     void initWaiter();
     void initBackground();
+    void initTables();
 
 };
 

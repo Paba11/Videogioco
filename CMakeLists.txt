@@ -15,7 +15,7 @@ add_executable( videogioco                  main.cpp
                 GameCharacter.h             GameCharacter.cpp
                 Map.h                       Map.cpp
                 Order.h                     Order.cpp
-                Waiter.h                    Waiter.cpp)
+                Waiter.h                    Waiter.cpp Table.cpp Table.h)
 
 
 target_link_libraries(videogioco sfml-graphics sfml-audio)

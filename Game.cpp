@@ -207,5 +207,11 @@ void Game::updateCollision() {
     }
 }
 
+void Game::initTables() {
+
+    this->table= new Table;
+
+}
+
 
 
