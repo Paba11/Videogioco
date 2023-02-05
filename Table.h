@@ -22,7 +22,7 @@ public:
     sf::Texture texture;
 
 private:
-    void initTable();
+
 };
 
 

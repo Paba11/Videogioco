@@ -11,6 +11,7 @@ Game::Game() {
     initTexture();
     initBackground();
     initWaiter();
+    initTables();
 }
 
 Game::~Game() {
@@ -42,7 +43,7 @@ void Game::render() {
     renderMap();
 
     this->waiter->render(*this->window);
-
+    this->table->render(*this->window);
     this->window->display();
 }
 
@@ -110,7 +111,7 @@ void Game::initTexture() {
 
     //Load the texture of the background
     this->textures["RestaurantMap"] = new sf::Texture;
-    if(!textures["RestaurantMap"]->loadFromFile("../Textures/RestaurantMap.png"))
+    if(!textures["RestaurantMap"]->loadFromFile("../Textures/new_textures/Mappa.png"))
     {
         std::cout << "ERROR::GAME::CAN'T LOAD TEXTURE MAP FILE" << std::endl;
     }
@@ -210,7 +211,7 @@ void Game::updateCollision() {
 void Game::initTables() {
 
     this->table= new Table;
-
+    this->table->sprite.setPosition(120,120);
 }
 
 

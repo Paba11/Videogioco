@@ -32,6 +32,7 @@ public:
     void renderMap();
     void updateCollision();
 
+
     //Method to manage the events
     void pollEvents();
 
@@ -48,7 +49,7 @@ public:
 private:
     //Group of textures uploaded in a container, each one is accessible by his own name
     std::map<std::string, sf::Texture*> textures;
-
+    std::vector<Table> allTable;
     //
     sf::RenderWindow* window;
     sf::Event ev;
