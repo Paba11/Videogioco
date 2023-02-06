@@ -25,17 +25,18 @@ void Table::render(sf::RenderTarget &target) {
 
 
 void Table::initTexture() {
-    if (!this->texture.loadFromFile("../Textures/new_textures/Tavolo.png"))
+  /*  if (!this->texture.loadFromFile("../Textures/new_textures/Tavolo.png"))
     {
         std::cout << "ERROR::TABLE::CAN'T LOAD TEXTURE FILE" << std::endl;
     }
+    */
 }
 
 void Table::initSprite() {
     /*
      * Set the texture on the sprite and resize it
      */
-    this->sprite.setTexture(this->texture);
+   // this->sprite.setTexture(this->texture);
 
-    this->sprite.setScale(3.5, 3.5);
+    //this->sprite.setScale(3.5, 3.5);
 }

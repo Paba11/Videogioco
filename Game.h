@@ -15,6 +15,7 @@
 #include <SFML/Window.hpp>
 #include <SFML/System.hpp>
 #include <SFML/Audio.hpp>
+#include <list>
 
 
 class Game {
@@ -60,10 +61,11 @@ private:
     Waiter* waiter;
     Dish* dish;
     Customer* customer;
-    Table* table;
+    //Table* table;
 
     //BackGround;
     sf::Sprite background;
+    //sf::Sprite table;
 
     //Text
     sf::Font font;
@@ -74,6 +76,9 @@ private:
     void initWaiter();
     void initBackground();
     void initTables();
+    void initPosTables();
+
+    int numTables=6;
 
 };
 

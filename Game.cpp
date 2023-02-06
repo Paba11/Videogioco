@@ -12,6 +12,9 @@ Game::Game() {
     initBackground();
     initWaiter();
     initTables();
+    initPosTables();
+
+
 }
 
 Game::~Game() {
@@ -43,7 +46,7 @@ void Game::render() {
     renderMap();
 
     this->waiter->render(*this->window);
-    this->table->render(*this->window);
+    //this->table->render(*this->window);
     this->window->display();
 }
 
@@ -58,8 +61,8 @@ void Game::initWindow() {
      * and not disable the vertical synchronization
      */
 
-    videoMode.width = 1164;
-    videoMode.height = 882;
+    videoMode.width = 1298;
+    videoMode.height = 1344;
     this->window = new sf::RenderWindow(videoMode, "VideoGame");
     this->window->setFramerateLimit(144);
     this->window->setVerticalSyncEnabled(false);
@@ -115,7 +118,11 @@ void Game::initTexture() {
     {
         std::cout << "ERROR::GAME::CAN'T LOAD TEXTURE MAP FILE" << std::endl;
     }
-
+    this->textures["Table"] = new sf::Texture;
+    if(!textures["Table"]->loadFromFile("../Textures/new_textures/Tavolo.png"))
+    {
+        std::cout << "ERROR::GAME::CAN'T LOAD TEXTURE TABLE FILE" << std::endl;
+    }
     /*
     //Load the Appetizers
     this->textures["Appetizer1"] = new sf::Texture;
@@ -168,12 +175,14 @@ void Game::initBackground() {
      */
 
     this->background.setTexture(*this->textures["RestaurantMap"]);
-    this->background.setScale(3.f,3.f);
+    this->background.setScale(2.f,2.f);
 
 }
 
 void Game::renderMap() {
     this->window->draw(this->background);
+    for(int i=0;i<numTables;i++)
+        this->window->draw(this->allTable[i].sprite);
 }
 
 void Game::updateCollision() {
@@ -210,8 +219,36 @@ void Game::updateCollision() {
 
 void Game::initTables() {
 
-    this->table= new Table;
-    this->table->sprite.setPosition(120,120);
+    //this->table.setTexture(*this->textures["Table"]);
+    //this->table.setScale(3.f,3.f);
+    //this->table.setPosition(100,100);
+   // for(int i=0; i<numTables;i++){
+       // if(i==0)
+          //  allTable[i].setTexture(*this->textures["Table"]);
+       // else
+         //   this->allTable[i].setTexture(*(allTable[0].getTexture()));
+
+        //allTable[i].setScale(3.f,3.f);
+        //this->allTable[i].setPosition(posTables[i]);
+  //  }
+  for(int i=0; i<numTables; i++){
+      Table t;
+      t.sprite.setTexture(*this->textures["Table"]);
+      allTable.push_back(t);
+  }
+
+
+}
+
+void Game::initPosTables() {
+
+    allTable[0].sprite.setPosition(100,100);
+    allTable[1].sprite.setPosition(200,100);
+    allTable[2].sprite.setPosition(300,100);
+    allTable[3].sprite.setPosition(400,100);
+    allTable[4].sprite.setPosition(500,100);
+    allTable[5].sprite.setPosition(600,100);
+
 }
 
 
