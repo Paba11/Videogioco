@@ -31,6 +31,7 @@ public:
 protected:
     sf::Sprite sprite;
     sf::Texture texture;
+    sf::IntRect currentFrame;
 
     //Method to init the texture and the sprite
     virtual void initTexture();

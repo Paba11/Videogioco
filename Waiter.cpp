@@ -17,7 +17,7 @@ Waiter::~Waiter() {
 }
 
 void Waiter::initTexture() {
-    if (!this->texture.loadFromFile("../Textures/MaleWaiter.png"))
+    if (!this->texture.loadFromFile("../Textures/new_textures/Waiter_Male_1.png"))
     {
         std::cout << "ERROR::WAITER::CAN'T LOAD TEXTURE FILE" << std::endl;
     }
@@ -28,8 +28,9 @@ void Waiter::initSprite() {
      * Set the texture on the sprite and resize it
      */
     this->sprite.setTexture(this->texture);
-
-    this->sprite.setScale(0.3f, 0.3f);
+    this->currentFrame = sf::IntRect (0,0,50,50);
+    this->sprite.setTextureRect(this->currentFrame);
+    this->sprite.setScale(2.5,2.5);
 }
 
 void Waiter::updateMovement(sf::Event ev) {
