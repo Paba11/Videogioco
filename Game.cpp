@@ -242,12 +242,15 @@ void Game::initTables() {
 
 void Game::initPosTables() {
 
-    allTable[0].sprite.setPosition(100,100);
-    allTable[1].sprite.setPosition(200,100);
-    allTable[2].sprite.setPosition(300,100);
-    allTable[3].sprite.setPosition(400,100);
-    allTable[4].sprite.setPosition(500,100);
-    allTable[5].sprite.setPosition(600,100);
+    allTable[0].sprite.setPosition(85,270);
+    allTable[1].sprite.setPosition(85,540);
+    allTable[2].sprite.setPosition(85,810);
+    allTable[3].sprite.setPosition(490,270);
+    allTable[4].sprite.setPosition(490,540);
+    allTable[5].sprite.setPosition(490,810);
+    for(int i=0; i<numTables; i++)
+        allTable[i].sprite.setScale(2, 2);
+
 
 }
 
