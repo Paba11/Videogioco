@@ -8,9 +8,12 @@
 #include "Dish.h"
 #include "GameCharacter.h"
 #include "Order.h"
+#include "Tray.h"
 
 enum Genre {BOY, GIRL};
-enum Actions {MOVING_UP, MOVING_DOWN, MOVING_LEFT, MOVING_RIGHT, STANDING};
+enum Actions {MOVING_UP, MOVING_DOWN, MOVING_LEFT, MOVING_RIGHT, STANDING,
+        TAKING_ORDER, LEAVING_ORDER, TAKING_DISHES, LEAVING_DISHES, TAKING_EMPTY_DISHES, LEAVING_EMPTY_DISHES};
+enum Position {IS_CLOSE_TABLE, IS_CLOSE_KITCHEN, IS_CLOSE_DISHWASHER, IS_CLOSE_NOTHING};
 
 class Waiter final : public GameCharacter {
 public:
@@ -28,12 +31,11 @@ public:
 
     //Methods to interact with the customer
     void interact(sf::Event ev);
-    bool distanceT();
-    bool distanceK();
+    void distance();
     void pickUp();
     void putDown();
-    void takeOrder();
-    void giveOrder();
+    void takingOrder();
+    void leavingOrder();
 
     //Getters & Setters
     const sf::Vector2f& getPosition() const;
@@ -48,9 +50,9 @@ protected:
     int ability;
     Genre genre;
     Actions state;
-    Dish* dish;
     Order* order;
-    bool isClose;
+    Position isClose;
+    Tray* tray;
 
 };
 

@@ -9,11 +9,12 @@ Waiter::Waiter() {
     initSprite();
     this->state = STANDING;
     this->speed = 10;
-    this->isClose = false;
+    this->isClose = IS_CLOSE_NOTHING;
 }
 
 Waiter::~Waiter() {
-
+    delete this->tray;
+    delete this->order;
 }
 
 void Waiter::initTexture() {
@@ -123,30 +124,39 @@ void Waiter::setAnimation() {
 }
 
 void Waiter::interact(sf::Event ev) {
+    distance();
     switch(ev.type)
     {
         case ev.KeyPressed:
             if(ev.key.code == sf::Keyboard::J)
             {
-                if(this->order && distanceT())
-                    giveOrder();
-                else if(distanceK())
-                    takeOrder();
+                if(this->order && this->isClose == IS_CLOSE_KITCHEN && !this->tray)
+                    leavingOrder();
+                else if(!this->order && !this->tray && this->isClose == IS_CLOSE_TABLE)
+                    takingOrder();
             }
             else if(ev.key.code == sf::Keyboard::K)
             {
-                if(this->dish && distanceT())
-                    putDown();
-                else if(distanceK())
+                if(this->tray && !this->order &&
+                (this->isClose == IS_CLOSE_TABLE || this->isClose == IS_CLOSE_KITCHEN))
                     pickUp();
             }
-            isClose = false;
+            else if(ev.key.code == sf::Keyboard::L)
+            {
+                if(this->tray && !this->order &&
+                (this->isClose == IS_CLOSE_TABLE || this->isClose == IS_CLOSE_DISHWASHER))
+                    putDown();
+            }
+            this->isClose = IS_CLOSE_NOTHING;
             break;
 
     }
 }
 
-bool Waiter::distanceK() {
+void Waiter::distance() {
+    /*
+     * Calculate the position of the waiter in relation to the three interactive areas,
+     */
 
 }
 
@@ -158,20 +168,17 @@ void Waiter::putDown() {
 
 }
 
-void Waiter::takeOrder() {
+void Waiter::takingOrder() {
 
 }
 
-void Waiter::giveOrder() {
+void Waiter::leavingOrder() {
 
-}
-
-bool Waiter::distanceT() {
-    return false;
 }
 
 const sf::Vector2f &Waiter::getPosition() const {
     return this->sprite.getPosition();
 }
+
 
 

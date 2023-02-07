@@ -9,12 +9,21 @@ include_directories(${SFML_INCLUDE_DIR})
 
 
 add_executable( videogioco                  main.cpp
+                Appetizer.h                 Appetizer.cpp
+                Chef.h                      Chef.cpp
                 Customer.h                  Customer.cpp
+                Dessert.h                   Dessert.cpp
                 Dish.h                      Dish.cpp
+                DishWasher.h                DishWasher.cpp
+                Drink.h                     Drink.cpp
                 Game.h                      Game.cpp
                 GameCharacter.h             GameCharacter.cpp
+                Kitchen.h                   Kitchen.cpp
+                MainCourse.h                MainCourse.cpp
                 Map.h                       Map.cpp
                 Order.h                     Order.cpp
+                Table.h                     Table.cpp
+                Tray.h                      Tray.cpp
                 Waiter.h                    Waiter.cpp)
 
 
