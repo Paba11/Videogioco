@@ -55,3 +55,12 @@ void GameCharacter::setPositionW(float x, float y) {
      */
     this->sprite.setPosition(x, y);
 }
+
+void GameCharacter::initAnimation() {
+
+}
+
+void GameCharacter::updateAnimations() {
+
+
+}

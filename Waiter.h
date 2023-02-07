@@ -23,8 +23,9 @@ public:
 
     //Method to move the waiter
     void updateMovement(sf::Event ev);
+    void update();
     void move();
-    void setAnimation();
+    //void setAnimation();
 
     //Methods to interact with the customer
     void interact(sf::Event ev);
@@ -34,9 +35,11 @@ public:
     void putDown();
     void takeOrder();
     void giveOrder();
-
+    void updateAnimations() override;
     //Getters & Setters
     const sf::Vector2f& getPosition() const;
+    void initAnimation() override;
+
 
 protected:
     //Methods' override to init the texture and the sprite

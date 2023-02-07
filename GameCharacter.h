@@ -19,6 +19,7 @@ public:
 
     //Method to Update GameCharacter variables and to display it on the screen
     virtual void update();
+    virtual void updateAnimations();
     void render(sf::RenderTarget& target);
 
     //Method to have the borders of the GameCharacter
@@ -27,11 +28,17 @@ public:
     //Methods to modify GameCharacter position
     void setPositionW(sf::Vector2f pos);
     void setPositionW(float x, float y);
+    virtual void initAnimation();
+
 
 protected:
     sf::Sprite sprite;
     sf::Texture texture;
     sf::IntRect currentFrame;
+    sf::Clock animationTimer;
+    sf::Event ev;
+    bool moving;
+
 
     //Method to init the texture and the sprite
     virtual void initTexture();

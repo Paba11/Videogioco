@@ -4,7 +4,7 @@
 int main() {
     //Init game engine
     Game game;
-
+    srand(static_cast<unsigned>(time(0)));
     //Game loop
     while (game.getWindowIsOpen())
     {

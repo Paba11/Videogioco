@@ -10,6 +10,8 @@ Waiter::Waiter() {
     this->state = STANDING;
     this->speed = 10;
     this->isClose = false;
+    this->moving = false;
+    this->initAnimation();
 }
 
 Waiter::~Waiter() {
@@ -36,7 +38,9 @@ void Waiter::initSprite() {
 void Waiter::updateMovement(sf::Event ev) {
     switch(this->state)
     {
+
         case STANDING:
+
             if (ev.key.code == sf::Keyboard::A)
             {
                 this->state = MOVING_LEFT;
@@ -47,6 +51,7 @@ void Waiter::updateMovement(sf::Event ev) {
             {
                 this->state = MOVING_RIGHT;
                 //setAnimation();
+
                 move();
             }
             else if (ev.key.code == sf::Keyboard::W)
@@ -68,26 +73,33 @@ void Waiter::updateMovement(sf::Event ev) {
 }
 
 void Waiter::move() {
+
     switch(this->state)
     {
         case MOVING_LEFT:
             this->sprite.move(this->speed * (-1.0f), this->speed * (0.f));
+
             break;
+
         case MOVING_RIGHT:
             this->sprite.move(this->speed * (1.0f), this->speed * (0.f));
+
             break;
+
         case MOVING_UP:
             this->sprite.move(this->speed * (0.f), this->speed * (-1.0f));
+
             break;
+
         case MOVING_DOWN:
             this->sprite.move(this->speed * (0.f), this->speed * (1.0f));
+
             break;
-        case STANDING:
-            break;
+
     }
 }
 
-void Waiter::setAnimation() {
+/* void Waiter::setAnimation() {
     switch(this->state)
     {
         case MOVING_LEFT:
@@ -122,6 +134,7 @@ void Waiter::setAnimation() {
             break;
     }
 }
+ */
 
 void Waiter::interact(sf::Event ev) {
     switch(ev.type)
@@ -173,6 +186,31 @@ bool Waiter::distanceT() {
 
 const sf::Vector2f &Waiter::getPosition() const {
     return this->sprite.getPosition();
+}
+
+void Waiter::update() {
+    updateAnimations();
+}
+
+
+void Waiter::updateAnimations() {
+
+    if(this->animationTimer.getElapsedTime().asSeconds() >= 0.5f) {
+        if (this->moving == false) {                                //Idle animation
+            this->currentFrame.left += 50.f;
+            if (this->currentFrame.left >= 150)
+                this->currentFrame.left = 0;
+        }
+        this->animationTimer.restart();
+        this->sprite.setTextureRect(this->currentFrame);
+    }
+
+}
+
+void Waiter::initAnimation() {
+    this->animationTimer.restart();
+    this->moving = false;
+
 }
 
 
