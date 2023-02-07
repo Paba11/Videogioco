@@ -5,6 +5,7 @@
 #ifndef VIDEOGIOCO_CUSTOMER_H
 #define VIDEOGIOCO_CUSTOMER_H
 
+
 #include "GameCharacter.h"
 
 enum Mood {EXCELLENT, GOOD, NORMAL, BAD};

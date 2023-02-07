@@ -4,6 +4,7 @@
 
 #include "Waiter.h"
 
+
 Waiter::Waiter() {
     initTexture();
     initSprite();

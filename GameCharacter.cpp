@@ -4,6 +4,7 @@
 
 #include "GameCharacter.h"
 
+
 GameCharacter::GameCharacter() {
     //initTexture();
     //initSprite();

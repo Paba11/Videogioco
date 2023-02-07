@@ -4,7 +4,6 @@
 
 #include "Game.h"
 
-
 Game::Game() {
     initVariables();
     initWindow();

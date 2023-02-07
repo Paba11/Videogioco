@@ -7,7 +7,6 @@
 
 #include "Dish.h"
 
-
 class MainCourse final : public Dish {
 public:
     //Constructor & Destructor

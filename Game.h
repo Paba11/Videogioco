@@ -15,7 +15,6 @@
 #include <SFML/System.hpp>
 #include <SFML/Audio.hpp>
 
-
 class Game {
 public:
     //Constructor & Destructor

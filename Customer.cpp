@@ -4,6 +4,7 @@
 
 #include "Customer.h"
 
+
 Customer::Customer() {
     this->mood = GOOD;
     this->patience = 100;

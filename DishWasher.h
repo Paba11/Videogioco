@@ -7,6 +7,7 @@
 
 #include "GameCharacter.h"
 
+
 class DishWasher final : public GameCharacter {
 public:
     DishWasher();
