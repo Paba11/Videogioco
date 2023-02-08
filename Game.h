@@ -32,6 +32,7 @@ public:
     void render();
     void renderMap();
     void updateCollision();
+    void windowsCollision();
 
 
     //Method to manage the events

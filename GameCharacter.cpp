@@ -7,6 +7,7 @@
 GameCharacter::GameCharacter() {
     //initTexture();
     //initSprite();
+    setPositionW(100,100);
 }
 
 GameCharacter::~GameCharacter() {
