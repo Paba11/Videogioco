@@ -22,7 +22,7 @@ public:
     //void pollEvent();
 
     //Method to move the waiter
-    void updateMovement(sf::Event ev);
+    void updateMovement();
     void update();
     void move();
     //void setAnimation();
@@ -38,7 +38,7 @@ public:
     void updateAnimations() override;
     //Getters & Setters
     const sf::Vector2f& getPosition() const;
-    void initAnimation() override;
+    void setAnimation();
 
 
 protected:

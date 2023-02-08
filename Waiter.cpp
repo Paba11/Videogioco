@@ -11,7 +11,6 @@ Waiter::Waiter() {
     this->speed = 10;
     this->isClose = false;
     this->moving = false;
-    this->initAnimation();
 }
 
 Waiter::~Waiter() {
@@ -35,41 +34,25 @@ void Waiter::initSprite() {
     this->sprite.setScale(2.5,2.5);
 }
 
-void Waiter::updateMovement(sf::Event ev) {
-    switch(this->state)
-    {
+void Waiter::updateMovement() {
 
-        case STANDING:
-
-            if (ev.key.code == sf::Keyboard::A)
-            {
-                this->state = MOVING_LEFT;
-                //setAnimation();
-                move();
-            }
-            else if (ev.key.code == sf::Keyboard::D)
-            {
-                this->state = MOVING_RIGHT;
-                //setAnimation();
-
-                move();
-            }
-            else if (ev.key.code == sf::Keyboard::W)
-            {
-                this->state = MOVING_UP;
-                //setAnimation();
-                move();
-            }
-            else if (ev.key.code == sf::Keyboard::S)
-            {
-                this->state = MOVING_DOWN;
-                //setAnimation();
-                move();
-            }
-            break;
-    }
     this->state = STANDING;
-    //setAnimation();
+    
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
+        this->state = MOVING_LEFT;
+
+    else if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
+        this->state = MOVING_RIGHT;
+
+    else if (sf::Keyboard::isKeyPressed(sf::Keyboard::W))
+        state = MOVING_UP;
+
+    else if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
+        this->state = MOVING_DOWN;
+
+    setAnimation();
+    move();
+
 }
 
 void Waiter::move() {
@@ -77,64 +60,23 @@ void Waiter::move() {
     switch(this->state)
     {
         case MOVING_LEFT:
-            this->sprite.move(this->speed * (-1.0f), this->speed * (0.f));
-
+            this->sprite.move(this->speed * (-0.15f), this->speed * (0.f));
             break;
 
         case MOVING_RIGHT:
-            this->sprite.move(this->speed * (1.0f), this->speed * (0.f));
-
+            this->sprite.move(this->speed * (0.15f), this->speed * (0.f));
             break;
 
         case MOVING_UP:
-            this->sprite.move(this->speed * (0.f), this->speed * (-1.0f));
-
+            this->sprite.move(this->speed * (0.f), this->speed * (-0.15f));
             break;
 
         case MOVING_DOWN:
-            this->sprite.move(this->speed * (0.f), this->speed * (1.0f));
-
-            break;
-
-    }
-}
-
-/* void Waiter::setAnimation() {
-    switch(this->state)
-    {
-        case MOVING_LEFT:
-            if(!this->texture.loadFromFile("../Textures/MaleWaiter.png"))
-            {
-                std::cout << "ERROR::WAITER::CAN'T LOAD TEXTURE FILE" << std::endl;
-            }
-            break;
-        case MOVING_RIGHT:
-            if(!this->texture.loadFromFile("../Textures/MaleWaiter.png"))
-            {
-                std::cout << "ERROR::WAITER::CAN'T LOAD TEXTURE FILE" << std::endl;
-            }
-            break;
-        case MOVING_UP:
-            if(!this->texture.loadFromFile("../Textures/MaleWaiter.png"))
-            {
-                std::cout << "ERROR::WAITER::CAN'T LOAD TEXTURE FILE" << std::endl;
-            }
-            break;
-        case MOVING_DOWN:
-            if(!this->texture.loadFromFile("../Textures/MaleWaiter.png"))
-            {
-                std::cout << "ERROR::WAITER::CAN'T LOAD TEXTURE FILE" << std::endl;
-            }
-            break;
-        case STANDING:
-            if(!this->texture.loadFromFile("../Textures/MaleWaiter.png"))
-            {
-                std::cout << "ERROR::WAITER::CAN'T LOAD TEXTURE FILE" << std::endl;
-            }
+            this->sprite.move(this->speed * (0.f), this->speed * (0.15f));
             break;
     }
 }
- */
+
 
 void Waiter::interact(sf::Event ev) {
     switch(ev.type)
@@ -190,26 +132,46 @@ const sf::Vector2f &Waiter::getPosition() const {
 
 void Waiter::update() {
     updateAnimations();
+    updateMovement();
 }
 
 
 void Waiter::updateAnimations() {
 
-    if(this->animationTimer.getElapsedTime().asSeconds() >= 0.5f) {
-        if (this->moving == false) {                                //Idle animation
+    if(this->animationTimer.getElapsedTime().asSeconds() >= 0.4f) {
+                                        //Idle animation
+
             this->currentFrame.left += 50.f;
             if (this->currentFrame.left >= 150)
                 this->currentFrame.left = 0;
+
+            this->animationTimer.restart();
+            this->sprite.setTextureRect(this->currentFrame);
         }
-        this->animationTimer.restart();
-        this->sprite.setTextureRect(this->currentFrame);
-    }
+
 
 }
 
-void Waiter::initAnimation() {
-    this->animationTimer.restart();
-    this->moving = false;
+
+
+void Waiter::setAnimation() {
+
+    if(this->state == STANDING)
+        this->currentFrame.top = 0.f;
+
+    else if(this->state == MOVING_DOWN)
+        this->currentFrame.top = 50.f;
+
+    else if(this->state == MOVING_LEFT)
+        this->currentFrame.top = 100.f;
+
+    else if(this->state == MOVING_RIGHT)
+        this->currentFrame.top = 150.f;
+
+    else if(this->state == MOVING_UP)
+        this->currentFrame.top = 200.f;
+
+    this->sprite.setTextureRect(this->currentFrame);
 
 }
 

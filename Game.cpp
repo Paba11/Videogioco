@@ -33,7 +33,7 @@ Game::~Game() {
 void Game::update() {
     pollEvents();
     updateCollision();
-    this->waiter->updateAnimations();
+    this->waiter->update();
     //this->updateMousePos();
 }
 
@@ -88,8 +88,7 @@ void Game::pollEvents() {
                 if (this->ev.key.code == sf::Keyboard::Escape)
                     this->window->close();
                 else {
-                    waiter->updateMovement(this->ev);
-                    waiter->initAnimation();
+
                 }
                 break;
         }

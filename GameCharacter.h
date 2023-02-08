@@ -30,7 +30,6 @@ public:
     void setPositionW(float x, float y);
     virtual void initAnimation();
 
-
 protected:
     sf::Sprite sprite;
     sf::Texture texture;
