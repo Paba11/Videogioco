@@ -191,8 +191,8 @@ void Game::updateCollision() {
     /*
      * Avoid the collision with the border of the map
      */
-
     windowsCollision();
+    tableCollision();
 
 
 
@@ -262,6 +262,28 @@ void Game::windowsCollision() {
                                    this->window->getSize().y - this->waiter->getBounds().height);
     }
 
+}
+
+void Game::tableCollision() {
+
+    for(int i=0; i < numTables; i++){
+        if(this->waiter->getBounds().intersects(allTable[i].sprite.getGlobalBounds())) {
+            if (this->waiter->state == MOVING_DOWN) {
+                this->waiter->validMovement["Down"] = false;
+            }
+            else if (this->waiter->state == MOVING_UP) {
+                this->waiter->validMovement["Up"] = false;
+            }
+            else if (this->waiter->state == MOVING_LEFT){
+                this->waiter->validMovement["Left"] = false;
+            }
+
+            else if(this->waiter->state == MOVING_RIGHT) {
+                this->waiter->validMovement["Right"] = false;
+            }
+        }
+
+    }
 }
 
 

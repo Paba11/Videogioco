@@ -24,11 +24,16 @@ public:
 
     //Method to have the borders of the GameCharacter
     const sf::FloatRect getBounds() const;
+    const sf::FloatRect getLocalBounds() const;
 
     //Methods to modify GameCharacter position
     void setPositionW(sf::Vector2f pos);
     void setPositionW(float x, float y);
     virtual void initAnimation();
+    std::map<std::string, bool> validMovement;
+    void initValidMovement();
+
+
 
 protected:
     sf::Sprite sprite;
@@ -36,7 +41,6 @@ protected:
     sf::IntRect currentFrame;
     sf::Clock animationTimer;
     sf::Event ev;
-    bool moving;
 
 
     //Method to init the texture and the sprite

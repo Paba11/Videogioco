@@ -39,6 +39,8 @@ public:
     //Getters & Setters
     const sf::Vector2f& getPosition() const;
     void setAnimation();
+    Actions state;
+    Actions preState;
 
 
 protected:
@@ -50,7 +52,7 @@ protected:
     float speed;
     int ability;
     Genre genre;
-    Actions state;
+
     Dish* dish;
     Order* order;
     bool isClose;

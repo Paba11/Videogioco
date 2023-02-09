@@ -8,6 +8,7 @@ GameCharacter::GameCharacter() {
     //initTexture();
     //initSprite();
     setPositionW(100,100);
+    initValidMovement();
 }
 
 GameCharacter::~GameCharacter() {
@@ -64,5 +65,16 @@ void GameCharacter::initAnimation() {
 void GameCharacter::updateAnimations() {
 
 
+}
+
+void GameCharacter::initValidMovement() {
+    validMovement["Right"] = true;
+    validMovement["Left"] = true;
+    validMovement["Up"] = true;
+    validMovement["Down"] = true;
+}
+
+const sf::FloatRect GameCharacter::getLocalBounds() const {
+    return this->sprite.getLocalBounds();
 }
 

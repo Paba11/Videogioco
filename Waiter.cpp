@@ -10,7 +10,6 @@ Waiter::Waiter() {
     this->state = STANDING;
     this->speed = 10;
     this->isClose = false;
-    this->moving = false;
 }
 
 Waiter::~Waiter() {
@@ -34,47 +33,60 @@ void Waiter::initSprite() {
     this->sprite.setScale(2.5,2.5);
 }
 
-void Waiter::updateMovement() {
-
+void Waiter::updateMovement() { //appena validMovement diventa false bisogna uscire dal ciclo
+    preState = this->state;
     this->state = STANDING;
-    
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
+
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)) {
         this->state = MOVING_LEFT;
+        if(preState != this->state)
+            validMovement["Left"] = true;
 
-    else if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
+    }
+    else if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)) {
         this->state = MOVING_RIGHT;
+        if(preState != this->state)
+            validMovement["Right"] = true;
 
-    else if (sf::Keyboard::isKeyPressed(sf::Keyboard::W))
-        state = MOVING_UP;
-
-    else if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
+    }
+    else if (sf::Keyboard::isKeyPressed(sf::Keyboard::W)) {
+        this->state = MOVING_UP;
+        if(preState != this->state)
+            validMovement["Up"] = true;
+    }
+    else if (sf::Keyboard::isKeyPressed(sf::Keyboard::S)) {
         this->state = MOVING_DOWN;
-
+        if(preState != this->state)
+            validMovement["Down"] = true;
+    }
     setAnimation();
     move();
-
 }
 
 void Waiter::move() {
 
-    switch(this->state)
-    {
-        case MOVING_LEFT:
-            this->sprite.move(this->speed * (-0.15f), this->speed * (0.f));
-            break;
+        switch (this->state) {
+            case MOVING_LEFT:
+                if(validMovement["Left"] == true)
+                    this->sprite.move(this->speed * (-0.15f), this->speed * (0.f));
+                break;
 
-        case MOVING_RIGHT:
-            this->sprite.move(this->speed * (0.15f), this->speed * (0.f));
-            break;
+            case MOVING_RIGHT:
+                if(validMovement["Right"] == true)
+                    this->sprite.move(this->speed * (0.15f), this->speed * (0.f));
+                break;
 
-        case MOVING_UP:
-            this->sprite.move(this->speed * (0.f), this->speed * (-0.15f));
-            break;
+            case MOVING_UP:
+                if(validMovement["Up"] == true)
+                    this->sprite.move(this->speed * (0.f), this->speed * (-0.15f));
+                break;
 
-        case MOVING_DOWN:
-            this->sprite.move(this->speed * (0.f), this->speed * (0.15f));
-            break;
-    }
+            case MOVING_DOWN:
+                if(validMovement["Down"] == true)
+                    this->sprite.move(this->speed * (0.f), this->speed * (0.15f));
+                break;
+        }
+
 }
 
 

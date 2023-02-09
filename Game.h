@@ -33,6 +33,7 @@ public:
     void renderMap();
     void updateCollision();
     void windowsCollision();
+    void tableCollision();
 
 
     //Method to manage the events
@@ -57,12 +58,12 @@ private:
     sf::Event ev;
     sf::VideoMode videoMode;
     sf::Vector2i mousePos;
-
     //GameCharacters and objects
     Waiter* waiter;
     Dish* dish;
     Customer* customer;
     //Table* table;
+
 
     //BackGround;
     sf::Sprite background;
