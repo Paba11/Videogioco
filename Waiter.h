@@ -37,14 +37,16 @@ public:
     void setAnimation();
 
     //Methods to interact with the customer
-    void interact(sf::Event ev);
-    Table* distanceTable(const Map& map);
-    Kitchen* distanceKitchen(const Map& map);
-    Washbasin* distanceWashbasin(const Map& map);
-    void pickUp();
-    void putDown();
-    void takingOrder();
-    void leavingOrder();
+    void interact(sf::Event ev, const Map& map);
+    Table* distanceTable(const Map& map) const;
+    Kitchen* distanceKitchen(const Map& map) const;
+    Washbasin* distanceWashbasin(const Map& map) const;
+    void pickUp(Kitchen* kitchen);
+    void pickUp(Table* table);
+    void putDown(Table* table);
+    void putDown(Washbasin* washbasin);
+    void takingOrder(Table* table);
+    void leavingOrder(Kitchen* kitchen);
     void updateAnimations() override;
 
 

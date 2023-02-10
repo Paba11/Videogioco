@@ -13,6 +13,7 @@
 #include "Dish.h"
 #include "Order.h"
 #include "Table.h"
+#include "Recipe.h"
 
 
 class Order {
@@ -22,16 +23,19 @@ public:
     ~Order();
 
     //Getters & Setters
-    int getAppetizerTime();
-    void setAppetizerTime()
+    Apt getAppetizers(int i);
+    Mn getMainCourse(int i);
+    Dsr getDesserts(int i);
+    Drk getDrinks(int i);
 
 private:
     Table* table;
 
     //Attributes that stores the time to complete the preparation of each table course
-    int appetizerTime;
-    int mainCourseTime;
-    int dessertTime;
+    Apt appetizers[MAX_DISHES];
+    Mn mainCourse[MAX_DISHES];
+    Dsr desserts[MAX_DISHES];
+    Drk drinks[MAX_DISHES];
 
 };
 

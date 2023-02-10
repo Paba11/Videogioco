@@ -17,7 +17,15 @@ public:
     Washbasin();
     ~Washbasin();
 
+    //Methods to update and render the tray
+    void update();
+    void render(sf::RenderTarget &target);
+
     //Position of Washbasin
+
+    //Getters & Setters
+    bool getIsPlates() const;
+    void setIsPlates(bool t);
 
 private:
     //Set The texture and the sprite
@@ -25,6 +33,7 @@ private:
     sf::Sprite sprite;
     void initTexture();
     void initSprite();
+    bool isPlates;
 
 };
 

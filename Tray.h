@@ -15,7 +15,7 @@
 
 
 #define MAX_DISHES 4
-enum State {EMPTY_TRAY = 1, FILLED_TRAY, EMPTY_PLATES};
+enum TrayState {EMPTY_TRAY = 1, FILLED_TRAY, EMPTY_PLATES};
 
 class Tray {
 public:
@@ -32,7 +32,9 @@ public:
 
     //Method to set the tray state
     void setState(int t);
-    State getState();
+    TrayState getState();
+    Dish* getDish(int i);
+    void setDish(int i, Dish* dish);
 
 private:
     void initTexture();
@@ -41,7 +43,7 @@ private:
     sf::Sprite sprite;
 
     Dish* tray[MAX_DISHES];
-    State state;
+    TrayState state;
 
 };
 

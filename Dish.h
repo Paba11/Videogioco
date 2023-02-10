@@ -20,6 +20,7 @@ enum Apt {NACHOS = 1};
 enum Mn {HAMBURGER = 1, MEAT, MEATBALLS, CHICKEN};
 enum Dsr {CHOCOLATE_CAKE = 1, CHEESE_CAKE, JELLY};
 enum Drk {WATER = 1, WINE, BEER, COKE};
+enum State {READY = 1, COOKING, WAITING, IN_QUEUE};
 
 
 class Dish {

@@ -13,10 +13,14 @@
 #include "Dish.h"
 #include "Order.h"
 #include "Table.h"
+#include "Tray.h"
+#include "Recipe.h"
 #include <queue>
 
 
 #define MAX_TABLES 10
+
+enum DishState {EMPTY, FULL};
 
 class Kitchen {
 public:
@@ -30,11 +34,20 @@ public:
     void insertWaitingOrder(Order* order);
     Order* makeWaitingOrder();
 
+    //Update and render of the kitchen textures
+    void update();
+    void render(sf::RenderTarget target);
+
     //Methods to manage orders
 
     //Getters & Setters
     bool getIsEmptyPlates();
     void setIsEmptyPlates(bool t);
+    const sf::Vector2f getPosition() const;
+    Dish* getDish(int i);
+    void setDish(int i, Dish* dish);
+    void setState(int i);
+    DishState getState();
 
 private:
     //Initialize the Kitchen texture and sprite
@@ -43,13 +56,15 @@ private:
     void initTexture();
     void initSprite();
 
-    Dish* dish;
+    Dish* dish[MAX_DISHES];
     std::queue<Order*> newOrders;
     Order* waitingOrders[MAX_TABLES];
     std::queue<Order*> readyOrders;
     Order* current;
     int count;
     bool isEmptyPlates;
+    DishState state;
+    Recipe recipe;
 };
 
 

@@ -26,3 +26,19 @@ void Washbasin::initSprite() {
     //TO DO: SET THE CORRECT POSITION OF THE WASHBASIN (DEPENDING ON THE LEVEL?)
     //this->sprite.setPosition()
 }
+
+void Washbasin::update() {
+
+}
+
+void Washbasin::render(sf::RenderTarget &target) {
+
+}
+
+bool Washbasin::getIsPlates() const {
+    return this->isPlates;
+}
+
+void Washbasin::setIsPlates(bool t) {
+    this->isPlates = t;
+}

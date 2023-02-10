@@ -12,6 +12,10 @@
 #include <SFML/Audio.hpp>
 #include "Dish.h"
 #include "Order.h"
+#include "Recipe.h"
+
+enum TableState {CHOOSING, WAITING_TO_ORDER, WAITING_DISHES, EATING, ENDED};
+enum ActualCourse {APPETIZER, MAINCOURSE, DESSERT};
 
 
 class Table {
@@ -26,12 +30,37 @@ public:
     sf::Sprite sprite;
     sf::Texture texture;
 
+    //Update and render the table
+    void update();
+    void render(sf::RenderTarget target);
+
     //Getters & Setters
     int getTavNum();
     void setTavNum(int tavNum);
+    int getTavNum();
+    const sf::Vector2f& getPosition() const;
+    Dish* getDish(int i);
+    void setDish(int i, Dish* dish);
+    TableState getState();
+    void setState(int i);
+    Order* getOrder() const;
+    void setOrder();
+    ActualCourse getCourse() const;
+    void setCourse(int i);
 
 private:
+    //Texture and Sprite
+    sf::Texture texture;
+    sf::sprite sprite;
+    void initTexture();
+    void initSprite();
+
+    //Attributes of the table
     int tavNum;
+    Dish* dish[MAX_DISHES];
+    TableState state;
+    ActualCourse course;
+    Order* order;
 
 };
 

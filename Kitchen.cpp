@@ -6,11 +6,14 @@
 
 
 Kitchen::Kitchen() {
-
+    this->state = EMPTY;
 }
 
 Kitchen::~Kitchen() {
-    delete this->dish;
+    for(int i=0; i < MAX_DISHES; i++)
+    {
+        delete this->dish[i];
+    }
     delete this->current;
 }
 
@@ -47,4 +50,38 @@ bool Kitchen::getIsEmptyPlates() {
 
 void Kitchen::setIsEmptyPlates(bool t) {
     this->isEmptyPlates = t;
+}
+
+const sf::Vector2f Kitchen::getPosition() const {
+    return this->sprite.getPosition();
+}
+
+Dish *Kitchen::getDish(int i) {
+    return this->dish[i];
+}
+
+void Kitchen::setDish(int i, Dish* d) {
+    this->dish[i] = d;
+}
+
+void Kitchen::update() {
+
+}
+
+void Kitchen::render(sf::RenderTarget target) {
+
+}
+
+void Kitchen::setState(int i) {
+    switch(i)
+    {
+        case 1:
+            this->state = EMPTY;
+        case 2:
+            this->state = FULL;
+    }
+}
+
+DishState Kitchen::getState() {
+    return this->state;
 }
