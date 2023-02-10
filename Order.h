@@ -12,8 +12,14 @@
 #include <SFML/Audio.hpp>
 #include "Dish.h"
 #include "Order.h"
-#include "Table.h"
 #include "Recipe.h"
+
+enum Apt {NACHOS = 1};
+enum Mn {HAMBURGER = 1, MEAT, MEATBALLS, CHICKEN};
+enum Dsr {CHOCOLATE_CAKE = 1, CHEESE_CAKE, JELLY};
+enum Drk {WATER = 1, WINE, BEER, COKE};
+
+#define MAX_DISHES 4
 
 
 class Order {
@@ -29,7 +35,7 @@ public:
     Drk getDrinks(int i);
 
 private:
-    Table* table;
+    int tableNumber;
 
     //Attributes that stores the time to complete the preparation of each table course
     Apt appetizers[MAX_DISHES];

@@ -7,7 +7,7 @@
 
 #include "Dish.h"
 
-
+enum Apt {NACHOS = 1};
 
 class Appetizer final : public Dish {
 public:
@@ -16,13 +16,13 @@ public:
     ~Appetizer();
 
     //Methods to initialize the texture and the sprite based on the dish type
-    void initTexture() override;
+    void initTexture();
 
 private:
     Apt type;
 
     //Method to initialize the preparation time;
-    void initPreparationTime() override;
+    void initPreparationTime();
 
 
 

@@ -32,7 +32,7 @@ public:
 
     //Method to move the waiter
     void updateMovement();
-    void update();
+    void update() override;
     void move();
     void setAnimation();
 
@@ -52,9 +52,7 @@ public:
 
     //Getters & Setters
     const sf::Vector2f& getPosition() const;
-    void setAnimation();
-    Actions state;
-    Actions preState;
+    Actions getState();
 
 
 protected:
@@ -67,6 +65,7 @@ protected:
     int ability;
     Genre genre;
     Actions state;
+    Actions preState;
     Order* order;
     Position isClose;
     Tray* tray;

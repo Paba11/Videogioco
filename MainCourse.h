@@ -7,6 +7,8 @@
 
 #include "Dish.h"
 
+enum Mn {HAMBURGER = 1, MEAT, MEATBALLS, CHICKEN};
+
 class MainCourse final : public Dish {
 public:
     //Constructor & Destructor
@@ -14,11 +16,11 @@ public:
     ~MainCourse();
 
     //Methods to initialize the texture and the sprite based on the dish type
-    void initTexture() override;
+    void initTexture();
 
 private:
     //Method to initialize the preparation time;
-    void initPreparationTime() override;
+    void initPreparationTime();
 
     Mn type;
 

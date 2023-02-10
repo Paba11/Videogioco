@@ -10,16 +10,7 @@
 #include <SFML/Window.hpp>
 #include <SFML/System.hpp>
 #include <SFML/Audio.hpp>
-#include "Appetizer.h"
-#include "MainCourse.h"
-#include "Dessert.h"
-#include "Drink.h"
 
-
-enum Apt {NACHOS = 1};
-enum Mn {HAMBURGER = 1, MEAT, MEATBALLS, CHICKEN};
-enum Dsr {CHOCOLATE_CAKE = 1, CHEESE_CAKE, JELLY};
-enum Drk {WATER = 1, WINE, BEER, COKE};
 enum State {READY = 1, COOKING, WAITING, IN_QUEUE};
 
 

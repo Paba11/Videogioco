@@ -64,7 +64,8 @@ void Waiter::updateMovement() { //appena validMovement diventa false bisogna usc
     }
     else
     {
-        interact(ev);
+        //TO DO
+        //interact(ev);
     }
     setAnimation();
     move();
@@ -332,6 +333,10 @@ void Waiter::setAnimation() {
 
     this->sprite.setTextureRect(this->currentFrame);
 
+}
+
+Actions Waiter::getState() {
+    return this->state;
 }
 
 

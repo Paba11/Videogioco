@@ -8,6 +8,7 @@
 
 #include "Dish.h"
 
+enum Dsr {CHOCOLATE_CAKE = 1, CHEESE_CAKE, JELLY};
 
 class Dessert final : public Dish {
 public:
@@ -16,11 +17,11 @@ public:
     ~Dessert();
 
     //Methods to initialize the texture and the sprite based on the dish type
-    void initTexture() override;
+    void initTexture();
 
 private:
     //Method to initialize the preparation time;
-    void initPreparationTime() override;
+    void initPreparationTime();
 
     Dsr type;
 

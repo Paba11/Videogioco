@@ -7,6 +7,7 @@
 
 #include "Dish.h"
 
+enum Drk {WATER = 1, WINE, BEER, COKE};
 
 class Drink final : public Dish {
 public:
@@ -15,7 +16,7 @@ public:
     ~Drink();
 
     //Methods to initialize the texture and the sprite based on the dish type
-    void initTexture() override;
+    void initTexture();
 
 private:
 

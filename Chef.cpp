@@ -34,11 +34,6 @@ void Chef::initSprite() {
 }
 
 void Chef::updateMovement(int action) {
-    switch(action)
-    {
-        case 1:
-
-    }
 
 }
 

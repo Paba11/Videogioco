@@ -10,7 +10,7 @@
 #include "Order.h"
 
 
-enum Do {WAITING, COOKING, READY};
+enum Do {WAIT, COOK, DO};
 
 
 class Chef final : public GameCharacter {
