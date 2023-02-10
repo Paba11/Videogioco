@@ -44,7 +44,15 @@ void Tray::setState(int t) {
     }
 }
 
-State Tray::getState() {
+TrayState Tray::getState() {
     return this->state;
+}
+
+Dish *Tray::getDish(int i) {
+    return this->tray[i];
+}
+
+void Tray::setDish(int i, Dish* d) {
+    this->tray[i] = d;
 }
 

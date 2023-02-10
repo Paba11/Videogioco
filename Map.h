@@ -5,10 +5,15 @@
 #ifndef VIDEOGIOCO_MAP_H
 #define VIDEOGIOCO_MAP_H
 
+#include "Washbasin.h"
+#include "Kitchen.h"
+#include "Table.h"
 #include <SFML/Graphics.hpp>
 #include <SFML/Window.hpp>
 #include <SFML/System.hpp>
 #include <SFML/Audio.hpp>
+
+#define MAX_SIZE 10
 
 class Map {
 public:
@@ -16,10 +21,20 @@ public:
     Map();
     ~Map();
 
+    //Getters & Setters
+    Table* getTable(int i) const;
+    Kitchen* getKitchen() const;
+    Washbasin* getWashbasin() const;
+
 
 private:
     sf::Texture texture;
     sf::Sprite sprite;
+
+    //Elements of the map
+    Table* table[MAX_SIZE];
+    Washbasin* washbasin;
+    Kitchen* kitchen;
 
 };
 
