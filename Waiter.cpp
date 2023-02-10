@@ -62,6 +62,10 @@ void Waiter::updateMovement(sf::Event ev) {
                 //setAnimation();
                 move();
             }
+            else
+            {
+                interact(ev);
+            }
             break;
     }
     this->state = STANDING;
@@ -129,23 +133,21 @@ void Waiter::interact(sf::Event ev) {
     switch(ev.type)
     {
         case ev.KeyPressed:
-            if(ev.key.code == sf::Keyboard::J)
+            if(ev.key.code == sf::Keyboard::J && !this->tray)
             {
-                if(this->order && this->isClose == IS_CLOSE_KITCHEN && !this->tray)
+                if(this->order && this->isClose == IS_CLOSE_KITCHEN)
                     leavingOrder();
-                else if(!this->order && !this->tray && this->isClose == IS_CLOSE_TABLE)
+                else if(!this->order && this->isClose == IS_CLOSE_TABLE)
                     takingOrder();
             }
-            else if(ev.key.code == sf::Keyboard::K)
+            else if(ev.key.code == sf::Keyboard::K && this->tray && !this->order &&
+            (this->isClose == IS_CLOSE_TABLE || this->isClose == IS_CLOSE_KITCHEN))
             {
-                if(this->tray && !this->order &&
-                (this->isClose == IS_CLOSE_TABLE || this->isClose == IS_CLOSE_KITCHEN))
                     pickUp();
             }
-            else if(ev.key.code == sf::Keyboard::L)
+            else if(ev.key.code == sf::Keyboard::L && this->tray && !this->order &&
+            (this->isClose == IS_CLOSE_TABLE || this->isClose == IS_CLOSE_DISHWASHER))
             {
-                if(this->tray && !this->order &&
-                (this->isClose == IS_CLOSE_TABLE || this->isClose == IS_CLOSE_DISHWASHER))
                     putDown();
             }
             this->isClose = IS_CLOSE_NOTHING;
@@ -154,15 +156,16 @@ void Waiter::interact(sf::Event ev) {
     }
 }
 
-void Waiter::distance() {
-    /*
-     * Calculate the position of the waiter in relation to the three interactive areas,
-     */
-
-}
 
 void Waiter::pickUp() {
+    if(this->isClose == IS_CLOSE_TABLE)
+    {
 
+    }
+    else if (this->isClose == IS_CLOSE_KITCHEN)
+    {
+
+    }
 }
 
 void Waiter::putDown() {
@@ -179,6 +182,28 @@ void Waiter::leavingOrder() {
 
 const sf::Vector2f &Waiter::getPosition() const {
     return this->sprite.getPosition();
+}
+
+Table *Waiter::distanceTable(const Map& map) {
+    /*
+     * Calculate the position of the waiter from the Tables
+     */
+    if(abs(getPosition()-map))
+    return nullptr;
+}
+
+Kitchen *Waiter::distanceKitchen(const Map& map) {
+    /*
+     * Calculate the position of the waiter from the Kitchen
+     */
+    return nullptr;
+}
+
+Washbasin *Waiter::distanceWashbasin(const Map& map) {
+    /*
+     * Calculate the position of the waiter from the Washbasin
+     */
+    return nullptr;
 }
 
 

@@ -9,6 +9,11 @@
 #include "GameCharacter.h"
 #include "Order.h"
 #include "Tray.h"
+#include "Kitchen.h"
+#include "Washbasin.h"
+#include "Map.h"
+
+#define INTERACT 1;
 
 enum Genre {BOY, GIRL};
 enum Actions {MOVING_UP, MOVING_DOWN, MOVING_LEFT, MOVING_RIGHT, STANDING,
@@ -32,7 +37,9 @@ public:
 
     //Methods to interact with the customer
     void interact(sf::Event ev);
-    void distance();
+    Table* distanceTable(const Map& map);
+    Kitchen* distanceKitchen(const Map& map);
+    Washbasin* distanceWashbasin(const Map& map);
     void pickUp();
     void putDown();
     void takingOrder();
@@ -42,7 +49,7 @@ public:
     const sf::Vector2f& getPosition() const;
 
 protected:
-    //Methods' override to init the texture and the sprite
+    //Methods' override to initialize the texture and the sprite
     void initTexture() override;
     void initSprite() override;
 
