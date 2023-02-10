@@ -31,7 +31,8 @@ public:
     //void pollEvent();
 
     //Method to move the waiter
-    void updateMovement(sf::Event ev);
+    void updateMovement();
+    void update();
     void move();
     void setAnimation();
 
@@ -44,9 +45,15 @@ public:
     void putDown();
     void takingOrder();
     void leavingOrder();
+    void updateAnimations() override;
+
 
     //Getters & Setters
     const sf::Vector2f& getPosition() const;
+    void setAnimation();
+    Actions state;
+    Actions preState;
+
 
 protected:
     //Methods' override to initialize the texture and the sprite

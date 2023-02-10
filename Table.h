@@ -1,5 +1,5 @@
 //
-// Created by Paolo Sbarzagli on 07/02/23.
+// Created by Ettore Righi on 04/02/23.
 //
 
 #ifndef VIDEOGIOCO_TABLE_H
@@ -13,11 +13,18 @@
 #include "Dish.h"
 #include "Order.h"
 
+
 class Table {
 public:
     //Constructor & Destructor
     Table();
     ~Table();
+    void update();
+    void render(sf::RenderTarget& target);
+    void initTexture() ;
+    void initSprite();
+    sf::Sprite sprite;
+    sf::Texture texture;
 
     //Getters & Setters
     int getTavNum();

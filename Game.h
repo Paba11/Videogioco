@@ -10,10 +10,12 @@
 #include "Waiter.h"
 #include "Map.h"
 #include "Customer.h"
+#include "Table.h"
 #include <SFML/Graphics.hpp>
 #include <SFML/Window.hpp>
 #include <SFML/System.hpp>
 #include <SFML/Audio.hpp>
+#include <list>
 
 class Game {
 public:
@@ -29,6 +31,9 @@ public:
     void render();
     void renderMap();
     void updateCollision();
+    void windowsCollision();
+    void tableCollision();
+
 
     //Method to manage the events
     void pollEvents();
@@ -46,20 +51,22 @@ public:
 private:
     //Group of textures uploaded in a container, each one is accessible by his own name
     std::map<std::string, sf::Texture*> textures;
-
+    std::vector<Table> allTable;
     //
     sf::RenderWindow* window;
     sf::Event ev;
     sf::VideoMode videoMode;
     sf::Vector2i mousePos;
-
     //GameCharacters and objects
     Waiter* waiter;
     Dish* dish;
     Customer* customer;
+    //Table* table;
+
 
     //BackGround;
     sf::Sprite background;
+    //sf::Sprite table;
 
     //Text
     sf::Font font;
@@ -69,6 +76,10 @@ private:
     void initWindow();
     void initWaiter();
     void initBackground();
+    void initTables();
+    void initPosTables();
+
+    int numTables=6;
 
 };
 

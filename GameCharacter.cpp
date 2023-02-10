@@ -8,6 +8,8 @@
 GameCharacter::GameCharacter() {
     //initTexture();
     //initSprite();
+    setPositionW(100,100);
+    initValidMovement();
 }
 
 GameCharacter::~GameCharacter() {
@@ -56,3 +58,26 @@ void GameCharacter::setPositionW(float x, float y) {
      */
     this->sprite.setPosition(x, y);
 }
+
+void GameCharacter::initAnimation() {
+
+}
+
+void GameCharacter::updateAnimations() {
+
+
+}
+
+void GameCharacter::initValidMovement() {
+    validMovement["Right"] = true;
+    validMovement["Left"] = true;
+    validMovement["Up"] = true;
+    validMovement["Down"] = true;
+}
+
+sf::FloatRect GameCharacter::getGlobalHitbox() const {
+
+        return this->sprite.getTransform().transformRect(hitbox);
+}
+
+

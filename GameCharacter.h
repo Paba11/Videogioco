@@ -10,6 +10,8 @@
 #include <SFML/Window.hpp>
 #include <SFML/System.hpp>
 #include <SFML/Audio.hpp>
+#include <SFML/Graphics.hpp>
+
 
 
 class GameCharacter {
@@ -20,6 +22,7 @@ public:
 
     //Method to Update GameCharacter variables and to display it on the screen
     virtual void update();
+    virtual void updateAnimations();
     void render(sf::RenderTarget& target);
 
     //Method to have the borders of the GameCharacter
@@ -28,10 +31,21 @@ public:
     //Methods to modify GameCharacter position
     void setPositionW(sf::Vector2f pos);
     void setPositionW(float x, float y);
+    virtual void initAnimation();
+    std::map<std::string, bool> validMovement;
+    void initValidMovement();
+    sf::FloatRect getGlobalHitbox() const;
+
+
 
 protected:
     sf::Sprite sprite;
+    sf::FloatRect hitbox = {15.f,40.f,25.f,10.f};
     sf::Texture texture;
+    sf::IntRect currentFrame;
+    sf::Clock animationTimer;
+    sf::Event ev;
+
 
     //Method to init the texture and the sprite
     virtual void initTexture();

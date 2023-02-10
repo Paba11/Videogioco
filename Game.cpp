@@ -10,6 +10,10 @@ Game::Game() {
     initTexture();
     initBackground();
     initWaiter();
+    initTables();
+    initPosTables();
+
+
 }
 
 Game::~Game() {
@@ -28,6 +32,7 @@ Game::~Game() {
 void Game::update() {
     pollEvents();
     updateCollision();
+    this->waiter->update();
     //this->updateMousePos();
 }
 
@@ -41,12 +46,13 @@ void Game::render() {
     renderMap();
 
     this->waiter->render(*this->window);
-
+    //this->table->render(*this->window);
     this->window->display();
 }
 
 void Game::initVariables() {
     this->window = nullptr;
+
 }
 
 void Game::initWindow() {
@@ -56,8 +62,8 @@ void Game::initWindow() {
      * and not disable the vertical synchronization
      */
 
-    videoMode.width = 1164;
-    videoMode.height = 882;
+    videoMode.width = 1298;
+    videoMode.height = 1344;
     this->window = new sf::RenderWindow(videoMode, "VideoGame");
     this->window->setFramerateLimit(144);
     this->window->setVerticalSyncEnabled(false);
@@ -81,8 +87,9 @@ void Game::pollEvents() {
             case sf::Event::KeyPressed:
                 if (this->ev.key.code == sf::Keyboard::Escape)
                     this->window->close();
-                else
-                    waiter->updateMovement(this->ev);
+                else {
+
+                }
                 break;
         }
     }
@@ -109,11 +116,15 @@ void Game::initTexture() {
 
     //Load the texture of the background
     this->textures["RestaurantMap"] = new sf::Texture;
-    if(!textures["RestaurantMap"]->loadFromFile("../Textures/RestaurantMap.png"))
+    if(!textures["RestaurantMap"]->loadFromFile("../Textures/new_textures/Mappa.png"))
     {
         std::cout << "ERROR::GAME::CAN'T LOAD TEXTURE MAP FILE" << std::endl;
     }
-
+    this->textures["Table"] = new sf::Texture;
+    if(!textures["Table"]->loadFromFile("../Textures/new_textures/Tavolo.png"))
+    {
+        std::cout << "ERROR::GAME::CAN'T LOAD TEXTURE TABLE FILE" << std::endl;
+    }
     /*
     //Load the Appetizers
     this->textures["Appetizer1"] = new sf::Texture;
@@ -166,29 +177,75 @@ void Game::initBackground() {
      */
 
     this->background.setTexture(*this->textures["RestaurantMap"]);
-    this->background.setScale(3.f,3.f);
+    this->background.setScale(2.f,2.f);
 
 }
 
 void Game::renderMap() {
     this->window->draw(this->background);
+    for(int i=0;i<numTables;i++)
+        this->window->draw(this->allTable[i].sprite);
 }
 
 void Game::updateCollision() {
     /*
      * Avoid the collision with the border of the map
      */
+    windowsCollision();
+    tableCollision();
 
-    //Left side of the map collision
+
+
+}
+
+void Game::initTables() {
+
+    //this->table.setTexture(*this->textures["Table"]);
+    //this->table.setScale(3.f,3.f);
+    //this->table.setPosition(100,100);
+   // for(int i=0; i<numTables;i++){
+       // if(i==0)
+          //  allTable[i].setTexture(*this->textures["Table"]);
+       // else
+         //   this->allTable[i].setTexture(*(allTable[0].getTexture()));
+
+        //allTable[i].setScale(3.f,3.f);
+        //this->allTable[i].setPosition(posTables[i]);
+  //  }
+  for(int i=0; i<numTables; i++){
+      Table t;
+      t.sprite.setTexture(*this->textures["Table"]);
+      allTable.push_back(t);
+  }
+
+
+}
+
+void Game::initPosTables() {
+
+    allTable[0].sprite.setPosition(85,270);
+    allTable[1].sprite.setPosition(85,540);
+    allTable[2].sprite.setPosition(85,810);
+    allTable[3].sprite.setPosition(490,270);
+    allTable[4].sprite.setPosition(490,540);
+    allTable[5].sprite.setPosition(490,810);
+    for(int i=0; i<numTables; i++)
+        allTable[i].sprite.setScale(2, 2);
+
+
+}
+
+void Game::windowsCollision() {
+
     if(this->waiter->getBounds().left < 0.f)
     {
         this->waiter->setPositionW(0.f, this->waiter->getPosition().y);
     }
 
     //Upper side of the map collision
-    if(this->waiter->getBounds().top < 0.f)
+    if(this->waiter->getBounds().top < 85.f)
     {
-        this->waiter->setPositionW(this->waiter->getPosition().x, 0.f);
+        this->waiter->setPositionW(this->waiter->getPosition().x, 85.f);
     }
 
     //Right side of the map collision
@@ -204,6 +261,35 @@ void Game::updateCollision() {
         this->waiter->setPositionW(this->waiter->getPosition().x,
                                    this->window->getSize().y - this->waiter->getBounds().height);
     }
+
+}
+
+void Game::tableCollision() {
+    sf::Vector2f prePosition;
+    prePosition = this->waiter->getPosition();
+    for(int i=0; i < numTables; i++){
+        if(this->waiter->getGlobalHitbox().intersects(allTable[i].sprite.getGlobalBounds())) {
+            if (this->waiter->state == MOVING_DOWN) {
+                this->waiter->validMovement["Down"] = false;
+                prePosition.y--;
+            }
+            else if (this->waiter->state == MOVING_UP) {
+                this->waiter->validMovement["Up"] = false;
+                prePosition.y++;
+            }
+            else if (this->waiter->state == MOVING_LEFT){
+                this->waiter->validMovement["Left"] = false;
+                prePosition.x++;
+            }
+
+            else if(this->waiter->state == MOVING_RIGHT) {
+                this->waiter->validMovement["Right"] = false;
+                prePosition.x--;
+            }
+        }
+
+    }
+    this->waiter->setPositionW(prePosition);
 }
 
 
