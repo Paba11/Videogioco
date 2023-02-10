@@ -53,6 +53,7 @@ void Game::render() {
 
 void Game::initVariables() {
     this->window = nullptr;
+
 }
 
 void Game::initWindow() {
@@ -265,25 +266,31 @@ void Game::windowsCollision() {
 }
 
 void Game::tableCollision() {
-
+    sf::Vector2f prePosition;
+    prePosition = this->waiter->getPosition();
     for(int i=0; i < numTables; i++){
-        if(this->waiter->getBounds().intersects(allTable[i].sprite.getGlobalBounds())) {
+        if(this->waiter->getGlobalHitbox().intersects(allTable[i].sprite.getGlobalBounds())) {
             if (this->waiter->state == MOVING_DOWN) {
                 this->waiter->validMovement["Down"] = false;
+                prePosition.y--;
             }
             else if (this->waiter->state == MOVING_UP) {
                 this->waiter->validMovement["Up"] = false;
+                prePosition.y++;
             }
             else if (this->waiter->state == MOVING_LEFT){
                 this->waiter->validMovement["Left"] = false;
+                prePosition.x++;
             }
 
             else if(this->waiter->state == MOVING_RIGHT) {
                 this->waiter->validMovement["Right"] = false;
+                prePosition.x--;
             }
         }
 
     }
+    this->waiter->setPositionW(prePosition);
 }
 
 

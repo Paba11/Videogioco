@@ -10,6 +10,8 @@
 #include <SFML/Window.hpp>
 #include <SFML/System.hpp>
 #include <SFML/Audio.hpp>
+#include <SFML/Graphics.hpp>
+
 
 class GameCharacter {
 public:
@@ -24,7 +26,6 @@ public:
 
     //Method to have the borders of the GameCharacter
     const sf::FloatRect getBounds() const;
-    const sf::FloatRect getLocalBounds() const;
 
     //Methods to modify GameCharacter position
     void setPositionW(sf::Vector2f pos);
@@ -32,11 +33,13 @@ public:
     virtual void initAnimation();
     std::map<std::string, bool> validMovement;
     void initValidMovement();
+    sf::FloatRect getGlobalHitbox() const;
 
 
 
 protected:
     sf::Sprite sprite;
+    sf::FloatRect hitbox = {15.f,40.f,25.f,10.f};
     sf::Texture texture;
     sf::IntRect currentFrame;
     sf::Clock animationTimer;

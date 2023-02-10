@@ -74,7 +74,9 @@ void GameCharacter::initValidMovement() {
     validMovement["Down"] = true;
 }
 
-const sf::FloatRect GameCharacter::getLocalBounds() const {
-    return this->sprite.getLocalBounds();
+sf::FloatRect GameCharacter::getGlobalHitbox() const {
+
+        return this->sprite.getTransform().transformRect(hitbox);
 }
+
 
