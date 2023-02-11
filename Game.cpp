@@ -88,7 +88,7 @@ void Game::pollEvents() {
                 if (this->ev.key.code == sf::Keyboard::Escape)
                     this->window->close();
                 else {
-
+                    this->waiter->interact(ev);
                 }
                 break;
         }

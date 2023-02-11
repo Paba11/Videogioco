@@ -35,7 +35,7 @@ void Waiter::initSprite() {
     this->sprite.setScale(2.5,2.5);
 }
 
-void Waiter::updateMovement() { //appena validMovement diventa false bisogna uscire dal ciclo
+void Waiter::updateMovement() {
     preState = this->state;
     this->state = STANDING;
     //variabile evento ev
@@ -62,11 +62,7 @@ void Waiter::updateMovement() { //appena validMovement diventa false bisogna usc
         if(preState != this->state)
             validMovement["Down"] = true;
     }
-    else
-    {
-        //TO DO
-        //interact(ev);
-    }
+
     setAnimation();
     move();
 }
