@@ -19,7 +19,7 @@ public:
 
     //Methods to update and render the tray
     void update();
-    void render(sf::RenderTarget &target);
+    void render(sf::RenderTarget& target);
 
     //Position of Washbasin
 

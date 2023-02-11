@@ -49,13 +49,13 @@ public:
     void setState(int i);
     DishState getState();
     const sf::FloatRect getBounds() const;
-    sf::Texture texture;
-    sf::Sprite sprite;
+
 
 
 private:
     //Initialize the Kitchen texture and sprite
-
+    sf::Texture texture;
+    sf::Sprite sprite;
     void initTexture();
     void initSprite();
 

@@ -186,6 +186,7 @@ void Game::initBackground() {
 void Game::renderMap() {
     this->window->draw(this->background);
     this->kitchen->render(*this->window);
+    this->washbasin->render(*this->window);
     for(int i=0;i<numTables;i++)
         this->window->draw(this->allTable[i].sprite);
 }

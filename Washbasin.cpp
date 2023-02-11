@@ -14,15 +14,16 @@ Washbasin::~Washbasin() {
 }
 
 void Washbasin::initTexture() {
-    if (!this->texture.loadFromFile("../Textures/MaleWaiter.png"))
+    if (!this->texture.loadFromFile("../Textures/new_Textures/Cucina.png"))
     {
-        std::cout << "ERROR::WAITER::CAN'T LOAD TEXTURE FILE" << std::endl;
+        std::cout << "ERROR::Washbasin::CAN'T LOAD TEXTURE FILE" << std::endl;
     }
 }
 
 void Washbasin::initSprite() {
     this->sprite.setTexture(this->texture);
-
+    this->sprite.setPosition(1105,170);
+    this->sprite.setScale(3.f,3.f);
     //TO DO: SET THE CORRECT POSITION OF THE WASHBASIN (DEPENDING ON THE LEVEL?)
     //this->sprite.setPosition()
 }
@@ -31,8 +32,8 @@ void Washbasin::update() {
 
 }
 
-void Washbasin::render(sf::RenderTarget &target) {
-
+void Washbasin::render(sf::RenderTarget& target) {
+    target.draw(this->sprite);
 }
 
 bool Washbasin::getIsPlates() const {

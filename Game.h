@@ -62,6 +62,7 @@ private:
     Waiter* waiter;
     Dish* dish;
     Kitchen* kitchen = new Kitchen;
+    Washbasin* washbasin = new Washbasin;
     Customer* customer;
     //Table* table;
 
