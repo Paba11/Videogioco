@@ -94,3 +94,9 @@ void Kitchen::setState(int i) {
 DishState Kitchen::getState() {
     return this->state;
 }
+
+
+
+const sf::FloatRect Kitchen::getBounds() const {
+    return this->sprite.getGlobalBounds();
+}

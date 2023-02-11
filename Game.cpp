@@ -195,7 +195,7 @@ void Game::updateCollision() {
      * Avoid the collision with the border of the map
      */
     windowsCollision();
-    tableCollision();
+    collision();
 
 
 
@@ -267,32 +267,41 @@ void Game::windowsCollision() {
 
 }
 
-void Game::tableCollision() {
+void Game::collision() {
+
+    for(int i=0; i < numTables; i++){
+        if(this->waiter->getGlobalHitbox().intersects(allTable[i].sprite.getGlobalBounds()))
+           collisionManagement();
+    }
+    if(this->waiter->getGlobalHitbox().intersects(this->kitchen->getBounds()))
+        collisionManagement();
+
+
+}
+
+void Game::collisionManagement() {
+
     sf::Vector2f prePosition;
     prePosition = this->waiter->getPosition();
-    for(int i=0; i < numTables; i++){
-        if(this->waiter->getGlobalHitbox().intersects(allTable[i].sprite.getGlobalBounds())) {
-            if (this->waiter->getState() == MOVING_DOWN) {
-                this->waiter->validMovement["Down"] = false;
-                prePosition.y--;
-            }
-            else if (this->waiter->getState() == MOVING_UP) {
-                this->waiter->validMovement["Up"] = false;
-                prePosition.y++;
-            }
-            else if (this->waiter->getState() == MOVING_LEFT){
-                this->waiter->validMovement["Left"] = false;
-                prePosition.x++;
-            }
+    if (this->waiter->getState() == MOVING_DOWN) {
+        this->waiter->validMovement["Down"] = false;
+        prePosition.y--;
+    }
+    else if (this->waiter->getState() == MOVING_UP) {
+        this->waiter->validMovement["Up"] = false;
+        prePosition.y++;
+    }
+    else if (this->waiter->getState() == MOVING_LEFT){
+        this->waiter->validMovement["Left"] = false;
+        prePosition.x++;
+    }
 
-            else if(this->waiter->getState() == MOVING_RIGHT) {
-                this->waiter->validMovement["Right"] = false;
-                prePosition.x--;
-            }
-        }
-
+    else if(this->waiter->getState() == MOVING_RIGHT) {
+        this->waiter->validMovement["Right"] = false;
+        prePosition.x--;
     }
     this->waiter->setPositionW(prePosition);
+
 }
 
 

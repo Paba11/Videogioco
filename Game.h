@@ -32,7 +32,8 @@ public:
     void renderMap();
     void updateCollision();
     void windowsCollision();
-    void tableCollision();
+    void collision();
+    void collisionManagement();
 
 
     //Method to manage the events

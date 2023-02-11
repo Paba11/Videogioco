@@ -48,6 +48,7 @@ public:
     void setDish(int i, Dish* dish);
     void setState(int i);
     DishState getState();
+    const sf::FloatRect getBounds() const;
     sf::Texture texture;
     sf::Sprite sprite;
 
