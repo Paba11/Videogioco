@@ -46,7 +46,7 @@ void Game::render() {
     renderMap();
 
     this->waiter->render(*this->window);
-    //this->table->render(*this->window);
+
     this->window->display();
 }
 
@@ -88,7 +88,8 @@ void Game::pollEvents() {
                 if (this->ev.key.code == sf::Keyboard::Escape)
                     this->window->close();
                 else {
-                    this->waiter->interact(ev);
+                    //FIXME inserire mapppa
+                    //this->waiter->interact(ev,);
                 }
                 break;
         }
@@ -125,6 +126,7 @@ void Game::initTexture() {
     {
         std::cout << "ERROR::GAME::CAN'T LOAD TEXTURE TABLE FILE" << std::endl;
     }
+
     /*
     //Load the Appetizers
     this->textures["Appetizer1"] = new sf::Texture;
@@ -183,6 +185,7 @@ void Game::initBackground() {
 
 void Game::renderMap() {
     this->window->draw(this->background);
+    this->kitchen->render(*this->window);
     for(int i=0;i<numTables;i++)
         this->window->draw(this->allTable[i].sprite);
 }
@@ -291,6 +294,8 @@ void Game::tableCollision() {
     }
     this->waiter->setPositionW(prePosition);
 }
+
+
 
 
 

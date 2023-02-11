@@ -36,7 +36,7 @@ public:
 
     //Update and render of the kitchen textures
     void update();
-    void render(sf::RenderTarget target);
+    void render(sf::RenderTarget& target);
 
     //Methods to manage orders
 
@@ -48,11 +48,13 @@ public:
     void setDish(int i, Dish* dish);
     void setState(int i);
     DishState getState();
+    sf::Texture texture;
+    sf::Sprite sprite;
+
 
 private:
     //Initialize the Kitchen texture and sprite
-    sf::Texture texture;
-    sf::Sprite sprite;
+
     void initTexture();
     void initSprite();
 

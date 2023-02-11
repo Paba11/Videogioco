@@ -60,6 +60,7 @@ private:
     //GameCharacters and objects
     Waiter* waiter;
     Dish* dish;
+    Kitchen* kitchen = new Kitchen;
     Customer* customer;
     //Table* table;
 
