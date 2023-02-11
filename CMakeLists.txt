@@ -25,7 +25,7 @@ add_executable( videogioco                  main.cpp
                 Table.h                     Table.cpp
                 Tray.h                      Tray.cpp
                 Waiter.h                    Waiter.cpp
-                Washbasin.h                 Washbasin.cpp)
+                Washbasin.h                 Washbasin.cpp Stool.cpp Stool.h)
 
 
 target_link_libraries(videogioco sfml-graphics sfml-audio)

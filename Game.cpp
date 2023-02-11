@@ -216,6 +216,7 @@ void Game::initTables() {
         //allTable[i].setScale(3.f,3.f);
         //this->allTable[i].setPosition(posTables[i]);
   //  }
+  //TODO convert vector of table to vector of struct of table (sprite table + 4 stool)
   for(int i=0; i<numTables; i++){
       Table t;
       t.sprite.setTexture(*this->textures["Table"]);
