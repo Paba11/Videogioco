@@ -22,10 +22,12 @@ add_executable( videogioco                  main.cpp
                 Map.h                       Map.cpp
                 Order.h                     Order.cpp
                 Recipe.h                    Recipe.cpp
+                Stool.h                     Stool.cpp
                 Table.h                     Table.cpp
+                Textures.h                  Textures.cpp
                 Tray.h                      Tray.cpp
                 Waiter.h                    Waiter.cpp
-                Washbasin.h                 Washbasin.cpp Stool.cpp Stool.h Textures.cpp Textures.h)
+                Washbasin.h                 Washbasin.cpp)
 
 
 target_link_libraries(videogioco sfml-graphics sfml-audio)

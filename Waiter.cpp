@@ -8,7 +8,7 @@
 Waiter::Waiter() {
     initSprite();
     this->state = STANDING;
-    this->speed = 10;
+    this->speed = 8;
     this->isClose = IS_CLOSE_NOTHING;
 }
 
@@ -30,6 +30,7 @@ void Waiter::initSprite() {
 void Waiter::updateMovement() {
     preState = this->state;
     this->state = STANDING;
+
     //variabile evento ev
 
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)) {
@@ -56,7 +57,11 @@ void Waiter::updateMovement() {
     }
 
     setAnimation();
-    move();
+    if(this->state == STANDING && (sf::Keyboard::isKeyPressed(sf::Keyboard::J) ||
+    sf::Keyboard::isKeyPressed(sf::Keyboard::L) || sf::Keyboard::isKeyPressed(sf::Keyboard::K)))
+        interact();
+    else
+        move();
 }
 
 void Waiter::move() {
@@ -85,45 +90,40 @@ void Waiter::move() {
 
 }
 
-void Waiter::interact(sf::Event ev, const Map& map) {
-    Table* table = distanceTable(map);
-    Kitchen* kitchen = distanceKitchen(map);
-    Washbasin* washbasin = distanceWashbasin(map);
-    switch(ev.type)
-    {
-        case ev.KeyPressed:
-            if(ev.key.code == sf::Keyboard::J && !this->tray)
-            {
-                if(this->order && this->isClose == IS_CLOSE_KITCHEN)
-                    leavingOrder(kitchen);
-                else if(!this->order && this->isClose == IS_CLOSE_TABLE)
-                    takingOrder(table);
-            }
-            else if(ev.key.code == sf::Keyboard::K && this->tray && !this->order &&
-            (this->isClose == IS_CLOSE_TABLE || this->isClose == IS_CLOSE_KITCHEN))
-            {
-                if(this->isClose == IS_CLOSE_TABLE)
-                    pickUp(table);
-                else if(this->isClose == IS_CLOSE_KITCHEN)
-                    pickUp(kitchen);
-            }
-            else if(ev.key.code == sf::Keyboard::L && this->tray && !this->order &&
-            (this->isClose == IS_CLOSE_TABLE || this->isClose == IS_CLOSE_DISHWASHER))
-            {
-                if (this->isClose == IS_CLOSE_TABLE)
-                    putDown(table);
-                else if (this->isClose == IS_CLOSE_DISHWASHER)
-                    putDown(washbasin);
-            }
-            this->isClose = IS_CLOSE_NOTHING;
-            break;
+void Waiter::interact() {
+    Table* table = distanceTable(*this->map);
+    Kitchen* kitchen = distanceKitchen(*this->map);
+    Washbasin* washbasin = distanceWashbasin(*this->map);
 
+    if(sf::Keyboard::isKeyPressed(sf::Keyboard::J) && !this->tray)
+    {
+        if(this->order && this->isClose == IS_CLOSE_KITCHEN)
+            leavingOrder(kitchen);
+        else if(!this->order && this->isClose == IS_CLOSE_TABLE)
+            takingOrder(table);
     }
+    else if(sf::Keyboard::isKeyPressed(sf::Keyboard::K) && this->tray && !this->order &&
+    (this->isClose == IS_CLOSE_TABLE || this->isClose == IS_CLOSE_KITCHEN))
+    {
+        if(this->isClose == IS_CLOSE_TABLE)
+            pickUp(table);
+        else if(this->isClose == IS_CLOSE_KITCHEN)
+            pickUp(kitchen);
+    }
+    else if(sf::Keyboard::isKeyPressed(sf::Keyboard::L) && this->tray && !this->order &&
+    (this->isClose == IS_CLOSE_TABLE || this->isClose == IS_CLOSE_DISHWASHER))
+    {
+        if (this->isClose == IS_CLOSE_TABLE)
+            putDown(table);
+        else if (this->isClose == IS_CLOSE_DISHWASHER)
+            putDown(washbasin);
+    }
+    this->isClose = IS_CLOSE_NOTHING;
 }
 
 
 void Waiter::pickUp(Kitchen* kitchen) {
-    //TO DO: PICK UP THE PLATES FROM THE KITCHEN
+    //TODO: PICK UP THE PLATES FROM THE KITCHEN
     Dish* d;
     if(this->tray->getState() == EMPTY_TRAY && kitchen->getState() == FULL)
     {
@@ -149,7 +149,7 @@ void Waiter::pickUp(Kitchen* kitchen) {
 }
 
 void Waiter::pickUp(Table* table) {
-    //TO DO: PICK UP THE EMPTY PLATES FROM THE TABLE
+    //TODO: PICK UP THE EMPTY PLATES FROM THE TABLE
     Dish* d;
     if(this->tray->getState() == EMPTY_TRAY && table->getState() == ENDED)
     {
@@ -242,38 +242,67 @@ const sf::Vector2f &Waiter::getPosition() const {
     return this->sprite.getPosition();
 }
 
-Table *Waiter::distanceTable(const Map& map) const {
+Table *Waiter::distanceTable(const Map& map) {
     /*
      * Calculate the position of the waiter from the Tables
      */
 
-    float x;
-    float y;
+    sf::Vector2f distVector;
+    float dist;
     Table* t = nullptr;
-    for(int i = 0; i < MAX_SIZE; i++)
+    for(int i = 0; i < MAX_TABLES; i++)
     {
-        x = abs(getPosition().x - map.getTable(i)->getPosition().x);
-        y = abs(getPosition().y - map.getTable(i)->getPosition().y);
-        if (x <= 1 && y <= 1)
+        if(map.getTable(i))
         {
-            t = map.getTable(i);
-            i = MAX_SIZE;
+            distVector = this->sprite.getPosition() - map.getTable(i)->getPosition();
+            dist = sqrt((distVector.x * distVector.x) + (distVector.y * distVector.y));
+            //x = abs(getPosition().x - map.getTable(i)->getPosition().x);
+            //y = abs(getPosition().y - map.getTable(i)->getPosition().y);
+            if (dist <= 1)
+            {
+                t = map.getTable(i);
+                i = MAX_SIZE;
+                this->isClose = IS_CLOSE_TABLE;
+            }
         }
     }
     return t;
 }
 
-Kitchen *Waiter::distanceKitchen(const Map& map) const {
+Kitchen *Waiter::distanceKitchen(const Map& map) {
     /*
      * Calculate the position of the waiter from the Kitchen
      */
-    return map.getKitchen();
+    sf::Vector2f distVector;
+    float dist;
+    Kitchen* kitchen = map.getKitchen();
+
+    distVector = this->sprite.getPosition() - kitchen->getPosition();
+    dist = sqrt((distVector.x * distVector.x) + (distVector.y * distVector.y));
+
+    if(dist <= 1)
+    {
+        this->isClose = IS_CLOSE_KITCHEN;
+    }
+
+    return kitchen;
 }
 
-Washbasin *Waiter::distanceWashbasin(const Map& map) const {
+Washbasin *Waiter::distanceWashbasin(const Map& map) {
     /*
      * Calculate the position of the waiter from the Washbasin
      */
+    sf::Vector2f distVector;
+    float dist;
+    Washbasin* washbasin = map.getWashbasin();
+
+    distVector = this->sprite.getPosition() - washbasin->getPosition();
+    dist = sqrt((distVector.x * distVector.x) + (distVector.y * distVector.y));
+
+    if(dist <= 1)
+    {
+        this->isClose = IS_CLOSE_DISHWASHER;
+    }
     return map.getWashbasin();
 }
 
@@ -325,6 +354,14 @@ void Waiter::setAnimation() {
 
 Actions Waiter::getState() {
     return this->state;
+}
+
+Map *Waiter::getMap() {
+    return this->map;
+}
+
+void Waiter::setMap(Map *m) {
+    this->map = m;
 }
 
 

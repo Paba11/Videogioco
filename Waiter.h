@@ -13,6 +13,7 @@
 #include "Washbasin.h"
 #include "Map.h"
 #include "Textures.h"
+#include <cmath>
 
 #define INTERACT 1;
 
@@ -38,10 +39,10 @@ public:
     void setAnimation();
 
     //Methods to interact with the customer
-    void interact(sf::Event ev, const Map& map);
-    Table* distanceTable(const Map& map) const;
-    Kitchen* distanceKitchen(const Map& map) const;
-    Washbasin* distanceWashbasin(const Map& map) const;
+    void interact();
+    Table* distanceTable(const Map& map);
+    Kitchen* distanceKitchen(const Map& map);
+    Washbasin* distanceWashbasin(const Map& map);
     Textures* texture = new Textures;
     void pickUp(Kitchen* kitchen);
     void pickUp(Table* table);
@@ -55,6 +56,8 @@ public:
     //Getters & Setters
     const sf::Vector2f& getPosition() const;
     Actions getState();
+    Map* getMap();
+    void setMap(Map* map);
 
 
 protected:
@@ -70,6 +73,7 @@ protected:
     Order* order;
     Position isClose;
     Tray* tray;
+    Map* map;
 
 };
 

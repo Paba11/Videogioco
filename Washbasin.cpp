@@ -35,3 +35,7 @@ bool Washbasin::getIsPlates() const {
 void Washbasin::setIsPlates(bool t) {
     this->isPlates = t;
 }
+
+sf::Vector2f Washbasin::getPosition() {
+    return this->sprite.getPosition();
+}

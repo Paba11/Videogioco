@@ -7,7 +7,6 @@
 Map::Map() {
     this->kitchen = new Kitchen();
     this->washbasin = new Washbasin();
-
 }
 
 Map::~Map() {
@@ -30,4 +29,17 @@ Kitchen *Map::getKitchen() const {
 
 Washbasin *Map::getWashbasin() const {
     return this->washbasin;
+}
+
+void Map::setTables(std::vector<Table> allTables) {
+    /*
+     * Assign the table stored inside the vector to the array pointer of tables
+     */
+    for(int i=0; i<MAX_TABLES; i++)
+    {
+        if(i < allTables.size())
+            this->table[i] = &allTables[i];
+        else
+            this->table[i] = nullptr;
+    }
 }

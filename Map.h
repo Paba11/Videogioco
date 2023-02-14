@@ -25,6 +25,7 @@ public:
     Table* getTable(int i) const;
     Kitchen* getKitchen() const;
     Washbasin* getWashbasin() const;
+    void setTables(std::vector<Table> allTable);
 
 
 private:

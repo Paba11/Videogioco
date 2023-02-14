@@ -58,13 +58,15 @@ private:
     sf::Event ev;
     sf::VideoMode videoMode;
     sf::Vector2i mousePos;
+
     //GameCharacters and objects
     Waiter* waiter;
     Dish* dish;
-    Kitchen* kitchen = new Kitchen;
-    Washbasin* washbasin = new Washbasin;
+    Map* map;
+    Kitchen* kitchen;
+    Washbasin* washbasin;
     Customer* customer;
-    Textures* texture = new Textures;
+    Textures* texture;
     //Table* table;
 
 
@@ -76,12 +78,15 @@ private:
     sf::Font font;
     sf::Text text;
 
+    //Initialize all the game objects and attributes
     void initVariables();
     void initWindow();
     void initWaiter();
     void initBackground();
     void initTables();
     void initPosTables();
+    void initMap();
+    void initTexture();
 
     int numTables=6;
 

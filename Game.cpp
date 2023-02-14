@@ -7,8 +7,9 @@
 Game::Game() {
     initVariables();
     initWindow();
-   // initTexture();
+    initTexture();
     initBackground();
+    initMap();
     initWaiter();
     initTables();
     initPosTables();
@@ -88,8 +89,7 @@ void Game::pollEvents() {
                 if (this->ev.key.code == sf::Keyboard::Escape)
                     this->window->close();
                 else {
-                    //FIXME inserire mapppa
-                    //this->waiter->interact(ev,);
+                    //this->waiter->interact(this->ev, *this->map);
                 }
                 break;
         }
@@ -106,6 +106,7 @@ void Game::updateMousePos() {
 
 void Game::initWaiter() {
     this->waiter = new Waiter();
+    this->waiter->setMap(this->map);
 }
 
 
@@ -301,6 +302,17 @@ void Game::collisionManagement() {
     }
     this->waiter->setPositionW(prePosition);
 
+}
+
+void Game::initMap() {
+    this->map = new Map();
+    this->map->setTables(this->allTable);
+    this->kitchen = this->map->getKitchen();
+    this->washbasin = this->map->getWashbasin();
+}
+
+void Game::initTexture() {
+    this->texture = new Textures();
 }
 
 

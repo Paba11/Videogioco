@@ -27,6 +27,7 @@ public:
     //Getters & Setters
     bool getIsPlates() const;
     void setIsPlates(bool t);
+    sf::Vector2f getPosition();
 
 private:
     //Set The texture and the sprite

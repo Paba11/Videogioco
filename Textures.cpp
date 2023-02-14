@@ -6,7 +6,6 @@
 #include "Textures.h"
 
 Textures::Textures() {
-
     loadTexture();
 }
 

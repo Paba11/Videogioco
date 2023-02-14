@@ -80,4 +80,8 @@ sf::FloatRect GameCharacter::getGlobalHitbox() const {
         return this->sprite.getTransform().transformRect(hitbox);
 }
 
+void GameCharacter::setEvent(sf::Event e) {
+    this->ev = e;
+}
+
 

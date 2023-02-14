@@ -36,6 +36,8 @@ public:
     void initValidMovement();
     sf::FloatRect getGlobalHitbox() const;
 
+    //Getters & Setters
+    void setEvent(sf::Event ev);
 
 
 protected:
