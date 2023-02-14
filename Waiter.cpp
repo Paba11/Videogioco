@@ -6,7 +6,6 @@
 
 
 Waiter::Waiter() {
-    initTexture();
     initSprite();
     this->state = STANDING;
     this->speed = 10;
@@ -18,18 +17,11 @@ Waiter::~Waiter() {
     delete this->order;
 }
 
-void Waiter::initTexture() {
-    if (!this->texture.loadFromFile("../Textures/new_textures/Waiter_Male_1.png"))
-    {
-        std::cout << "ERROR::WAITER::CAN'T LOAD TEXTURE FILE" << std::endl;
-    }
-}
-
 void Waiter::initSprite() {
     /*
      * Set the texture on the sprite and resize it
      */
-    this->sprite.setTexture(this->texture);
+    this->sprite.setTexture(*this->texture->getTexture("Waiter"));
     this->currentFrame = sf::IntRect (0,0,50,50);
     this->sprite.setTextureRect(this->currentFrame);
     this->sprite.setScale(2.5,2.5);

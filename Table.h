@@ -25,7 +25,6 @@ public:
     ~Table();
     void update();
     void render(sf::RenderTarget& target);
-    void initTexture() ;
     void initSprite();
     sf::Sprite sprite;
     sf::Texture texture;

@@ -7,7 +7,7 @@
 Game::Game() {
     initVariables();
     initWindow();
-    initTexture();
+   // initTexture();
     initBackground();
     initWaiter();
     initTables();
@@ -109,14 +109,14 @@ void Game::initWaiter() {
 }
 
 
-void Game::initTexture() {
+// void Game::initTexture() {
     /*
      * Allocate space on the pointer for each specific instance.
      * Load the texture from the file
     */
 
     //Load the texture of the background
-    this->textures["RestaurantMap"] = new sf::Texture;
+ /*   this->textures["RestaurantMap"] = new sf::Texture;
     if(!textures["RestaurantMap"]->loadFromFile("../Textures/new_textures/Mappa.png"))
     {
         std::cout << "ERROR::GAME::CAN'T LOAD TEXTURE MAP FILE" << std::endl;
@@ -126,7 +126,7 @@ void Game::initTexture() {
     {
         std::cout << "ERROR::GAME::CAN'T LOAD TEXTURE TABLE FILE" << std::endl;
     }
-
+*/
     /*
     //Load the Appetizers
     this->textures["Appetizer1"] = new sf::Texture;
@@ -167,18 +167,15 @@ void Game::initTexture() {
         std::cout << "ERROR::GAME::CAN'T LOAD TEXTURE FILE" << std::endl;
     }
      */
-}
+// }
 
-std::map<std::string, sf::Texture *> &Game::getTextures() {
-    return this->textures;
-}
 
 void Game::initBackground() {
     /*
      * Initialize the map texture and connect it to a sprite
      */
 
-    this->background.setTexture(*this->textures["RestaurantMap"]);
+    this->background.setTexture(*this->texture->getTexture("RestaurantMap"));
     this->background.setScale(2.f,2.f);
 
 }
@@ -219,7 +216,7 @@ void Game::initTables() {
   //TODO convert vector of table to vector of struct of table (sprite table + 4 stool)
   for(int i=0; i<numTables; i++){
       Table t;
-      t.sprite.setTexture(*this->textures["Table"]);
+      t.sprite.setTexture(*this->texture->getTexture("Table"));
       allTable.push_back(t);
   }
 

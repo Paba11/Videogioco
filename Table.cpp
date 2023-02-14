@@ -8,7 +8,6 @@
 Table::Table() {
     this->state = CHOOSING;
     this->course = APPETIZER;
-    initTexture();
     initSprite();
 }
 
@@ -23,15 +22,6 @@ void Table::update() {
 void Table::render(sf::RenderTarget &target) {
 
     target.draw(this->sprite);
-}
-
-
-void Table::initTexture() {
-  /*  if (!this->texture.loadFromFile("../Textures/new_textures/Tavolo.png"))
-    {
-        std::cout << "ERROR::TABLE::CAN'T LOAD TEXTURE FILE" << std::endl;
-    }
-    */
 }
 
 void Table::initSprite() {

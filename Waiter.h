@@ -12,6 +12,7 @@
 #include "Kitchen.h"
 #include "Washbasin.h"
 #include "Map.h"
+#include "Textures.h"
 
 #define INTERACT 1;
 
@@ -41,6 +42,7 @@ public:
     Table* distanceTable(const Map& map) const;
     Kitchen* distanceKitchen(const Map& map) const;
     Washbasin* distanceWashbasin(const Map& map) const;
+    Textures* texture = new Textures;
     void pickUp(Kitchen* kitchen);
     void pickUp(Table* table);
     void putDown(Table* table);
@@ -57,7 +59,6 @@ public:
 
 protected:
     //Methods' override to initialize the texture and the sprite
-    void initTexture() override;
     void initSprite() override;
 
     //Attributes of the waiter

@@ -11,6 +11,7 @@
 #include "Map.h"
 #include "Customer.h"
 #include "Table.h"
+#include "Textures.h"
 #include <SFML/Graphics.hpp>
 #include <SFML/Window.hpp>
 #include <SFML/System.hpp>
@@ -24,7 +25,7 @@ public:
     ~Game();
 
     //Method to initialize all the textures needed inside the game
-    void initTexture();
+   // void initTexture();
 
     //Methods to update the game and display the correct images
     void update();
@@ -46,12 +47,11 @@ public:
     const bool getWindowIsOpen();
 
     //Getter & Setter for the attributes
-    std::map<std::string, sf::Texture*>& getTextures();
 
 
 private:
     //Group of textures uploaded in a container, each one is accessible by his own name
-    std::map<std::string, sf::Texture*> textures;
+    //std::map<std::string, sf::Texture*> textures;
     std::vector<Table> allTable;
     //
     sf::RenderWindow* window;
@@ -64,6 +64,7 @@ private:
     Kitchen* kitchen = new Kitchen;
     Washbasin* washbasin = new Washbasin;
     Customer* customer;
+    Textures* texture = new Textures;
     //Table* table;
 
 

@@ -7,7 +7,6 @@
 
 Kitchen::Kitchen() {
     this->state = EMPTY;
-    initTexture();
     initSprite();
 
 }
@@ -30,16 +29,9 @@ Order* Kitchen::makeNewOrder() {
     return this->current;
 }
 
-void Kitchen::initTexture() {
-    if (!this->texture.loadFromFile("../Textures/new_textures/Bancone.png"))
-    {
-        std::cout << "ERROR::KITCHEN::CAN'T LOAD TEXTURE FILE" << std::endl;
-    }
-}
-
 void Kitchen::initSprite() {
 
-    this->sprite.setTexture(this->texture);
+    this->sprite.setTexture(*this->texture->getTexture("Kitchen"));
     this->sprite.setPosition(1020,170);
     this->sprite.setScale(3.f,3.f);
 }

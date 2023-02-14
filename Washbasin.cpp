@@ -5,7 +5,6 @@
 #include "Washbasin.h"
 
 Washbasin::Washbasin() {
-    initTexture();
     initSprite();
 }
 
@@ -13,15 +12,8 @@ Washbasin::~Washbasin() {
 
 }
 
-void Washbasin::initTexture() {
-    if (!this->texture.loadFromFile("../Textures/new_Textures/Cucina.png"))
-    {
-        std::cout << "ERROR::Washbasin::CAN'T LOAD TEXTURE FILE" << std::endl;
-    }
-}
-
 void Washbasin::initSprite() {
-    this->sprite.setTexture(this->texture);
+    this->sprite.setTexture(*this->texture->getTexture("Washbasin"));
     this->sprite.setPosition(1105,170);
     this->sprite.setScale(3.f,3.f);
     //TO DO: SET THE CORRECT POSITION OF THE WASHBASIN (DEPENDING ON THE LEVEL?)

@@ -6,6 +6,7 @@
 #define VIDEOGIOCO_WASHBASIN_H
 
 #include "DishWasher.h"
+#include "Textures.h"
 #include <SFML/Graphics.hpp>
 #include <SFML/Window.hpp>
 #include <SFML/System.hpp>
@@ -29,9 +30,8 @@ public:
 
 private:
     //Set The texture and the sprite
-    sf::Texture texture;
+    Textures* texture = new Textures;
     sf::Sprite sprite;
-    void initTexture();
     void initSprite();
     bool isPlates;
 

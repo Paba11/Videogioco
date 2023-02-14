@@ -15,6 +15,7 @@
 #include "Table.h"
 #include "Tray.h"
 #include "Recipe.h"
+#include "Textures.h"
 #include <queue>
 
 
@@ -54,7 +55,7 @@ public:
 
 private:
     //Initialize the Kitchen texture and sprite
-    sf::Texture texture;
+    Textures* texture = new Textures;
     sf::Sprite sprite;
     void initTexture();
     void initSprite();
