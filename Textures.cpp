@@ -46,5 +46,10 @@ sf::Texture* Textures::getTexture(std::string name) {
      {
          std::cout << "ERROR::KITCHEN::CAN'T LOAD TEXTURE FILE" << std::endl;
      }
+     textures["Stool"] = new sf::Texture();
+     if (!this->textures["Stool"]->loadFromFile("../Textures/new_textures/Sgabello Rosso.png"))
+     {
+         std::cout << "ERROR::STOOL::CAN'T LOAD TEXTURE FILE" << std::endl;
+     }
 }
 

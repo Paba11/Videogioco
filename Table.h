@@ -13,6 +13,7 @@
 #include "Dish.h"
 #include "Order.h"
 #include "Recipe.h"
+#include "Stool.h"
 
 enum TableState {CHOOSING, WAITING_TO_ORDER, WAITING_DISHES, EATING, ENDED};
 enum ActualCourse {APPETIZER, MAINCOURSE, DESSERT};
@@ -27,7 +28,6 @@ public:
     void render(sf::RenderTarget& target);
     void initSprite();
     sf::Sprite sprite;
-    sf::Texture texture;
 
     //Getters & Setters
     int getTavNum();
@@ -41,7 +41,9 @@ public:
     void setOrder();
     ActualCourse getCourse() const;
     void setCourse(int i);
-
+    std::vector <Stool> stoolTable;
+    void initStoolTable();
+    void posStool(float x, float y);
 private:
     //Attributes of the table
     int tavNum;
@@ -49,6 +51,7 @@ private:
     TableState state;
     ActualCourse course;
     Order* order;
+    int numStoolsTable = 4;
 
 };
 

@@ -15,12 +15,12 @@ class Stool {
 public:
     Stool();
     ~Stool();
+
     void initSprite();
-    void initTexture();
+    sf::Sprite sprite;
 
 
 private:
-    sf::Sprite sprite;
     sf::Texture texture;
 };
 

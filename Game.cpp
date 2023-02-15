@@ -13,8 +13,7 @@ Game::Game() {
     initWaiter();
     initTables();
     initPosTables();
-
-
+    initTexture();
 }
 
 Game::~Game() {
@@ -185,8 +184,11 @@ void Game::renderMap() {
     this->window->draw(this->background);
     this->kitchen->render(*this->window);
     this->washbasin->render(*this->window);
-    for(int i=0;i<numTables;i++)
+    for(int i=0;i<numTables;i++) {
         this->window->draw(this->allTable[i].sprite);
+        for(int j=0; j<4;j++)
+            this->window->draw(this->allTable[i].stoolTable[j].sprite);
+    }
 }
 
 void Game::updateCollision() {
@@ -202,22 +204,14 @@ void Game::updateCollision() {
 
 void Game::initTables() {
 
-    //this->table.setTexture(*this->textures["Table"]);
-    //this->table.setScale(3.f,3.f);
-    //this->table.setPosition(100,100);
-   // for(int i=0; i<numTables;i++){
-       // if(i==0)
-          //  allTable[i].setTexture(*this->textures["Table"]);
-       // else
-         //   this->allTable[i].setTexture(*(allTable[0].getTexture()));
-
-        //allTable[i].setScale(3.f,3.f);
-        //this->allTable[i].setPosition(posTables[i]);
-  //  }
-  //TODO convert vector of table to vector of struct of table (sprite table + 4 stool)
-  for(int i=0; i<numTables; i++){
+    for(int i=0; i<numTables; i++){
       Table t;
+      //Stool s;
       t.sprite.setTexture(*this->texture->getTexture("Table"));
+      for(int j=0; j<4; j++)
+          t.stoolTable[j].sprite.setTexture(*this->texture->getTexture("Stool"));
+     // s.sprite.setTexture(*this->texture->getTexture("Stool"));
+     // t.stoolTable.push_back(s);
       allTable.push_back(t);
   }
 
@@ -227,11 +221,17 @@ void Game::initTables() {
 void Game::initPosTables() {
 
     allTable[0].sprite.setPosition(85,270);
+    allTable[0].posStool(85,270);
     allTable[1].sprite.setPosition(85,540);
+    allTable[1].posStool(85,540);
     allTable[2].sprite.setPosition(85,810);
+    allTable[2].posStool(85,810);
     allTable[3].sprite.setPosition(490,270);
+    allTable[3].posStool(490,270);
     allTable[4].sprite.setPosition(490,540);
+    allTable[4].posStool(490,540);
     allTable[5].sprite.setPosition(490,810);
+    allTable[5].posStool(490,810);
     for(int i=0; i<numTables; i++)
         allTable[i].sprite.setScale(2, 2);
 
@@ -314,6 +314,8 @@ void Game::initMap() {
 void Game::initTexture() {
     this->texture = new Textures();
 }
+
+
 
 
 

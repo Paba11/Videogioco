@@ -9,6 +9,7 @@ Table::Table() {
     this->state = CHOOSING;
     this->course = APPETIZER;
     initSprite();
+    initStoolTable();
 }
 
 Table::~Table() {
@@ -94,5 +95,20 @@ void Table::setCourse(int i) {
             this->course = MAINCOURSE;
         case 3:
             this->course = DESSERT;
+    }
+}
+
+void Table::posStool(float x, float y) {
+    stoolTable[0].sprite.setPosition(x -60,y+10);
+    stoolTable[1].sprite.setPosition(x -60,y+75);
+    stoolTable[2].sprite.setPosition(x +120,y+10);
+    stoolTable[3].sprite.setPosition(x +120,y+75);
+
+}
+
+void Table::initStoolTable() {
+    for(int i=0; i< numStoolsTable; i++){
+        Stool s;
+        stoolTable.push_back(s);
     }
 }

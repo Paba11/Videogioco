@@ -87,7 +87,6 @@ private:
     void initPosTables();
     void initMap();
     void initTexture();
-
     int numTables=6;
 
 };
