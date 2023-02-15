@@ -272,6 +272,11 @@ void Game::collision() {
     for(int i=0; i < numTables; i++){
         if(this->waiter->getGlobalHitbox().intersects(allTable[i].sprite.getGlobalBounds()))
            collisionManagement();
+        for(int j=0; j < 4; j++){
+            if(this->waiter->getGlobalHitbox().intersects(allTable[i].stoolTable[j].sprite.getGlobalBounds()))
+                collisionManagement();
+        }
+
     }
     if(this->waiter->getGlobalHitbox().intersects(this->kitchen->getBounds()))
         collisionManagement();
