@@ -109,67 +109,6 @@ void Game::initWaiter() {
 }
 
 
-// void Game::initTexture() {
-    /*
-     * Allocate space on the pointer for each specific instance.
-     * Load the texture from the file
-    */
-
-    //Load the texture of the background
- /*   this->textures["RestaurantMap"] = new sf::Texture;
-    if(!textures["RestaurantMap"]->loadFromFile("../Textures/new_textures/Mappa.png"))
-    {
-        std::cout << "ERROR::GAME::CAN'T LOAD TEXTURE MAP FILE" << std::endl;
-    }
-    this->textures["Table"] = new sf::Texture;
-    if(!textures["Table"]->loadFromFile("../Textures/new_textures/Tavolo.png"))
-    {
-        std::cout << "ERROR::GAME::CAN'T LOAD TEXTURE TABLE FILE" << std::endl;
-    }
-*/
-    /*
-    //Load the Appetizers
-    this->textures["Appetizer1"] = new sf::Texture;
-    if(!this->textures["Appetizer1"]->loadFromFile("../Textures/Appetizer1.png"))
-        {
-            std::cout << "ERROR::GAME::CAN'T LOAD TEXTURE FILE" << std::endl;
-        }
-    this->textures["Appetizer2"] = new sf::Texture;
-    if(!this->textures["Appetizer2"]->loadFromFile("../Textures/Appetizer2.png"))
-    {
-        std::cout << "ERROR::GAME::CAN'T LOAD TEXTURE FILE" << std::endl;
-    }
-    this->textures["Appetizer3"] = new sf::Texture;
-    if(!this->textures["Appetizer3"]->loadFromFile("../Textures/Appetizer3.png"))
-    {
-        std::cout << "ERROR::GAME::CAN'T LOAD TEXTURE FILE" << std::endl;
-    }
-
-    //Load the Main Courses
-    this->textures["Main1"] = new sf::Texture;
-    if(!this->textures["Main1"]->loadFromFile("../Textures/Main1.png"))
-    {
-        std::cout << "ERROR::GAME::CAN'T LOAD TEXTURE FILE" << std::endl;
-    }
-    this->textures["Main2"] = new sf::Texture;
-    if(!this->textures["Main2"]->loadFromFile("../Textures/Main2.png"))
-    {
-        std::cout << "ERROR::GAME::CAN'T LOAD TEXTURE FILE" << std::endl;
-    }
-    this->textures["Main3"] = new sf::Texture;
-    if(!this->textures["Main3"]->loadFromFile("../Textures/Main3.png"))
-    {
-        std::cout << "ERROR::GAME::CAN'T LOAD TEXTURE FILE" << std::endl;
-    }
-    this->textures["Main4"] = new sf::Texture;
-    if(!this->textures["Main4"]->loadFromFile("../Textures/Main4.png"))
-    {
-        std::cout << "ERROR::GAME::CAN'T LOAD TEXTURE FILE" << std::endl;
-    }
-     */
-// }
-
-
 void Game::initBackground() {
     /*
      * Initialize the map texture and connect it to a sprite
@@ -184,6 +123,7 @@ void Game::renderMap() {
     this->window->draw(this->background);
     this->kitchen->render(*this->window);
     this->washbasin->render(*this->window);
+    this->map->render(*this->window);
     for(int i=0;i<numTables;i++) {
         this->window->draw(this->allTable[i].sprite);
         for(int j=0; j<4;j++)

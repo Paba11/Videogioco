@@ -51,5 +51,10 @@ sf::Texture* Textures::getTexture(std::string name) {
      {
          std::cout << "ERROR::STOOL::CAN'T LOAD TEXTURE FILE" << std::endl;
      }
+     textures["Tree"] = new sf::Texture();
+     if (!this->textures["Tree"]->loadFromFile("../Textures/new_textures/Albero.png"))
+     {
+         std::cout << "ERROR::TREE::CAN'T LOAD TEXTURE FILE" << std::endl;
+     }
 }
 
