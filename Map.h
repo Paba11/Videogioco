@@ -15,8 +15,6 @@
 
 #define MAX_SIZE 10
 
-//TODO: MOVE THE VECTOR OF TABLES INSIDE THIS CLASS
-
 class Map {
 public:
     //Constructor & Destructor
@@ -30,6 +28,7 @@ public:
     //void setTables(std::vector<Table> allTable);
     std::vector<Table>& getAllTables();
     void initTrees();
+    void initSprites();
     void render(sf::RenderTarget& target);
     void initPosTrees();
     std::vector <sf::Sprite> trees;
@@ -37,7 +36,7 @@ public:
 
 
 private:
-    sf::Sprite sprite;
+    sf::Sprite entrance;
 
     //Elements of the map
     //Table* table[MAX_SIZE];

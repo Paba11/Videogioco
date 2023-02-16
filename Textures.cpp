@@ -56,5 +56,10 @@ sf::Texture* Textures::getTexture(std::string name) {
      {
          std::cout << "ERROR::TREE::CAN'T LOAD TEXTURE FILE" << std::endl;
      }
+     textures["Entrance"] = new sf::Texture();
+     if (!this->textures["Entrance"]->loadFromFile("../Textures/new_textures/Ingresso.png"))
+     {
+         std::cout << "ERROR::ENTRANCE::CAN'T LOAD TEXTURE FILE" << std::endl;
+     }
 }
 
