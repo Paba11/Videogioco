@@ -312,6 +312,7 @@ Kitchen *Waiter::distanceKitchen() {
     return kitchen;
 }
 
+
 Washbasin *Waiter::distanceWashbasin() {
     /*
      * Calculate the position of the waiter from the Washbasin

@@ -7,7 +7,7 @@
 Map::Map() {
     this->kitchen = new Kitchen();
     this->washbasin = new Washbasin();
-    initSprites();
+    //initSprites();
 }
 
 Map::~Map() {
@@ -89,3 +89,5 @@ void Map::initPosTrees() {
 std::vector<Table>& Map::getAllTables() {
     return this->allTables;
 }
+
+

@@ -53,7 +53,6 @@ public:
     void leavingOrder(Kitchen* kitchen);
     void updateAnimations() override;
 
-
     //Getters & Setters
     const sf::Vector2f& getPosition() const;
     Actions getState();

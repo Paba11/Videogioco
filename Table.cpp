@@ -4,7 +4,6 @@
 
 #include "Table.h"
 
-
 Table::Table() {
     this->state = CHOOSING;
     this->course = APPETIZER;

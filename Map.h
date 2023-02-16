@@ -22,11 +22,13 @@ public:
     ~Map();
 
     //Getters & Setters
-    Table* getTable(int i) const;
+    Table& getTable(int i);
+    std::vector<Table>& getAllTables();
     Kitchen* getKitchen() const;
     Washbasin* getWashbasin() const;
-    void setTables(std::vector<Table> allTable);
+    //void setTables(std::vector<Table> allTable);
     void initTrees();
+    void initSprites();
     void render(sf::RenderTarget& target);
     void initPosTrees();
     std::vector <sf::Sprite> trees;
@@ -34,10 +36,10 @@ public:
 
 
 private:
-    sf::Sprite sprite;
+    sf::Sprite entrance;
 
     //Elements of the map
-    Table* table[MAX_SIZE];
+    std::vector<Table> allTables;
     Washbasin* washbasin;
     Kitchen* kitchen;
     Textures* texture = new Textures;

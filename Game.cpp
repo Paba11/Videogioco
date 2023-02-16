@@ -13,7 +13,7 @@ Game::Game() {
     initWaiter();
     initTables();
     initPosTables();
-    initTexture();
+    //initTexture();
 }
 
 Game::~Game() {

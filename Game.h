@@ -52,7 +52,7 @@ public:
 private:
     //Group of textures uploaded in a container, each one is accessible by his own name
     //std::map<std::string, sf::Texture*> textures;
-    //std::vector<Table> allTable;
+    //std::vector<Table> allTables;
     //
     sf::RenderWindow* window;
     sf::Event ev;
