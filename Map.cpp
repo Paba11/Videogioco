@@ -7,7 +7,7 @@
 Map::Map() {
     this->kitchen = new Kitchen();
     this->washbasin = new Washbasin();
-    initTrees();
+    initSprites();
 }
 
 Map::~Map() {
@@ -45,7 +45,7 @@ void Map::setTables(std::vector<Table> allTables) {
     }
 }
 
-void Map::initTrees() {
+void Map::initSprites() {
 
     for(int i=0; i < numTrees; i++){
         sf::Sprite tree;
@@ -54,11 +54,19 @@ void Map::initTrees() {
         trees.push_back(tree);
     }
     initPosTrees();
+
+    entrance.setTexture(*this->texture->getTexture("Entrance"));
+    entrance.setPosition(1235.f,820.f);
+    entrance.setScale(4.f,3.f);
 }
 
 void Map::render(sf::RenderTarget &target) {
     for(int i=0; i < numTrees; i++)
         target.draw(this->trees[i]);
+
+    target.draw(this->entrance);
+
+
 }
 
 void Map::initPosTrees() {

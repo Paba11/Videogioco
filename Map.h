@@ -26,7 +26,7 @@ public:
     Kitchen* getKitchen() const;
     Washbasin* getWashbasin() const;
     void setTables(std::vector<Table> allTable);
-    void initTrees();
+    void initSprites();
     void render(sf::RenderTarget& target);
     void initPosTrees();
     std::vector <sf::Sprite> trees;
@@ -34,7 +34,7 @@ public:
 
 
 private:
-    sf::Sprite sprite;
+    sf::Sprite entrance;
 
     //Elements of the map
     Table* table[MAX_SIZE];
