@@ -10,6 +10,9 @@ Waiter::Waiter() {
     this->state = STANDING;
     this->speed = 8;
     this->isClose = IS_CLOSE_NOTHING;
+    this->tray = nullptr;
+    this->order = nullptr;
+
 }
 
 Waiter::~Waiter() {
@@ -62,6 +65,7 @@ void Waiter::updateMovement() {
         interact();
     else
         move();
+
 }
 
 void Waiter::move() {
@@ -91,16 +95,19 @@ void Waiter::move() {
 }
 
 void Waiter::interact() {
-    Table* table = distanceTable(*this->map);
-    Kitchen* kitchen = distanceKitchen(*this->map);
-    Washbasin* washbasin = distanceWashbasin(*this->map);
+    Table* table = distanceTable();
+    Kitchen* kitchen = distanceKitchen();
+    Washbasin* washbasin = distanceWashbasin();
 
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::J) && !this->tray)
     {
+
         if(this->order && this->isClose == IS_CLOSE_KITCHEN)
             leavingOrder(kitchen);
-        else if(!this->order && this->isClose == IS_CLOSE_TABLE)
+        else if(!this->order && this->isClose == IS_CLOSE_TABLE) {
             takingOrder(table);
+            std::cout << "IsClose Table works correctly" << std::endl;
+        }
     }
     else if(sf::Keyboard::isKeyPressed(sf::Keyboard::K) && this->tray && !this->order &&
     (this->isClose == IS_CLOSE_TABLE || this->isClose == IS_CLOSE_KITCHEN))
@@ -242,45 +249,62 @@ const sf::Vector2f &Waiter::getPosition() const {
     return this->sprite.getPosition();
 }
 
-Table *Waiter::distanceTable(const Map& map) {
+
+
+Table *Waiter::distanceTable() {
     /*
      * Calculate the position of the waiter from the Tables
      */
 
     sf::Vector2f distVector;
+    sf::FloatRect waiter, table;
+    float centreTableX, centreTableY;
     float dist;
     Table* t = nullptr;
-    for(int i = 0; i < MAX_TABLES; i++)
+    /*
+    for(int i = 0; i < this->map->getAllTables().size(); i++)
     {
-        if(map.getTable(i))
+        std::cout << std::endl << "table: " << i << " position: " << this->map->getTable(i).getPosition().x
+        << ", " << this->map->getTable(i).getPosition().y << std::endl;
+    }
+    */
+    for(int i = 0; i < this->map->getAllTables().size() && this->isClose != IS_CLOSE_TABLE; i++)
+    {
+
+        //std::cout << "CentreWaiter" << centreWaiterX << ", " << centreWaiterY << std::endl;
+        t = &this->map->getTable(i);
+        dist = std::sqrt(std::pow(t->sprite.getPosition().x - this->sprite.getPosition().x, 2) +
+                std::pow(t->sprite.getPosition().y - this->sprite.getPosition().y, 2));
+        //centreTableX = t->getPosition().x; //+ (t->sprite.getGlobalBounds().width/2);
+        //centreTableY = t->getPosition().y; //+ (t->sprite.getGlobalBounds().height/2);
+
+        //distX = std::abs(centreTableX - this->centreWaiterX);
+        //distY = std::abs(centreTableY - this->centreWaiterY);
+        std::cout << std::endl << "table: " << i << " posX: " << t->sprite.getPosition().x << " PosY:" <<
+        t->sprite.getPosition().y << std::endl;
+        std::cout << "dist: " << dist << std::endl;
+        if (dist <= 130 )
         {
-            distVector = this->sprite.getPosition() - map.getTable(i)->getPosition();
-            dist = sqrt((distVector.x * distVector.x) + (distVector.y * distVector.y));
-            //x = abs(getPosition().x - map.getTable(i)->getPosition().x);
-            //y = abs(getPosition().y - map.getTable(i)->getPosition().y);
-            if (dist <= 1)
-            {
-                t = map.getTable(i);
-                i = MAX_SIZE;
-                this->isClose = IS_CLOSE_TABLE;
-            }
+            std::cout << "dist <= 10 table: " << i << std::endl;
+            //t = &this->map->getTable(i);
+            this->isClose = IS_CLOSE_TABLE;
         }
     }
     return t;
 }
 
-Kitchen *Waiter::distanceKitchen(const Map& map) {
+Kitchen *Waiter::distanceKitchen() {
     /*
      * Calculate the position of the waiter from the Kitchen
      */
     sf::Vector2f distVector;
     float dist;
-    Kitchen* kitchen = map.getKitchen();
+    Kitchen* kitchen = this->map->getKitchen();
 
     distVector = this->sprite.getPosition() - kitchen->getPosition();
     dist = sqrt((distVector.x * distVector.x) + (distVector.y * distVector.y));
 
-    if(dist <= 1)
+    if(dist <= 100)
     {
         this->isClose = IS_CLOSE_KITCHEN;
     }
@@ -288,13 +312,13 @@ Kitchen *Waiter::distanceKitchen(const Map& map) {
     return kitchen;
 }
 
-Washbasin *Waiter::distanceWashbasin(const Map& map) {
+Washbasin *Waiter::distanceWashbasin() {
     /*
      * Calculate the position of the waiter from the Washbasin
      */
     sf::Vector2f distVector;
     float dist;
-    Washbasin* washbasin = map.getWashbasin();
+    Washbasin* washbasin = this->map->getWashbasin();
 
     distVector = this->sprite.getPosition() - washbasin->getPosition();
     dist = sqrt((distVector.x * distVector.x) + (distVector.y * distVector.y));
@@ -303,13 +327,14 @@ Washbasin *Waiter::distanceWashbasin(const Map& map) {
     {
         this->isClose = IS_CLOSE_DISHWASHER;
     }
-    return map.getWashbasin();
+    return washbasin;
 }
 
 
 void Waiter::update() {
     updateAnimations();
     updateMovement();
+    updateCentre();
 }
 
 
@@ -362,6 +387,11 @@ Map *Waiter::getMap() {
 
 void Waiter::setMap(Map *m) {
     this->map = m;
+}
+
+void Waiter::updateCentre() {
+    this->centreWaiterX = this->sprite.getGlobalBounds().left + (this->sprite.getGlobalBounds().width/2);
+    this->centreWaiterY = this->sprite.getGlobalBounds().top + (this->sprite.getGlobalBounds().height/2);
 }
 
 

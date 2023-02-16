@@ -34,15 +34,16 @@ public:
 
     //Method to move the waiter
     void updateMovement();
+    void updateCentre();
     void update() override;
     void move();
     void setAnimation();
 
     //Methods to interact with the customer
     void interact();
-    Table* distanceTable(const Map& map);
-    Kitchen* distanceKitchen(const Map& map);
-    Washbasin* distanceWashbasin(const Map& map);
+    Table* distanceTable();
+    Kitchen* distanceKitchen();
+    Washbasin* distanceWashbasin();
     Textures* texture = new Textures;
     void pickUp(Kitchen* kitchen);
     void pickUp(Table* table);
@@ -74,6 +75,7 @@ protected:
     Position isClose;
     Tray* tray;
     Map* map;
+    float centreWaiterX, centreWaiterY;
 
 };
 

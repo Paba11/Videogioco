@@ -15,6 +15,8 @@
 
 #define MAX_SIZE 10
 
+//TODO: MOVE THE VECTOR OF TABLES INSIDE THIS CLASS
+
 class Map {
 public:
     //Constructor & Destructor
@@ -22,10 +24,11 @@ public:
     ~Map();
 
     //Getters & Setters
-    Table* getTable(int i) const;
+    Table& getTable(int i);
     Kitchen* getKitchen() const;
     Washbasin* getWashbasin() const;
-    void setTables(std::vector<Table> allTable);
+    //void setTables(std::vector<Table> allTable);
+    std::vector<Table>& getAllTables();
     void initTrees();
     void render(sf::RenderTarget& target);
     void initPosTrees();
@@ -37,7 +40,8 @@ private:
     sf::Sprite sprite;
 
     //Elements of the map
-    Table* table[MAX_SIZE];
+    //Table* table[MAX_SIZE];
+    std::vector<Table> allTables;
     Washbasin* washbasin;
     Kitchen* kitchen;
     Textures* texture = new Textures;

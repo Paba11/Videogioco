@@ -19,6 +19,9 @@ Game::Game() {
 Game::~Game() {
     delete this->window;
     delete this->waiter;
+    delete this->map;
+    delete this->customer;
+    delete this ->dish;
 
     /*
     //Delete Textures
@@ -33,6 +36,7 @@ void Game::update() {
     pollEvents();
     updateCollision();
     this->waiter->update();
+
     //this->updateMousePos();
 }
 
@@ -77,6 +81,7 @@ void Game::pollEvents() {
     /*
      * Manage the events
      */
+
     while (this->window->pollEvent(this->ev))
     {
         switch (this->ev.type)
@@ -88,12 +93,12 @@ void Game::pollEvents() {
                 if (this->ev.key.code == sf::Keyboard::Escape)
                     this->window->close();
                 else {
-                    //this->waiter->interact(this->ev, *this->map);
+                    //this->waiter->updateMovement();
+                    //this->waiter->interact(this->map);
                 }
                 break;
         }
     }
-
 }
 
 void Game::updateMousePos() {
@@ -125,9 +130,9 @@ void Game::renderMap() {
     this->washbasin->render(*this->window);
     this->map->render(*this->window);
     for(int i=0;i<numTables;i++) {
-        this->window->draw(this->allTable[i].sprite);
+        this->window->draw(this->map->getAllTables()[i].sprite);
         for(int j=0; j<4;j++)
-            this->window->draw(this->allTable[i].stoolTable[j].sprite);
+            this->window->draw(this->map->getAllTables()[i].stoolTable[j].sprite);
     }
 }
 
@@ -152,7 +157,7 @@ void Game::initTables() {
           t.stoolTable[j].sprite.setTexture(*this->texture->getTexture("Stool"));
      // s.sprite.setTexture(*this->texture->getTexture("Stool"));
      // t.stoolTable.push_back(s);
-      allTable.push_back(t);
+      this->map->getAllTables().push_back(t);
   }
 
 
@@ -160,26 +165,26 @@ void Game::initTables() {
 
 void Game::initPosTables() {
 
-    allTable[0].sprite.setPosition(85,270);
-    allTable[0].posStool(85,270);
-    allTable[1].sprite.setPosition(85,540);
-    allTable[1].posStool(85,540);
-    allTable[2].sprite.setPosition(85,810);
-    allTable[2].posStool(85,810);
-    allTable[3].sprite.setPosition(490,270);
-    allTable[3].posStool(490,270);
-    allTable[4].sprite.setPosition(490,540);
-    allTable[4].posStool(490,540);
-    allTable[5].sprite.setPosition(490,810);
-    allTable[5].posStool(490,810);
+    this->map->getAllTables()[0].sprite.setPosition(85,270);
+    this->map->getAllTables()[0].posStool(85,270);
+    this->map->getAllTables()[1].sprite.setPosition(85,540);
+    this->map->getAllTables()[1].posStool(85,540);
+    this->map->getAllTables()[2].sprite.setPosition(85,810);
+    this->map->getAllTables()[2].posStool(85,810);
+    this->map->getAllTables()[3].sprite.setPosition(490,270);
+    this->map->getAllTables()[3].posStool(490,270);
+    this->map->getAllTables()[4].sprite.setPosition(490,540);
+    this->map->getAllTables()[4].posStool(490,540);
+    this->map->getAllTables()[5].sprite.setPosition(490,810);
+    this->map->getAllTables()[5].posStool(490,810);
     for(int i=0; i<numTables; i++)
-        allTable[i].sprite.setScale(2, 2);
-
+        this->map->getAllTables()[i].sprite.setScale(2, 2);
 
 }
 
 void Game::windowsCollision() {
 
+    //Left side of the map collision
     if(this->waiter->getBounds().left < 0.f)
     {
         this->waiter->setPositionW(0.f, this->waiter->getPosition().y);
@@ -210,10 +215,10 @@ void Game::windowsCollision() {
 void Game::collision() {
 
     for(int i=0; i < numTables; i++){
-        if(this->waiter->getGlobalHitbox().intersects(allTable[i].sprite.getGlobalBounds()))
+        if(this->waiter->getGlobalHitbox().intersects(this->map->getAllTables()[i].sprite.getGlobalBounds()))
            collisionManagement();
         for(int j=0; j < 4; j++){
-            if(this->waiter->getGlobalHitbox().intersects(allTable[i].stoolTable[j].sprite.getGlobalBounds()))
+            if(this->waiter->getGlobalHitbox().intersects(this->map->getAllTables()[i].stoolTable[j].sprite.getGlobalBounds()))
                 collisionManagement();
         }
 
@@ -256,7 +261,6 @@ void Game::collisionManagement() {
 
 void Game::initMap() {
     this->map = new Map();
-    this->map->setTables(this->allTable);
     this->kitchen = this->map->getKitchen();
     this->washbasin = this->map->getWashbasin();
 }
@@ -264,8 +268,6 @@ void Game::initMap() {
 void Game::initTexture() {
     this->texture = new Textures();
 }
-
-
 
 
 

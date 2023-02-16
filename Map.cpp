@@ -13,15 +13,16 @@ Map::Map() {
 Map::~Map() {
     delete this->washbasin;
     delete this->kitchen;
+    /*
     for(int i = 0; i < MAX_SIZE; i++)
     {
         delete this->table[i];
     }
-
+    */
 }
 
-Table *Map::getTable(int i) const {
-    return this->table[i];
+Table& Map::getTable(int i) {
+    return this->allTables[i];
 }
 
 Kitchen *Map::getKitchen() const {
@@ -32,11 +33,12 @@ Washbasin *Map::getWashbasin() const {
     return this->washbasin;
 }
 
+/*
 void Map::setTables(std::vector<Table> allTables) {
-    /*
+
      * Assign the table stored inside the vector to the array pointer of tables
-     */
-    for(int i=0; i<MAX_TABLES; i++)
+
+    for(int i=0; i < MAX_TABLES; i++)
     {
         if(i < allTables.size())
             this->table[i] = &allTables[i];
@@ -44,6 +46,7 @@ void Map::setTables(std::vector<Table> allTables) {
             this->table[i] = nullptr;
     }
 }
+*/
 
 void Map::initTrees() {
 
@@ -73,4 +76,8 @@ void Map::initPosTrees() {
         else if(i==3)
             trees[3].setPosition(1235,680);
     }
+}
+
+std::vector<Table>& Map::getAllTables() {
+    return this->allTables;
 }
