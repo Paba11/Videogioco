@@ -7,7 +7,7 @@
 Map::Map() {
     this->kitchen = new Kitchen();
     this->washbasin = new Washbasin();
-    //initSprites();
+    initSprites();
 }
 
 Map::~Map() {
