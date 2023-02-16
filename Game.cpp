@@ -220,6 +220,11 @@ void Game::collision() {
     }
     if(this->waiter->getGlobalHitbox().intersects(this->kitchen->getBounds()))
         collisionManagement();
+    for(int i=0; i< map->numTrees; i++){
+        if(this->waiter->getGlobalHitbox().intersects(this->map->trees[i].getGlobalBounds()))
+            collisionManagement();
+    }
+
 
 
 }
