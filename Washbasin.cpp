@@ -39,3 +39,7 @@ void Washbasin::setIsPlates(bool t) {
 sf::Vector2f Washbasin::getPosition() {
     return this->sprite.getPosition();
 }
+
+const sf::Sprite Washbasin::getSprite() {
+    return this->sprite;
+}

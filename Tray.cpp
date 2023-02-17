@@ -6,10 +6,16 @@
 
 
 Tray::Tray() {
+    this->state = EMPTY_TRAY;
+    initTexture();
+    initSprite();
 }
 
 Tray::~Tray() {
-
+    for(int i = 0; !this->dishes.empty(); i++)
+    {
+        delete this->dishes[i];
+    }
 }
 
 void Tray::update() {
@@ -49,10 +55,14 @@ TrayState Tray::getState() {
 }
 
 Dish *Tray::getDish(int i) {
-    return this->tray[i];
+    return this->dishes[i];
 }
 
-void Tray::setDish(int i, Dish* d) {
-    this->tray[i] = d;
+void Tray::setDish(Dish* d) {
+    this->dishes.push_back(d);
+}
+
+std::vector<Dish *>& Tray::getDishes() {
+    return this->dishes;
 }
 

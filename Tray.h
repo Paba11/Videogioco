@@ -34,7 +34,8 @@ public:
     void setState(int t);
     TrayState getState();
     Dish* getDish(int i);
-    void setDish(int i, Dish* dish);
+    void setDish(Dish* dish);
+    std::vector<Dish*>& getDishes();
 
 private:
     void initTexture();
@@ -42,7 +43,7 @@ private:
     sf::Texture texture;
     sf::Sprite sprite;
 
-    Dish* tray[MAX_DISHES];
+    std::vector<Dish*> dishes;
     TrayState state;
 
 };

@@ -28,3 +28,7 @@ Dsr Order::getDesserts(int i) {
 Drk Order::getDrinks(int i) {
     return this->drinks[i];
 }
+
+const int Order::getTavNum() {
+    return this->tableNumber;
+}

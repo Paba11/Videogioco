@@ -33,6 +33,7 @@ public:
     Mn getMainCourse(int i);
     Dsr getDesserts(int i);
     Drk getDrinks(int i);
+    const int getTavNum();
 
 private:
     int tableNumber;

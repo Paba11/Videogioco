@@ -46,11 +46,16 @@ public:
     void setIsEmptyPlates(bool t);
     const sf::Vector2f getPosition() const;
     Dish* getDish(int i);
-    void setDish(int i, Dish* dish);
+    void setDish(Dish* dish);
+    std::vector<Dish*>& getDishes();
     void setState(int i);
     DishState getState();
+    const sf::Sprite getSprite();
     const sf::FloatRect getBounds() const;
-
+    Order* getReadyOrder();
+    void setReadyOrder(Order* order);
+    void getWaitingOrder(int tavNum);
+    void setWaitingOrder();
 
 
 private:
@@ -60,9 +65,9 @@ private:
     void initTexture();
     void initSprite();
 
-    Dish* dish[MAX_DISHES];
+    std::vector<Dish*> dishes;
     std::queue<Order*> newOrders;
-    Order* waitingOrders[MAX_TABLES];
+    std::queue<Order*> waitingOrders;
     std::queue<Order*> readyOrders;
     Order* current;
     int count;

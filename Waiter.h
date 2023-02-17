@@ -27,14 +27,13 @@ class Waiter final : public GameCharacter {
 public:
     //Constructor & Destructor
     Waiter();
-    ~Waiter();
+    ~Waiter() override;
 
     //Method to manage the game events
     //void pollEvent();
 
     //Method to move the waiter
     void updateMovement();
-    void updateCentre();
     void update() override;
     void move();
     void setAnimation();
