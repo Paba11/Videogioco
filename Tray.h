@@ -12,7 +12,7 @@
 #define VIDEOGIOCO_TRAY_H
 
 #include "Dish.h"
-
+#include <queue>
 
 #define MAX_DISHES 4
 enum TrayState {EMPTY_TRAY = 1, FILLED_TRAY, EMPTY_PLATES};
@@ -33,9 +33,9 @@ public:
     //Method to set the tray state
     void setState(int t);
     TrayState getState();
-    Dish* getDish(int i);
+    Dish* getDish();
     void setDish(Dish* dish);
-    std::vector<Dish*>& getDishes();
+    std::queue<Dish*>& getDishes();
 
 private:
     void initTexture();
@@ -43,7 +43,7 @@ private:
     sf::Texture texture;
     sf::Sprite sprite;
 
-    std::vector<Dish*> dishes;
+    std::queue<Dish*> dishes;
     TrayState state;
 
 };

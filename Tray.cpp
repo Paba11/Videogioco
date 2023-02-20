@@ -12,9 +12,12 @@ Tray::Tray() {
 }
 
 Tray::~Tray() {
+    Dish* d;
     for(int i = 0; !this->dishes.empty(); i++)
     {
-        delete this->dishes[i];
+        d = this->dishes.front();
+        this->dishes.pop();
+        delete d;
     }
 }
 
@@ -41,11 +44,11 @@ const sf::Vector2f &Tray::getPosition() const {
 void Tray::setState(int t) {
     switch(t)
     {
-        case 1:
+        case 0:
             this->state = EMPTY_PLATES;
-        case 2:
+        case 1:
             this->state = EMPTY_TRAY;
-        case 3:
+        case 2:
             this->state = FILLED_TRAY;
     }
 }
@@ -54,15 +57,17 @@ TrayState Tray::getState() {
     return this->state;
 }
 
-Dish *Tray::getDish(int i) {
-    return this->dishes[i];
+Dish *Tray::getDish() {
+    Dish* d = this->dishes.front();
+    this->dishes.pop();
+    return d;
 }
 
 void Tray::setDish(Dish* d) {
-    this->dishes.push_back(d);
+    this->dishes.push(d);
 }
 
-std::vector<Dish *>& Tray::getDishes() {
+std::queue<Dish *>& Tray::getDishes() {
     return this->dishes;
 }
 

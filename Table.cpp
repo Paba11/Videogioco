@@ -45,12 +45,14 @@ const sf::Vector2f &Table::getPosition() const {
     return this->sprite.getPosition();
 }
 
-Dish *Table::getDish(int i) {
-    return this->dish[i];
+Dish *Table::getDish() {
+    Dish* d = this->dishes.front();
+    this->dishes.pop();
+    return d;
 }
 
-void Table::setDish(int i, Dish *d) {
-    this->dish[i] = d;
+void Table::setDish(Dish *d) {
+    this->dishes.push(d);
 }
 
 TableState Table::getState() {
@@ -60,15 +62,15 @@ TableState Table::getState() {
 void Table::setState(int i) {
     switch(i)
     {
-        case 1:
+        case 0:
             this->state = CHOOSING;
-        case 2:
+        case 1:
             this->state = WAITING_TO_ORDER;
-        case 3:
+        case 2:
             this->state = WAITING_DISHES;
-        case 4:
+        case 3:
             this->state = EATING;
-        case 5:
+        case 4:
             this->state = ENDED;
     }
 }
@@ -88,12 +90,14 @@ ActualCourse Table::getCourse() const {
 void Table::setCourse(int i) {
     switch(i)
     {
-        case 1:
+        case 0:
             this->course = APPETIZER;
-        case 2:
+        case 1:
             this->course = MAINCOURSE;
-        case 3:
+        case 2:
             this->course = DESSERT;
+        case 3:
+            this->course = END;
     }
 }
 
@@ -110,4 +114,8 @@ void Table::initStoolTable() {
         Stool s;
         stoolTable.push_back(s);
     }
+}
+
+std::queue<Dish *> Table::getDishes() {
+    return this->dishes;
 }

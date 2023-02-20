@@ -14,9 +14,10 @@
 #include "Order.h"
 #include "Recipe.h"
 #include "Stool.h"
+#include <queue>
 
 enum TableState {CHOOSING, WAITING_TO_ORDER, WAITING_DISHES, EATING, ENDED};
-enum ActualCourse {APPETIZER, MAINCOURSE, DESSERT};
+enum ActualCourse {APPETIZER, MAINCOURSE, DESSERT, END};
 
 
 class Table {
@@ -33,8 +34,9 @@ public:
     int getTavNum();
     void setTavNum(int tavNum);
     const sf::Vector2f& getPosition() const;
-    Dish* getDish(int i);
-    void setDish(int i, Dish* dish);
+    Dish* getDish();
+    void setDish(Dish* dish);
+    std::queue<Dish*> getDishes();
     TableState getState();
     void setState(int i);
     Order* getOrder() const;
@@ -42,12 +44,15 @@ public:
     ActualCourse getCourse() const;
     void setCourse(int i);
     std::vector <Stool> stoolTable;
+
+    //Initialize table
     void initStoolTable();
     void posStool(float x, float y);
+
 private:
     //Attributes of the table
     int tavNum;
-    Dish* dish[MAX_DISHES];
+    std::queue<Dish*> dishes;
     TableState state;
     ActualCourse course;
     Order* order;

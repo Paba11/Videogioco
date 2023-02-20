@@ -35,4 +35,12 @@ void Dish::initPreparationTime() {
 
 }
 
+int Dish::getTavNum() {
+    return this->tavNum;
+}
+
+void Dish::setTavNum(int i) {
+    this->tavNum = i;
+}
+
 

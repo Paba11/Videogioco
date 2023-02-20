@@ -12,9 +12,12 @@ Kitchen::Kitchen() {
 }
 
 Kitchen::~Kitchen() {
+    Dish* d;
     for(int i=0; !this->dishes.empty(); i++)
     {
-        delete this->dishes[i];
+        d = this->dishes.front();
+        this->dishes.pop();
+        delete d;
     }
     delete this->current;
 }
@@ -36,15 +39,6 @@ void Kitchen::initSprite() {
     this->sprite.setScale(3.f,3.f);
 }
 
-void Kitchen::insertWaitingOrder(Order *order) {
-
-
-}
-
-Order *Kitchen::makeWaitingOrder() {
-    return nullptr;
-}
-
 bool Kitchen::getIsEmptyPlates() {
     return this->isEmptyPlates;
 }
@@ -57,12 +51,14 @@ const sf::Vector2f Kitchen::getPosition() const {
     return this->sprite.getPosition();
 }
 
-Dish *Kitchen::getDish(int i) {
-    return this->dishes[i];
+Dish *Kitchen::getDish() {
+    Dish* d = this->dishes.front();
+    this->dishes.pop();
+    return d;
 }
 
 void Kitchen::setDish(Dish* d) {
-    this->dishes.push_back(d);
+    this->dishes.push(d);
 }
 
 void Kitchen::update() {
@@ -76,9 +72,9 @@ void Kitchen::render(sf::RenderTarget& target) {
 void Kitchen::setState(int i) {
     switch(i)
     {
-        case 1:
+        case 0:
             this->state = EMPTY;
-        case 2:
+        case 1:
             this->state = FULL;
     }
 }
@@ -95,7 +91,7 @@ const sf::Sprite Kitchen::getSprite() {
     return this->sprite;
 }
 
-std::vector<Dish *> &Kitchen::getDishes() {
+std::queue<Dish *> &Kitchen::getDishes() {
     return this->dishes;
 }
 

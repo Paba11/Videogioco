@@ -34,10 +34,15 @@ public:
     //Method to initialize the preparation time of the dish
     virtual void initPreparationTime();
 
+    //Getters & Setters
+    int getTavNum();
+    void setTavNum(int i);
+
 protected:
     sf::Texture* texture;
     sf::Sprite sprite;
     sf::Vector2f direction;
+    int tavNum;
     float preparationTime;
 
 };

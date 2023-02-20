@@ -21,6 +21,7 @@ add_executable( videogioco                  main.cpp
                 MainCourse.h                MainCourse.cpp
                 Map.h                       Map.cpp
                 Order.h                     Order.cpp
+                OrderState.h                OrderState.cpp
                 Recipe.h                    Recipe.cpp
                 Stool.h                     Stool.cpp
                 Table.h                     Table.cpp

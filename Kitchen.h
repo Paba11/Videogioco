@@ -32,30 +32,30 @@ public:
     //Method to insert and remove orders
     void insertNewOrder(Order* order);
     Order* makeNewOrder();
-    void insertWaitingOrder(Order* order);
-    Order* makeWaitingOrder();
+    //void insertWaitingOrder(Order* order);
+    //Order* makeWaitingOrder();
 
     //Update and render of the kitchen textures
     void update();
     void render(sf::RenderTarget& target);
 
     //Methods to manage orders
+    Order* getReadyOrder();
+    void setReadyOrder(Order* order);
+    void getWaitingOrder(int tavNum);
+    void setWaitingOrder();
 
     //Getters & Setters
     bool getIsEmptyPlates();
     void setIsEmptyPlates(bool t);
     const sf::Vector2f getPosition() const;
-    Dish* getDish(int i);
+    Dish* getDish();
     void setDish(Dish* dish);
-    std::vector<Dish*>& getDishes();
+    std::queue<Dish*>& getDishes();
     void setState(int i);
     DishState getState();
     const sf::Sprite getSprite();
     const sf::FloatRect getBounds() const;
-    Order* getReadyOrder();
-    void setReadyOrder(Order* order);
-    void getWaitingOrder(int tavNum);
-    void setWaitingOrder();
 
 
 private:
@@ -65,7 +65,7 @@ private:
     void initTexture();
     void initSprite();
 
-    std::vector<Dish*> dishes;
+    std::queue<Dish*> dishes;
     std::queue<Order*> newOrders;
     std::queue<Order*> waitingOrders;
     std::queue<Order*> readyOrders;

@@ -140,65 +140,61 @@ void Waiter::interact() {
 
 
 void Waiter::pickUp(Kitchen* kitchen) {
-    //TODO: PICK UP THE PLATES FROM THE KITCHEN
+    //PICK UP THE PLATES FROM THE KITCHEN
 
     Dish* d;
-
     if(this->tray->getState() == EMPTY_TRAY && kitchen->getState() == FULL)
     {
-        for(int i = 0; i < MAX_DISHES; i++)
+        while (!kitchen->getDishes().empty())
         {
-            if(kitchen->getDish(i))
-            {
-                d = kitchen->getDish(i);
-                this->tray->setDish(i, d);
-                kitchen->setDish(i, nullptr);
-                this->tray->update();
-                kitchen->update();
-                this->update();
-            }
-            else
-                i = MAX_DISHES;
+            d = kitchen->getDish();
+            this->tray->setDish(d);
+            this->tray->update();
+            kitchen->update();
+            this->update();
         }
-        //Set the tray to filled
-        tray->setState(2);
-        //Set the kitchen to empty
-        kitchen->setState(1);
     }
+
+    //Set the tray to filled
+    tray->setState(2);
+    //Set the kitchen to empty
+    kitchen->setState(0);
 }
 
+
 void Waiter::pickUp(Table* table) {
-    //TODO: PICK UP THE EMPTY PLATES FROM THE TABLE
+    //PICK UP THE EMPTY PLATES FROM THE TABLE
+
     Dish* d;
     if(this->tray->getState() == EMPTY_TRAY && table->getState() == ENDED)
     {
-        for(int i = 0; i < MAX_DISHES; i++)
+        while(!table->getDishes().empty())
         {
-            if(table->getDish(i))
-            {
-                d = table->getDish(i);
-                this->tray->setDish(i, d);
-                table->setDish(i, nullptr);
-                this->tray->update();
-                table->update();
-                update();
-            }
-            else
-                i = MAX_DISHES;
+
+            d = table->getDish();
+            this->tray->setDish(d);
+            this->tray->update();
+            table->update();
+            update();
         }
+
         //Set the tray to empty plates
-        tray->setState(3);
+        tray->setState(0);
+
         //Set the table to the next instruction on the order
         switch(table->getCourse())
         {
             case APPETIZER:
                 table->setState(3);
+                table->setCourse(1);
                 break;
             case MAINCOURSE:
                 table->setState(3);
+                table->setCourse(2);
                 break;
             case DESSERT:
                 table->setState(5);
+                table->setCourse(3);
                 break;
         }
     }
@@ -206,36 +202,41 @@ void Waiter::pickUp(Table* table) {
 
 void Waiter::putDown(Table* table) {
     //Leave the plates at the table
-    if(this->tray->getState() == FILLED_TRAY && table->getState() == WAITING_DISHES)
+
+    if(this->tray->getState() == FILLED_TRAY && table->getState() == WAITING_DISHES &&
+    this->tray->getDishes().front()->getTavNum() == table->getTavNum())
     {
-        for(int i = 0; i < MAX_DISHES; i++)
+        while(!this->tray->getDishes().empty())
         {
-            if(this->tray->getDish(i))
-            {
-                table->setDish(i, this->tray->getDish(i));
-                this->tray->setDish(i, nullptr);
-                this->tray->update();
-                table->update();
-                update();
-            }
-            else
-                i = MAX_DISHES;
+            table->setDish(this->tray->getDish());
+            this->tray->update();
+            table->update();
+            update();
         }
+
         //Set the table in the right state
         table->setState(4);
         //Set the tray in the right state
-        this->tray->setState(1);
+        this->tray->setState(0);
     }
 }
 
 void Waiter::putDown(Washbasin* washbasin) {
     //Lave the plates at the washbasin
+
     if(this->tray->getState() == EMPTY_PLATES && !washbasin->getIsPlates())
     {
-        this->tray->setDish(1, nullptr);
         //Set the table in the right state
         washbasin->setIsPlates(true);
-        washbasin->update();
+
+        while(!this->tray->getDishes().empty())
+        {
+            this->tray->getDish();
+            this->tray->update();
+            washbasin->update();
+            update();
+        }
+
         //Set the tray in the right state
         this->tray->setState(1);
     }
@@ -248,6 +249,7 @@ void Waiter::takingOrder(Table* table) {
 
 void Waiter::leavingOrder(Kitchen* kitchen) {
     //Leave the order at the kitchen
+
     if(this->order)
     {
         kitchen->insertNewOrder(order);
