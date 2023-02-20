@@ -12,24 +12,27 @@
 #include "Customer.h"
 #include "Table.h"
 #include "Textures.h"
+#include "ProgramState.h"
 #include <SFML/Graphics.hpp>
 #include <SFML/Window.hpp>
 #include <SFML/System.hpp>
 #include <SFML/Audio.hpp>
 #include <list>
 
-class Game {
+class Game : public ProgramState{
 public:
     //Constructor & Destructor
-    Game();
-    ~Game();
+    Game(sf::RenderWindow* window, std::stack <ProgramState*>* states);
+    ~Game() override;
 
     //Method to initialize all the textures needed inside the game
    // void initTexture();
 
+    void endState() override;
+
     //Methods to update the game and display the correct images
-    void update();
-    void render();
+    void update() override;
+    void render(sf::RenderTarget* target) override;
     void renderMap();
     void updateCollision();
     void windowsCollision();
@@ -88,6 +91,7 @@ private:
     void initMap();
     void initTexture();
     int numTables=6;
+
 
 };
 

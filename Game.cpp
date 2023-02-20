@@ -4,7 +4,7 @@
 
 #include "Game.h"
 
-Game::Game() {
+Game::Game(sf::RenderWindow* window, std::stack <ProgramState*>* states) : ProgramState(window, states) {
     initVariables();
     initWindow();
     initTexture();
@@ -22,6 +22,7 @@ Game::~Game() {
     delete this->map;
     delete this->customer;
     delete this ->dish;
+    //FIXME check all pointer
 
     /*
     //Delete Textures
@@ -36,11 +37,12 @@ void Game::update() {
     pollEvents();
     updateCollision();
     this->waiter->update();
+    this->checkQuit();
 
     //this->updateMousePos();
 }
 
-void Game::render() {
+void Game::render(sf::RenderTarget* target) {
     /*
      * Clear the window, draw the objects of the game for the related actions and placement, displays it.
      */
@@ -81,7 +83,7 @@ void Game::pollEvents() {
     /*
      * Manage the events
      */
-
+    //FIXME check after git update
     while (this->window->pollEvent(this->ev))
     {
         switch (this->ev.type)
@@ -268,6 +270,14 @@ void Game::initMap() {
 void Game::initTexture() {
     this->texture = new Textures();
 }
+
+void Game::endState() {
+
+    std::cout << "Exit from Game" << std::endl;
+}
+
+
+
 
 
 

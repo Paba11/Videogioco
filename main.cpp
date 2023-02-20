@@ -1,11 +1,23 @@
 #include <iostream>
-#include "Game.h"
+
+#include "Videogame.h"
 
 int main() {
     //Init game engine
-    Game game;
+    Videogame videogame;
     srand(static_cast<unsigned>(time(0)));
+    while(videogame.getWindowIsOpen()){
+
+        videogame.update();
+
+
+        videogame.render();
+
+    }
     //Game loop
+    /*
+    Game game;
+
     while (game.getWindowIsOpen())
     {
         //Update
@@ -14,5 +26,6 @@ int main() {
         //Render
         game.render();
     }
+     */
 
 }

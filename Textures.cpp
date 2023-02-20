@@ -61,5 +61,10 @@ sf::Texture* Textures::getTexture(std::string name) {
      {
          std::cout << "ERROR::ENTRANCE::CAN'T LOAD TEXTURE FILE" << std::endl;
      }
+     textures["MainMenu"] = new sf::Texture();
+     if (!this->textures["MainMenu"]->loadFromFile("../Textures/new_textures/MainMenu.png"))
+     {
+         std::cout << "ERROR::MAINMENU::CAN'T LOAD TEXTURE FILE" << std::endl;
+     }
 }
 
