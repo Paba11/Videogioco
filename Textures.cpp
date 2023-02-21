@@ -76,5 +76,10 @@ sf::Texture* Textures::getTexture(std::string name) {
      {
          std::cout << "ERROR::CHEF::CAN'T LOAD TEXTURE FILE" << std::endl;
      }
+     textures["Dishwasher"] = new sf::Texture();
+     if (!this->textures["Dishwasher"]->loadFromFile("../Textures/new_textures/Dishwasher.png"))
+     {
+         std::cout << "ERROR::DISHWASHER::CAN'T LOAD TEXTURE FILE" << std::endl;
+     }
 }
 

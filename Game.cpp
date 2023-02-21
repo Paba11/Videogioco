@@ -24,6 +24,7 @@ Game::~Game() {
     delete this->customer;
     delete this ->dish;
     delete this->counter;
+    delete this->dishWasher;
     //FIXME check all pointer
 
     /*
@@ -57,6 +58,7 @@ void Game::render(sf::RenderTarget* target) {
 
     this->waiter->render(*this->window);
     this->chef->render(*this->window);
+    this->dishWasher->render(*this->window);
 
     //this->dishWasher->render(*this->window);
 

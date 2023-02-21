@@ -6,6 +6,7 @@
 
 
 DishWasher::DishWasher() {
+    initSprite();
     this->isWashing = false;
     this->timer = 5;
     this->numPlates = 0;
@@ -24,10 +25,11 @@ void DishWasher::initSprite() {
      * Set the texture on the sprite and resize it
      */
 
-    this->sprite.setTexture(*this->texture->getTexture("Waiter"));
-    this->currentFrame = sf::IntRect (200,85.f,50,50);
+    this->sprite.setTexture(*this->texture->getTexture("Dishwasher"));
+    this->currentFrame = sf::IntRect (0,0,40,40);
     this->sprite.setTextureRect(this->currentFrame);
-    this->sprite.setScale(2.5,2.5);
+    this->sprite.setScale(3.5f,3.5f);
+    this->sprite.setPosition(1080,210);
 }
 
 void DishWasher::update() {
@@ -47,18 +49,22 @@ void DishWasher::updateWashing() {
 }
 
 void DishWasher::updateAnimations() {
-    //FIXME: UPDATE THE ANIMATION OF THE DISHWASHER
+
+    if(this->isWashing)
+        this->currentFrame.top = 40.f;
+
     if(this->animationTimer.getElapsedTime().asSeconds() >= 0.4f)
     {
         //Idle animation
 
-        this->currentFrame.left += 50.f;
-        if (this->currentFrame.left >= 150)
+        this->currentFrame.left += 40.f;
+        if (this->currentFrame.left >= 120)
             this->currentFrame.left = 0;
 
         this->animationTimer.restart();
         this->sprite.setTextureRect(this->currentFrame);
     }
+
 }
 
 void DishWasher::updateVariables() {
