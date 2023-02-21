@@ -28,6 +28,8 @@ public:
     void setIsPlates(bool t);
     sf::Vector2f getPosition();
     const sf::Sprite getSprite();
+    int getNumPlates();
+    void setNumPlates(int i);
 
 private:
     //Set The texture and the sprite
@@ -35,6 +37,7 @@ private:
     sf::Sprite sprite;
     void initSprite();
     bool isPlates;
+    int numPlates;
 
 };
 

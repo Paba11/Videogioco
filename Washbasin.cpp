@@ -43,3 +43,11 @@ sf::Vector2f Washbasin::getPosition() {
 const sf::Sprite Washbasin::getSprite() {
     return this->sprite;
 }
+
+int Washbasin::getNumPlates() {
+    return this->numPlates;
+}
+
+void Washbasin::setNumPlates(int i) {
+    this->numPlates += i;
+}

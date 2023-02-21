@@ -238,15 +238,17 @@ void Waiter::putDown(Washbasin* washbasin) {
 
         //Set the table in the right state
         washbasin->setIsPlates(true);
+        int count = 0;
 
         while(!this->tray->getDishes().empty())
         {
+            count++;
             this->tray->getDish();
             this->tray->update();
             washbasin->update();
             update();
         }
-
+        washbasin->setNumPlates(count);
         //Set the tray in the right state
         this->tray->setState(1);
     }

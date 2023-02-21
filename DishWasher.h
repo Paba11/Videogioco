@@ -21,6 +21,7 @@ public:
     void updateWashing();
     void updateAnimations() override;
     void updateVariables();
+    void move();
 
     //Getters & Setters
     void setWashbasin(Washbasin& washbasin);
@@ -30,11 +31,13 @@ private:
     void initTexture() override;
     void initSprite() override;
     Textures* texture = new Textures;
-    Washbasin* washbasin;
 
-    unsigned long timer;
-    bool isPlates;
+    sf::Time time;
+    sf::Clock clock;
+    Washbasin* washbasin;
+    float timer;
     bool isWashing;
+    int numPlates;
 };
 
 

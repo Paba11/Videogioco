@@ -6,9 +6,9 @@
 
 
 DishWasher::DishWasher() {
-    this->isPlates = false;
     this->isWashing = false;
-    this->timer = 0;
+    this->timer = 5;
+    this->numPlates = 0;
 }
 
 DishWasher::~DishWasher() {
@@ -33,15 +33,21 @@ void DishWasher::initSprite() {
 void DishWasher::update() {
     updateAnimations();
     updateVariables();
-    updateWashing();
+    if(this->isWashing)
+        updateWashing();
 }
 
 void DishWasher::updateWashing() {
-
+    //FIXME: CALCULATE THE TIME TO WASH PLATES, DEPENDING ON THE TOTAL NUMBER
+    if(this->timer * this->washbasin->getNumPlates() <= this->clock.getElapsedTime().asSeconds())
+    {
+        this->isWashing = false;
+        this->numPlates = 0;
+    }
 }
 
 void DishWasher::updateAnimations() {
-
+    //FIXME: UPDATE THE ANIMATION OF THE DISHWASHER
     if(this->animationTimer.getElapsedTime().asSeconds() >= 0.4f)
     {
         //Idle animation
@@ -56,19 +62,24 @@ void DishWasher::updateAnimations() {
 }
 
 void DishWasher::updateVariables() {
-    if(this->washbasin->getIsPlates())
-    {
-        this->isPlates = true;
-    }
-    if(!this->isWashing && this->isPlates)
+    //FIXME: SET THE VARIABLES
+    if(!this->isWashing && this->washbasin->getIsPlates())
     {
         this->isWashing = true;
-        this->isPlates = false;
+        this->washbasin->setIsPlates(false);
+        this->numPlates += this->washbasin->getNumPlates();
+        this->washbasin->setNumPlates(0);
+        this->clock.restart();
+        move();
     }
 }
 
 void DishWasher::setWashbasin(Washbasin &w) {
     this->washbasin = &w;
+}
+
+void DishWasher::move() {
+    //TODO: MOVE TO THE WASHBASIN AND UPDATE THE ANIMATION
 }
 
 
