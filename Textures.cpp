@@ -37,12 +37,12 @@ sf::Texture* Textures::getTexture(std::string name) {
          std::cout << "ERROR::WAITER::CAN'T LOAD TEXTURE FILE" << std::endl;
      }
      textures["Washbasin"] = new sf::Texture();
-     if (!this->textures["Washbasin"]->loadFromFile("../Textures/new_Textures/Cucina.png"))
+     if (!this->textures["Washbasin"]->loadFromFile("../Textures/new_Textures/Lavabo.png"))
      {
          std::cout << "ERROR::Washbasin::CAN'T LOAD TEXTURE FILE" << std::endl;
      }
      textures["Kitchen"] = new sf::Texture();
-     if (!this->textures["Kitchen"]->loadFromFile("../Textures/new_textures/Bancone.png"))
+     if (!this->textures["Kitchen"]->loadFromFile("../Textures/new_textures/Cucina.png"))
      {
          std::cout << "ERROR::KITCHEN::CAN'T LOAD TEXTURE FILE" << std::endl;
      }
@@ -65,6 +65,16 @@ sf::Texture* Textures::getTexture(std::string name) {
      if (!this->textures["MainMenu"]->loadFromFile("../Textures/new_textures/MainMenu.png"))
      {
          std::cout << "ERROR::MAINMENU::CAN'T LOAD TEXTURE FILE" << std::endl;
+     }
+     textures["Chef"] = new sf::Texture();
+     if (!this->textures["Chef"]->loadFromFile("../Textures/new_textures/Chef.png"))
+     {
+         std::cout << "ERROR::CHEF::CAN'T LOAD TEXTURE FILE" << std::endl;
+     }
+     textures["Counter"] = new sf::Texture();
+     if (!this->textures["Counter"]->loadFromFile("../Textures/new_textures/Bancone.png"))
+     {
+         std::cout << "ERROR::CHEF::CAN'T LOAD TEXTURE FILE" << std::endl;
      }
 }
 

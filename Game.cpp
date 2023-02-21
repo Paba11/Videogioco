@@ -10,7 +10,6 @@ Game::Game(sf::RenderWindow* window, std::stack <ProgramState*>* states) : Progr
     initTexture();
     initBackground();
     initMap();
-    initWaiter();
     initTables();
     initPosTables();
     initDishWasher();
@@ -20,9 +19,11 @@ Game::Game(sf::RenderWindow* window, std::stack <ProgramState*>* states) : Progr
 Game::~Game() {
     delete this->window;
     delete this->waiter;
+    delete this->chef;
     delete this->map;
     delete this->customer;
     delete this ->dish;
+    delete this->counter;
     //FIXME check all pointer
 
     /*
@@ -39,6 +40,7 @@ void Game::update() {
     updateCollision();
     this->waiter->update();
     this->dishWasher->update();
+    this->chef->update();
     this->checkQuit();
 
     //this->updateMousePos();
@@ -54,6 +56,7 @@ void Game::render(sf::RenderTarget* target) {
     renderMap();
 
     this->waiter->render(*this->window);
+    this->chef->render(*this->window);
 
     //this->dishWasher->render(*this->window);
 
@@ -62,6 +65,9 @@ void Game::render(sf::RenderTarget* target) {
 
 void Game::initVariables() {
     this->window = nullptr;
+    this->counter = new Counter();
+    initWaiter();
+    initChef();
 
 }
 
@@ -133,6 +139,7 @@ void Game::initBackground() {
 void Game::renderMap() {
     this->window->draw(this->background);
     this->kitchen->render(*this->window);
+    this->counter->render(*this->window);
     this->washbasin->render(*this->window);
     this->map->render(*this->window);
     for(int i=0;i<numTables;i++) {
@@ -229,7 +236,7 @@ void Game::collision() {
         }
 
     }
-    if(this->waiter->getGlobalHitbox().intersects(this->kitchen->getBounds()))
+    if(this->waiter->getGlobalHitbox().intersects(this->counter->getBounds()))
         collisionManagement();
     for(int i=0; i< map->numTrees; i++){
         if(this->waiter->getGlobalHitbox().intersects(this->map->trees[i].getGlobalBounds()))
@@ -283,6 +290,13 @@ void Game::endState() {
 void Game::initDishWasher() {
     this->dishWasher = new DishWasher();
     this->dishWasher->setWashbasin(*this->map->getWashbasin());
+}
+
+void Game::initChef() {
+
+    this->chef = new Chef();
+    //this->chef->setMap(this->map);
+
 }
 
 

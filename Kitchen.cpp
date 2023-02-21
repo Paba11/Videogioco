@@ -35,7 +35,7 @@ Order* Kitchen::makeNewOrder() {
 void Kitchen::initSprite() {
 
     this->sprite.setTexture(*this->texture->getTexture("Kitchen"));
-    this->sprite.setPosition(1020,170);
+    this->sprite.setPosition(1200,420);
     this->sprite.setScale(3.f,3.f);
 }
 

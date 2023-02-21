@@ -6,7 +6,8 @@
 
 
 Chef::Chef() {
-
+    initSprite();
+    this->state = WAIT;
 }
 
 Chef::~Chef() {
@@ -14,26 +15,24 @@ Chef::~Chef() {
     delete this->order;
 }
 
-void Chef::initTexture() {
-    if (!this->texture.loadFromFile("../Textures/MaleWaiter.png"))
-    {
-        std::cout << "ERROR::WAITER::CAN'T LOAD TEXTURE FILE" << std::endl;
-    };
-}
+
 
 void Chef::initSprite() {
     /*
      * Set the texture on the sprite, resize it and locate the chef in the right position
      */
-
-    this->sprite.setTexture(this->texture);
-
-    this->sprite.setScale(0.3f, 0.3f);
+    this->texture = new Textures(); //FIXME move the texture pointer in the GameCharachter class (also for waiter)
+    this->sprite.setTexture(*this->texture->getTexture("Chef"));
+    this->currentFrame = sf::IntRect (0,0,40,40);
+    this->sprite.setTextureRect(this->currentFrame);
+    this->sprite.setScale(3.5f, 3.5f);
+    this->sprite.setPosition(1100,400);
 
     //this->sprite.setPosition();
 }
 
 void Chef::updateMovement(int action) {
+
 
 }
 
@@ -43,4 +42,32 @@ void Chef::move() {
 
 void Chef::setAnimation() {
 
+    if(this->state == WAIT)
+        this->currentFrame.top = 0.f;
+
+    else if(this->state == COOK)
+        this->currentFrame.top = 40.f;
+
+    this->sprite.setTextureRect(this->currentFrame);
 }
+
+void Chef::update() {
+    this->updateAnimations();
+    this->setAnimation();
+
+}
+
+void Chef::updateAnimations() {
+
+    if(this->animationTimer.getElapsedTime().asSeconds() >= 0.4f) {
+        //Idle animation
+
+        this->currentFrame.left += 40.f;
+        if (this->currentFrame.left >= 120)
+            this->currentFrame.left = 0;
+
+        this->animationTimer.restart();
+        this->sprite.setTextureRect(this->currentFrame);
+    }
+}
+

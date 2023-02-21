@@ -28,7 +28,7 @@ add_executable( videogioco                  main.cpp
                 Textures.h                  Textures.cpp
                 Tray.h                      Tray.cpp
                 Waiter.h                    Waiter.cpp
-                Washbasin.h                 Washbasin.cpp MainMenu.cpp MainMenu.h Button.cpp Button.h Videogame.cpp Videogame.h ProgramState.cpp ProgramState.h)
+                Washbasin.h                 Washbasin.cpp MainMenu.cpp MainMenu.h Button.cpp Button.h Videogame.cpp Videogame.h ProgramState.cpp ProgramState.h Counter.cpp Counter.h)
 
 
 target_link_libraries(videogioco sfml-graphics sfml-audio)

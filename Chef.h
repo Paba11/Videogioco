@@ -8,6 +8,7 @@
 #include "GameCharacter.h"
 #include "Dish.h"
 #include "Order.h"
+#include "Textures.h"
 
 
 enum Do {WAIT, COOK, DO};
@@ -21,12 +22,14 @@ public:
 
     //Chef actions
     void updateMovement(int action);
+    void update() override;
     void move();
     void setAnimation();
+    void updateAnimations() override;
 
 private:
     //Methods' override to init the texture and the sprite
-    void initTexture() override;
+    Textures* texture;
     void initSprite() override;
 
     //Attributes of the Chef

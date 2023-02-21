@@ -8,7 +8,7 @@
 GameCharacter::GameCharacter() {
     //initTexture();
     //initSprite();
-    setPositionW(100,100);
+    setPositionW(100,100); //FiXME delete
     initValidMovement();
 }
 

@@ -14,6 +14,8 @@
 #include "Table.h"
 #include "Textures.h"
 #include "ProgramState.h"
+#include "Chef.h"
+#include "Counter.h"
 #include <SFML/Graphics.hpp>
 #include <SFML/Window.hpp>
 #include <SFML/System.hpp>
@@ -65,9 +67,11 @@ private:
 
     //GameCharacters and objects
     Waiter* waiter;
+    Chef* chef;
     Dish* dish;
     Map* map;
     Kitchen* kitchen;
+    Counter* counter;
     Washbasin* washbasin;
     Customer* customer;
     DishWasher* dishWasher;
@@ -87,6 +91,7 @@ private:
     void initVariables();
     void initWindow();
     void initWaiter();
+    void initChef();
     void initBackground();
     void initTables();
     void initPosTables();
