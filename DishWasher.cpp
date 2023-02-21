@@ -33,6 +33,7 @@ void DishWasher::initSprite() {
 }
 
 void DishWasher::update() {
+    setAnimation();
     updateAnimations();
     updateVariables();
     if(this->isWashing)
@@ -50,12 +51,10 @@ void DishWasher::updateWashing() {
 
 void DishWasher::updateAnimations() {
 
-    if(this->isWashing)
-        this->currentFrame.top = 40.f;
+
 
     if(this->animationTimer.getElapsedTime().asSeconds() >= 0.4f)
     {
-        //Idle animation
 
         this->currentFrame.left += 40.f;
         if (this->currentFrame.left >= 120)
@@ -86,6 +85,16 @@ void DishWasher::setWashbasin(Washbasin &w) {
 
 void DishWasher::move() {
     //TODO: MOVE TO THE WASHBASIN AND UPDATE THE ANIMATION
+}
+
+void DishWasher::setAnimation() {
+
+    if(this->isWashing)
+        this->currentFrame.top = 40.f; //Washing animation
+    else
+        this->currentFrame.top = 0.f; //Idle animation
+
+    this->sprite.setTextureRect(this->currentFrame);
 }
 
 

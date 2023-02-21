@@ -20,6 +20,7 @@ public:
     void update() override;
     void updateWashing();
     void updateAnimations() override;
+    void setAnimation();
     void updateVariables();
     void move();
 

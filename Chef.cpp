@@ -52,8 +52,9 @@ void Chef::setAnimation() {
 }
 
 void Chef::update() {
-    this->updateAnimations();
     this->setAnimation();
+    this->updateAnimations();
+
 
 }
 
