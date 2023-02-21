@@ -8,6 +8,7 @@
 #include <map>
 #include <vector>
 #include "Waiter.h"
+#include "DishWasher.h"
 #include "Map.h"
 #include "Customer.h"
 #include "Table.h"
@@ -69,6 +70,7 @@ private:
     Kitchen* kitchen;
     Washbasin* washbasin;
     Customer* customer;
+    DishWasher* dishWasher;
     Textures* texture;
     //Table* table;
 
@@ -90,6 +92,7 @@ private:
     void initPosTables();
     void initMap();
     void initTexture();
+    void initDishWasher();
     int numTables=6;
 
 

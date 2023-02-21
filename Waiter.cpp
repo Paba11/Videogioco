@@ -145,6 +145,7 @@ void Waiter::pickUp(Kitchen* kitchen) {
     Dish* d;
     if(this->tray->getState() == EMPTY_TRAY && kitchen->getState() == FULL)
     {
+        this->state = TAKING_DISHES;
         while (!kitchen->getDishes().empty())
         {
             d = kitchen->getDish();
@@ -153,12 +154,13 @@ void Waiter::pickUp(Kitchen* kitchen) {
             kitchen->update();
             this->update();
         }
+        //Set the tray to filled
+        tray->setState(2);
+        //Set the kitchen to empty
+        kitchen->setState(0);
     }
 
-    //Set the tray to filled
-    tray->setState(2);
-    //Set the kitchen to empty
-    kitchen->setState(0);
+    this->state = STANDING;
 }
 
 
@@ -168,6 +170,7 @@ void Waiter::pickUp(Table* table) {
     Dish* d;
     if(this->tray->getState() == EMPTY_TRAY && table->getState() == ENDED)
     {
+        this->state = TAKING_EMPTY_DISHES;
         while(!table->getDishes().empty())
         {
 
@@ -198,6 +201,7 @@ void Waiter::pickUp(Table* table) {
                 break;
         }
     }
+    this->state = STANDING;
 }
 
 void Waiter::putDown(Table* table) {
@@ -206,6 +210,8 @@ void Waiter::putDown(Table* table) {
     if(this->tray->getState() == FILLED_TRAY && table->getState() == WAITING_DISHES &&
     this->tray->getDishes().front()->getTavNum() == table->getTavNum())
     {
+        this->state = LEAVING_DISHES;
+
         while(!this->tray->getDishes().empty())
         {
             table->setDish(this->tray->getDish());
@@ -219,6 +225,8 @@ void Waiter::putDown(Table* table) {
         //Set the tray in the right state
         this->tray->setState(0);
     }
+
+    this->state = STANDING;
 }
 
 void Waiter::putDown(Washbasin* washbasin) {
@@ -226,6 +234,8 @@ void Waiter::putDown(Washbasin* washbasin) {
 
     if(this->tray->getState() == EMPTY_PLATES && !washbasin->getIsPlates())
     {
+        this->state = LEAVING_EMPTY_DISHES;
+
         //Set the table in the right state
         washbasin->setIsPlates(true);
 
@@ -240,7 +250,7 @@ void Waiter::putDown(Washbasin* washbasin) {
         //Set the tray in the right state
         this->tray->setState(1);
     }
-
+    this->state = STANDING;
 }
 
 void Waiter::takingOrder(Table* table) {
@@ -252,11 +262,12 @@ void Waiter::leavingOrder(Kitchen* kitchen) {
 
     if(this->order)
     {
+        this->state = LEAVING_ORDER;
         kitchen->insertNewOrder(order);
         kitchen->update();
         this->order = nullptr;
     }
-
+    this->state = STANDING;
 }
 
 const sf::Vector2f &Waiter::getPosition() const {

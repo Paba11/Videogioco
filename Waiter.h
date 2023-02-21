@@ -13,6 +13,7 @@
 #include "Washbasin.h"
 #include "Map.h"
 #include "Textures.h"
+#include "OrderState.h"
 #include <cmath>
 
 #define INTERACT 1;

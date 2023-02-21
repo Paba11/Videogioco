@@ -13,6 +13,7 @@ Game::Game(sf::RenderWindow* window, std::stack <ProgramState*>* states) : Progr
     initWaiter();
     initTables();
     initPosTables();
+    initDishWasher();
     //initTexture();
 }
 
@@ -37,6 +38,7 @@ void Game::update() {
     pollEvents();
     updateCollision();
     this->waiter->update();
+    this->dishWasher->update();
     this->checkQuit();
 
     //this->updateMousePos();
@@ -52,6 +54,8 @@ void Game::render(sf::RenderTarget* target) {
     renderMap();
 
     this->waiter->render(*this->window);
+
+    //this->dishWasher->render(*this->window);
 
     this->window->display();
 }
@@ -274,6 +278,11 @@ void Game::initTexture() {
 void Game::endState() {
 
     std::cout << "Exit from Game" << std::endl;
+}
+
+void Game::initDishWasher() {
+    this->dishWasher = new DishWasher();
+    this->dishWasher->setWashbasin(*this->map->getWashbasin());
 }
 
 
