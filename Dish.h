@@ -11,7 +11,7 @@
 #include <SFML/System.hpp>
 #include <SFML/Audio.hpp>
 
-enum State {READY = 1, COOKING, WAITING, IN_QUEUE};
+enum State {READY, COOKING, WAITING, IN_QUEUE};
 
 
 class Dish {
@@ -44,6 +44,7 @@ protected:
     sf::Vector2f direction;
     int tavNum;
     float preparationTime;
+    State state;
 
 };
 

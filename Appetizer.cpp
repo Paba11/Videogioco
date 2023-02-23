@@ -5,10 +5,10 @@
 #include "Appetizer.h"
 
 
-Appetizer::Appetizer(int t) {
+Appetizer::Appetizer(Apt t) {
     switch(t)
     {
-        case 1:
+        case NACHOS:
             this->type = NACHOS;
     }
     initTexture();

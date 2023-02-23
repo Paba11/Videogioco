@@ -41,6 +41,7 @@ public:
 
     //Methods to manage orders
     Order* getReadyOrder();
+    std::queue<Order*>& getReadyOrders();
     void setReadyOrder(Order* order);
     void getWaitingOrder(int tavNum);
     void setWaitingOrder();

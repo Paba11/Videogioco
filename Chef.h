@@ -8,6 +8,8 @@
 #include "GameCharacter.h"
 #include "Dish.h"
 #include "Order.h"
+#include "Kitchen.h"
+#include <vector>
 #include "Textures.h"
 
 
@@ -22,10 +24,22 @@ public:
 
     //Chef actions
     void updateMovement(int action);
-    void update() override;
     void move();
     void setAnimation();
+    void cook();
+    void checkOrder();
+
+    //Update and render
+    void update() override;
+
+    //Getters & Setters
+    void setDishes(Dish& d);
+    Dish* getDish();
+    void setOrder();
+    Order* getOrder();
     void updateAnimations() override;
+    void setKitchen(Kitchen* k);
+    Kitchen* getKitchen();
 
 private:
     //Methods' override to init the texture and the sprite
@@ -37,8 +51,12 @@ private:
     int ability;
     Do state;
     Dish* dish;
+    std::vector<Dish*> dishes;
     Order* order;
     bool isClose;
+    Kitchen* kitchen;
+    sf::Time time;
+    sf::Clock clock;
 
 };
 

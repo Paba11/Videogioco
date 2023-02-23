@@ -16,7 +16,6 @@ Chef::~Chef() {
 }
 
 
-
 void Chef::initSprite() {
     /*
      * Set the texture on the sprite, resize it and locate the chef in the right position
@@ -32,7 +31,6 @@ void Chef::initSprite() {
 }
 
 void Chef::updateMovement(int action) {
-
 
 }
 
@@ -51,11 +49,60 @@ void Chef::setAnimation() {
     this->sprite.setTextureRect(this->currentFrame);
 }
 
+void Chef::setDishes(Dish& d) {
+    this->dishes.push_back(&d);
+}
+
+Dish *Chef::getDish() {
+    Dish* d = this->dishes.back();
+    this->dishes.pop_back();
+    return d;
+}
+
+void Chef::cook() {
+    //TODO: SELECT THE CURRENT DISH AND COOK IT FOR THE RIGHT TIME
+    switch(this->order->getCurrent())
+    {
+        case APPETIZER:
+            //if (this->clock.getElapsedTime() >= this->order->getAppetizers(i)) {
+
+        //} else
+            updateAnimations();
+    }
+}
+
+void Chef::setOrder() {
+    this->order = this->kitchen->getReadyOrder();
+}
+
+Order *Chef::getOrder() {
+    Order* o = this->order;
+    this->order = nullptr;
+    return o;
+}
+
+void Chef::checkOrder() {
+    if(!this->kitchen->getReadyOrders().empty())
+    {
+        setOrder();
+        this->state = COOK;
+        move();
+        this->clock.restart();
+    }
+}
+
 void Chef::update() {
+
+    if(!this->order && this->state == WAIT)
+    {
+        checkOrder();
+    }
+    if(this->state == COOK)
+    {
+        cook();
+    }
     this->setAnimation();
     this->updateAnimations();
-
-
 }
 
 void Chef::updateAnimations() {
@@ -70,5 +117,13 @@ void Chef::updateAnimations() {
         this->animationTimer.restart();
         this->sprite.setTextureRect(this->currentFrame);
     }
+}
+
+void Chef::setKitchen(Kitchen *k) {
+    this->kitchen = k;
+}
+
+Kitchen *Chef::getKitchen() {
+    return this->kitchen;
 }
 

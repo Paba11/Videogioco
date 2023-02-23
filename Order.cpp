@@ -32,3 +32,11 @@ Drk Order::getDrinks(int i) {
 const int Order::getTavNum() {
     return this->tableNumber;
 }
+
+Current Order::getCurrent() {
+    return this->current;
+}
+
+void Order::setCurrent(Current c) {
+    this->current = c;
+}

@@ -145,3 +145,7 @@ void Kitchen::setWaitingOrder() {
     this->waitingOrders.push(this->current);
     this->current = nullptr;
 }
+
+std::queue<Order *> &Kitchen::getReadyOrders() {
+    return this->readyOrders;
+}

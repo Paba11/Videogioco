@@ -84,7 +84,11 @@ void DishWasher::setWashbasin(Washbasin &w) {
 }
 
 void DishWasher::move() {
-    //TODO: MOVE TO THE WASHBASIN AND UPDATE THE ANIMATION
+    //TODO: MOVE THE DISHWASHER FROM THE TABLE TO THE WASHBASIN AND UPDATE THE ANIMATION
+}
+
+Washbasin *DishWasher::getWashbasin() {
+    return this->washbasin;
 }
 
 void DishWasher::setAnimation() {

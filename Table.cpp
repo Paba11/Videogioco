@@ -6,7 +6,7 @@
 
 Table::Table() {
     this->state = CHOOSING;
-    this->course = APPETIZER;
+    this->course = APPET;
     initSprite();
     initStoolTable();
 }
@@ -91,11 +91,11 @@ void Table::setCourse(int i) {
     switch(i)
     {
         case 0:
-            this->course = APPETIZER;
+            this->course = APPET;
         case 1:
             this->course = MAINCOURSE;
         case 2:
-            this->course = DESSERT;
+            this->course = DESS;
         case 3:
             this->course = END;
     }

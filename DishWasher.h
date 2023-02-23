@@ -26,6 +26,7 @@ public:
 
     //Getters & Setters
     void setWashbasin(Washbasin& washbasin);
+    Washbasin* getWashbasin();
 
 private:
     //Methods' override to init the texture and the sprite

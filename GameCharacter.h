@@ -39,7 +39,6 @@ public:
     //Getters & Setters
     void setEvent(sf::Event ev);
 
-
 protected:
     sf::Sprite sprite;
     sf::FloatRect hitbox = {15.f,40.f,25.f,10.f};

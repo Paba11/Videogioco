@@ -30,6 +30,7 @@ void Waiter::initSprite() {
     this->sprite.setScale(2.5,2.5);
 }
 
+
 void Waiter::updateMovement() {
     preState = this->state;
     this->state = STANDING;

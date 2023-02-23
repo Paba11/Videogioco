@@ -8,7 +8,7 @@
 GameCharacter::GameCharacter() {
     //initTexture();
     //initSprite();
-    setPositionW(100,100); //FiXME delete
+    //setPositionW(100,100); //FiXME delete
     initValidMovement();
 }
 
@@ -76,8 +76,7 @@ void GameCharacter::initValidMovement() {
 }
 
 sf::FloatRect GameCharacter::getGlobalHitbox() const {
-
-        return this->sprite.getTransform().transformRect(hitbox);
+    return this->sprite.getTransform().transformRect(hitbox);
 }
 
 void GameCharacter::setEvent(sf::Event e) {

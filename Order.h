@@ -14,10 +14,11 @@
 #include "Order.h"
 #include "Recipe.h"
 
-enum Apt {NACHOS = 1};
-enum Mn {HAMBURGER = 1, MEAT, MEATBALLS, CHICKEN};
-enum Dsr {CHOCOLATE_CAKE = 1, CHEESE_CAKE, JELLY};
-enum Drk {WATER = 1, WINE, BEER, COKE};
+enum Apt {NACHOS};
+enum Mn {HAMBURGER, MEAT, MEATBALLS, CHICKEN};
+enum Dsr {CHOCOLATE_CAKE, CHEESE_CAKE, JELLY};
+enum Drk {WATER, WINE, BEER, COKE};
+enum Current {APPETIZER, MAIN_DISH, DESSERT};
 
 #define MAX_DISHES 4
 
@@ -34,15 +35,18 @@ public:
     Dsr getDesserts(int i);
     Drk getDrinks(int i);
     const int getTavNum();
+    Current getCurrent();
+    void setCurrent(Current c);
 
 private:
     int tableNumber;
 
     //Attributes that stores the time to complete the preparation of each table course
-    Apt appetizers[MAX_DISHES];
-    Mn mainCourse[MAX_DISHES];
-    Dsr desserts[MAX_DISHES];
-    Drk drinks[MAX_DISHES];
+    std::vector<Apt> appetizers;
+    std::vector<Mn> mainCourse;
+    std::vector<Dsr> desserts;
+    std::vector<Drk> drinks;
+    Current current;
 
 };
 

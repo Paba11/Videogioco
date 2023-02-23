@@ -12,6 +12,8 @@ Game::Game(sf::RenderWindow* window, std::stack <ProgramState*>* states) : Progr
     initMap();
     initTables();
     initPosTables();
+    initWaiter();
+    initChef();
     initDishWasher();
     //initTexture();
 }
@@ -22,7 +24,7 @@ Game::~Game() {
     delete this->chef;
     delete this->map;
     delete this->customer;
-    delete this ->dish;
+    delete this->dish;
     delete this->counter;
     delete this->dishWasher;
     //FIXME check all pointer
@@ -68,8 +70,8 @@ void Game::render(sf::RenderTarget* target) {
 void Game::initVariables() {
     this->window = nullptr;
     this->counter = new Counter();
-    initWaiter();
-    initChef();
+    //initWaiter();
+    //initChef();
 
 }
 
@@ -297,7 +299,7 @@ void Game::initDishWasher() {
 void Game::initChef() {
 
     this->chef = new Chef();
-    //this->chef->setMap(this->map);
+    this->chef->setKitchen(this->kitchen);
 
 }
 

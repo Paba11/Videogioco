@@ -17,7 +17,7 @@
 #include <queue>
 
 enum TableState {CHOOSING, WAITING_TO_ORDER, WAITING_DISHES, EATING, ENDED};
-enum ActualCourse {APPETIZER, MAINCOURSE, DESSERT, END};
+enum ActualCourse {APPET, MAINCOURSE, DESS, END};
 
 
 class Table {

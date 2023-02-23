@@ -12,7 +12,7 @@ enum Apt {NACHOS = 1};
 class Appetizer final : public Dish {
 public:
     //Constructor & Destructor
-    Appetizer(int type);
+    Appetizer(Apt type);
     ~Appetizer();
 
     //Methods to initialize the texture and the sprite based on the dish type
