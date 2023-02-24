@@ -59,7 +59,7 @@ void Map::initSprites() {
     initPosTrees();
 
     entrance.setTexture(*this->texture->getTexture("Entrance"));
-    entrance.setPosition(1235.f,820.f);
+    entrance.setPosition(1235.f,850.f);
     entrance.setScale(4.f,3.f);
 }
 
@@ -82,7 +82,7 @@ void Map::initPosTrees() {
         else if(i==2)
             trees[2].setPosition(0,1020);
         else if(i==3)
-            trees[3].setPosition(1235,680);
+            trees[3].setPosition(1235,710);
     }
 }
 
