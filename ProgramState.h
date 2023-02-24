@@ -28,6 +28,7 @@ protected:
 
 private:
 
+    sf::Event ev;
     sf::RenderWindow* window;
     bool quit;
 };

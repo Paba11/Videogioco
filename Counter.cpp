@@ -43,6 +43,8 @@ void Counter::setDirtyDishes() {
     this->placeForDirtyDishes.setOutlineColor(sf::Color::White);    //Fixme set trasparent when finished
     this->placeForDirtyDishes.setOutlineThickness(1.f);
     this->placeForDirtyDishes.setFillColor(sf::Color::Transparent);
+    //this->placeForDirtyDishes.setTexture(this->texture->getTexture("Main1")); //work but only without both outline/Fill
+
 
 }
 

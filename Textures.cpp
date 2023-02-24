@@ -81,5 +81,10 @@ sf::Texture* Textures::getTexture(std::string name) {
      {
          std::cout << "ERROR::DISHWASHER::CAN'T LOAD TEXTURE FILE" << std::endl;
      }
+     textures["Main1"] = new sf::Texture();
+     if (!this->textures["Main1"]->loadFromFile("../Textures/Main1.png"))
+     {
+         std::cout << "ERROR::Main1::CAN'T LOAD TEXTURE FILE" << std::endl;
+     }
 }
 
