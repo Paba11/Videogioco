@@ -41,8 +41,9 @@ void OrderState::setTable(Table *t) {
     this->table = t;
 }
 
-void OrderState::setOrderVariables(Table* t) {
+void OrderState::setOrderVariables(Table* t, Order* o) {
     this->table = t;
+    this->order = o;
     this->order->initPointersToNull();
 }
 
@@ -96,7 +97,6 @@ void OrderState::setDrinks() {
         while(!flag)
         {
             select();
-            update();
         }
         this->order->setDrink(this->cursor);
         this->flag = false;
@@ -133,18 +133,28 @@ bool OrderState::select() {
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::W))
     {
         cursor = ((cursor-1)%actualMax);
+        update();
+        render();
     }
     else if(sf::Keyboard::isKeyPressed(sf::Keyboard::S))
     {
         cursor = ((cursor+1)%actualMax);
+        update();
+        render();
     }
     else if(sf::Keyboard::isKeyPressed(sf::Keyboard::J))
     {
         flag = true;
+        update();
+        render();
     }
     return flag;
 }
 
 void OrderState::update() {
-    //TODO: RENDER THE CURSOR IN THE CORRECT POSITION
+    //TODO: UPDATE THE CURSOR IN THE CORRECT POSITION
+}
+
+void OrderState::render() {
+    //TODO: RENDER THE TEXTURE ON THE SCREEN
 }

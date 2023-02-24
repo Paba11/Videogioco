@@ -307,7 +307,6 @@ void Game::initChef() {
 void Game::initOrderState() {
     orderState = new OrderState;
     this->waiter->setOrderState(this->orderState);
-
 }
 
 

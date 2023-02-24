@@ -5,22 +5,33 @@
 #include "Table.h"
 
 Table::Table() {
+    this->numStoolsTable = 4;
     this->state = CHOOSING;
-    this->course = APPET;
+    this->course = APPETIZER;
+    this->isOccupied = false;
+    this->customerNumber = 0;
     initSprite();
     initStoolTable();
 }
 
 Table::~Table() {
-
+    Customer* deletion;
+    while(!this->customers.empty())
+    {
+        deletion = this->customers.back();
+        this->customers.pop_back();
+        delete deletion;
+    }
 }
 
 void Table::update() {
+    if(isOccupied)
+    {
 
+    }
 }
 
 void Table::render(sf::RenderTarget &target) {
-
     target.draw(this->sprite);
 }
 
@@ -59,20 +70,8 @@ TableState Table::getState() {
     return this->state;
 }
 
-void Table::setState(int i) {
-    switch(i)
-    {
-        case 0:
-            this->state = CHOOSING;
-        case 1:
-            this->state = WAITING_TO_ORDER;
-        case 2:
-            this->state = WAITING_DISHES;
-        case 3:
-            this->state = EATING;
-        case 4:
-            this->state = ENDED;
-    }
+void Table::setState(TableState s) {
+    this->state = s;
 }
 
 Order *Table::getOrder() const {
@@ -83,22 +82,12 @@ void Table::setOrder() {
 
 }
 
-ActualCourse Table::getCourse() const {
+Current Table::getCourse() const {
     return this->course;
 }
 
-void Table::setCourse(int i) {
-    switch(i)
-    {
-        case 0:
-            this->course = APPET;
-        case 1:
-            this->course = MAINCOURSE;
-        case 2:
-            this->course = DESS;
-        case 3:
-            this->course = END;
-    }
+void Table::setCourse(Current c) {
+    this->course = c;
 }
 
 void Table::posStool(float x, float y) {
@@ -126,4 +115,21 @@ void Table::setCustomerNumber(int i) {
 
 int Table::getCustomerNumber() {
     return this->customerNumber;
+}
+
+void Table::receivingCustomers(Customer* c) {
+    this->customers.push_back(c);
+    this->customerNumber += 1;
+}
+
+void Table::ordering() {
+
+}
+
+void Table::setIsOccupied(bool t) {
+    this->isOccupied = t;
+}
+
+bool Table::getIsOccupied() {
+    return this->isOccupied;
 }

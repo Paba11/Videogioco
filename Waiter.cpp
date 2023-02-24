@@ -73,22 +73,22 @@ void Waiter::move() {
 
         switch (this->state) {
             case MOVING_LEFT:
-                if(validMovement["Left"] == true)
+                if(validMovement["Left"])
                     this->sprite.move(this->speed * (-0.15f), this->speed * (0.f));
                 break;
 
             case MOVING_RIGHT:
-                if(validMovement["Right"] == true)
+                if(validMovement["Right"])
                     this->sprite.move(this->speed * (0.15f), this->speed * (0.f));
                 break;
 
             case MOVING_UP:
-                if(validMovement["Up"] == true)
+                if(validMovement["Up"])
                     this->sprite.move(this->speed * (0.f), this->speed * (-0.15f));
                 break;
 
             case MOVING_DOWN:
-                if(validMovement["Down"] == true)
+                if(validMovement["Down"])
                     this->sprite.move(this->speed * (0.f), this->speed * (0.15f));
                 break;
         }
@@ -189,16 +189,16 @@ void Waiter::pickUp(Table* table) {
         switch(table->getCourse())
         {
             case APPETIZER:
-                table->setState(3);
-                table->setCourse(1);
+                table->setState(WAITING_DISHES);
+                table->setCourse(MAIN_DISH);
                 break;
-            case MAINCOURSE:
-                table->setState(3);
-                table->setCourse(2);
+            case MAIN_DISH:
+                table->setState(WAITING_DISHES);
+                table->setCourse(DESSERT);
                 break;
             case DESSERT:
-                table->setState(5);
-                table->setCourse(3);
+                table->setState(ENDED);
+                table->setCourse(END);
                 break;
         }
     }
@@ -222,7 +222,7 @@ void Waiter::putDown(Table* table) {
         }
 
         //Set the table in the right state
-        table->setState(4);
+        table->setState(EATING);
         //Set the tray in the right state
         this->tray->setState(0);
     }
@@ -258,7 +258,7 @@ void Waiter::putDown(Washbasin* washbasin) {
 
 void Waiter::takingOrder(Table* table) {
     this->order = new Order;
-    this->orderState->setOrderVariables(table);
+    this->orderState->setOrderVariables(table, this->order);
 
 }
 
@@ -360,7 +360,7 @@ Washbasin *Waiter::distanceWashbasin() {
     dist = std::sqrt(std::pow(w->getSprite().getPosition().x - this->sprite.getPosition().x, 2) +
             std::pow(w->getSprite().getPosition().y - this->sprite.getPosition().y, 2));
 
-    std::cout << "Washbin dist: " << dist << std::endl;
+    std::cout << "Washbasin dist: " << dist << std::endl;
 
     if(dist <= 190)
     {
@@ -370,6 +370,21 @@ Washbasin *Waiter::distanceWashbasin() {
     return w;
 }
 
+Entrance *Waiter::distanceEntrance() {
+    float dist;
+    Entrance* e = this->map->getEntrance();
+
+    dist = std::sqrt(std::pow(e->getSprite().getPosition().x - this->sprite.getPosition().x, 2) +
+                     std::pow(e->getSprite().getPosition().y - this->sprite.getPosition().y, 2));
+
+    std::cout << "Entrance distance: " << dist << std::endl;
+
+    if(dist <= 100)
+    {
+        this->isClose = IS_CLOSE_ENTRANCE;
+    }
+    return e;
+}
 
 void Waiter::update() {
     updateAnimations();
@@ -434,6 +449,33 @@ OrderState *Waiter::getOrderState() {
 void Waiter::setOrderState(OrderState *o) {
     this->orderState = o;
 }
+
+
+bool Waiter::distanceSpecificTable(Table *t) {
+    float dist;
+    bool isCloseTable = false;
+
+    dist = std::sqrt(std::pow(t->sprite.getPosition().x - this->sprite.getPosition().x, 2) +
+                     std::pow(t->sprite.getPosition().y - this->sprite.getPosition().y, 2));
+
+    if(dist <= 20)
+    {
+        isCloseTable = true;
+    }
+
+    return isCloseTable;
+}
+
+void Waiter::receivingCustomers() {
+        Table* t = &this->map->selectFreeTable();
+        //TODO: ISSUE TO THE GAMER THE SELECTED TABLE
+        while(!distanceSpecificTable(t))
+        {
+            this->state = RECEIVING_CUSTOMERS;
+
+        }
+}
+
 
 
 

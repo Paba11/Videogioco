@@ -7,6 +7,7 @@
 
 #include "Washbasin.h"
 #include "Kitchen.h"
+#include "Entrance.h"
 #include "Table.h"
 #include <SFML/Graphics.hpp>
 #include <SFML/Window.hpp>
@@ -26,7 +27,11 @@ public:
     std::vector<Table>& getAllTables();
     Kitchen* getKitchen() const;
     Washbasin* getWashbasin() const;
+    Entrance* getEntrance() const;
+    Table& selectFreeTable();
     //void setTables(std::vector<Table> allTable);
+
+    //Initialize variables, update and render
     void initTrees();
     void initSprites();
     void render(sf::RenderTarget& target);
@@ -40,8 +45,10 @@ private:
 
     //Elements of the map
     std::vector<Table> allTables;
+    std::queue<Table> occupiedTables;
     Washbasin* washbasin;
     Kitchen* kitchen;
+    Entrance* entranceObj;
     Textures* texture = new Textures;
 
 };

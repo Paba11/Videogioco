@@ -14,11 +14,13 @@
 #include "Order.h"
 #include "Recipe.h"
 #include "Stool.h"
+#include "MealMenu.h"
+#include "Customer.h"
 #include <queue>
 
 enum TableState {CHOOSING, WAITING_TO_ORDER, WAITING_DISHES, EATING, ENDED};
-enum ActualCourse {APPET, MAINCOURSE, DESS, END};
 
+#define TIME_TO_CHOOSE 15;
 
 class Table {
 public:
@@ -30,6 +32,10 @@ public:
     void initSprite();
     sf::Sprite sprite;
 
+    //Table actions
+    void receivingCustomers(Customer* c);
+    void ordering();
+
     //Getters & Setters
     int getTavNum();
     void setTavNum(int tavNum);
@@ -38,14 +44,16 @@ public:
     void setDish(Dish* dish);
     std::queue<Dish*> getDishes();
     TableState getState();
-    void setState(int i);
+    void setState(TableState s);
     Order* getOrder() const;
     void setOrder();
-    ActualCourse getCourse() const;
-    void setCourse(int i);
+    Current getCourse() const;
+    void setCourse(Current c);
     std::vector <Stool> stoolTable;
     void setCustomerNumber(int i);
     int getCustomerNumber();
+    void setIsOccupied(bool t);
+    bool getIsOccupied();
 
     //Initialize table
     void initStoolTable();
@@ -55,11 +63,14 @@ private:
     //Attributes of the table
     int tavNum;
     std::queue<Dish*> dishes;
+    std::vector<Customer*> customers;
     TableState state;
-    ActualCourse course;
+    Current course;
     Order* order;
-    int numStoolsTable = 4;
+    int numStoolsTable;
     int customerNumber;
+    sf::Clock timer;
+    bool isOccupied;
 
 };
 

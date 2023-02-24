@@ -7,12 +7,18 @@
 Map::Map() {
     this->kitchen = new Kitchen();
     this->washbasin = new Washbasin();
+    this->entranceObj = new Entrance();
     initSprites();
+    //Temporary code
+    this->entranceObj->setSprite(entrance);
+    //TODO: DEFINE THE ENTRANCE AND MOVE HIS SPRITE IN THE PROPER CLASS
+
 }
 
 Map::~Map() {
     delete this->washbasin;
     delete this->kitchen;
+    delete this->entranceObj;
     /*
     for(int i = 0; i < MAX_SIZE; i++)
     {
@@ -88,6 +94,23 @@ void Map::initPosTrees() {
 
 std::vector<Table>& Map::getAllTables() {
     return this->allTables;
+}
+
+Entrance *Map::getEntrance() const {
+    return this->entranceObj;
+}
+
+Table& Map::selectFreeTable() {
+    if(!this->allTables.empty())
+    {
+    this->occupiedTables.push(this->allTables.back());
+    this->allTables.pop_back();
+    }
+    else
+    {
+        //TODO: INSERT A SCREEN MESSAGE (ALL THE TABLES OCCUPIED)
+    }
+    return this->occupiedTables.back();
 }
 
 

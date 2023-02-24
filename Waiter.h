@@ -14,14 +14,15 @@
 #include "Map.h"
 #include "Textures.h"
 #include "OrderState.h"
+
 #include <cmath>
 
 #define INTERACT 1;
 
 enum Genre {BOY, GIRL};
-enum Actions {MOVING_UP, MOVING_DOWN, MOVING_LEFT, MOVING_RIGHT, STANDING,
+enum Actions {MOVING_UP, MOVING_DOWN, MOVING_LEFT, MOVING_RIGHT, STANDING, RECEIVING_CUSTOMERS,
         TAKING_ORDER, LEAVING_ORDER, TAKING_DISHES, LEAVING_DISHES, TAKING_EMPTY_DISHES, LEAVING_EMPTY_DISHES};
-enum Position {IS_CLOSE_TABLE, IS_CLOSE_KITCHEN, IS_CLOSE_DISHWASHER, IS_CLOSE_NOTHING};
+enum Position {IS_CLOSE_TABLE, IS_CLOSE_KITCHEN, IS_CLOSE_DISHWASHER, IS_CLOSE_NOTHING, IS_CLOSE_ENTRANCE};
 
 
 class Waiter final : public GameCharacter {
@@ -44,6 +45,8 @@ public:
     Table* distanceTable();
     Kitchen* distanceKitchen();
     Washbasin* distanceWashbasin();
+    Entrance* distanceEntrance();
+    bool distanceSpecificTable(Table* t);
     Textures* texture = new Textures;
     void pickUp(Kitchen* kitchen);
     void pickUp(Table* table);
@@ -51,6 +54,9 @@ public:
     void putDown(Washbasin* washbasin);
     void takingOrder(Table* table);
     void leavingOrder(Kitchen* kitchen);
+    void receivingCustomers();
+
+    //Update and render
     void updateAnimations() override;
 
 

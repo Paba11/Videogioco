@@ -31,10 +31,11 @@ public:
     void manageOrder();
     void setAnimation();
     void update();
+    void render();
     bool select();
 
     //Actions of the order state
-    void setOrderVariables(Table* t);
+    void setOrderVariables(Table* t, Order* o);
     void setAppetizers();
     void setMainCourses();
     void setDesserts();
