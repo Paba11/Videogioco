@@ -6,8 +6,7 @@
 #define VIDEOGIOCO_APPETIZER_H
 
 #include "Dish.h"
-
-enum Apt {NACHOS = 1};
+#include "MealMenu.h"
 
 class Appetizer final : public Dish {
 public:
@@ -18,8 +17,15 @@ public:
     //Methods to initialize the texture and the sprite based on the dish type
     void initTexture();
 
+    //Calculate the correct price
+    void calculatePrice();
+
+    //Getters & Setters
+    int getPrice();
+
 private:
     Apt type;
+    int price;
 
     //Method to initialize the preparation time;
     void initPreparationTime();

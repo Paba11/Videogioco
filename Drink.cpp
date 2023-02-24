@@ -5,18 +5,9 @@
 #include "Drink.h"
 
 
-Drink::Drink(int t) {
-    switch(t)
-    {
-        case 1:
-            this->type = WATER;
-        case 2:
-            this->type = WINE;
-        case 3:
-            this->type = BEER;
-        case 4:
-            this->type = COKE;
-    }
+Drink::Drink(Drk d) {
+    this->type = d;
+    calculatePrice();
     initTexture();
     initSprite();
 }
@@ -27,6 +18,24 @@ Drink::~Drink() {
 
 void Drink::initTexture() {
 
+}
+
+void Drink::calculatePrice() {
+    switch(this->type)
+    {
+        case WATER:
+            this->price = 2;
+        case WINE:
+            this->price = 6;
+        case BEER:
+            this->price = 5;
+        case COKE:
+            this->price = 4;
+    }
+}
+
+int Drink::getPrice() {
+    return this->price;
 }
 
 

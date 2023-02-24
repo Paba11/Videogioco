@@ -257,6 +257,8 @@ void Waiter::putDown(Washbasin* washbasin) {
 }
 
 void Waiter::takingOrder(Table* table) {
+    this->order = new Order;
+    this->orderState->setOrderVariables(table);
 
 }
 
@@ -423,6 +425,14 @@ Map *Waiter::getMap() {
 
 void Waiter::setMap(Map *m) {
     this->map = m;
+}
+
+OrderState *Waiter::getOrderState() {
+    return this->orderState;
+}
+
+void Waiter::setOrderState(OrderState *o) {
+    this->orderState = o;
 }
 
 

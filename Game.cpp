@@ -15,6 +15,7 @@ Game::Game(sf::RenderWindow* window, std::stack <ProgramState*>* states) : Progr
     initWaiter();
     initChef();
     initDishWasher();
+    initOrderState();
     //initTexture();
 }
 
@@ -300,6 +301,12 @@ void Game::initChef() {
 
     this->chef = new Chef();
     this->chef->setKitchen(this->kitchen);
+
+}
+
+void Game::initOrderState() {
+    orderState = new OrderState;
+    this->waiter->setOrderState(this->orderState);
 
 }
 

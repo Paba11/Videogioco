@@ -5,16 +5,9 @@
 #include "Dessert.h"
 
 
-Dessert::Dessert(int t) {
-    switch(t)
-    {
-        case 1:
-            this->type = CHOCOLATE_CAKE;
-        case 2:
-            this->type = CHEESE_CAKE;
-        case 3:
-            this->type = JELLY;
-    }
+Dessert::Dessert(Dsr d) {
+    this->type = d;
+    calculatePrice();
     initTexture();
     initSprite();
 }
@@ -54,4 +47,20 @@ void Dessert::initPreparationTime() {
         case JELLY:
             this->preparationTime = 8;
     }
+}
+
+void Dessert::calculatePrice() {
+    switch(this->type)
+    {
+        case CHOCOLATE_CAKE:
+            this->price = 5;
+        case CHEESE_CAKE:
+            this->price = 6;
+        case JELLY:
+            this->price = 4;
+    }
+}
+
+int Dessert::getPrice() {
+    return this->price;
 }

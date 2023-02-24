@@ -6,11 +6,8 @@
 
 
 Appetizer::Appetizer(Apt t) {
-    switch(t)
-    {
-        case NACHOS:
-            this->type = NACHOS;
-    }
+    this->type = t;
+    calculatePrice();
     initTexture();
     initSprite();
 }
@@ -47,4 +44,16 @@ void Appetizer::initPreparationTime() {
         case NACHOS:
             this->preparationTime = 10;
     }
+}
+
+void Appetizer::calculatePrice() {
+    switch(this->type)
+    {
+        case NACHOS:
+            this->price = 8;
+    }
+}
+
+int Appetizer::getPrice() {
+    return this->price;
 }

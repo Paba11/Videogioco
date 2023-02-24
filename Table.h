@@ -44,6 +44,8 @@ public:
     ActualCourse getCourse() const;
     void setCourse(int i);
     std::vector <Stool> stoolTable;
+    void setCustomerNumber(int i);
+    int getCustomerNumber();
 
     //Initialize table
     void initStoolTable();
@@ -57,6 +59,7 @@ private:
     ActualCourse course;
     Order* order;
     int numStoolsTable = 4;
+    int customerNumber;
 
 };
 

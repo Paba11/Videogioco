@@ -6,23 +6,29 @@
 #define VIDEOGIOCO_MAINCOURSE_H
 
 #include "Dish.h"
-
-enum Mn {HAMBURGER = 1, MEAT, MEATBALLS, CHICKEN};
+#include "MealMenu.h"
 
 class MainCourse final : public Dish {
 public:
     //Constructor & Destructor
-    MainCourse(int Type);
+    MainCourse(Mn t);
     ~MainCourse();
 
     //Methods to initialize the texture and the sprite based on the dish type
     void initTexture();
+
+    //Calculate the correct price
+    void calculatePrice();
+
+    //Getters & Setters
+    int getPrice();
 
 private:
     //Method to initialize the preparation time;
     void initPreparationTime();
 
     Mn type;
+    int price;
 
 };
 

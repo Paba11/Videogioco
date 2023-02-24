@@ -6,21 +6,27 @@
 #define VIDEOGIOCO_DRINK_H
 
 #include "Dish.h"
-
-enum Drk {WATER = 1, WINE, BEER, COKE};
+#include "MealMenu.h"
 
 class Drink final : public Dish {
 public:
     //Constructor & Destructor
-    Drink(int type);
+    Drink(Drk d);
     ~Drink();
 
     //Methods to initialize the texture and the sprite based on the dish type
     void initTexture();
 
+    //Calculate price
+    void calculatePrice();
+
+    //Getters & Setters
+    int getPrice();
+
 private:
 
     Drk type;
+    int price;
 
 };
 

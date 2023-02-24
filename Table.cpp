@@ -119,3 +119,11 @@ void Table::initStoolTable() {
 std::queue<Dish *> Table::getDishes() {
     return this->dishes;
 }
+
+void Table::setCustomerNumber(int i) {
+    this->customerNumber = i;
+}
+
+int Table::getCustomerNumber() {
+    return this->customerNumber;
+}

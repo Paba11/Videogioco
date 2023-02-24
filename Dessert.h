@@ -7,23 +7,29 @@
 
 
 #include "Dish.h"
-
-enum Dsr {CHOCOLATE_CAKE = 1, CHEESE_CAKE, JELLY};
+#include "MealMenu.h"
 
 class Dessert final : public Dish {
 public:
     //Constructor & Destructor
-    Dessert(int type);
+    Dessert(Dsr d);
     ~Dessert();
 
     //Methods to initialize the texture and the sprite based on the dish type
     void initTexture();
+
+    //Calculate the correct price
+    void calculatePrice();
+
+    //Getters & Setters
+    int getPrice();
 
 private:
     //Method to initialize the preparation time;
     void initPreparationTime();
 
     Dsr type;
+    int price;
 
 };
 

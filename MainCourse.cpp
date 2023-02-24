@@ -5,18 +5,9 @@
 #include "MainCourse.h"
 
 
-MainCourse::MainCourse(int t) {
-    switch(t)
-    {
-        case 1:
-            this->type = HAMBURGER;
-        case 2:
-            this->type = MEAT;
-        case 3:
-            this->type = MEATBALLS;
-        case 4:
-            this->type = CHICKEN;
-    }
+MainCourse::MainCourse(Mn t) {
+    this->type = t;
+    calculatePrice();
     initTexture();
     initSprite();
 }
@@ -63,4 +54,22 @@ void MainCourse::initPreparationTime() {
         case MEATBALLS:
             this->preparationTime = 30;
     }
+}
+
+void MainCourse::calculatePrice() {
+    switch(this->type)
+    {
+        case HAMBURGER:
+            this->price = 14;
+        case MEAT:
+            this->price = 18;
+        case MEATBALLS:
+            this->price = 15;
+        case CHICKEN:
+            this->price = 12;
+    }
+}
+
+int MainCourse::getPrice() {
+    return this->price;
 }

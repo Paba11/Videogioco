@@ -11,16 +11,8 @@
 #include <SFML/System.hpp>
 #include <SFML/Audio.hpp>
 #include "Dish.h"
-#include "Order.h"
 #include "Recipe.h"
-
-enum Apt {NACHOS};
-enum Mn {HAMBURGER, MEAT, MEATBALLS, CHICKEN};
-enum Dsr {CHOCOLATE_CAKE, CHEESE_CAKE, JELLY};
-enum Drk {WATER, WINE, BEER, COKE};
-enum Current {APPETIZER, MAIN_DISH, DESSERT};
-
-#define MAX_DISHES 4
+#include "MealMenu.h"
 
 
 class Order {
@@ -29,14 +21,26 @@ public:
     Order();
     ~Order();
 
+    void initPointersToNull();
+
     //Getters & Setters
-    Apt getAppetizers(int i);
+    Apt getAppetizer(int i);
+    std::vector<Apt>& getAppetizers();
+    void setAppetizer(int i);
     Mn getMainCourse(int i);
-    Dsr getDesserts(int i);
-    Drk getDrinks(int i);
-    const int getTavNum();
+    std::vector<Mn>& getMainCourses();
+    void setMainCourse(int i);
+    Dsr getDessert(int i);
+    std::vector<Dsr>& getDesserts();
+    void setDessert(int i);
+    Drk getDrink(int i);
+    std::vector<Drk>& getDrinks();
+    void setDrink(int i);
+    const int getTableNumber();
+    void setTableNumber(int i);
     Current getCurrent();
     void setCurrent(Current c);
+
 
 private:
     int tableNumber;
@@ -46,6 +50,10 @@ private:
     std::vector<Mn> mainCourse;
     std::vector<Dsr> desserts;
     std::vector<Drk> drinks;
+    Apt* apt;
+    Mn* mn;
+    Dsr* dsr;
+    Drk* drk;
     Current current;
 
 };

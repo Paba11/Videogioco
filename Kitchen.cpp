@@ -117,7 +117,7 @@ void Kitchen::getWaitingOrder(int tavNum) {
     std::queue<Order*> tmp;
     while(i != tavNum && !this->waitingOrders.empty())
     {
-        i = this->waitingOrders.front()->getTavNum();
+        i = this->waitingOrders.front()->getTableNumber();
         tmp.push(this->waitingOrders.front());
         this->waitingOrders.pop();
     }

@@ -59,6 +59,8 @@ public:
     Actions getState();
     Map* getMap();
     void setMap(Map* map);
+    OrderState* getOrderState();
+    void setOrderState(OrderState* o);
 
 
 protected:
@@ -76,6 +78,7 @@ protected:
     Tray* tray;
     Map* map;
     float centreWaiterX, centreWaiterY;
+    OrderState* orderState;
 
 };
 

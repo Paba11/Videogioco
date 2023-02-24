@@ -76,6 +76,7 @@ private:
     Customer* customer;
     DishWasher* dishWasher;
     Textures* texture;
+    OrderState* orderState;
     //Table* table;
 
 
@@ -98,6 +99,7 @@ private:
     void initMap();
     void initTexture();
     void initDishWasher();
+    void initOrderState();
     int numTables=6;
 
 
