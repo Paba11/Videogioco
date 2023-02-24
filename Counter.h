@@ -17,10 +17,16 @@ public:
     ~Counter();
     void render(sf::RenderTarget& target);
     const sf::FloatRect getBounds() const;
+    void setDirtyDishes();
+    void setChefDishes();
 
 private:
     sf::Sprite sprite;
+    sf::RectangleShape placeForDirtyDishes;
+    std::vector <sf::RectangleShape> chefDishes;
     Textures* texture;
+
+    sf::Vector2f dishHitbox = {85.f,80.f};
 
     void initSprite();
 
