@@ -22,15 +22,16 @@ public:
     virtual void endState() = 0;
     void checkQuit();
     const bool getQuit() const;
+
 protected:
     std::stack <ProgramState*>* states;
+    bool quit;
 
 
 private:
 
     sf::Event ev;
     sf::RenderWindow* window;
-    bool quit;
 };
 
 
