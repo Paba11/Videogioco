@@ -108,11 +108,11 @@ void Game::pollEvents() {
         switch (this->ev.type)
         {
             case sf::Event::Closed:
-                this->window->close();
+                this->quit = true;
                 break;
             case sf::Event::KeyPressed:
                 if (this->ev.key.code == sf::Keyboard::Escape)
-                    this->window->close();
+                    this->quit = true;
                 else {
                     //this->waiter->updateMovement();
                     //this->waiter->interact(this->map);
