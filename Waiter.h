@@ -53,6 +53,7 @@ public:
     Entrance* distanceEntrance();
     bool distanceSpecificTable(Table* t);
 
+
     //Getters & Setters
     const sf::Vector2f& getPosition() const;
     Actions getState();

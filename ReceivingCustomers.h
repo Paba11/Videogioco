@@ -23,7 +23,6 @@ public:
     void setCustomer(Customer& customer);
     std::vector<Customer>& getCustomers();
 
-
 private:
     Map* map;
     Table* table;

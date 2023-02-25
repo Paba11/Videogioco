@@ -34,6 +34,7 @@ public:
     void render();
     bool select();
 
+
     //Actions of the order state
     void setOrderVariables(Table* t, Order* o);
     void setAppetizers();

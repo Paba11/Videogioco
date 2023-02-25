@@ -8,6 +8,7 @@ Entrance::Entrance() {
     initTexture();
     initSprite();
     this->isCustomer = false;
+
 }
 
 Entrance::~Entrance() {

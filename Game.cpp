@@ -313,6 +313,7 @@ void Game::initOrderState() {
     this->waiter->setOrderState(this->orderState);
 }
 
+
 void Game::generateCustomers() {
     if(this->clock.getElapsedTime().asSeconds() >= this->level->getCustomerArrival()
     && !this->map->getEntrance()->getIsCustomer() && this->level->getTotalCustomerNumber() > 0)

@@ -103,6 +103,7 @@ void OrderState::setDrinks() {
     }
 }
 
+
 void OrderState::manageOrder() {
     setDrinks();
     setAppetizers();

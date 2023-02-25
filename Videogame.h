@@ -11,7 +11,6 @@
 #include "Game.h"
 #include "MainMenu.h"
 
-
 class Videogame {
 public:
     Videogame();

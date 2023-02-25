@@ -110,6 +110,7 @@ Table& Map::selectFreeTable() {
     {
         //TODO: INSERT A SCREEN MESSAGE (ALL THE TABLES OCCUPIED)
     }
+
     return this->occupiedTables.back();
 }
 

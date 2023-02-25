@@ -30,7 +30,6 @@ public:
     const bool getWindowIsOpen();
     void pollEvents();
 
-
     void endState() override;
 
 private:

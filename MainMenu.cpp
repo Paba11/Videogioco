@@ -112,6 +112,7 @@ void MainMenu::initButtons() {
                                        sf::Color(20,20,20,200));
 }
 
+
 void MainMenu::updateButtons() {
 
     for(auto it : this->buttons)

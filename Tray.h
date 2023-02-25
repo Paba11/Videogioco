@@ -37,6 +37,7 @@ public:
     void setDish(Dish* dish);
     std::queue<Dish*>& getDishes();
 
+
 private:
     void initTexture();
     void initSprite();

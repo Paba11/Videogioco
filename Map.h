@@ -50,7 +50,6 @@ private:
     Kitchen* kitchen;
     Entrance* entranceObj;
     Textures* texture = new Textures;
-
 };
 
 

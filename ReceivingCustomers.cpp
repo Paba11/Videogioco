@@ -32,6 +32,7 @@ void ReceivingCustomers::setCustomers(std::vector<Customer>& c) {
         c.pop_back();
         this->customers.push_back(*this->customer);
     }
+
 }
 
 

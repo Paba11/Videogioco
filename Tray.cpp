@@ -45,6 +45,7 @@ void Tray::setState(TrayState ts) {
     this->state = ts;
 }
 
+
 TrayState Tray::getState() {
     return this->state;
 }

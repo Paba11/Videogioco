@@ -25,4 +25,5 @@ void Customer::render() {
 
 void Customer::moveToChair() {
 
+
 }

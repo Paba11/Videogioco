@@ -12,6 +12,7 @@ Table::Table() {
     this->customerNumber = 0;
     initSprite();
     initStoolTable();
+
 }
 
 Table::~Table() {

@@ -9,6 +9,7 @@ Videogame::Videogame() {
     initStates();
 }
 
+
 Videogame::~Videogame() {
     delete this->window;
 

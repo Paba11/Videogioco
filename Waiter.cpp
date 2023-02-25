@@ -24,6 +24,7 @@ Waiter::~Waiter() {
     delete this->order;
 }
 
+
 void Waiter::initSprite() {
     /*
      * Set the texture on the sprite and resize it

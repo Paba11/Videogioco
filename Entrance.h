@@ -22,6 +22,7 @@ public:
     void setIsCustomer(bool t);
     bool getIsCustomer();
 
+
 private:
     sf::Sprite sprite;
     void initSprite();
