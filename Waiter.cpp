@@ -7,12 +7,16 @@
 
 Waiter::Waiter() {
     initSprite();
-    this->state = STANDING;
+    this->state = DOING_NOTHING;
+    this->movingStatus = STANDING;
+    this->preMovingStatus = STANDING;
     this->speed = 8;
     this->isClose = IS_CLOSE_NOTHING;
-    this->tray = nullptr;
+    this->tray = new Tray();
     this->order = nullptr;
-
+    this->orderState = nullptr;
+    this->receivingCustomers = nullptr;
+    this->targetCustomer = nullptr;
 }
 
 Waiter::~Waiter() {
@@ -32,38 +36,39 @@ void Waiter::initSprite() {
 
 
 void Waiter::updateMovement() {
-    preState = this->state;
-    this->state = STANDING;
+    this->preMovingStatus = this->movingStatus;
+    this->movingStatus = STANDING;
 
     //variabile evento ev
 
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)) {
-        this->state = MOVING_LEFT;
-        if(preState != this->state)
+        this->movingStatus = MOVING_LEFT;
+        if(preMovingStatus != this->movingStatus)
             validMovement["Left"] = true;
 
     }
     else if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)) {
-        this->state = MOVING_RIGHT;
-        if(preState != this->state)
+        this->movingStatus = MOVING_RIGHT;
+        if(preMovingStatus != this->movingStatus)
             validMovement["Right"] = true;
 
     }
     else if (sf::Keyboard::isKeyPressed(sf::Keyboard::W)) {
-        this->state = MOVING_UP;
-        if(preState != this->state)
+        this->movingStatus = MOVING_UP;
+        if(preMovingStatus != this->movingStatus)
             validMovement["Up"] = true;
     }
     else if (sf::Keyboard::isKeyPressed(sf::Keyboard::S)) {
-        this->state = MOVING_DOWN;
-        if(preState != this->state)
+        this->movingStatus = MOVING_DOWN;
+        if(preMovingStatus != this->movingStatus)
             validMovement["Down"] = true;
     }
 
     setAnimation();
-    if(this->state == STANDING && (sf::Keyboard::isKeyPressed(sf::Keyboard::J) ||
-    sf::Keyboard::isKeyPressed(sf::Keyboard::L) || sf::Keyboard::isKeyPressed(sf::Keyboard::K)))
-        interact();
+    //CONTROL THE INTERACTIONS
+    if(sf::Keyboard::isKeyPressed(sf::Keyboard::J) || sf::Keyboard::isKeyPressed(sf::Keyboard::L)
+    || sf::Keyboard::isKeyPressed(sf::Keyboard::K))
+        interactionManagement();
     else
         move();
 
@@ -71,7 +76,7 @@ void Waiter::updateMovement() {
 
 void Waiter::move() {
 
-        switch (this->state) {
+        switch (this->movingStatus) {
             case MOVING_LEFT:
                 if(validMovement["Left"])
                     this->sprite.move(this->speed * (-0.15f), this->speed * (0.f));
@@ -91,6 +96,8 @@ void Waiter::move() {
                 if(validMovement["Down"])
                     this->sprite.move(this->speed * (0.f), this->speed * (0.15f));
                 break;
+            case STANDING:
+                break;
         }
 
 }
@@ -99,20 +106,27 @@ void Waiter::interact() {
     Table* table = distanceTable();
     Kitchen* kitchen = distanceKitchen();
     Washbasin* washbasin = distanceWashbasin();
+    distanceEntrance();
 
-    if(sf::Keyboard::isKeyPressed(sf::Keyboard::J) && !this->tray)
+    if(sf::Keyboard::isKeyPressed(sf::Keyboard::J))
     {
 
         if(this->order && this->isClose == IS_CLOSE_KITCHEN) {
             leavingOrder(kitchen);
             std::cout << "IsClose Kitchen works correctly" << std::endl;
+            this->isClose = IS_CLOSE_NOTHING;
         }
         else if(!this->order && this->isClose == IS_CLOSE_TABLE) {
             takingOrder(table);
             std::cout << "IsClose Table works correctly" << std::endl;
+            this->isClose = IS_CLOSE_NOTHING;
+        }
+        else if(!this->order && this->isClose == IS_CLOSE_ENTRANCE && this->map->getEntrance()->getIsCustomer()) {
+            this->state = RECEIVING_CUSTOMERS;
+            this->targetTable = receivingCustomers->pickEmptyTable();
         }
     }
-    else if(sf::Keyboard::isKeyPressed(sf::Keyboard::K) && this->tray && !this->order &&
+    else if(sf::Keyboard::isKeyPressed(sf::Keyboard::K) && this->tray->getState() == EMPTY_TRAY && !this->order &&
     (this->isClose == IS_CLOSE_TABLE || this->isClose == IS_CLOSE_KITCHEN))
     {
         if(this->isClose == IS_CLOSE_TABLE) {
@@ -123,20 +137,22 @@ void Waiter::interact() {
             pickUp(kitchen);
             std::cout << "PickUp kitchen works correctly" << std::endl;
         }
+        this->isClose = IS_CLOSE_NOTHING;
     }
-    else if(sf::Keyboard::isKeyPressed(sf::Keyboard::L) && this->tray && !this->order &&
+    else if(sf::Keyboard::isKeyPressed(sf::Keyboard::L) && !this->order &&
     (this->isClose == IS_CLOSE_TABLE || this->isClose == IS_CLOSE_DISHWASHER))
     {
-        if (this->isClose == IS_CLOSE_TABLE) {
+        if (this->isClose == IS_CLOSE_TABLE && this->tray->getState() == FILLED_TRAY) {
             putDown(table);
             std::cout << "PutDown Table works correctly" << std::endl;
         }
-        else if (this->isClose == IS_CLOSE_DISHWASHER) {
+        else if (this->isClose == IS_CLOSE_DISHWASHER && this->tray->getState() == EMPTY_PLATES) {
             putDown(washbasin);
             std::cout << "IsClose Table works correctly" << std::endl;
         }
+        this->isClose = IS_CLOSE_NOTHING;
     }
-    this->isClose = IS_CLOSE_NOTHING;
+
 }
 
 
@@ -156,12 +172,12 @@ void Waiter::pickUp(Kitchen* kitchen) {
             this->update();
         }
         //Set the tray to filled
-        tray->setState(2);
+        tray->setState(FILLED_TRAY);
         //Set the kitchen to empty
         kitchen->setState(0);
     }
 
-    this->state = STANDING;
+    this->state = DOING_NOTHING;
 }
 
 
@@ -183,7 +199,7 @@ void Waiter::pickUp(Table* table) {
         }
 
         //Set the tray to empty plates
-        tray->setState(0);
+        tray->setState(EMPTY_PLATES);
 
         //Set the table to the next instruction on the order
         switch(table->getCourse())
@@ -202,7 +218,7 @@ void Waiter::pickUp(Table* table) {
                 break;
         }
     }
-    this->state = STANDING;
+    this->state = DOING_NOTHING;
 }
 
 void Waiter::putDown(Table* table) {
@@ -224,10 +240,10 @@ void Waiter::putDown(Table* table) {
         //Set the table in the right state
         table->setState(EATING);
         //Set the tray in the right state
-        this->tray->setState(0);
+        this->tray->setState(EMPTY_TRAY);
     }
 
-    this->state = STANDING;
+    this->state = DOING_NOTHING;
 }
 
 void Waiter::putDown(Washbasin* washbasin) {
@@ -251,9 +267,9 @@ void Waiter::putDown(Washbasin* washbasin) {
         }
         washbasin->setNumPlates(count);
         //Set the tray in the right state
-        this->tray->setState(1);
+        this->tray->setState(EMPTY_TRAY);
     }
-    this->state = STANDING;
+    this->state = DOING_NOTHING;
 }
 
 void Waiter::takingOrder(Table* table) {
@@ -272,7 +288,7 @@ void Waiter::leavingOrder(Kitchen* kitchen) {
         kitchen->update();
         this->order = nullptr;
     }
-    this->state = STANDING;
+    this->state = DOING_NOTHING;
 }
 
 const sf::Vector2f &Waiter::getPosition() const {
@@ -321,9 +337,6 @@ Kitchen *Waiter::distanceKitchen() {
      * Calculate the position of the waiter from the Kitchen
      */
 
-    //TODO: SET THE KITCHEN SPRITE IN A SPECIFIC POINT
-
-    sf::Vector2f distVector;
     float dist;
     Kitchen* k = this->map->getKitchen();
 
@@ -348,8 +361,6 @@ Washbasin *Waiter::distanceWashbasin() {
     /*
      * Calculate the position of the waiter from the Washbasin
      */
-
-    //TODO: SET THE WASHBIN SPRITE IN THE CORRECT POSITION (It's almost correct)
 
     float dist;
     Washbasin* w = this->map->getWashbasin();
@@ -411,19 +422,19 @@ void Waiter::updateAnimations() {
 
 void Waiter::setAnimation() {
 
-    if(this->state == STANDING)
+    if(this->movingStatus == STANDING)
         this->currentFrame.top = 0.f;
 
-    else if(this->state == MOVING_DOWN)
+    else if(this->movingStatus == MOVING_DOWN)
         this->currentFrame.top = 50.f;
 
-    else if(this->state == MOVING_LEFT)
+    else if(this->movingStatus == MOVING_LEFT)
         this->currentFrame.top = 100.f;
 
-    else if(this->state == MOVING_RIGHT)
+    else if(this->movingStatus == MOVING_RIGHT)
         this->currentFrame.top = 150.f;
 
-    else if(this->state == MOVING_UP)
+    else if(this->movingStatus == MOVING_UP)
         this->currentFrame.top = 200.f;
 
     this->sprite.setTextureRect(this->currentFrame);
@@ -466,15 +477,45 @@ bool Waiter::distanceSpecificTable(Table *t) {
     return isCloseTable;
 }
 
-void Waiter::receivingCustomers() {
-        Table* t = &this->map->selectFreeTable();
-        //TODO: ISSUE TO THE GAMER THE SELECTED TABLE
-        while(!distanceSpecificTable(t))
-        {
-            this->state = RECEIVING_CUSTOMERS;
-
-        }
+Move Waiter::getMove() {
+    return this->movingStatus;
 }
+
+void Waiter::receivedCustomers() {
+    if(distanceSpecificTable(this->targetTable))
+    {
+        //Move all the customer object inside the table vector
+        this->targetTable->receivingCustomers(this->receivingCustomers->getCustomers());
+        delete this->receivingCustomers;
+        this->receivingCustomers = nullptr;
+        delete this->targetTable;
+        this->targetTable = nullptr;
+        this->map->getEntrance()->setIsCustomer(false);
+        this->state = DOING_NOTHING;
+    }
+}
+
+void Waiter::interactionManagement() {
+    if(this->state != RECEIVING_CUSTOMERS && this->state != TAKING_ORDER)
+        interact();
+    else if(this->state == RECEIVING_CUSTOMERS && distanceSpecificTable(this->targetTable))
+        receivedCustomers();
+}
+
+void Waiter::setReceivingCustomers(ReceivingCustomers *rc) {
+    this->receivingCustomers = rc;
+}
+
+/*
+bool Waiter::getIsCustomer() {
+    return this->isCustomer;
+}
+
+void Waiter::setIsCustomer(bool t) {
+    this->isCustomer = t;
+}
+*/
+
 
 
 

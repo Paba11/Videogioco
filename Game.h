@@ -16,11 +16,14 @@
 #include "ProgramState.h"
 #include "Chef.h"
 #include "Counter.h"
+#include "Level.h"
+#include "ReceivingCustomers.h"
 #include <SFML/Graphics.hpp>
 #include <SFML/Window.hpp>
 #include <SFML/System.hpp>
 #include <SFML/Audio.hpp>
 #include <list>
+#include <random>
 
 class Game : public ProgramState{
 public:
@@ -42,6 +45,9 @@ public:
     void collision();
     void collisionManagement();
 
+    //Generate Customers and random numbers
+    void generateCustomers();
+    void generateRandom();
 
     //Method to manage the events
     void pollEvents();
@@ -51,6 +57,10 @@ public:
 
     //Method to check if the window is still open, so if the game is running
     const bool getWindowIsOpen();
+
+    //Update the current level
+    void updateLevel();
+    void nextLevel();
 
     //Getter & Setter for the attributes
 
@@ -77,8 +87,16 @@ private:
     DishWasher* dishWasher;
     Textures* texture;
     OrderState* orderState;
+    ReceivingCustomers* receivingCustomers;
     //Table* table;
 
+    //Level variables management
+    Level* level;
+
+    //Generate random numbers
+    std::random_device rd;
+    int random;
+    sf::Clock clock;
 
     //BackGround;
     sf::Sprite background;
@@ -100,6 +118,7 @@ private:
     void initTexture();
     void initDishWasher();
     void initOrderState();
+    void initLevel();
     int numTables=6;
 
 

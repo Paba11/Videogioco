@@ -31,7 +31,7 @@ public:
     const sf::Vector2f& getPosition() const;
 
     //Method to set the tray state
-    void setState(int t);
+    void setState(TrayState ts);
     TrayState getState();
     Dish* getDish();
     void setDish(Dish* dish);

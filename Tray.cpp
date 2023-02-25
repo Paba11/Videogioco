@@ -41,16 +41,8 @@ const sf::Vector2f &Tray::getPosition() const {
     return this->sprite.getPosition();
 }
 
-void Tray::setState(int t) {
-    switch(t)
-    {
-        case 0:
-            this->state = EMPTY_PLATES;
-        case 1:
-            this->state = EMPTY_TRAY;
-        case 2:
-            this->state = FILLED_TRAY;
-    }
+void Tray::setState(TrayState ts) {
+    this->state = ts;
 }
 
 TrayState Tray::getState() {

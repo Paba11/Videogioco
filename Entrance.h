@@ -19,11 +19,15 @@ public:
 
     void setSprite(sf::Sprite& e);
     sf::Sprite getSprite();
+    void setIsCustomer(bool t);
+    bool getIsCustomer();
 
 private:
     sf::Sprite sprite;
     void initSprite();
     void initTexture();
+
+    bool isCustomer;
 
 };
 

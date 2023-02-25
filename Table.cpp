@@ -15,13 +15,7 @@ Table::Table() {
 }
 
 Table::~Table() {
-    Customer* deletion;
-    while(!this->customers.empty())
-    {
-        deletion = this->customers.back();
-        this->customers.pop_back();
-        delete deletion;
-    }
+
 }
 
 void Table::update() {
@@ -117,9 +111,12 @@ int Table::getCustomerNumber() {
     return this->customerNumber;
 }
 
-void Table::receivingCustomers(Customer* c) {
-    this->customers.push_back(c);
-    this->customerNumber += 1;
+void Table::receivingCustomers(std::vector<Customer>& c) {
+    this->customers.reserve(c.size());
+    this->customerNumber += c.size();
+    this->isOccupied = true;
+    std::move(c.begin(), c.end(), std::back_inserter(this->customers));
+    c.clear();
 }
 
 void Table::ordering() {
@@ -132,4 +129,17 @@ void Table::setIsOccupied(bool t) {
 
 bool Table::getIsOccupied() {
     return this->isOccupied;
+}
+
+void Table::setCustomers(std::vector<Customer> &cust) {
+    /*
+     * Move all the elements of the passed vector to the one of te customer
+     */
+    this->customers.reserve(cust.size());
+    std::move(cust.begin(), cust.end(), std::back_inserter(this->customers));
+    cust.clear();
+}
+
+std::vector<Customer> &Table::getCustomers() {
+    return this->customers;
 }

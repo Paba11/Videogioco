@@ -14,15 +14,11 @@
 #include "Map.h"
 #include "Textures.h"
 #include "OrderState.h"
-
+#include "WaiterStates.h"
+#include "ReceivingCustomers.h"
 #include <cmath>
 
 #define INTERACT 1;
-
-enum Genre {BOY, GIRL};
-enum Actions {MOVING_UP, MOVING_DOWN, MOVING_LEFT, MOVING_RIGHT, STANDING, RECEIVING_CUSTOMERS,
-        TAKING_ORDER, LEAVING_ORDER, TAKING_DISHES, LEAVING_DISHES, TAKING_EMPTY_DISHES, LEAVING_EMPTY_DISHES};
-enum Position {IS_CLOSE_TABLE, IS_CLOSE_KITCHEN, IS_CLOSE_DISHWASHER, IS_CLOSE_NOTHING, IS_CLOSE_ENTRANCE};
 
 
 class Waiter final : public GameCharacter {
@@ -31,42 +27,41 @@ public:
     Waiter();
     ~Waiter() override;
 
-    //Method to manage the game events
-    //void pollEvent();
-
-    //Method to move the waiter
+    //Method to move, update and render the waiter
     void updateMovement();
     void update() override;
+    void updateAnimations() override;
+    Textures* texture = new Textures;
     void move();
     void setAnimation();
 
     //Methods to interact with the customer
     void interact();
-    Table* distanceTable();
-    Kitchen* distanceKitchen();
-    Washbasin* distanceWashbasin();
-    Entrance* distanceEntrance();
-    bool distanceSpecificTable(Table* t);
-    Textures* texture = new Textures;
+    void interactionManagement();
     void pickUp(Kitchen* kitchen);
     void pickUp(Table* table);
     void putDown(Table* table);
     void putDown(Washbasin* washbasin);
     void takingOrder(Table* table);
     void leavingOrder(Kitchen* kitchen);
-    void receivingCustomers();
+    void receivedCustomers();
 
-    //Update and render
-    void updateAnimations() override;
-
+    //Methods to calculate the distance with objects
+    Table* distanceTable();
+    Kitchen* distanceKitchen();
+    Washbasin* distanceWashbasin();
+    Entrance* distanceEntrance();
+    bool distanceSpecificTable(Table* t);
 
     //Getters & Setters
     const sf::Vector2f& getPosition() const;
     Actions getState();
+    Move getMove();
     Map* getMap();
     void setMap(Map* map);
     OrderState* getOrderState();
     void setOrderState(OrderState* o);
+    void setReceivingCustomers(ReceivingCustomers* rc);
 
 
 protected:
@@ -77,15 +72,26 @@ protected:
     float speed;
     int ability;
     Genre genre;
+    Move movingStatus;
+    Move preMovingStatus;
     Actions state;
-    Actions preState;
+
+    //Attributes to take an order
     Order* order;
-    Position isClose;
-    Tray* tray;
-    Map* map;
-    float centreWaiterX, centreWaiterY;
     OrderState* orderState;
 
+    //Pointer to the plates carrying in a specific moment
+    Tray* tray;
+
+    //Detect position of the waiter and the objects inside the map
+    Position isClose;
+    Map* map;
+
+    //Attributes to receive the customers
+    Table* targetTable;
+    Customer* targetCustomer;
+    ReceivingCustomers* receivingCustomers;
+    //bool isCustomer;
 };
 
 

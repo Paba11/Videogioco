@@ -20,6 +20,9 @@ public:
     void update();
     void render();
 
+    //
+    void moveToChair();
+
 private:
     sf::Texture texture;
     sf::Sprite sprite;

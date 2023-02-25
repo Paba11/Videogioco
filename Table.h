@@ -33,7 +33,7 @@ public:
     sf::Sprite sprite;
 
     //Table actions
-    void receivingCustomers(Customer* c);
+    void receivingCustomers(std::vector<Customer>& customer);
     void ordering();
 
     //Getters & Setters
@@ -52,6 +52,8 @@ public:
     std::vector <Stool> stoolTable;
     void setCustomerNumber(int i);
     int getCustomerNumber();
+    void setCustomers(std::vector<Customer>& cust);
+    std::vector<Customer>& getCustomers();
     void setIsOccupied(bool t);
     bool getIsOccupied();
 
@@ -63,7 +65,7 @@ private:
     //Attributes of the table
     int tavNum;
     std::queue<Dish*> dishes;
-    std::vector<Customer*> customers;
+    std::vector<Customer> customers;
     TableState state;
     Current course;
     Order* order;

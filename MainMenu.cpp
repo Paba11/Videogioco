@@ -119,8 +119,10 @@ void MainMenu::updateButtons() {
 
     if(buttons["EXIT"]->isPressed())       //FIXME close the application
         this->window->close();
-    if(buttons["PLAY"]->isPressed())
+    if(buttons["PLAY"]->isPressed()) {
+        //std::cout << "Button play pressed, try to open the game" << std::endl;
         this->states->push(new Game(this->window, this->states));
+    }
 
 }
 

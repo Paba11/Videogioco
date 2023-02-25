@@ -22,3 +22,7 @@ void Customer::update() {
 void Customer::render() {
 
 }
+
+void Customer::moveToChair() {
+
+}

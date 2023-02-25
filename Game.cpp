@@ -16,6 +16,7 @@ Game::Game(sf::RenderWindow* window, std::stack <ProgramState*>* states) : Progr
     initChef();
     initDishWasher();
     initOrderState();
+    initLevel();
     //initTexture();
 }
 
@@ -41,6 +42,7 @@ Game::~Game() {
 
 void Game::update() {
     pollEvents();
+    generateCustomers();
     updateCollision();
     this->waiter->update();
     this->dishWasher->update();
@@ -59,6 +61,7 @@ void Game::render(sf::RenderTarget* target) {
     //Draw Game
     renderMap();
 
+
     this->waiter->render(*this->window);
     this->chef->render(*this->window);
     this->dishWasher->render(*this->window);
@@ -69,6 +72,7 @@ void Game::render(sf::RenderTarget* target) {
 }
 
 void Game::initVariables() {
+
     this->window = nullptr;
     this->counter = new Counter();
     //initWaiter();
@@ -256,20 +260,20 @@ void Game::collisionManagement() {
 
     sf::Vector2f prePosition;
     prePosition = this->waiter->getPosition();
-    if (this->waiter->getState() == MOVING_DOWN) {
+    if (this->waiter->getMove() == MOVING_DOWN) {
         this->waiter->validMovement["Down"] = false;
         prePosition.y--;
     }
-    else if (this->waiter->getState() == MOVING_UP) {
+    else if (this->waiter->getMove() == MOVING_UP) {
         this->waiter->validMovement["Up"] = false;
         prePosition.y++;
     }
-    else if (this->waiter->getState() == MOVING_LEFT){
+    else if (this->waiter->getMove() == MOVING_LEFT){
         this->waiter->validMovement["Left"] = false;
         prePosition.x++;
     }
 
-    else if(this->waiter->getState() == MOVING_RIGHT) {
+    else if(this->waiter->getMove() == MOVING_RIGHT) {
         this->waiter->validMovement["Right"] = false;
         prePosition.x--;
     }
@@ -309,7 +313,58 @@ void Game::initOrderState() {
     this->waiter->setOrderState(this->orderState);
 }
 
+void Game::generateCustomers() {
+    if(this->clock.getElapsedTime().asSeconds() >= this->level->getCustomerArrival()
+    && !this->map->getEntrance()->getIsCustomer() && this->level->getTotalCustomerNumber() > 0)
+    {
+        this->receivingCustomers = new ReceivingCustomers(this->map);
+        this->waiter->setReceivingCustomers(receivingCustomers);
+        generateRandom();
+        while(this->random > 0)
+        {
+            std::cout << "Generating a customer" << std::endl;
+            this->customer = new Customer();
+            this->receivingCustomers->getCustomers().push_back(*this->customer);
+            this->random--;
+            this->level->reduceTotalCustomerNumber();
+        }
+        std::cout << "Total customers left: " << this->level->getTotalCustomerNumber() << std::endl;
+        this->map->getEntrance()->setIsCustomer(true);
+        this->clock.restart();
+    }
+}
 
+void Game::generateRandom() {
+    std::mt19937 gen(this->rd());
+    std::uniform_int_distribution<> distrib(1, 4);
+    this->random = distrib(gen);
+}
+
+void Game::initLevel() {
+    this->level = new Level();
+    this->clock.restart();
+}
+
+void Game::nextLevel() {
+    this->level->setIsPassed(false);
+    Lvl current = this->level->getLevel();
+    switch(current)
+    {
+        case FIRST:
+            this->level->setLevel(SECOND);
+        case SECOND:
+            this->level->setLevel(THIRD);
+        case THIRD:
+            this->level->setLevel(GAME_END);
+    }
+    this->clock.restart();
+}
+
+void Game::updateLevel() {
+    /*
+     * Update the variables of the level
+     */
+}
 
 
 

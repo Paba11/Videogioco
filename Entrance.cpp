@@ -7,6 +7,7 @@
 Entrance::Entrance() {
     initTexture();
     initSprite();
+    this->isCustomer = false;
 }
 
 Entrance::~Entrance() {
@@ -27,4 +28,12 @@ void Entrance::setSprite(sf::Sprite& e) {
 
 sf::Sprite Entrance::getSprite() {
     return this->sprite;
+}
+
+void Entrance::setIsCustomer(bool t) {
+    this->isCustomer = t;
+}
+
+bool Entrance::getIsCustomer() {
+    return this->isCustomer;
 }
