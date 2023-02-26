@@ -7,7 +7,7 @@
 
 
 #define LEVEL_ONE_HUMOR 100;
-#define LEVEL_ONE_ARRIVALS 20;
+#define LEVEL_ONE_ARRIVALS 5;   //FIXME change arrival time
 #define LEVEL_ONE_MAX_TABLES 6;
 #define LEVEL_ONE_TOT_CUSTOMERS 20;
 

@@ -7,6 +7,8 @@
 
 #include "Map.h"
 #include "WaiterStates.h"
+#include "Customer.h"
+#include "Textures.h"
 
 class ReceivingCustomers {
 public:
@@ -15,7 +17,7 @@ public:
 
     //
     Table* pickEmptyTable();
-    void generateCustomers();
+    void setGeneratedCustomers(int numberCustomer);
     bool receive();
 
     //Getters & Setters
@@ -23,7 +25,11 @@ public:
     void setCustomer(Customer& customer);
     std::vector<Customer>& getCustomers();
 
+
+
+
 private:
+    Textures* texture = new Textures();
     Map* map;
     Table* table;
     Customer* customer;

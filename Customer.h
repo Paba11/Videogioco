@@ -18,15 +18,13 @@ public:
 
     //Methods to update and display the customer on the screen
     void update();
-    void render();
-
+    void setSprite(int numberCustomer);
     //
     void moveToChair();
+    sf::Sprite sprite; //fixme create a funtion to set the texture from receivingCustomer.h
 
 
 private:
-    sf::Texture texture;
-    sf::Sprite sprite;
     Mood mood;
     int patience;
 

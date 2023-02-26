@@ -17,6 +17,7 @@ Game::Game(sf::RenderWindow* window, std::stack <ProgramState*>* states) : Progr
     initDishWasher();
     initOrderState();
     initLevel();
+    generateCustomers();
     //initTexture();
 }
 
@@ -65,6 +66,19 @@ void Game::render(sf::RenderTarget* target) {
     this->waiter->render(*this->window);
     this->chef->render(*this->window);
     this->dishWasher->render(*this->window);
+    if(this->map->getEntrance()->getIsCustomer()) {
+        for (auto it = this->receivingCustomers->getCustomers().begin();
+             it != this->receivingCustomers->getCustomers().end(); it++) {
+            this->window->draw(it->sprite);
+        }
+    }
+
+
+
+
+
+
+
 
     //this->dishWasher->render(*this->window);
 
@@ -326,6 +340,7 @@ void Game::generateCustomers() {
             std::cout << "Generating a customer" << std::endl;
             this->customer = new Customer();
             this->receivingCustomers->getCustomers().push_back(*this->customer);
+            this->receivingCustomers->setGeneratedCustomers(random);
             this->random--;
             this->level->reduceTotalCustomerNumber();
         }

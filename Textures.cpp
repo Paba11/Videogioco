@@ -86,5 +86,11 @@ sf::Texture* Textures::getTexture(std::string name) {
      {
          std::cout << "ERROR::Main1::CAN'T LOAD TEXTURE FILE" << std::endl;
      }
+     textures["Customers"] = new sf::Texture();
+     if (!this->textures["Customers"]->loadFromFile("../Textures/new_textures/Clienti.png"))
+     {
+         std::cout << "ERROR::Customers::CAN'T LOAD TEXTURE FILE" << std::endl;
+     }
+
 }
 

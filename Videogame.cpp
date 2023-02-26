@@ -84,6 +84,7 @@ void Videogame::updateState() {
     }
     else
         this->window->close();
+
 }
 
 void Videogame::renderState() {
