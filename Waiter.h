@@ -70,11 +70,10 @@ protected:
     void initSprite() override;
 
     //Attributes of the waiter
-    float speed;
+
     int ability;
     Genre genre;
-    Move movingStatus;
-    Move preMovingStatus;
+
     Actions state;
 
     //Attributes to take an order

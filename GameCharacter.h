@@ -11,6 +11,8 @@
 #include <SFML/System.hpp>
 #include <SFML/Audio.hpp>
 #include <SFML/Graphics.hpp>
+enum Move {MOVING_UP, MOVING_DOWN, MOVING_LEFT, MOVING_RIGHT, STANDING};
+
 
 
 
@@ -46,6 +48,9 @@ protected:
     sf::IntRect currentFrame;
     sf::Clock animationTimer;
     sf::Event ev;
+    float speed;
+    Move movingStatus;
+    Move preMovingStatus;
 
 
     //Method to init the texture and the sprite

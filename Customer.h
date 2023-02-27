@@ -18,7 +18,8 @@ public:
 
     //Methods to update and display the customer on the screen
     void update();
-    void setSprite(int numberCustomer);
+    void move();
+    void setSprite();
     //
     void updateAnimations() override;
     void moveToChair();

@@ -63,9 +63,8 @@ std::vector<Customer>& ReceivingCustomers::getCustomers() {
     return this->customers;
 }
 
-void ReceivingCustomers::setGeneratedCustomers(int numberCustomer) {
+void ReceivingCustomers::setGeneratedCustomers(int numberCustomer, int textureNumber) {
 
-    this->customers.back().sprite.setTexture(*this->texture->getTexture("Customers"));
 
     if(numberCustomer == 4) {
         this->customers.back().sprite.setPosition(1000, 700);
@@ -86,8 +85,17 @@ void ReceivingCustomers::setGeneratedCustomers(int numberCustomer) {
         std::cout << "1" << std::endl;
 
     }
+    if(textureNumber % 4 == 1)
+        this->customers.back().sprite.setTexture(*this->texture->getTexture("Customer1"));
+    if(textureNumber % 4 == 2)
+        this->customers.back().sprite.setTexture(*this->texture->getTexture("Customer2"));
+    if(textureNumber % 4 == 3)
+        this->customers.back().sprite.setTexture(*this->texture->getTexture("Customer3"));
+    if(textureNumber % 4 == 0)
+        this->customers.back().sprite.setTexture(*this->texture->getTexture("Customer4"));
 
-    this->customers.back().setSprite(numberCustomer);
+
+    this->customers.back().setSprite();
     std::cout << "set customer" << std::endl;
 
 

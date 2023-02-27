@@ -86,11 +86,25 @@ sf::Texture* Textures::getTexture(std::string name) {
      {
          std::cout << "ERROR::Main1::CAN'T LOAD TEXTURE FILE" << std::endl;
      }
-     textures["Customers"] = new sf::Texture();
-     if (!this->textures["Customers"]->loadFromFile("../Textures/new_textures/Clienti.png"))
+     textures["Customer1"] = new sf::Texture();
+     if (!this->textures["Customer1"]->loadFromFile("../Textures/new_textures/Cliente1.png"))
      {
-         std::cout << "ERROR::Customers::CAN'T LOAD TEXTURE FILE" << std::endl;
+         std::cout << "ERROR::Customer1::CAN'T LOAD TEXTURE FILE" << std::endl;
      }
-
+     textures["Customer2"] = new sf::Texture();
+     if (!this->textures["Customer2"]->loadFromFile("../Textures/new_textures/Cliente2.png"))
+     {
+         std::cout << "ERROR::Customer2::CAN'T LOAD TEXTURE FILE" << std::endl;
+     }
+     textures["Customer3"] = new sf::Texture();
+     if (!this->textures["Customer3"]->loadFromFile("../Textures/new_textures/Cliente3.png"))
+     {
+         std::cout << "ERROR::Customer3::CAN'T LOAD TEXTURE FILE" << std::endl;
+     }
+     textures["Customer4"] = new sf::Texture();
+     if (!this->textures["Customer4"]->loadFromFile("../Textures/new_textures/Cliente4.png"))
+     {
+         std::cout << "ERROR::Customer4::CAN'T LOAD TEXTURE FILE" << std::endl;
+     }
 }
 

@@ -17,7 +17,7 @@ public:
 
     //
     Table* pickEmptyTable();
-    void setGeneratedCustomers(int numberCustomer);
+    void setGeneratedCustomers(int numberCustomer, int textureNumber);
     bool receive();
 
     //Getters & Setters

@@ -5,6 +5,7 @@
 #include "Game.h"
 
 Game::Game(sf::RenderWindow* window, std::stack <ProgramState*>* states) : ProgramState(window, states) {
+    initLevel();
     initVariables();
     initWindow();
     initTexture();
@@ -16,7 +17,6 @@ Game::Game(sf::RenderWindow* window, std::stack <ProgramState*>* states) : Progr
     initChef();
     initDishWasher();
     initOrderState();
-    initLevel();
     generateCustomers();
     //initTexture();
 }
@@ -90,6 +90,7 @@ void Game::initVariables() {
 
     this->window = nullptr;
     this->counter = new Counter();
+    this->maxNumberCustomers = this->level->getTotalCustomerNumber();
     //initWaiter();
     //initChef();
 
@@ -341,9 +342,11 @@ void Game::generateCustomers() {
             std::cout << "Generating a customer" << std::endl;
             this->customer = new Customer();
             this->receivingCustomers->getCustomers().push_back(*this->customer);
-            this->receivingCustomers->setGeneratedCustomers(random);
-            this->random--;
             this->level->reduceTotalCustomerNumber();
+            this->receivingCustomers->setGeneratedCustomers(random,
+                                                            this->maxNumberCustomers - this->level->getTotalCustomerNumber());
+            this->random--;
+
         }
         std::cout << "Total customers left: " << this->level->getTotalCustomerNumber() << std::endl;
         this->map->getEntrance()->setIsCustomer(true);

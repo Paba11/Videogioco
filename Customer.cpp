@@ -24,22 +24,9 @@ void Customer::moveToChair() {
 
 }
 
-void Customer::setSprite(int numberCustomer) {
+void Customer::setSprite() {
 
-
-    if( numberCustomer == 4)
-        this->currentFrame = sf::IntRect(96, 128, 32, 32); //box of 32x32
-
-    else if(numberCustomer == 3)
-        this->currentFrame = sf::IntRect(0, 128, 32, 32);
-
-    else if(numberCustomer == 2)
-        this->currentFrame = sf::IntRect(96, 0, 32, 32);
-
-    else if(numberCustomer == 1)
-        this->currentFrame = sf::IntRect(0, 0, 32, 32);
-
-
+    this->currentFrame = sf::IntRect(0, 0, 32, 32); //box of 32x32
     this->sprite.setTextureRect(this->currentFrame);
     this->sprite.setScale(3.f,3.f);
 }
@@ -56,5 +43,33 @@ void Customer::updateAnimations() {
         this->animationTimer.restart();
         this->sprite.setTextureRect(this->currentFrame);
     }
+}
+
+void Customer::move() {
+
+    switch (this->movingStatus) {
+        case MOVING_LEFT:
+            if(validMovement["Left"])
+                this->sprite.move(this->speed * (-0.15f), this->speed * (0.f));
+            break;
+
+        case MOVING_RIGHT:
+            if(validMovement["Right"])
+                this->sprite.move(this->speed * (0.15f), this->speed * (0.f));
+            break;
+
+        case MOVING_UP:
+            if(validMovement["Up"])
+                this->sprite.move(this->speed * (0.f), this->speed * (-0.15f));
+            break;
+
+        case MOVING_DOWN:
+            if(validMovement["Down"])
+                this->sprite.move(this->speed * (0.f), this->speed * (0.15f));
+            break;
+        case STANDING:
+            break;
+    }
+
 }
 
