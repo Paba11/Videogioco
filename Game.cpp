@@ -45,6 +45,7 @@ void Game::update() {
     pollEvents();
     generateCustomers();
     updateCollision();
+    updateCustomers();
     this->waiter->update();
     this->dishWasher->update();
     this->chef->update();
@@ -380,6 +381,17 @@ void Game::updateLevel() {
     /*
      * Update the variables of the level
      */
+}
+
+void Game::updateCustomers() {
+
+    if(this->map->getEntrance()->getIsCustomer()) {
+        for (auto it = this->receivingCustomers->getCustomers().begin();
+             it != this->receivingCustomers->getCustomers().end(); it++) {
+            it->updateAnimations();
+        }
+    }
+
 }
 
 

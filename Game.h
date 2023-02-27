@@ -36,14 +36,21 @@ public:
 
     void endState() override;
 
-    //Methods to update the game and display the correct images
+    //Methods to update the game
     void update() override;
+    void updateCustomers();
+
+    //Methods to display the correct images
     void render(sf::RenderTarget* target) override;
     void renderMap();
+
+    //Methods for handling the collision
     void updateCollision();
     void windowsCollision();
     void collision();
     void collisionManagement();
+
+
 
     //Generate Customers and random numbers
     void generateCustomers();

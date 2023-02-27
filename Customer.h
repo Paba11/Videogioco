@@ -20,6 +20,7 @@ public:
     void update();
     void setSprite(int numberCustomer);
     //
+    void updateAnimations() override;
     void moveToChair();
     sf::Sprite sprite; //fixme create a funtion to set the texture from receivingCustomer.h
 
