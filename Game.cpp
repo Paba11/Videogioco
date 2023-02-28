@@ -91,6 +91,7 @@ void Game::initVariables() {
     this->window = nullptr;
     this->counter = new Counter();
     this->maxNumberCustomers = this->level->getTotalCustomerNumber();
+    this->bottomBar = new BottomBar();
     //initWaiter();
     //initChef();
 
@@ -166,6 +167,7 @@ void Game::renderMap() {
     this->kitchen->render(*this->window);
     this->counter->render(*this->window);
     this->washbasin->render(*this->window);
+    this->bottomBar->render(*this->window);
     this->map->render(*this->window);
     for(int i=0;i<numTables;i++) {
         this->window->draw(this->map->getAllTables()[i].sprite);

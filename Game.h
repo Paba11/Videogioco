@@ -18,6 +18,7 @@
 #include "Counter.h"
 #include "Level.h"
 #include "ReceivingCustomers.h"
+#include "BottomBar.h"
 #include <SFML/Graphics.hpp>
 #include <SFML/Window.hpp>
 #include <SFML/System.hpp>
@@ -95,6 +96,7 @@ private:
     Textures* texture;
     OrderState* orderState;
     ReceivingCustomers* receivingCustomers;
+    BottomBar* bottomBar;
     //Table* table;
 
     //Level variables management
