@@ -46,24 +46,24 @@ void Waiter::updateMovement() {
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)) {
         this->movingStatus = MOVING_LEFT;
         if(preMovingStatus != this->movingStatus)
-            validMovement["Left"] = true;
+            this->validMovement["Left"] = true;
 
     }
     else if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)) {
         this->movingStatus = MOVING_RIGHT;
         if(preMovingStatus != this->movingStatus)
-            validMovement["Right"] = true;
+            this->validMovement["Right"] = true;
 
     }
     else if (sf::Keyboard::isKeyPressed(sf::Keyboard::W)) {
         this->movingStatus = MOVING_UP;
         if(preMovingStatus != this->movingStatus)
-            validMovement["Up"] = true;
+            this->validMovement["Up"] = true;
     }
     else if (sf::Keyboard::isKeyPressed(sf::Keyboard::S)) {
         this->movingStatus = MOVING_DOWN;
         if(preMovingStatus != this->movingStatus)
-            validMovement["Down"] = true;
+            this->validMovement["Down"] = true;
     }
 
     setAnimation();
@@ -80,22 +80,22 @@ void Waiter::move() {
 
         switch (this->movingStatus) {
             case MOVING_LEFT:
-                if(validMovement["Left"])
+                if(this->validMovement["Left"])
                     this->sprite.move(this->speed * (-0.15f), this->speed * (0.f));
                 break;
 
             case MOVING_RIGHT:
-                if(validMovement["Right"])
+                if(this->validMovement["Right"])
                     this->sprite.move(this->speed * (0.15f), this->speed * (0.f));
                 break;
 
             case MOVING_UP:
-                if(validMovement["Up"])
+                if(this->validMovement["Up"])
                     this->sprite.move(this->speed * (0.f), this->speed * (-0.15f));
                 break;
 
             case MOVING_DOWN:
-                if(validMovement["Down"])
+                if(this->validMovement["Down"])
                     this->sprite.move(this->speed * (0.f), this->speed * (0.15f));
                 break;
             case STANDING:

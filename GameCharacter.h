@@ -40,6 +40,8 @@ public:
 
     //Getters & Setters
     void setEvent(sf::Event ev);
+    Move movingStatus;
+
 
 protected:
     sf::Sprite sprite;
@@ -49,7 +51,6 @@ protected:
     sf::Clock animationTimer;
     sf::Event ev;
     float speed;
-    Move movingStatus;
     Move preMovingStatus;
 
 
