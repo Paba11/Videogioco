@@ -22,13 +22,18 @@ public:
     void setSprite();
     //
     void updateAnimations() override;
+    void setAnimation();
     void moveToChair();
+    void moveTo();
+    void setEndingPosition(sf::Vector2f endingPos, Move direction);
     sf::Sprite sprite; //fixme create a funtion to set the texture from receivingCustomer.h
 
-
 private:
+    sf::Vector2f actualPos;
     Mood mood;
     int patience;
+    bool moving;
+    sf::Vector2f endingPos;
 
 };
 

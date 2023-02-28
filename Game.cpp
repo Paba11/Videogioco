@@ -91,6 +91,7 @@ void Game::initVariables() {
     this->window = nullptr;
     this->counter = new Counter();
     this->maxNumberCustomers = this->level->getTotalCustomerNumber();
+    this->bottomBar = new BottomBar();
     //initWaiter();
     //initChef();
 
@@ -166,6 +167,7 @@ void Game::renderMap() {
     this->kitchen->render(*this->window);
     this->counter->render(*this->window);
     this->washbasin->render(*this->window);
+    this->bottomBar->render(*this->window);
     this->map->render(*this->window);
     for(int i=0;i<numTables;i++) {
         this->window->draw(this->map->getAllTables()[i].sprite);
@@ -350,6 +352,7 @@ void Game::generateCustomers() {
         }
         std::cout << "Total customers left: " << this->level->getTotalCustomerNumber() << std::endl;
         this->map->getEntrance()->setIsCustomer(true);
+        //this->receivingCustomers->enterTheRestaurant();
         this->clock.restart();
     }
 }
@@ -391,7 +394,7 @@ void Game::updateCustomers() {
     if(this->map->getEntrance()->getIsCustomer()) {
         for (auto it = this->receivingCustomers->getCustomers().begin();
              it != this->receivingCustomers->getCustomers().end(); it++) {
-            it->updateAnimations();
+            it->update();
         }
     }
 

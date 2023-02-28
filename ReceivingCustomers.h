@@ -18,6 +18,8 @@ public:
     //
     Table* pickEmptyTable();
     void setGeneratedCustomers(int numberCustomer, int textureNumber);
+    void enterTheRestaurant();
+
     bool receive();
 
     //Getters & Setters

@@ -106,5 +106,10 @@ sf::Texture* Textures::getTexture(std::string name) {
      {
          std::cout << "ERROR::Customer4::CAN'T LOAD TEXTURE FILE" << std::endl;
      }
+     textures["BottomBar"] = new sf::Texture();
+     if (!this->textures["BottomBar"]->loadFromFile("../Textures/new_textures/BarraOrdini.png"))
+     {
+         std::cout << "ERROR::BottomBar::CAN'T LOAD TEXTURE FILE" << std::endl;
+     }
 }
 
