@@ -55,7 +55,7 @@ public:
 
 
     //Getters & Setters
-    const sf::Vector2f& getPosition() const;
+
     Actions getState();
     Move getMove();
     Map* getMap();

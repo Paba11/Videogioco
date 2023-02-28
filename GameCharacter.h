@@ -41,6 +41,7 @@ public:
     //Getters & Setters
     void setEvent(sf::Event ev);
     Move movingStatus;
+    const sf::Vector2f& getPosition() const;
 
 
 protected:

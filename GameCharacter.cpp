@@ -83,4 +83,8 @@ void GameCharacter::setEvent(sf::Event e) {
     this->ev = e;
 }
 
+const sf::Vector2f &GameCharacter::getPosition() const {
+    return this->sprite.getPosition();
+}
+
 

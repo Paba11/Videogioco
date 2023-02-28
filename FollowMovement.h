@@ -6,6 +6,7 @@
 #define VIDEOGIOCO_FOLLOWMOVEMENT_H
 
 #include "WaiterStates.h"
+#include "GameCharacter.h"
 
 class FollowMovement {
 public:
@@ -13,6 +14,7 @@ public:
     ~FollowMovement();
 
     void initDistance();
+    float distanceTwoCharacters(GameCharacter* g1, GameCharacter* g2);
 
 private:
     int dist;

@@ -293,9 +293,7 @@ void Waiter::leavingOrder(Kitchen* kitchen) {
     this->state = DOING_NOTHING;
 }
 
-const sf::Vector2f &Waiter::getPosition() const {
-    return this->sprite.getPosition();
-}
+
 
 
 
