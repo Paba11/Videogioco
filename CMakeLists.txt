@@ -19,6 +19,7 @@ add_executable( videogioco                  main.cpp
                 DishWasher.h                DishWasher.cpp
                 Drink.h                     Drink.cpp
                 Entrance.h                  Entrance.cpp
+                FollowMovement.h            FollowMovement.cpp
                 Game.h                      Game.cpp
                 GameCharacter.h             GameCharacter.cpp
                 Kitchen.h                   Kitchen.cpp
