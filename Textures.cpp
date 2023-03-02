@@ -111,5 +111,10 @@ sf::Texture* Textures::getTexture(std::string name) {
      {
          std::cout << "ERROR::BottomBar::CAN'T LOAD TEXTURE FILE" << std::endl;
      }
+     textures["Barrier"] = new sf::Texture();
+     if (!this->textures["Barrier"]->loadFromFile("../Textures/new_textures/Transenne.png"))
+     {
+         std::cout << "ERROR::Barrier::CAN'T LOAD TEXTURE FILE" << std::endl;
+     }
 }
 

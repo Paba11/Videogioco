@@ -67,38 +67,38 @@ void ReceivingCustomers::setGeneratedCustomers(int numberCustomer, int textureNu
 
 
     if(numberCustomer == 4) {
-        this->customers.back().sprite.setPosition(1600, 700);   //1000, 700
-        this->customers.back().setEndingPosition(sf::Vector2f{1300, 700}, MOVING_LEFT);
+        this->customers.back().sprite.setPosition(1550, 830);   //1000, 700
+        this->customers.back().setEndingPosition(sf::Vector2f{1300, 830}, MOVING_LEFT);
 
         std::cout << "4" << std::endl;
     }
     else if(numberCustomer == 3) {
-        this->customers.back().sprite.setPosition(1600, 800);   //1000, 800
-        this->customers.back().setEndingPosition(sf::Vector2f{1300, 800}, MOVING_LEFT);
+        this->customers.back().sprite.setPosition(1500, 830);   //1000, 800
+        this->customers.back().setEndingPosition(sf::Vector2f{1200, 830}, MOVING_LEFT);
 
         std::cout << "3" << std::endl;
 
     }
     else if(numberCustomer == 2) {
-        this->customers.back().sprite.setPosition(1400, 700);   //1100, 700
-        this->customers.back().setEndingPosition(sf::Vector2f{1100, 700}, MOVING_LEFT);
+        this->customers.back().sprite.setPosition(1450, 830);   //1100, 700
+        this->customers.back().setEndingPosition(sf::Vector2f{1100, 830}, MOVING_LEFT);
 
         std::cout << "2" << std::endl;
 
     }
     else if(numberCustomer == 1) {
-        this->customers.back().sprite.setPosition(1400, 800); //always generated    //1100, 800
-        this->customers.back().setEndingPosition(sf::Vector2f{1100, 800}, MOVING_LEFT);
+        this->customers.back().sprite.setPosition(1400, 830); //always generated
+        this->customers.back().setEndingPosition(sf::Vector2f{1000, 830}, MOVING_LEFT);
         std::cout << "1" << std::endl;
 
     }
-    if(textureNumber % 4 == 1)
+    if(textureNumber-1 % 4 == 0)
         this->customers.back().sprite.setTexture(*this->texture->getTexture("Customer1"));
-    if(textureNumber % 4 == 2)
+    if(textureNumber-1 % 4 == 1)
         this->customers.back().sprite.setTexture(*this->texture->getTexture("Customer2"));
-    if(textureNumber % 4 == 3)
+    if(textureNumber-1 % 4 == 2)
         this->customers.back().sprite.setTexture(*this->texture->getTexture("Customer3"));
-    if(textureNumber % 4 == 0)
+    if(textureNumber-1 % 4 == 3)
         this->customers.back().sprite.setTexture(*this->texture->getTexture("Customer4"));
 
 
@@ -112,23 +112,7 @@ void ReceivingCustomers::setCustomer(Customer &customer) {
     this->customers;
 }
 
-void ReceivingCustomers::enterTheRestaurant() {
 
-    int i=0;
-    for(auto it = this->customers.begin(); it != customers.end(); it++){
-
-        if(i == 0)
-            it->setEndingPosition(sf::Vector2f{1300, 700}, MOVING_LEFT);
-        else if(i == 1)
-            it->setEndingPosition(sf::Vector2f{1300, 800}, MOVING_LEFT);
-        else if(i == 2)
-            it->setEndingPosition(sf::Vector2f{1100, 700}, MOVING_LEFT);
-        else
-            it->setEndingPosition(sf::Vector2f{1100, 800}, MOVING_LEFT);
-
-        i++;
-    }
-}
 
 void ReceivingCustomers::collisionManagement() {
 

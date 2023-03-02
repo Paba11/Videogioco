@@ -65,8 +65,9 @@ void Map::initSprites() {
     initPosTrees();
 
     entrance.setTexture(*this->texture->getTexture("Entrance"));
-    entrance.setPosition(1235.f,850.f);
-    entrance.setScale(4.f,3.f);
+    entrance.setPosition(1275.f,900.f);
+    entrance.setScale(1.f,1.f);
+
 }
 
 void Map::render(sf::RenderTarget &target) {

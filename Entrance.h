@@ -10,6 +10,7 @@
 #include <SFML/Window.hpp>
 #include <SFML/System.hpp>
 #include <SFML/Audio.hpp>
+#include "Textures.h"
 
 class Entrance {
 public:
@@ -21,12 +22,22 @@ public:
     sf::Sprite getSprite();
     void setIsCustomer(bool t);
     bool getIsCustomer();
+    void renderbarrier(sf::RenderTarget &target, int barrierNumber);
+    void render(sf::RenderTarget &target);
+    void updateBox();
 
 
 private:
-    sf::Sprite sprite;
+    sf::Sprite sprite; //fixme move here the sprite of the entrance
+    Textures* texture;
+    sf::RectangleShape welcomeSquare;
     void initSprite();
     void initTexture();
+    sf::Sprite barrier1;
+    sf::Sprite barrier2;
+    sf::Color boxOpacity = {255,255,255,255};
+    bool cicle = true;
+
 
     bool isCustomer;
 

@@ -44,8 +44,9 @@ Game::~Game() {
 void Game::update() {
     pollEvents();
     generateCustomers();
-    updateCustomers();
     updateCollision();
+    updateCustomers();
+    this->map->getEntrance()->updateBox();
     this->waiter->update();
     this->dishWasher->update();
     this->chef->update();
@@ -63,7 +64,7 @@ void Game::render(sf::RenderTarget* target) {
     //Draw Game
     renderMap();
 
-
+    this->map->getEntrance()->renderbarrier(*this->window,1);
     this->waiter->render(*this->window);
     this->chef->render(*this->window);
     this->dishWasher->render(*this->window);
@@ -73,15 +74,7 @@ void Game::render(sf::RenderTarget* target) {
             this->window->draw(it->sprite);
         }
     }
-
-
-
-
-
-
-
-
-    //this->dishWasher->render(*this->window);
+    this->map->getEntrance()->renderbarrier(*this->window,2);    //this->dishWasher->render(*this->window);
 
     this->window->display();
 }
@@ -168,6 +161,7 @@ void Game::renderMap() {
     this->counter->render(*this->window);
     this->washbasin->render(*this->window);
     this->bottomBar->render(*this->window);
+    this->map->getEntrance()->render(*this->window);
     this->map->render(*this->window);
     for(int i=0;i<numTables;i++) {
         this->window->draw(this->map->getAllTables()[i].sprite);
