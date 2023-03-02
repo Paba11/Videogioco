@@ -26,6 +26,8 @@ public:
     void render(sf::RenderTarget &target);
     void updateBox();
 
+    sf::RectangleShape& getWelcomeSquare();
+
 
 private:
     sf::Sprite sprite; //fixme move here the sprite of the entrance

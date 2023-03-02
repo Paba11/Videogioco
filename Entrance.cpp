@@ -26,6 +26,7 @@ void Entrance::initSprite() {
     barrier2.setScale(0.1f,0.1f);
 
     welcomeSquare.setSize({62,62});
+    welcomeSquare.setOrigin(10, 10);
     welcomeSquare.setOutlineThickness(1);
     welcomeSquare.setFillColor(sf::Color::Transparent);
     welcomeSquare.setPosition(898,870);
@@ -81,6 +82,10 @@ void Entrance::updateBox() {
 
     }
 
+}
+
+sf::RectangleShape &Entrance::getWelcomeSquare() {
+    return this->welcomeSquare;
 }
 
 

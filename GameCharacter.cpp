@@ -91,4 +91,8 @@ Move GameCharacter::getMovingStatus() {
     return this->movingStatus;
 }
 
+sf::FloatRect& GameCharacter::getHitbox() {
+    return this->hitbox;
+}
+
 

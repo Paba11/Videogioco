@@ -64,8 +64,6 @@ std::vector<Customer>& ReceivingCustomers::getCustomers() {
 }
 
 void ReceivingCustomers::setGeneratedCustomers(int numberCustomer, int textureNumber) {
-
-
     if(numberCustomer == 4) {
         this->customers.back().sprite.setPosition(1550, 830);   //1000, 700
         this->customers.back().setEndingPosition(sf::Vector2f{1300, 830}, MOVING_LEFT);
@@ -104,6 +102,7 @@ void ReceivingCustomers::setGeneratedCustomers(int numberCustomer, int textureNu
 
     this->customers.back().setSprite();
     std::cout << "set customer" << std::endl;
+
 
 
 }

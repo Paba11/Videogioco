@@ -22,6 +22,7 @@ public:
     //Methods to update and display the customer on the screen
     void update(bool waitMove);
     void move();
+    void moveToTable();
     void setSprite();
     void initVariables();
     void moveToChair(const sf::Sprite& sp, float offset);
@@ -32,6 +33,7 @@ public:
     void updateMoving();
     void moveTo();
     void setEndingPosition(sf::Vector2f endingPos, Move direction);
+    void setEndingDirection(sf::Vector2f endingPos, Move direction);
     sf::Sprite sprite; //fixme create a function to set the texture from receivingCustomer.h
 
     //Getters & Setters
@@ -44,6 +46,7 @@ private:
     Mood mood;
     int patience;
     bool moving;
+    bool movingToTable;
     sf::Vector2f endingPos;
 
     //Road to move to the table

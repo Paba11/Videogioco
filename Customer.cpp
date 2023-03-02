@@ -25,7 +25,9 @@ Customer::~Customer() {
 void Customer::update(bool waitMove) {
     setAnimation();
     updateAnimations();
-    updateMoving();
+    if(waitMove)
+        updateMoving();
+    moveTo();
 }
 
 
@@ -82,20 +84,43 @@ const sf::Vector2f &Customer::getPosition() const {
     return this->sprite.getPosition();
 }
 
+void Customer::moveToTable() {
+    switch (this->path.front().getMove())
+    {
+        case MOVING_LEFT:
+            if (this->validMovement["Left"] && this->sprite.getPosition() != this->path.front().getDist())
+                this->sprite.move(this->speed * (-0.15f), this->speed * (0.f));
+            break;
+
+        case MOVING_RIGHT:
+            if (this->validMovement["Right"] && this->sprite.getPosition() != this->path.front().getDist())
+                this->sprite.move(this->speed * (0.15f), this->speed * (0.f));
+            break;
+
+        case MOVING_UP:
+            if (this->validMovement["Up"] && this->sprite.getPosition() != this->path.front().getDist())
+                this->sprite.move(this->speed * (0.f), this->speed * (-0.15f));
+            break;
+
+        case MOVING_DOWN:
+            if (this->validMovement["Down"] && this->sprite.getPosition() != this->path.front().getDist())
+                this->sprite.move(this->speed * (0.f), this->speed * (0.15f));
+            break;
+        case STANDING:
+            break;
+    }
+}
+
 void Customer::setAnimation() {
 
     if(this->movingStatus == STANDING)
         this->currentFrame.top = 0.f;
-
     else if(this->movingStatus == MOVING_DOWN)
         this->currentFrame.top = 0.f;
-
     else if(this->movingStatus == MOVING_LEFT)
         this->currentFrame.top = 33.f;
-
     else if(this->movingStatus == MOVING_RIGHT)
         this->currentFrame.top = 66.f;
-
     else if(this->movingStatus == MOVING_UP)
         this->currentFrame.top = 99.f;
 
@@ -106,6 +131,8 @@ void Customer::setAnimation() {
 void Customer::moveTo() {
     if(this->moving)
         move();
+    else if(this->movingToTable)
+        moveToTable();
     this->actualPos = this->sprite.getPosition();
     if(this->movingStatus == MOVING_LEFT && this->actualPos.x <= this->endingPos.x) {
         this->moving = false;
@@ -116,9 +143,15 @@ void Customer::moveTo() {
 
 }
 
-void Customer::setEndingPosition(sf::Vector2f endingPos, Move direction) {
-    this->endingPos = endingPos;
+void Customer::setEndingPosition(sf::Vector2f endPos, Move direction) {
+    this->endingPos = endPos;
     this->moving = true;
+    this->movingStatus = direction;
+}
+
+void Customer::setEndingDirection(sf::Vector2f endPos, Move direction) {
+    this->endingPos = endPos;
+    this->movingToTable = true;
     this->movingStatus = direction;
 }
 
@@ -140,13 +173,14 @@ void Customer::initVariables() {
     this->preMovingStatus = STANDING;
     this->speed = 4;
     this->moving = false;
+    this->movingToTable = false;
     //TODO:INITIALIZE THE QUEUE OF MOVES
 }
 
 void Customer::updateMoving() {
-    if(this->path.front().getMove() > 0)
+    if(this->path.front().getDist() != this->sprite.getPosition())
     {
-        setEndingPosition(this->path.front().getDist(), this->path.front().getMove());
+        setEndingDirection(this->path.front().getDist(), this->path.front().getMove());
     }
     else
         this->path.pop();

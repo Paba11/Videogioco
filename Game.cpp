@@ -438,14 +438,13 @@ ReceivingCustomers *Game::getReceivingCustomers() {
 
 void Game::updateCustomers() {
     bool waitMove = false;
-    if(this->waiter->getMove() != STANDING)
+    if(this->waiter->getMove() != STANDING && this->waiter->getState() == RECEIVING_CUSTOMERS)
         waitMove = true;
 
     if(this->map->getEntrance()->getIsCustomer())
     {
-        for (auto it = this->receivingCustomers->getCustomers().begin();
-             it != this->receivingCustomers->getCustomers().end(); it++)
-                 it->update(waitMove);
+        for (auto & it : this->receivingCustomers->getCustomers())
+                 it.update(waitMove);
     }
     else
         this->receivingCustomers = nullptr;
