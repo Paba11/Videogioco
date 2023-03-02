@@ -9,13 +9,12 @@
 #include "GameCharacter.h"
 #include "Order.h"
 #include "Tray.h"
-#include "Kitchen.h"
-#include "Washbasin.h"
 #include "Map.h"
 #include "Textures.h"
 #include "OrderState.h"
 #include "WaiterStates.h"
 #include "ReceivingCustomers.h"
+#include "FollowMovement.h"
 #include <cmath>
 
 #define INTERACT 1;
@@ -55,7 +54,6 @@ public:
 
 
     //Getters & Setters
-
     Actions getState();
     Move getMove();
     Map* getMap();
@@ -63,6 +61,7 @@ public:
     OrderState* getOrderState();
     void setOrderState(OrderState* o);
     void setReceivingCustomers(ReceivingCustomers* rc);
+    bool getIsReceived();
 
 
 protected:
@@ -91,7 +90,8 @@ protected:
     Table* targetTable;
     Customer* targetCustomer;
     ReceivingCustomers* receivingCustomers;
-    //bool isCustomer;
+    std::queue<FollowMovement> direction;
+    bool isReceived;
 };
 
 

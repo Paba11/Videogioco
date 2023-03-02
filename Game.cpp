@@ -44,8 +44,8 @@ Game::~Game() {
 void Game::update() {
     pollEvents();
     generateCustomers();
-    updateCollision();
     updateCustomers();
+    updateCollision();
     this->waiter->update();
     this->dishWasher->update();
     this->chef->update();
@@ -182,9 +182,10 @@ void Game::updateCollision() {
      */
     windowsCollision();
     collision();
-
-
-
+    if(this->waiter->getIsReceived())
+    {
+        customerCollision();
+    }
 }
 
 void Game::initTables() {
@@ -336,14 +337,17 @@ void Game::generateCustomers() {
     if(this->clock.getElapsedTime().asSeconds() >= this->level->getCustomerArrival()
     && !this->map->getEntrance()->getIsCustomer() && this->level->getTotalCustomerNumber() > 0)
     {
+        sf::Vector2f dist = this->waiter->getPosition();
         this->receivingCustomers = new ReceivingCustomers(this->map);
         this->waiter->setReceivingCustomers(receivingCustomers);
         generateRandom();
         while(this->random > 0)
         {
             std::cout << "Generating a customer" << std::endl;
-            this->customer = new Customer();
+            this->customer = new Customer(dist);
+            dist += dist;
             this->receivingCustomers->getCustomers().push_back(*this->customer);
+            this->group.push_back(this->customer); //Puntatore ai customers
             this->level->reduceTotalCustomerNumber();
             this->receivingCustomers->setGeneratedCustomers(random,
                                                             this->maxNumberCustomers - this->level->getTotalCustomerNumber());
@@ -389,14 +393,68 @@ void Game::updateLevel() {
      */
 }
 
-void Game::updateCustomers() {
+void Game::customerCollision() {
+    for(auto & i : this->group)
+    {
+        for(int x = 0; x < numTables; x++){
+            if(i->getGlobalHitbox().intersects(this->map->getAllTables()[x].sprite.getGlobalBounds()))
+                customerCollisionManagement();
+            for(int j=0; j < 4; j++){
+                if(this->waiter->getGlobalHitbox().intersects(this->map->getAllTables()[x].stoolTable[j].sprite.getGlobalBounds()))
+                    customerCollisionManagement();
+            }
 
-    if(this->map->getEntrance()->getIsCustomer()) {
-        for (auto it = this->receivingCustomers->getCustomers().begin();
-             it != this->receivingCustomers->getCustomers().end(); it++) {
-            it->update();
+        }
+        if(i->getGlobalHitbox().intersects(this->counter->getBounds()))
+            customerCollisionManagement();
+        for(int x = 0; x < map->numTrees; x++){
+            if(i->getGlobalHitbox().intersects(this->map->trees[x].getGlobalBounds()))
+                customerCollisionManagement();
         }
     }
+}
+
+void Game::customerCollisionManagement() {
+
+    sf::Vector2f prePosition;
+    for(auto & i : this->group)
+    {
+        prePosition = i->getPosition();
+        if (this->waiter->getMove() == MOVING_DOWN) {               //Confront the move of the waiter because it moves in the same direction
+            i->validMovement["Down"] = false;
+            prePosition.y--;
+        } else if (this->waiter->getMove() == MOVING_UP) {
+            i->validMovement["Up"] = false;
+            prePosition.y++;
+        } else if (this->waiter->getMove() == MOVING_LEFT) {
+            i->validMovement["Left"] = false;
+            prePosition.x++;
+        } else if (this->waiter->getMove() == MOVING_RIGHT) {
+            i->validMovement["Right"] = false;
+            prePosition.x--;
+        }
+        i->setPositionW(prePosition);
+    }
+}
+
+ReceivingCustomers *Game::getReceivingCustomers() {
+    return this->receivingCustomers;
+}
+
+
+void Game::updateCustomers() {
+    bool waitMove = false;
+    if(this->waiter->getMove() != STANDING)
+        waitMove = true;
+
+    if(this->map->getEntrance()->getIsCustomer())
+    {
+        for (auto it = this->receivingCustomers->getCustomers().begin();
+             it != this->receivingCustomers->getCustomers().end(); it++)
+                 it->update(waitMove);
+    }
+    else
+        this->receivingCustomers = nullptr;
 
 }
 

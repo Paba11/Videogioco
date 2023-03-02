@@ -16,6 +16,22 @@ void FollowMovement::initDistance() {
 
 }
 
+sf::Vector2f FollowMovement::getDist() {
+    return this->dist;
+}
+
+void FollowMovement::setDist(sf::Vector2f d) {
+    this->dist = d;
+}
+
+Move FollowMovement::getMove() {
+    return this->move;
+}
+
+void FollowMovement::setMove(Move m) {
+    this->move = m;
+}
+
 float FollowMovement::distanceTwoCharacters(GameCharacter* g1, GameCharacter* g2) {
 
     float g1X, g1Y, g2X, g2Y;
@@ -29,3 +45,4 @@ float FollowMovement::distanceTwoCharacters(GameCharacter* g1, GameCharacter* g2
     if(g1Y == g2Y)
         return abs(g1X - g2X);
 }
+

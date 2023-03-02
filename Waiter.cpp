@@ -17,6 +17,7 @@ Waiter::Waiter() {
     this->orderState = nullptr;
     this->receivingCustomers = nullptr;
     this->targetCustomer = nullptr;
+    this->isReceived = false;
 }
 
 Waiter::~Waiter() {
@@ -77,7 +78,8 @@ void Waiter::updateMovement() {
 }
 
 void Waiter::move() {
-
+    //std::cout << "First position: " << this->sprite.getPosition().x << ", " << this->sprite.getPosition().y;
+    sf::Vector2f prePosition = this->sprite.getPosition();
         switch (this->movingStatus) {
             case MOVING_LEFT:
                 if(this->validMovement["Left"])
@@ -101,6 +103,9 @@ void Waiter::move() {
             case STANDING:
                 break;
         }
+    if(prePosition != this->sprite.getPosition() && this->movingStatus != STANDING && this->receivingCustomers)
+        this->receivingCustomers->follow(prePosition, this->sprite.getPosition(), this->movingStatus);
+    //std::cout << "New position: " << this->sprite.getPosition().x << ", " << this->sprite.getPosition().y;
 
 }
 
@@ -126,6 +131,7 @@ void Waiter::interact() {
         else if(!this->order && this->isClose == IS_CLOSE_ENTRANCE && this->map->getEntrance()->getIsCustomer()) {
             this->state = RECEIVING_CUSTOMERS;
             this->targetTable = receivingCustomers->pickEmptyTable();
+            this->isReceived = true;
         }
     }
     else if(sf::Keyboard::isKeyPressed(sf::Keyboard::K) && this->tray->getState() == EMPTY_TRAY && !this->order &&
@@ -383,14 +389,14 @@ Washbasin *Waiter::distanceWashbasin() {
 
 Entrance *Waiter::distanceEntrance() {
     float dist;
-    Entrance* e = this->map->getEntrance();
+    Entrance* e = this->map->getEntrance(); //TODO: GETWELCOMESQUARE
 
     dist = std::sqrt(std::pow(e->getSprite().getPosition().x - this->sprite.getPosition().x, 2) +
                      std::pow(e->getSprite().getPosition().y - this->sprite.getPosition().y, 2));
 
     std::cout << "Entrance distance: " << dist << std::endl;
 
-    if(dist <= 100)
+    if(dist <= 1)
     {
         this->isClose = IS_CLOSE_ENTRANCE;
     }
@@ -492,6 +498,7 @@ void Waiter::receivedCustomers() {
         this->targetTable = nullptr;
         this->map->getEntrance()->setIsCustomer(false);
         this->state = DOING_NOTHING;
+        this->isReceived = false;
     }
 }
 
@@ -505,6 +512,11 @@ void Waiter::interactionManagement() {
 void Waiter::setReceivingCustomers(ReceivingCustomers *rc) {
     this->receivingCustomers = rc;
 }
+
+bool Waiter::getIsReceived() {
+    return this->isReceived;
+}
+
 
 /*
 bool Waiter::getIsCustomer() {

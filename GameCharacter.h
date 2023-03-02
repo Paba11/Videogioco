@@ -11,6 +11,7 @@
 #include <SFML/System.hpp>
 #include <SFML/Audio.hpp>
 #include <SFML/Graphics.hpp>
+
 enum Move {MOVING_UP, MOVING_DOWN, MOVING_LEFT, MOVING_RIGHT, STANDING};
 
 
@@ -40,6 +41,7 @@ public:
 
     //Getters & Setters
     void setEvent(sf::Event ev);
+    Move getMovingStatus();
     Move movingStatus;
     const sf::Vector2f& getPosition() const;
 

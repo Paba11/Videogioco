@@ -6,31 +6,28 @@
 
 
 Customer::Customer() {
-    this->mood = GOOD;
-    this->patience = 100;
-    this->movingStatus = STANDING;
-    this->preMovingStatus = STANDING;
-    this->speed = 4;
-    this->moving = false;
-
-
+    initVariables();
 }
+
+Customer::Customer(sf::Vector2f dist) {
+    initVariables();
+    this->followMovement = new FollowMovement;
+    this->followMovement->setDist(dist);
+    this->followMovement->setMove(MOVING_LEFT);
+    this->path.push(*followMovement);
+}
+
 
 Customer::~Customer() {
 
 }
 
-void Customer::update() {
+void Customer::update(bool waitMove) {
     setAnimation();
     updateAnimations();
-    moveTo();
-
+    updateMoving();
 }
 
-void Customer::moveToChair() {
-
-
-}
 
 void Customer::setSprite() {
 
@@ -41,7 +38,8 @@ void Customer::setSprite() {
 
 void Customer::updateAnimations() {
 
-    if(this->animationTimer.getElapsedTime().asSeconds() >= 0.4f) {
+    if(this->animationTimer.getElapsedTime().asSeconds() >= 0.4f)
+    {
         //Idle animation
 
         this->currentFrame.left += 32.f;
@@ -54,31 +52,34 @@ void Customer::updateAnimations() {
 }
 
 void Customer::move() {
-
-    switch (this->movingStatus) {
+    switch (this->movingStatus)
+    {
         case MOVING_LEFT:
-            if(this->validMovement["Left"])
+            if (this->validMovement["Left"])
                 this->sprite.move(this->speed * (-0.15f), this->speed * (0.f));
             break;
 
         case MOVING_RIGHT:
-            if(this->validMovement["Right"])
+            if (this->validMovement["Right"])
                 this->sprite.move(this->speed * (0.15f), this->speed * (0.f));
             break;
 
         case MOVING_UP:
-            if(this->validMovement["Up"])
+            if (this->validMovement["Up"])
                 this->sprite.move(this->speed * (0.f), this->speed * (-0.15f));
             break;
 
         case MOVING_DOWN:
-            if(this->validMovement["Down"])
+            if (this->validMovement["Down"])
                 this->sprite.move(this->speed * (0.f), this->speed * (0.15f));
             break;
         case STANDING:
             break;
     }
+}
 
+const sf::Vector2f &Customer::getPosition() const {
+    return this->sprite.getPosition();
 }
 
 void Customer::setAnimation() {
@@ -103,7 +104,7 @@ void Customer::setAnimation() {
 }
 
 void Customer::moveTo() {
-    if(moving)
+    if(this->moving)
         move();
     this->actualPos = this->sprite.getPosition();
     if(this->movingStatus == MOVING_LEFT && this->actualPos.x <= this->endingPos.x) {
@@ -120,4 +121,39 @@ void Customer::setEndingPosition(sf::Vector2f endingPos, Move direction) {
     this->moving = true;
     this->movingStatus = direction;
 }
+
+std::queue<FollowMovement> &Customer::getPath() {
+    return this->path;
+}
+
+void Customer::setPath(sf::Vector2f dist, Move move) {
+    this->followMovement = new FollowMovement;
+    this->followMovement->setDist(dist);
+    this->followMovement->setMove(move);
+    this->path.push(*this->followMovement);
+}
+
+void Customer::initVariables() {
+    this->mood = GOOD;
+    this->patience = 100;
+    this->movingStatus = STANDING;
+    this->preMovingStatus = STANDING;
+    this->speed = 4;
+    this->moving = false;
+    //TODO:INITIALIZE THE QUEUE OF MOVES
+}
+
+void Customer::updateMoving() {
+    if(this->path.front().getMove() > 0)
+    {
+        setEndingPosition(this->path.front().getDist(), this->path.front().getMove());
+    }
+    else
+        this->path.pop();
+}
+
+void Customer::moveToChair(const sf::Sprite &sp, float offset) {
+
+}
+
 

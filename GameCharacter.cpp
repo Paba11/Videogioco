@@ -87,4 +87,8 @@ const sf::Vector2f &GameCharacter::getPosition() const {
     return this->sprite.getPosition();
 }
 
+Move GameCharacter::getMovingStatus() {
+    return this->movingStatus;
+}
+
 

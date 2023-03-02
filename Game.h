@@ -5,6 +5,7 @@
 #ifndef VIDEOGIOCO_GAME_H
 #define VIDEOGIOCO_GAME_H
 
+
 #include <map>
 #include <vector>
 #include "Waiter.h"
@@ -50,8 +51,8 @@ public:
     void windowsCollision();
     void collision();
     void collisionManagement();
-
-
+    void customerCollisionManagement();
+    void customerCollision();
 
     //Generate Customers and random numbers
     void generateCustomers();
@@ -59,6 +60,7 @@ public:
 
     //Method to manage the events
     void pollEvents();
+    ReceivingCustomers* getReceivingCustomers();
 
     //Method that update the position of the mouse relative to the game window
     void updateMousePos();
@@ -92,6 +94,7 @@ private:
     Counter* counter;
     Washbasin* washbasin;
     Customer* customer;
+    std::vector<Customer*> group;
     DishWasher* dishWasher;
     Textures* texture;
     OrderState* orderState;
@@ -130,8 +133,6 @@ private:
     void initOrderState();
     void initLevel();
     int numTables=6;
-
-
 
 };
 

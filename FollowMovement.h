@@ -16,9 +16,15 @@ public:
     void initDistance();
     float distanceTwoCharacters(GameCharacter* g1, GameCharacter* g2);
 
+    //Getters & Setters
+    sf::Vector2f getDist();
+    void setDist(sf::Vector2f);
+    Move getMove();
+    void setMove(Move m);
+
 private:
-    int dist;
-    Direction direction;
+    sf::Vector2f dist;
+    Move move;
 
 };
 

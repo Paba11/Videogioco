@@ -5,7 +5,6 @@
 #ifndef VIDEOGIOCO_LEVELHEADER_H
 #define VIDEOGIOCO_LEVELHEADER_H
 
-
 #define LEVEL_ONE_HUMOR 100;
 #define LEVEL_ONE_ARRIVALS 5;   //FIXME change arrival time
 #define LEVEL_ONE_MAX_TABLES 6;
