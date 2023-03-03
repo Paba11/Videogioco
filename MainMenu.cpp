@@ -102,11 +102,11 @@ void MainMenu::pollEvents() {
 
 void MainMenu::initButtons() {
 
-    this->buttons["PLAY"] = new Button(100,100,150,50,&this->font, "Play",
+    this->buttons["PLAY"] = new Button(250,1200,150,50,&this->font, "Play",
                                   sf::Color(70,70,70,200),
                                   sf::Color(150,150,150,255),
                                   sf::Color(20,20,20,200));
-    this->buttons["EXIT"] = new Button(600,100,150,50,&this->font, "QUIT",
+    this->buttons["EXIT"] = new Button(800,1200,150,50,&this->font, "QUIT",
                                        sf::Color(70,70,70,200),
                                        sf::Color(150,150,150,255),
                                        sf::Color(20,20,20,200));

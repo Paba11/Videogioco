@@ -37,7 +37,7 @@ private:
     void initTexture();
     sf::Sprite barrier1;
     sf::Sprite barrier2;
-    sf::Color boxOpacity = {255,255,255,255};
+    sf::Color boxOpacity = {253,202,78,255};
     bool cicle = true;
 
 
