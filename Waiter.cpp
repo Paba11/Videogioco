@@ -30,8 +30,8 @@ void Waiter::initSprite() {
     /*
      * Set the texture on the sprite and resize it
      */
+    this->sprite.setOrigin(25, 50);
     this->sprite.setPosition(800,400);
-    this->sprite.setOrigin(25, 25);
     this->sprite.setTexture(*this->texture->getTexture("Waiter"));
     this->currentFrame = sf::IntRect (0,0,50,50);
     this->sprite.setTextureRect(this->currentFrame);
@@ -397,7 +397,7 @@ Entrance *Waiter::distanceEntrance() {
 
     std::cout << "Entrance distance: " << dist << std::endl;
 
-    if(dist <= 30)
+    if(dist <= 1)
     {
         this->isClose = IS_CLOSE_ENTRANCE;
     }

@@ -26,10 +26,11 @@ void Entrance::initSprite() {
     barrier2.setScale(0.1f,0.1f);
 
     welcomeSquare.setSize({62,62});
-    welcomeSquare.setOrigin(10, 10);
+    welcomeSquare.setOrigin(31,31);
     welcomeSquare.setOutlineThickness(1);
+
     welcomeSquare.setFillColor(sf::Color::Transparent);
-    welcomeSquare.setPosition(898,870);
+    welcomeSquare.setPosition(920,910);
 }
 
 void Entrance::initTexture() {
