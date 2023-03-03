@@ -28,7 +28,7 @@ public:
 
     bool receive();
     void collisionManagement();
-    void moveToChair(std::queue<FollowMovement>& movement);
+    void moveToChair(sf::Sprite waiter);
     void move(FollowMovement customerMovement);
     void follow(sf::Vector2f prePosition, sf::Vector2f finalPosition, Move status);
 

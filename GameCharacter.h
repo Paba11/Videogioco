@@ -45,6 +45,7 @@ public:
     Move movingStatus;
     const sf::Vector2f& getPosition() const;
     sf::FloatRect& getHitbox();
+    sf::Sprite& getSprite();
 
 
 protected:

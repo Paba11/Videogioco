@@ -20,7 +20,7 @@ public:
     ~Customer();
 
     //Methods to update and display the customer on the screen
-    void update(bool waitMove);
+    void update(bool waitMove, sf::Sprite previous);
     void move();
     void moveToTable();
     void setSprite();
@@ -30,7 +30,7 @@ public:
     void updateAnimations() override;
     void setAnimation();
     //void moveToChair();
-    void updateMoving();
+    void updateMoving(sf::Sprite& previous);
     void moveTo();
     void setEndingPosition(sf::Vector2f endingPos, Move direction);
     void setEndingDirection(sf::Vector2f endingPos, Move direction);
@@ -48,6 +48,7 @@ private:
     bool moving;
     bool movingToTable;
     sf::Vector2f endingPos;
+    sf::Clock clock;
 
     //Road to move to the table
     std::queue<FollowMovement> path;

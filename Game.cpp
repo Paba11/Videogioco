@@ -443,8 +443,12 @@ void Game::updateCustomers() {
 
     if(this->map->getEntrance()->getIsCustomer())
     {
+        sf::Sprite previous = this->waiter->getSprite();
         for (auto & it : this->receivingCustomers->getCustomers())
-                 it.update(waitMove);
+        {
+            it.update(waitMove, previous);
+            previous = it.sprite;
+        }
     }
     else
         this->receivingCustomers = nullptr;

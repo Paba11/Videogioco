@@ -103,8 +103,6 @@ void ReceivingCustomers::setGeneratedCustomers(int numberCustomer, int textureNu
     this->customers.back().setSprite();
     std::cout << "set customer" << std::endl;
 
-
-
 }
 
 void ReceivingCustomers::setCustomer(Customer &customer) {
@@ -112,23 +110,17 @@ void ReceivingCustomers::setCustomer(Customer &customer) {
 }
 
 
-
 void ReceivingCustomers::collisionManagement() {
 
 }
 
-void ReceivingCustomers::moveToChair(std::queue<FollowMovement>& direction) {
+void ReceivingCustomers::moveToChair(sf::Sprite waiter) {
 
-    FollowMovement customerMovement;
-    if(direction.size() > 60)
+    for (int i = 0; i < this->customers.size(); i++)
     {
-        customerMovement = direction.front();
-        direction.pop();
-        for (int i = 0; i < this->customers.size(); i++)
-        {
-            move(customerMovement);
-
-        }
+        sf::Vector2f direction = waiter.getPosition() - customers[i].getPosition();
+        direction = sf::Vector2f(direction.x / std::abs(direction.x), direction.y / std::abs(direction.y));
+        customers[i].sprite.move(direction * 10.f);
     }
 }
 
@@ -176,6 +168,10 @@ Move ReceivingCustomers::checkState(float distX, float distY) {
             direction = MOVING_DOWN;
         else if(distY > 0)
             direction = MOVING_UP;
+    }
+    else
+    {
+        //TODO IMPLEMENT CASE IN WHICH BOTH ARE DIFFERENT
     }
     return direction;
 }

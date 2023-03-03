@@ -508,6 +508,7 @@ void Waiter::interactionManagement() {
         interact();
     else if(this->state == RECEIVING_CUSTOMERS && distanceSpecificTable(this->targetTable))
         receivedCustomers();
+
 }
 
 void Waiter::setReceivingCustomers(ReceivingCustomers *rc) {

@@ -95,4 +95,8 @@ sf::FloatRect& GameCharacter::getHitbox() {
     return this->hitbox;
 }
 
+sf::Sprite &GameCharacter::getSprite() {
+    return this->sprite;
+}
+
 

@@ -22,11 +22,11 @@ Customer::~Customer() {
 
 }
 
-void Customer::update(bool waitMove) {
+void Customer::update(bool waitMove, sf::Sprite previous) {
     setAnimation();
     updateAnimations();
     if(waitMove)
-        updateMoving();
+        updateMoving(previous);
     moveTo();
 }
 
@@ -88,22 +88,22 @@ void Customer::moveToTable() {
     switch (this->path.front().getMove())
     {
         case MOVING_LEFT:
-            if (this->validMovement["Left"] && this->sprite.getPosition() != this->path.front().getDist())
+            if (this->validMovement["Left"] && this->sprite.getPosition().x != this->path.front().getDist().x)
                 this->sprite.move(this->speed * (-0.15f), this->speed * (0.f));
             break;
 
         case MOVING_RIGHT:
-            if (this->validMovement["Right"] && this->sprite.getPosition() != this->path.front().getDist())
+            if (this->validMovement["Right"] && this->sprite.getPosition().x != this->path.front().getDist().x)
                 this->sprite.move(this->speed * (0.15f), this->speed * (0.f));
             break;
 
         case MOVING_UP:
-            if (this->validMovement["Up"] && this->sprite.getPosition() != this->path.front().getDist())
+            if (this->validMovement["Up"] && this->sprite.getPosition().y != this->path.front().getDist().y)
                 this->sprite.move(this->speed * (0.f), this->speed * (-0.15f));
             break;
 
         case MOVING_DOWN:
-            if (this->validMovement["Down"] && this->sprite.getPosition() != this->path.front().getDist())
+            if (this->validMovement["Down"] && this->sprite.getPosition().y != this->path.front().getDist().y)
                 this->sprite.move(this->speed * (0.f), this->speed * (0.15f));
             break;
         case STANDING:
@@ -177,13 +177,11 @@ void Customer::initVariables() {
     //TODO:INITIALIZE THE QUEUE OF MOVES
 }
 
-void Customer::updateMoving() {
-    if(this->path.front().getDist() != this->sprite.getPosition())
-    {
-        setEndingDirection(this->path.front().getDist(), this->path.front().getMove());
-    }
-    else
-        this->path.pop();
+void Customer::updateMoving(sf::Sprite& previous) {
+    //this->clock
+    sf::Vector2f direction = previous.getPosition() - this->sprite.getPosition();
+    direction = sf::Vector2f(direction.x / std::abs(direction.x), direction.y / std::abs(direction.y));
+    this->sprite.move(direction * 10.f);
 }
 
 void Customer::moveToChair(const sf::Sprite &sp, float offset) {
