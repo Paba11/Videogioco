@@ -116,5 +116,12 @@ sf::Texture* Textures::getTexture(std::string name) {
      {
          std::cout << "ERROR::Barrier::CAN'T LOAD TEXTURE FILE" << std::endl;
      }
+     textures["Waiter_Female_1"] = new sf::Texture();
+     if (!this->textures["Waiter_Female_1"]->loadFromFile("../Textures/new_textures/Waiter_Female_1.png"))
+     {
+         std::cout << "ERROR::WaiterFemale::CAN'T LOAD TEXTURE FILE" << std::endl;
+     }
+
+
 }
 

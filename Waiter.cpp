@@ -32,7 +32,7 @@ void Waiter::initSprite() {
      */
     this->sprite.setOrigin(25, 50);
     this->sprite.setPosition(800,400);
-    this->sprite.setTexture(*this->texture->getTexture("Waiter"));
+    //this->sprite.setTexture(*this->texture->getTexture("Waiter"));
     this->currentFrame = sf::IntRect (0,0,50,50);
     this->sprite.setTextureRect(this->currentFrame);
     this->sprite.setScale(2.5,2.5);
@@ -517,6 +517,10 @@ void Waiter::setReceivingCustomers(ReceivingCustomers *rc) {
 
 bool Waiter::getIsReceived() {
     return this->isReceived;
+}
+
+void Waiter::initTexture(sf::Texture* textureW) {
+    this->sprite.setTexture(*textureW);
 }
 
 

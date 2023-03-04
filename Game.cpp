@@ -4,8 +4,9 @@
 
 #include "Game.h"
 
-Game::Game(sf::RenderWindow* window, std::stack <ProgramState*>* states) : ProgramState(window, states) {
+Game::Game(sf::RenderWindow* window, std::stack <ProgramState*>* states, int waiterTexture) : ProgramState(window, states) {
     initLevel();
+    this->waiterTexture = waiterTexture;
     initVariables();
     initWindow();
     initTexture();
@@ -141,6 +142,7 @@ void Game::updateMousePos() {
 
 void Game::initWaiter() {
     this->waiter = new Waiter();
+    setWaiterTexture(this->waiterTexture);
     this->waiter->setMap(this->map);
 }
 
@@ -452,6 +454,15 @@ void Game::updateCustomers() {
     }
     else
         this->receivingCustomers = nullptr;
+
+}
+
+void Game::setWaiterTexture(int waiterTexture) {
+    if(waiterTexture == 0)
+        this->waiter->initTexture(this->texture->getTexture("Waiter"));
+    else
+        this->waiter->initTexture(this->texture->getTexture("Waiter_Female_1"));
+
 
 }
 

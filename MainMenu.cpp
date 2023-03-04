@@ -124,7 +124,7 @@ void MainMenu::updateButtons() {
     }
     if(buttons["PLAY"]->isPressed()) {
         this->quit = true;
-        this->states->push(new Game(this->window, this->states));
+        this->states->push(new ChoosingCharacter(this->window, this->states));
     }
 
 }

@@ -7,6 +7,7 @@
 Button::Button(float x, float y, float width, float height, sf::Font* font, std::string text,
                sf::Color idleColor, sf::Color hoverColor, sf::Color pressColor) {
 
+    this->buttonType = "Rectangle";
     this->shape.setSize(sf::Vector2f(width,height));
     this->shape.setPosition(sf::Vector2f(x,y));
     this->buttonState = IDLE;
@@ -27,23 +28,53 @@ Button::Button(float x, float y, float width, float height, sf::Font* font, std:
 
 }
 
+Button::Button(float x, float y,
+               sf::Color idleColor, sf::Color hoverColor, sf::Color pressColor) {
+
+    this->buttonType = "Triangle";
+    this->triangle = sf::CircleShape (20,3);
+    this->triangle.setOrigin(20,20);
+    this->triangle.setPosition(sf::Vector2f(x,y));
+    this->buttonState = IDLE;
+
+    this->idleColor = idleColor;
+    this->hoverColor = hoverColor;
+    this->pressColor = pressColor;
+    this->shape.setFillColor(this->idleColor);
+
+}
+
 Button::~Button() {
 
 }
 
 void Button::render(sf::RenderTarget& target) {
 
-    target.draw(this->shape);
-    target.draw(this->text);
+    if(this->buttonType == "Rectangle") {
+        target.draw(this->shape);
+        target.draw(this->text);
+    }
+    else if(this->buttonType == "Triangle")
+        target.draw(this->triangle);
 }
 
 void Button::update(sf::Vector2f  mousePos) {
 
     this->buttonState = IDLE;
-    if(this->shape.getGlobalBounds().contains(mousePos)){
-        this->buttonState = HOVER;
-        if(sf::Mouse::isButtonPressed(sf::Mouse::Left)){
-            this->buttonState = PRESSED;
+    if(this->buttonType == "Rectangle") {
+        if (this->shape.getGlobalBounds().contains(mousePos)) {
+            this->buttonState = HOVER;
+            if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
+                this->buttonState = PRESSED;
+            }
+        }
+    }
+    else if(this->buttonType == "Triangle"){
+        if (this->triangle.getGlobalBounds().contains(mousePos)) {
+            this->buttonState = HOVER;
+            if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
+                this->buttonState = PRESSED;
+            }
         }
     }
     changeColor();
@@ -51,17 +82,33 @@ void Button::update(sf::Vector2f  mousePos) {
 
 void Button::changeColor() {
 
-    switch(this->buttonState){
+    if(this->buttonType == "Rectangle") {
+        switch (this->buttonState) {
 
-        case IDLE :
-            this->shape.setFillColor(idleColor);
-            break;
-        case HOVER:
-            this->shape.setFillColor(hoverColor);
-            break;
-        case PRESSED:
-            this->shape.setFillColor(pressColor);
-            break;
+            case IDLE :
+                this->shape.setFillColor(idleColor);
+                break;
+            case HOVER:
+                this->shape.setFillColor(hoverColor);
+                break;
+            case PRESSED:
+                this->shape.setFillColor(pressColor);
+                break;
+        }
+    }
+    else if(this->buttonType == "Triangle"){
+        switch (this->buttonState) {
+
+            case IDLE :
+                this->triangle.setFillColor(idleColor);
+                break;
+            case HOVER:
+                this->triangle.setFillColor(hoverColor);
+                break;
+            case PRESSED:
+                this->triangle.setFillColor(pressColor);
+                break;
+        }
     }
 
 }
@@ -73,6 +120,6 @@ bool Button::isPressed() {
         return false;
 }
 
-void Button::textSetPosition() {
 
-}
+
+

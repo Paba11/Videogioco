@@ -13,7 +13,7 @@
 #include <SFML/Audio.hpp>
 #include "Button.h"
 #include "ProgramState.h"
-#include "Game.h"
+#include "ChoosingCharacter.h"
 
 
 class MainMenu : public ProgramState{

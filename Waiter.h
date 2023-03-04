@@ -62,6 +62,7 @@ public:
     void setOrderState(OrderState* o);
     void setReceivingCustomers(ReceivingCustomers* rc);
     bool getIsReceived();
+    void initTexture(sf::Texture* textureW);
 
 
 protected:

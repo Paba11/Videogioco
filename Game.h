@@ -30,7 +30,7 @@
 class Game : public ProgramState{
 public:
     //Constructor & Destructor
-    Game(sf::RenderWindow* window, std::stack <ProgramState*>* states);
+    Game(sf::RenderWindow* window, std::stack <ProgramState*>* states, int waiterTexture);
     ~Game() override;
 
     //Method to initialize all the textures needed inside the game
@@ -132,7 +132,9 @@ private:
     void initDishWasher();
     void initOrderState();
     void initLevel();
+    void setWaiterTexture(int waiterTexture);
     int numTables=6;
+    int waiterTexture;
 
 };
 
