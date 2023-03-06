@@ -41,7 +41,7 @@ add_executable( videogioco                  main.cpp
                 Videogame.h                 Videogame.cpp
                 Waiter.h                    Waiter.cpp
                 WaiterStates.h
-                Washbasin.h                 Washbasin.cpp BottomBar.cpp BottomBar.h ChoosingCharacter.cpp ChoosingCharacter.h)
+                Washbasin.h                 Washbasin.cpp BottomBar.cpp BottomBar.h ChoosingCharacter.cpp ChoosingCharacter.h HowToPlay.cpp HowToPlay.h)
 
 
 target_link_libraries(videogioco sfml-graphics sfml-audio)

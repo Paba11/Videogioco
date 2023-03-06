@@ -28,6 +28,7 @@ void ChoosingCharacter::update() {
     pollEvents();
     updateButtons();
     checkQuit();
+
 }
 
 void ChoosingCharacter::updateButtons() {
@@ -62,7 +63,6 @@ void ChoosingCharacter::render(sf::RenderTarget* target) {
     this->renderButtons();
     this->window->draw(waiter);
     this->window->display();
-    this->checkQuit();
 }
 
 void ChoosingCharacter::renderButtons() {
@@ -74,6 +74,7 @@ void ChoosingCharacter::renderButtons() {
 
 void ChoosingCharacter::endState() {
 
+    std::cout << "Exit from ChoosingCharacter" << std::endl;
 }
 
 void ChoosingCharacter::initVariables() {

@@ -14,7 +14,7 @@
 #include "Button.h"
 #include "ProgramState.h"
 #include "ChoosingCharacter.h"
-
+#include "HowToPlay.h"
 
 class MainMenu : public ProgramState{
 

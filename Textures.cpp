@@ -126,6 +126,26 @@ sf::Texture* Textures::getTexture(std::string name) {
      {
          std::cout << "ERROR::ChoosingCharacterBackground::CAN'T LOAD TEXTURE FILE" << std::endl;
      }
+     textures["WASD"] = new sf::Texture();
+     if (!this->textures["WASD"]->loadFromFile("../Textures/new_textures/WASD.png"))
+     {
+         std::cout << "ERROR::WASD::CAN'T LOAD TEXTURE FILE" << std::endl;
+     }
+     textures["jKey"] = new sf::Texture();
+     if (!this->textures["jKey"]->loadFromFile("../Textures/new_textures/TastoJ.png"))
+     {
+         std::cout << "ERROR::jKey::CAN'T LOAD TEXTURE FILE" << std::endl;
+     }
+     textures["kKey"] = new sf::Texture();
+     if (!this->textures["kKey"]->loadFromFile("../Textures/new_textures/TastoK.png"))
+     {
+         std::cout << "ERROR::kKey::CAN'T LOAD TEXTURE FILE" << std::endl;
+     }
+     textures["lKey"] = new sf::Texture();
+     if (!this->textures["lKey"]->loadFromFile("../Textures/new_textures/TastoL.png"))
+     {
+         std::cout << "ERROR::lKey::CAN'T LOAD TEXTURE FILE" << std::endl;
+     }
 
 
 }

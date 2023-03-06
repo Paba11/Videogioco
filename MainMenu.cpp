@@ -110,6 +110,11 @@ void MainMenu::initButtons() {
                                        sf::Color(70,70,70,200),
                                        sf::Color(150,150,150,255),
                                        sf::Color(20,20,20,200));
+
+    this->buttons["HOWTO"] = new Button(500,1200,150,50,&this->font, "CONTROLS",
+                                        sf::Color(70,70,70,200),
+                                        sf::Color(150,150,150,255),
+                                        sf::Color(20,20,20,200));
 }
 
 
@@ -126,6 +131,11 @@ void MainMenu::updateButtons() {
         this->quit = true;
         this->states->push(new ChoosingCharacter(this->window, this->states));
     }
+    if(buttons["HOWTO"]->isPressed()) {
+        this->quit = true;
+        this->states->push(new HowToPlay(this->window, this->states));
+    }
+
 
 }
 
