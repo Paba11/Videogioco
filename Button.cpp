@@ -64,7 +64,7 @@ void Button::update(sf::Vector2f  mousePos) {
     if(this->buttonType == "Rectangle") {
         if (this->shape.getGlobalBounds().contains(mousePos)) {
             this->buttonState = HOVER;
-            if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
+            while (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
                 this->buttonState = PRESSED;
             }
         }
@@ -72,7 +72,7 @@ void Button::update(sf::Vector2f  mousePos) {
     else if(this->buttonType == "Triangle"){
         if (this->triangle.getGlobalBounds().contains(mousePos)) {
             this->buttonState = HOVER;
-            if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
+            while (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
                 this->buttonState = PRESSED;
             }
         }

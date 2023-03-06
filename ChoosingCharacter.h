@@ -38,6 +38,8 @@ private:
     sf::IntRect currentFrame;
     sf::Clock animationTimer;
     int chosedTexture;
+    sf::Sprite background;
+    sf::Text text;
 
 
 
@@ -48,6 +50,7 @@ private:
     void updateMousePosition();
     void initFonts();
     void changeTexture();
+    void initText();
 
 
 

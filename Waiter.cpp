@@ -519,7 +519,7 @@ bool Waiter::getIsReceived() {
     return this->isReceived;
 }
 
-void Waiter::initTexture(sf::Texture* textureW) {
+void Waiter::initTexture(sf::Texture* textureW) {       //initTexture with a pointer from Games
     this->sprite.setTexture(*textureW);
 }
 

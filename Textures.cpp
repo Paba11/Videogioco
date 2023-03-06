@@ -121,6 +121,11 @@ sf::Texture* Textures::getTexture(std::string name) {
      {
          std::cout << "ERROR::WaiterFemale::CAN'T LOAD TEXTURE FILE" << std::endl;
      }
+     textures["ChoosingCharacterBackground"] = new sf::Texture();
+     if (!this->textures["ChoosingCharacterBackground"]->loadFromFile("../Textures/new_textures/SfondoSceltaCameriere.png"))
+     {
+         std::cout << "ERROR::ChoosingCharacterBackground::CAN'T LOAD TEXTURE FILE" << std::endl;
+     }
 
 
 }

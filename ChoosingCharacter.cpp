@@ -9,11 +9,13 @@
 ChoosingCharacter::ChoosingCharacter(sf::RenderWindow* window, std::stack <ProgramState*>* states) : ProgramState(window, states) {
 
     initVariables();
+    initFonts();
+    initText();
     initSprite();
     initWindow();
-    initFonts();
     initButtons();
     this->chosedTexture = 0;
+
 }
 
 ChoosingCharacter::~ChoosingCharacter() {
@@ -55,6 +57,8 @@ void ChoosingCharacter::updateButtons() {
 void ChoosingCharacter::render(sf::RenderTarget* target) {
 
     this->window->clear();
+    this->window->draw(this->background);
+    this->window->draw(this->text);
     this->renderButtons();
     this->window->draw(waiter);
     this->window->display();
@@ -134,6 +138,8 @@ void ChoosingCharacter::initSprite() {
     this->waiter.setScale(4.f,4.f);
     this->waiter.setPosition(1298/2,1344/2);
 
+    this->background.setTexture(*this->texture->getTexture("ChoosingCharacterBackground"));
+
 }
 
 
@@ -181,6 +187,17 @@ void ChoosingCharacter::changeTexture() {
         this->waiter.setTexture(*this->texture->getTexture("Waiter"));
     else
         this->waiter.setTexture(*this->texture->getTexture("Waiter_Female_1"));
+}
+
+void ChoosingCharacter::initText() {
+
+    this->text.setString("Choose your waiter");
+    this->text.setFont(this->font);
+    this->text.setFillColor(sf::Color::White);
+    this->text.setCharacterSize(100);
+    this->text.setOutlineThickness(10);
+    this->text.setOutlineColor(sf::Color::Black);
+    this->text.setPosition(280, 100);
 }
 
 
