@@ -5,11 +5,17 @@
 #ifndef VIDEOGIOCO_WAITERSTATES_H
 #define VIDEOGIOCO_WAITERSTATES_H
 
+#include "GameCharacter.h"
+
 enum Genre {BOY, GIRL};
-enum Actions {DOING_NOTHING, RECEIVING_CUSTOMERS, TAKING_ORDER, LEAVING_ORDER, TAKING_DISHES,
-        LEAVING_DISHES, TAKING_EMPTY_DISHES, LEAVING_EMPTY_DISHES};
-enum Position {IS_CLOSE_TABLE, IS_CLOSE_KITCHEN, IS_CLOSE_DISHWASHER, IS_CLOSE_NOTHING, IS_CLOSE_ENTRANCE};
 
+class WaiterStates {
+public:
+    WaiterStates();
+    ~WaiterStates();
 
+    virtual void handleInput(GameCharacter& gc, sf::Event ev);
+    virtual void update(GameCharacter& gc);
+};
 
 #endif //VIDEOGIOCO_WAITERSTATES_H

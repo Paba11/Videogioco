@@ -8,6 +8,7 @@ find_package(SFML 2.5 COMPONENTS graphics audio REQUIRED)
 include_directories(${SFML_INCLUDE_DIR})
 
 add_executable( videogioco                  main.cpp
+                ActionState.h               ActionState.cpp
                 Appetizer.h                 Appetizer.cpp
                 Bill.h                      Bill.cpp
                 Button.h                    Button.cpp
@@ -33,6 +34,7 @@ add_executable( videogioco                  main.cpp
                 OrderState.h                OrderState.cpp
                 ProgramState.h              ProgramState.cpp
                 ReceivingCustomers.h        ReceivingCustomers.cpp
+                ReceiveState.h              ReceiveState.cpp
                 Recipe.h                    Recipe.cpp
                 Stool.h                     Stool.cpp
                 Table.h                     Table.cpp
@@ -40,7 +42,7 @@ add_executable( videogioco                  main.cpp
                 Tray.h                      Tray.cpp
                 Videogame.h                 Videogame.cpp
                 Waiter.h                    Waiter.cpp
-                WaiterStates.h
+                WaiterStates.h              WaiterStates.cpp
                 Washbasin.h                 Washbasin.cpp BottomBar.cpp BottomBar.h ChoosingCharacter.cpp ChoosingCharacter.h HowToPlay.cpp HowToPlay.h)
 
 

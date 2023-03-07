@@ -17,7 +17,6 @@ Game::Game(sf::RenderWindow* window, std::stack <ProgramState*>* states, int wai
     initWaiter();
     initChef();
     initDishWasher();
-    initOrderState();
     generateCustomers();
     //initTexture();
 }
@@ -145,6 +144,7 @@ void Game::updateMousePos() {
 void Game::initWaiter() {
     this->waiter = new Waiter();
     setWaiterTexture(this->waiterTexture);
+    this->waiter->initStates(this->map);
 }
 
 
@@ -322,11 +322,6 @@ void Game::initChef() {
     this->chef = new Chef();
     this->chef->setKitchen(this->kitchen);
 
-}
-
-void Game::initOrderState() {
-    orderState = new OrderState;
-    this->waiter->setOrderState(this->orderState);
 }
 
 

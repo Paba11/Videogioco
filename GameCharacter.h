@@ -13,9 +13,8 @@
 #include <SFML/Graphics.hpp>
 
 enum Move {MOVING_UP, MOVING_DOWN, MOVING_LEFT, MOVING_RIGHT, STANDING};
-
-
-
+enum Actions {DOING_NOTHING, RECEIVING_CUSTOMERS, TAKING_ORDER, LEAVING_ORDER, TAKING_DISHES,
+    LEAVING_DISHES, TAKING_EMPTY_DISHES, LEAVING_EMPTY_DISHES};
 
 class GameCharacter {
 public:
@@ -46,7 +45,8 @@ public:
     const sf::Vector2f& getPosition() const;
     sf::FloatRect& getHitbox();
     sf::Sprite& getSprite();
-
+    Actions getState();
+    void setState(Actions a);
 
 protected:
     sf::Sprite sprite;
@@ -58,6 +58,7 @@ protected:
     float speed;
     Move preMovingStatus;
 
+    Actions state;
 
     //Method to init the texture and the sprite
     virtual void initTexture();

@@ -198,7 +198,6 @@ Table* Map::distanceTable(sf::Sprite& gc) {
      */
 
     float dist;
-    Table* table = nullptr;
     /*
     for(int i = 0; i < this->map->getAllTables().size(); i++)
     {
@@ -209,7 +208,7 @@ Table* Map::distanceTable(sf::Sprite& gc) {
     for(int i = 0; i < this->allTables.size() && this->isClose != IS_CLOSE_TABLE; i++)
     {
 
-        table = &getTable(i);
+        this->table = &getTable(i);
         dist = std::sqrt(std::pow(table->sprite.getPosition().x - gc.getPosition().x, 2) +
                          std::pow(table->sprite.getPosition().y - gc.getPosition().y, 2));
 
@@ -233,4 +232,8 @@ Position Map::getIsClose() {
 
 void Map::setIsClose(Position pos) {
     this->isClose = pos;
+}
+
+Table *Map::getTableToPickUp() {
+    return this->table;
 }

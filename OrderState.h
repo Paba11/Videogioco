@@ -10,8 +10,9 @@
 #include <SFML/Window.hpp>
 #include <SFML/System.hpp>
 #include <SFML/Audio.hpp>
+#include "WaiterStates.h"
 #include "Order.h"
-#include "Table.h"
+#include "Map.h"
 
 #define MAX_DRINKS 4;
 #define MAX_APPETIZERS 4;
@@ -21,11 +22,14 @@
 //TODO: CHANGE TEXTURE WHILE THE CUSTOMER ARE ORDERING, IN ORDER TO SELECT THE RIGHT DISHES AND QUANTITY
 
 
-class OrderState {
+class OrderState : public WaiterStates {
 public:
     //Constructor & Destructor
-    OrderState();
+    OrderState(Map* map);
     ~OrderState();
+
+    //Handle the input
+    void handleInput(GameCharacter& gc, sf::Event ev) override;
 
     //Texture and updating
     void manageOrder();
@@ -33,7 +37,6 @@ public:
     void update();
     void render();
     bool select();
-
 
     //Actions of the order state
     void setOrderVariables(Table* t, Order* o);
@@ -56,6 +59,7 @@ private:
 
     Order* order;
     Table* table;
+    Map* map;
     Current current;
     int cursor;
     int actualMax;

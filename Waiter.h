@@ -8,11 +8,12 @@
 #include "Dish.h"
 #include "GameCharacter.h"
 #include "Order.h"
-#include "Tray.h"
 #include "Map.h"
 #include "Textures.h"
-#include "OrderState.h"
 #include "WaiterStates.h"
+#include "OrderState.h"
+#include "ActionState.h"
+#include "ReceiveState.h"
 #include "ReceivingCustomers.h"
 #include "FollowMovement.h"
 #include <cmath>
@@ -47,32 +48,35 @@ public:
 
 
     //Getters & Setters
-    Actions getState();
     Move getMove();
-    OrderState* getOrderState();
-    void setOrderState(OrderState* o);
+    //OrderState* getOrderState();
+    //void setOrderState(OrderState* o);
     void setReceivingCustomers(ReceivingCustomers* rc);
     bool getIsReceived();
     void initTexture(sf::Texture* textureW);
 
+    ActionsState* getActionState();
+    OrderState* getOrderState();
+    ReceiveState* getReceiveState();
+
+    void initStates(Map* map);
 
 protected:
     //Methods' override to initialize the texture and the sprite
     void initSprite() override;
+    void initVariables();
 
     //Attributes of the waiter
-
     int ability;
     Genre genre;
 
-    Actions state;
+    //State pattern
+    ActionsState* actionsState;
+    OrderState* orderState;
+    ReceiveState* receiveState;
 
     //Attributes to take an order
     Order* order;
-    OrderState* orderState;
-
-    //Pointer to the plates carrying in a specific moment
-    Tray* tray;
 
     //Attributes to receive the customers
     Table* targetTable;

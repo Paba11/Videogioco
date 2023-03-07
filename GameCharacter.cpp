@@ -99,4 +99,10 @@ sf::Sprite &GameCharacter::getSprite() {
     return this->sprite;
 }
 
+Actions GameCharacter::getState() {
+    return this->state;
+}
 
+void GameCharacter::setState(Actions a) {
+    this->state = a;
+}

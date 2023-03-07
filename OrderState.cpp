@@ -4,9 +4,10 @@
 
 #include "OrderState.h"
 
-OrderState::OrderState() {
+OrderState::OrderState(Map* m) {
     initTexture();
     initSprite();
+    this->map = m;
     this->order = nullptr;
     this->current = DRINK;
     this->actualMax = MAX_DRINKS;
@@ -158,4 +159,8 @@ void OrderState::update() {
 
 void OrderState::render() {
     //TODO: RENDER THE TEXTURE ON THE SCREEN
+}
+
+void OrderState::handleInput(GameCharacter &gc, sf::Event ev) {
+    //TODO: HANDLE THE INPUT
 }

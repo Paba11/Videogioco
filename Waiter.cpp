@@ -7,23 +7,23 @@
 
 Waiter::Waiter() {
     initSprite();
+    initVariables();
+}
+
+Waiter::~Waiter() {
+    delete this->order;
+}
+
+void Waiter::initVariables() {
     this->state = DOING_NOTHING;
     this->movingStatus = STANDING;
     this->preMovingStatus = STANDING;
     this->speed = 8;
-    this->tray = new Tray();
     this->order = nullptr;
-    this->orderState = nullptr;
     this->receivingCustomers = nullptr;
     this->targetCustomer = nullptr;
     this->isReceived = false;
 }
-
-Waiter::~Waiter() {
-    delete this->tray;
-    delete this->order;
-}
-
 
 void Waiter::initSprite() {
     /*
@@ -106,163 +106,24 @@ void Waiter::move() {
 }
 
 void Waiter::interact(Map* map, sf::Event ev) {
-    Washbasin* washbasin = map->distanceWashbasin(this->sprite);
-    Kitchen* kitchen = map->distanceKitchen(this->sprite);
-    Entrance* entrance = map->distanceEntrance(this->sprite);
-    Table* table = map->distanceTable(this->sprite);
-    /*
-    delete this->wState;
+    map->distanceTable(this->sprite);
+    map->distanceEntrance(this->sprite);
+    map->distanceKitchen(this->sprite);
+    map->distanceWashbasin(this->sprite);
+
     if(!this->order && map->getIsClose() == IS_CLOSE_ENTRANCE && map->getEntrance()->getIsCustomer())
     {
         this->state = RECEIVING_CUSTOMERS;
-        this->wState = new ReceiveState(map);
+        this->receiveState->handleInput(*this, ev);
     }
     else if(!this->order && map->getIsClose() == IS_CLOSE_TABLE)
     {
         this->state = TAKING_ORDER;
-        this->wState = new OrderState(table);
+        this->orderState->handleInput(*this, ev);
     }
     else
-        this->wState = new ActionsState(map);
+        this->actionsState->handleInput(*this, ev);
 
-    this->wState->handleInput(*this, ev);
-*/
-}
-
-
-void Waiter::pickUp(Kitchen* kitchen) {
-    //PICK UP THE PLATES FROM THE KITCHEN
-
-    Dish* d;
-    if(this->tray->getState() == EMPTY_TRAY && kitchen->getState() == FULL)
-    {
-        this->state = TAKING_DISHES;
-        while (!kitchen->getDishes().empty())
-        {
-            d = kitchen->getDish();
-            this->tray->setDish(d);
-            this->tray->update();
-            kitchen->update();
-            this->update();
-        }
-        //Set the tray to filled
-        tray->setState(FILLED_TRAY);
-        //Set the kitchen to empty
-        kitchen->setState(0);
-    }
-
-    this->state = DOING_NOTHING;
-}
-
-
-void Waiter::pickUp(Table* table) {
-    //PICK UP THE EMPTY PLATES FROM THE TABLE
-
-    Dish* d;
-    if(this->tray->getState() == EMPTY_TRAY && table->getState() == ENDED)
-    {
-        this->state = TAKING_EMPTY_DISHES;
-        while(!table->getDishes().empty())
-        {
-
-            d = table->getDish();
-            this->tray->setDish(d);
-            this->tray->update();
-            table->update();
-            update();
-        }
-
-        //Set the tray to empty plates
-        tray->setState(EMPTY_PLATES);
-
-        //Set the table to the next instruction on the order
-        switch(table->getCourse())
-        {
-            case APPETIZER:
-                table->setState(WAITING_DISHES);
-                table->setCourse(MAIN_DISH);
-                break;
-            case MAIN_DISH:
-                table->setState(WAITING_DISHES);
-                table->setCourse(DESSERT);
-                break;
-            case DESSERT:
-                table->setState(ENDED);
-                table->setCourse(END);
-                break;
-        }
-    }
-    this->state = DOING_NOTHING;
-}
-
-void Waiter::putDown(Table* table) {
-    //Leave the plates at the table
-
-    if(this->tray->getState() == FILLED_TRAY && table->getState() == WAITING_DISHES &&
-    this->tray->getDishes().front()->getTavNum() == table->getTavNum())
-    {
-        this->state = LEAVING_DISHES;
-
-        while(!this->tray->getDishes().empty())
-        {
-            table->setDish(this->tray->getDish());
-            this->tray->update();
-            table->update();
-            update();
-        }
-
-        //Set the table in the right state
-        table->setState(EATING);
-        //Set the tray in the right state
-        this->tray->setState(EMPTY_TRAY);
-    }
-
-    this->state = DOING_NOTHING;
-}
-
-void Waiter::putDown(Washbasin* washbasin) {
-    //Lave the plates at the washbasin
-
-    if(this->tray->getState() == EMPTY_PLATES && !washbasin->getIsPlates())
-    {
-        this->state = LEAVING_EMPTY_DISHES;
-
-        //Set the table in the right state
-        washbasin->setIsPlates(true);
-        int count = 0;
-
-        while(!this->tray->getDishes().empty())
-        {
-            count++;
-            this->tray->getDish();
-            this->tray->update();
-            washbasin->update();
-            update();
-        }
-        washbasin->setNumPlates(count);
-        //Set the tray in the right state
-        this->tray->setState(EMPTY_TRAY);
-    }
-    this->state = DOING_NOTHING;
-}
-
-void Waiter::takingOrder(Table* table) {
-    this->order = new Order;
-    this->orderState->setOrderVariables(table, this->order);
-
-}
-
-void Waiter::leavingOrder(Kitchen* kitchen) {
-    //Leave the order at the kitchen
-
-    if(this->order)
-    {
-        this->state = LEAVING_ORDER;
-        kitchen->insertNewOrder(order);
-        kitchen->update();
-        this->order = nullptr;
-    }
-    this->state = DOING_NOTHING;
 }
 
 void Waiter::update() {
@@ -309,16 +170,8 @@ void Waiter::setAnimation() {
 
 }
 
-Actions Waiter::getState() {
-    return this->state;
-}
-
-OrderState *Waiter::getOrderState() {
+OrderState* Waiter::getOrderState() {
     return this->orderState;
-}
-
-void Waiter::setOrderState(OrderState *o) {
-    this->orderState = o;
 }
 
 Move Waiter::getMove() {
@@ -360,6 +213,22 @@ bool Waiter::getIsReceived() {
 void Waiter::initTexture(sf::Texture* textureW) {       //initTexture with a pointer from Games
     this->sprite.setTexture(*textureW);
 }
+
+ActionsState *Waiter::getActionState() {
+    return this->actionsState;
+}
+
+ReceiveState *Waiter::getReceiveState() {
+    return this->receiveState;
+}
+
+void Waiter::initStates(Map *map) {
+    this->actionsState = new ActionsState(map);
+    this->orderState = new OrderState(map);
+    this->receiveState = new ReceiveState(map);
+}
+
+
 
 
 /*

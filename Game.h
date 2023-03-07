@@ -130,7 +130,6 @@ private:
     void initMap();
     void initTexture();
     void initDishWasher();
-    void initOrderState();
     void initLevel();
     void setWaiterTexture(int waiterTexture);
     int numTables=6;

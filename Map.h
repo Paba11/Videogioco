@@ -17,6 +17,8 @@
 
 #define MAX_SIZE 10
 
+enum Position {IS_CLOSE_TABLE, IS_CLOSE_KITCHEN, IS_CLOSE_DISHWASHER, IS_CLOSE_NOTHING, IS_CLOSE_ENTRANCE};
+
 class Map {
 public:
     //Constructor & Destructor
@@ -49,6 +51,7 @@ public:
     bool distanceSpecificTable(Table* t, sf::Sprite& gc);
     Position getIsClose();
     void setIsClose(Position pos);
+    Table* getTableToPickUp();
 
 private:
     sf::Sprite entrance;
@@ -59,6 +62,7 @@ private:
     //Elements of the map
     std::vector<Table> allTables;
     std::queue<Table> occupiedTables;
+    Table* table;
     Washbasin* washbasin;
     Kitchen* kitchen;
     Entrance* entranceObj;
