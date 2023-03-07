@@ -124,9 +124,11 @@ void Game::pollEvents() {
             case sf::Event::KeyPressed:
                 if (this->ev.key.code == sf::Keyboard::Escape)
                     this->quit = true;
-                else {
+                else if (this->ev.key.code == sf::Keyboard::J || this->ev.key.code == sf::Keyboard::K
+                    || this->ev.key.code == sf::Keyboard::J)
+                {
                     //this->waiter->updateMovement();
-                    //this->waiter->interact(this->map);
+                    this->waiter->interact(this->map, this->ev);
                 }
                 break;
         }
@@ -143,7 +145,6 @@ void Game::updateMousePos() {
 void Game::initWaiter() {
     this->waiter = new Waiter();
     setWaiterTexture(this->waiterTexture);
-    this->waiter->setMap(this->map);
 }
 
 

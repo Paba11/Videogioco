@@ -9,6 +9,7 @@
 #include "Kitchen.h"
 #include "Entrance.h"
 #include "Table.h"
+#include <cmath>
 #include <SFML/Graphics.hpp>
 #include <SFML/Window.hpp>
 #include <SFML/System.hpp>
@@ -39,9 +40,21 @@ public:
     std::vector <sf::Sprite> trees;
     int numTrees = 4;
 
+    //Methods to calculate the distance with objects
+    void calculatePosition(sf::Sprite& gc);
+    Table* distanceTable(sf::Sprite& gc);
+    Kitchen* distanceKitchen(sf::Sprite& gc);
+    Washbasin* distanceWashbasin(sf::Sprite& gc);
+    Entrance* distanceEntrance(sf::Sprite& gc);
+    bool distanceSpecificTable(Table* t, sf::Sprite& gc);
+    Position getIsClose();
+    void setIsClose(Position pos);
 
 private:
     sf::Sprite entrance;
+
+    //Attributes to calculate the distance
+    Position isClose;
 
     //Elements of the map
     std::vector<Table> allTables;

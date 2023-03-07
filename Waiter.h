@@ -35,7 +35,7 @@ public:
     void setAnimation();
 
     //Methods to interact with the customer
-    void interact();
+    void interact(Map* map, sf::Event ev);
     void interactionManagement();
     void pickUp(Kitchen* kitchen);
     void pickUp(Table* table);
@@ -45,19 +45,10 @@ public:
     void leavingOrder(Kitchen* kitchen);
     void receivedCustomers();
 
-    //Methods to calculate the distance with objects
-    Table* distanceTable();
-    Kitchen* distanceKitchen();
-    Washbasin* distanceWashbasin();
-    Entrance* distanceEntrance();
-    bool distanceSpecificTable(Table* t);
-
 
     //Getters & Setters
     Actions getState();
     Move getMove();
-    Map* getMap();
-    void setMap(Map* map);
     OrderState* getOrderState();
     void setOrderState(OrderState* o);
     void setReceivingCustomers(ReceivingCustomers* rc);
@@ -82,10 +73,6 @@ protected:
 
     //Pointer to the plates carrying in a specific moment
     Tray* tray;
-
-    //Detect position of the waiter and the objects inside the map
-    Position isClose;
-    Map* map;
 
     //Attributes to receive the customers
     Table* targetTable;

@@ -11,7 +11,6 @@ Waiter::Waiter() {
     this->movingStatus = STANDING;
     this->preMovingStatus = STANDING;
     this->speed = 8;
-    this->isClose = IS_CLOSE_NOTHING;
     this->tray = new Tray();
     this->order = nullptr;
     this->orderState = nullptr;
@@ -69,12 +68,7 @@ void Waiter::updateMovement() {
     }
 
     setAnimation();
-    //CONTROL THE INTERACTIONS
-    if(sf::Keyboard::isKeyPressed(sf::Keyboard::J) || sf::Keyboard::isKeyPressed(sf::Keyboard::L)
-    || sf::Keyboard::isKeyPressed(sf::Keyboard::K))
-        interactionManagement();
-    else
-        move();
+    move();
 
 }
 
@@ -104,64 +98,35 @@ void Waiter::move() {
             case STANDING:
                 break;
         }
+        /*
     if(prePosition != this->sprite.getPosition() && this->movingStatus != STANDING && this->receivingCustomers)
         this->receivingCustomers->follow(prePosition, this->sprite.getPosition(), this->movingStatus);
     //std::cout << "New position: " << this->sprite.getPosition().x << ", " << this->sprite.getPosition().y;
-
+*/
 }
 
-void Waiter::interact() {
-    Table* table = distanceTable();
-    Kitchen* kitchen = distanceKitchen();
-    Washbasin* washbasin = distanceWashbasin();
-    distanceEntrance();
-
-    if(sf::Keyboard::isKeyPressed(sf::Keyboard::J))
+void Waiter::interact(Map* map, sf::Event ev) {
+    Washbasin* washbasin = map->distanceWashbasin(this->sprite);
+    Kitchen* kitchen = map->distanceKitchen(this->sprite);
+    Entrance* entrance = map->distanceEntrance(this->sprite);
+    Table* table = map->distanceTable(this->sprite);
+    /*
+    delete this->wState;
+    if(!this->order && map->getIsClose() == IS_CLOSE_ENTRANCE && map->getEntrance()->getIsCustomer())
     {
-
-        if(this->order && this->isClose == IS_CLOSE_KITCHEN) {
-            leavingOrder(kitchen);
-            std::cout << "IsClose Kitchen works correctly" << std::endl;
-            this->isClose = IS_CLOSE_NOTHING;
-        }
-        else if(!this->order && this->isClose == IS_CLOSE_TABLE) {
-            takingOrder(table);
-            std::cout << "IsClose Table works correctly" << std::endl;
-            this->isClose = IS_CLOSE_NOTHING;
-        }
-        else if(!this->order && this->isClose == IS_CLOSE_ENTRANCE && this->map->getEntrance()->getIsCustomer()) {
-            this->state = RECEIVING_CUSTOMERS;
-            this->targetTable = receivingCustomers->pickEmptyTable();
-            this->isReceived = true;
-        }
+        this->state = RECEIVING_CUSTOMERS;
+        this->wState = new ReceiveState(map);
     }
-    else if(sf::Keyboard::isKeyPressed(sf::Keyboard::K) && this->tray->getState() == EMPTY_TRAY && !this->order &&
-    (this->isClose == IS_CLOSE_TABLE || this->isClose == IS_CLOSE_KITCHEN))
+    else if(!this->order && map->getIsClose() == IS_CLOSE_TABLE)
     {
-        if(this->isClose == IS_CLOSE_TABLE) {
-            pickUp(table);
-            std::cout << "PickUp table works correctly" << std::endl;
-        }
-        else if(this->isClose == IS_CLOSE_KITCHEN) {
-            pickUp(kitchen);
-            std::cout << "PickUp kitchen works correctly" << std::endl;
-        }
-        this->isClose = IS_CLOSE_NOTHING;
+        this->state = TAKING_ORDER;
+        this->wState = new OrderState(table);
     }
-    else if(sf::Keyboard::isKeyPressed(sf::Keyboard::L) && !this->order &&
-    (this->isClose == IS_CLOSE_TABLE || this->isClose == IS_CLOSE_DISHWASHER))
-    {
-        if (this->isClose == IS_CLOSE_TABLE && this->tray->getState() == FILLED_TRAY) {
-            putDown(table);
-            std::cout << "PutDown Table works correctly" << std::endl;
-        }
-        else if (this->isClose == IS_CLOSE_DISHWASHER && this->tray->getState() == EMPTY_PLATES) {
-            putDown(washbasin);
-            std::cout << "IsClose Table works correctly" << std::endl;
-        }
-        this->isClose = IS_CLOSE_NOTHING;
-    }
+    else
+        this->wState = new ActionsState(map);
 
+    this->wState->handleInput(*this, ev);
+*/
 }
 
 
@@ -300,110 +265,6 @@ void Waiter::leavingOrder(Kitchen* kitchen) {
     this->state = DOING_NOTHING;
 }
 
-
-
-
-
-Table *Waiter::distanceTable() {
-    /*
-     * Calculate the position of the waiter from the Tables
-     */
-
-    float dist;
-    Table* t = nullptr;
-    /*
-    for(int i = 0; i < this->map->getAllTables().size(); i++)
-    {
-        std::cout << std::endl << "table: " << i << " position: " << this->map->getTable(i).getPosition().x
-        << ", " << this->map->getTable(i).getPosition().y << std::endl;
-    }
-    */
-    for(int i = 0; i < this->map->getAllTables().size() && this->isClose != IS_CLOSE_TABLE; i++)
-    {
-
-        t = &this->map->getTable(i);
-        dist = std::sqrt(std::pow(t->sprite.getPosition().x - this->sprite.getPosition().x, 2) +
-                std::pow(t->sprite.getPosition().y - this->sprite.getPosition().y, 2));
-
-        std::cout << std::endl << "table " << i; //<< " posX: " << t->sprite.getPosition().x << " PosY:" <<
-        // << t->sprite.getPosition().y << std::endl;
-        std::cout << " dist: " << dist << std::endl;
-
-        if (dist <= 130 )
-        {
-            std::cout << "dist <= 10 table: " << i << std::endl;
-            //t = &this->map->getTable(i);
-            this->isClose = IS_CLOSE_TABLE;
-        }
-    }
-    return t;
-}
-
-Kitchen *Waiter::distanceKitchen() {
-    /*
-     * Calculate the position of the waiter from the Kitchen
-     */
-
-    float dist;
-    Kitchen* k = this->map->getKitchen();
-
-    //std::cout << std::endl << " posX: " << k->getSprite().getPosition().x << " PosY: " <<
-    //          k->getSprite().getPosition().y << std::endl;
-
-    dist = std::sqrt(std::pow(k->getSprite().getPosition().x - this->sprite.getPosition().x, 2) +
-                     std::pow(k->getSprite().getPosition().y - this->sprite.getPosition().y, 2));
-
-    std::cout << "Kitchen Dist: " << dist << std::endl;
-
-    if(dist <= 120)
-    {
-        this->isClose = IS_CLOSE_KITCHEN;
-    }
-
-    return k;
-}
-
-
-Washbasin *Waiter::distanceWashbasin() {
-    /*
-     * Calculate the position of the waiter from the Washbasin
-     */
-
-    float dist;
-    Washbasin* w = this->map->getWashbasin();
-
-    //std::cout << std::endl << " posX: " << w->getSprite().getPosition().x << " PosY: " <<
-    //        w->getSprite().getPosition().y << std::endl;
-
-    dist = std::sqrt(std::pow(w->getSprite().getPosition().x - this->sprite.getPosition().x, 2) +
-            std::pow(w->getSprite().getPosition().y - this->sprite.getPosition().y, 2));
-
-    std::cout << "Washbasin dist: " << dist << std::endl;
-
-    if(dist <= 190)
-    {
-        this->isClose = IS_CLOSE_DISHWASHER;
-    }
-
-    return w;
-}
-
-Entrance *Waiter::distanceEntrance() {
-    float dist;
-    Entrance* e = this->map->getEntrance(); //TODO: GETWELCOMESQUARE
-
-    dist = std::sqrt(std::pow(e->getWelcomeSquare().getPosition().x - this->sprite.getPosition().x, 2) +
-                     std::pow(e->getWelcomeSquare().getPosition().y - this->sprite.getPosition().y, 2));
-
-    std::cout << "Entrance distance: " << dist << std::endl;
-
-    if(dist <= 1)
-    {
-        this->isClose = IS_CLOSE_ENTRANCE;
-    }
-    return e;
-}
-
 void Waiter::update() {
     updateAnimations();
     updateMovement();
@@ -452,14 +313,6 @@ Actions Waiter::getState() {
     return this->state;
 }
 
-Map *Waiter::getMap() {
-    return this->map;
-}
-
-void Waiter::setMap(Map *m) {
-    this->map = m;
-}
-
 OrderState *Waiter::getOrderState() {
     return this->orderState;
 }
@@ -468,26 +321,11 @@ void Waiter::setOrderState(OrderState *o) {
     this->orderState = o;
 }
 
-
-bool Waiter::distanceSpecificTable(Table *t) {
-    float dist;
-    bool isCloseTable = false;
-
-    dist = std::sqrt(std::pow(t->sprite.getPosition().x - this->sprite.getPosition().x, 2) +
-                     std::pow(t->sprite.getPosition().y - this->sprite.getPosition().y, 2));
-
-    if(dist <= 20)
-    {
-        isCloseTable = true;
-    }
-
-    return isCloseTable;
-}
-
 Move Waiter::getMove() {
     return this->movingStatus;
 }
 
+/*
 void Waiter::receivedCustomers() {
     if(distanceSpecificTable(this->targetTable))
     {
@@ -510,7 +348,7 @@ void Waiter::interactionManagement() {
         receivedCustomers();
 
 }
-
+*/
 void Waiter::setReceivingCustomers(ReceivingCustomers *rc) {
     this->receivingCustomers = rc;
 }
