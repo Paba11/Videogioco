@@ -7,6 +7,7 @@
 Videogame::Videogame() {
     initWindow();
     initStates();
+    this->quitGame = false;
 }
 
 
@@ -83,7 +84,7 @@ void Videogame::updateState() {
         }
     }
     else
-        this->window->close();
+        this->quitGame = true;
 
 }
 
@@ -91,4 +92,8 @@ void Videogame::renderState() {
 
     if(!this->states.empty())
         this->states.top()->render();
+}
+
+const bool Videogame::getQuitGame() {
+    return this->quitGame;
 }

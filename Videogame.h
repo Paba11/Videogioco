@@ -24,6 +24,7 @@ public:
     void render();
     void renderState();
     const bool getWindowIsOpen();
+    const bool getQuitGame();
 private:
     void initWindow();
     void initStates();
@@ -34,6 +35,7 @@ private:
     sf::RenderWindow* window;
 
     std::stack <ProgramState*> states;
+    bool quitGame;
 };
 
 
