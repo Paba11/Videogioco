@@ -31,8 +31,6 @@ void Videogame::initWindow() {
 
 void Videogame::render() {
 
-    this->window->clear();
-    this->window->display();
     renderState();
 }
 
@@ -70,6 +68,7 @@ const bool Videogame::getWindowIsOpen() {
 }
 
 void Videogame::initStates() {
+    this->window->close();
     this->states.push(new MainMenu(this->window, &this->states));
 }
 
