@@ -33,7 +33,6 @@ public:
     void endState() override;
 
 private:
-    sf::RenderWindow* window;
     Textures* texture;
     sf::Sprite background;
     sf::VideoMode videoMode;
@@ -43,7 +42,6 @@ private:
 
     std::map <std::string, Button*> buttons;
     void initButtons();
-    void initVariable();
     void initBackground();
     void initTexture();
     void initWindow();

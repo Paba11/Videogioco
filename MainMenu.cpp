@@ -9,7 +9,6 @@
 
 MainMenu::MainMenu(sf::RenderWindow* window, std::stack <ProgramState*>* states) : ProgramState(window, states){
 
-    initVariable();
     initWindow();
     initFonts();
     initTexture();
@@ -40,10 +39,12 @@ void MainMenu::render(sf::RenderTarget* target) {
     /*
      * Clear the window, draw the objects of the game for the related actions and placement, displays it.
      */
-    this->window->clear();
-    this->window->draw(this->background);
-    this->renderButtons();
-    this->window->display();
+    if(this->window->isOpen()) {
+        this->window->clear();
+        this->window->draw(this->background);
+        this->renderButtons();
+        this->window->display();
+    }
     this->checkQuit();
 
 }
@@ -67,10 +68,7 @@ void MainMenu::initTexture() {
     this->texture = new Textures();
 }
 
-void MainMenu::initVariable() {
-    this->window = nullptr;
 
-}
 
 void MainMenu::updateMousePosition() {
     this->mousePosView = this->window->mapPixelToCoords(sf::Mouse::getPosition(*this->window));
@@ -125,14 +123,14 @@ void MainMenu::updateButtons() {
 
     if(buttons["EXIT"]->isPressed()) {   //FIXME close the application
         this->quit = true;
-        this->window->close();
+        //this->window->close();
     }
     if(buttons["PLAY"]->isPressed()) {
         this->quit = true;
         this->states->push(new ChoosingCharacter(this->window, this->states));
     }
     if(buttons["HOWTO"]->isPressed()) {
-        this->quit = true;
+        //this->window->close();
         this->states->push(new HowToPlay(this->window, this->states));
     }
 
@@ -163,7 +161,8 @@ void MainMenu::initWindow() {
 
     videoMode.width = 1298;
     videoMode.height = 1344;
-    this->window = new sf::RenderWindow(videoMode, "VideoGame");
+    //this->window = new sf::RenderWindow;
+    this->window->create(this->videoMode, "VideoGame");
     this->window->setFramerateLimit(144);
     this->window->setVerticalSyncEnabled(false);
 }

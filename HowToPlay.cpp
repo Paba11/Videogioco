@@ -6,12 +6,12 @@
 #include "HowToPlay.h"
 
 HowToPlay::HowToPlay(sf::RenderWindow *window, std::stack<ProgramState *> *states) : ProgramState(window, states) {
- initVariables();
- initSprites();
- initWindow();
- initFont();
- initButtons();
- initTexts();
+    initWindow();
+    initVariables();
+    initSprites();
+    initFont();
+    initButtons();
+    initTexts();
 }
 
 HowToPlay::~HowToPlay() {
@@ -84,7 +84,7 @@ void HowToPlay::initWindow() {
 
     videoMode.width = 1298;
     videoMode.height = 1344;
-    this->window = new sf::RenderWindow(videoMode, "VideoGame");
+    this->window->create(this->videoMode, "Videogame");
     this->window->setFramerateLimit(144);
     this->window->setVerticalSyncEnabled(false);
 }

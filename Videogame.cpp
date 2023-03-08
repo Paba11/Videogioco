@@ -21,11 +21,9 @@ Videogame::~Videogame() {
 }
 
 void Videogame::initWindow() {
-    videoMode.width = 1298;
-    videoMode.height = 1344;
-    this->window = new sf::RenderWindow(videoMode, "VideoGame");
-    this->window->setFramerateLimit(144);
-    this->window->setVerticalSyncEnabled(false);
+    
+    this->window = new sf::RenderWindow();
+
 
 }
 
@@ -68,7 +66,6 @@ const bool Videogame::getWindowIsOpen() {
 }
 
 void Videogame::initStates() {
-    this->window->close();
     this->states.push(new MainMenu(this->window, &this->states));
 }
 
