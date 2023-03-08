@@ -8,6 +8,7 @@ ActionsState::ActionsState(Map* m) {
     this->map = m;
     this->waiter = nullptr;
     this->tray = new Tray();
+    this->isOrder = false;
 }
 
 ActionsState::~ActionsState() {
@@ -17,19 +18,14 @@ ActionsState::~ActionsState() {
 void ActionsState::handleInput(GameCharacter &w, sf::Event ev) {
     this->waiter = &w;
 
-    if(ev.key.code == sf::Keyboard::J)
+    if(ev.key.code == sf::Keyboard::J && this->map->getIsClose() == IS_CLOSE_KITCHEN && this->isOrder)
     {
-        if(/*this->waiter->getOrder()*/ this->map->getIsClose() == IS_CLOSE_KITCHEN)
-        {
-            this->waiter->setState(LEAVING_ORDER);
-            leavingOrder(this->map->getKitchen());
-            std::cout << "IsClose Kitchen works correctly" << std::endl;
-            this->map->setIsClose(IS_CLOSE_NOTHING);
-        }
+        this->waiter->setState(LEAVING_ORDER);
+        leavingOrder(this->map->getKitchen());
+        std::cout << "IsClose Kitchen works correctly" << std::endl;
+        this->map->setIsClose(IS_CLOSE_NOTHING);
     }
-    else if(sf::Keyboard::isKeyPressed(sf::Keyboard::K) && this->tray->getState() == EMPTY_TRAY &&
-            /*!this->waiter->getOrder() &&*/
-            (this->map->getIsClose() == IS_CLOSE_TABLE || this->map->getIsClose() == IS_CLOSE_KITCHEN))
+    else if(sf::Keyboard::isKeyPressed(sf::Keyboard::K) && this->tray->getState() == EMPTY_TRAY && !this->isOrder)
     {
         if(this->map->getIsClose() == IS_CLOSE_TABLE) {
             this->waiter->setState(TAKING_EMPTY_DISHES);
@@ -41,11 +37,8 @@ void ActionsState::handleInput(GameCharacter &w, sf::Event ev) {
             pickUp(this->map->getKitchen());
             std::cout << "PickUp kitchen works correctly" << std::endl;
         }
-        this->map->setIsClose(IS_CLOSE_NOTHING);
-        this->waiter->setState(DOING_NOTHING);
     }
-    else if(sf::Keyboard::isKeyPressed(sf::Keyboard::L) && /*!this->waiter->getOrder() &&*/
-            (this->map->getIsClose() == IS_CLOSE_TABLE || this->map->getIsClose() == IS_CLOSE_DISHWASHER))
+    else if(sf::Keyboard::isKeyPressed(sf::Keyboard::L) && !this->isOrder)
     {
         if (this->map->getIsClose() == IS_CLOSE_TABLE && this->tray->getState() == FILLED_TRAY) {
             this->waiter->setState(LEAVING_DISHES);
@@ -57,9 +50,9 @@ void ActionsState::handleInput(GameCharacter &w, sf::Event ev) {
             putDown(this->map->getWashbasin());
             std::cout << "IsClose Table works correctly" << std::endl;
         }
-        this->map->setIsClose(IS_CLOSE_NOTHING);
-        this->waiter->setState(DOING_NOTHING);
     }
+    this->map->setIsClose(IS_CLOSE_NOTHING);
+    this->waiter->setState(DOING_NOTHING);
 }
 
 void ActionsState::update(GameCharacter &w) {
@@ -188,4 +181,12 @@ void ActionsState::leavingOrder(Kitchen* kitchen) {
 
 Tray *ActionsState::getTray() {
     return this->tray;
+}
+
+void ActionsState::setIsOrder(bool t) {
+    this->isOrder = t;
+}
+
+bool ActionsState::getIsOrder() {
+    return this->isOrder;
 }

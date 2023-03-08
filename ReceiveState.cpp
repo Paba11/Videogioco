@@ -17,7 +17,10 @@ void ReceiveState::handleInput(GameCharacter& gc, sf::Event ev) {
 }
 
 void ReceiveState::update(GameCharacter& gc) {
-
+    if(!this->table)
+    {
+        this->table = pickEmptyTable();
+    }
 }
 
 
@@ -69,11 +72,27 @@ Move ReceiveState::checkState(float distX, float distY) {
 }
 
 
-void ReceiveState::move(FollowMovement customerDirection) {
+void ReceiveState::move() {
     /*
-     * Move the selected waiter in the specific position indicated
+     * Move the selected customer in the specific position indicated
      */
-    //TODO: MOVE THE CUSTOMER AND CREATE ANOTHER FUNCTION TO PUT INSIDE HIS QUEUE THE LATEST MOVEMENT MADE BY THE WAITER
+    float x, y;
+    for(auto & it : this->customers)
+    {
+        while(it.getOffsetX() + it.getOffsetY() > TOTAL_OFFSET)
+        {
+            it.setOffsetX(abs(it.getPath().front().x - it.sprite.getPosition().x));
+            it.setOffsetY(abs(it.getPath().front().y - it.sprite.getPosition().y));
+            if(x > 2)
+            {
+
+            }
+            if(y > 2)
+            {
+
+            }
+        }
+    }
 
 
 }
@@ -97,3 +116,83 @@ void ReceiveState::follow(sf::Vector2f prePosition, sf::Vector2f finalPosition, 
     }
 */
 }
+
+void ReceiveState::setTable(Table *t) {
+    this->table = t;
+}
+
+Table *ReceiveState::getTable() {
+    return this->table;
+}
+
+void ReceiveState::setCustomer(Customer *c) {
+    this->customer = c;
+}
+
+Customer *ReceiveState::getCustomer() {
+    return this->customer;
+}
+
+void ReceiveState::setCustomers(Customer& c) {
+    this->customers.push_back(c);
+}
+
+std::vector<Customer> &ReceiveState::getCustomers() {
+    return this->customers;
+}
+
+void ReceiveState::setGeneratedCustomers(int numberCustomer, int textureNumber) {
+    if(numberCustomer == 4) {
+        this->customers.back().sprite.setPosition(1550, 830);   //1000, 700
+        this->customers.back().setEndingPosition(sf::Vector2f{1300, 830}, MOVING_LEFT);
+
+        std::cout << "4" << std::endl;
+    }
+    else if(numberCustomer == 3) {
+        this->customers.back().sprite.setPosition(1500, 830);   //1000, 800
+        this->customers.back().setEndingPosition(sf::Vector2f{1200, 830}, MOVING_LEFT);
+
+        std::cout << "3" << std::endl;
+
+    }
+    else if(numberCustomer == 2) {
+        this->customers.back().sprite.setPosition(1450, 830);   //1100, 700
+        this->customers.back().setEndingPosition(sf::Vector2f{1100, 830}, MOVING_LEFT);
+
+        std::cout << "2" << std::endl;
+
+    }
+    else if(numberCustomer == 1) {
+        this->customers.back().sprite.setPosition(1400, 830); //always generated
+        this->customers.back().setEndingPosition(sf::Vector2f{1000, 830}, MOVING_LEFT);
+        std::cout << "1" << std::endl;
+
+    }
+    if(textureNumber-1 % 4 == 0)
+        this->customers.back().sprite.setTexture(*this->texture->getTexture("Customer1"));
+    if(textureNumber-1 % 4 == 1)
+        this->customers.back().sprite.setTexture(*this->texture->getTexture("Customer2"));
+    if(textureNumber-1 % 4 == 2)
+        this->customers.back().sprite.setTexture(*this->texture->getTexture("Customer3"));
+    if(textureNumber-1 % 4 == 3)
+        this->customers.back().sprite.setTexture(*this->texture->getTexture("Customer4"));
+
+
+    this->customers.back().setSprite();
+    std::cout << "set customer" << std::endl;
+
+}
+
+void ReceiveState::moveToChair(sf::Sprite* sprite) {
+    /*
+     * Keep a constant distance from the sprite before calling the rest of the functions
+     */
+    sf::Vector2f previous = sprite->getPosition();
+    for(auto & it: this->customers)
+    {
+        it.setPath(previous);
+        previous = it.getPosition();
+    }
+    move();
+}
+

@@ -11,10 +11,8 @@ Customer::Customer() {
 
 Customer::Customer(sf::Vector2f dist) {
     initVariables();
-    this->followMovement = new FollowMovement;
-    this->followMovement->setDist(dist);
-    this->followMovement->setMove(MOVING_LEFT);
-    this->path.push(*followMovement);
+    this->offsetX = dist.x;
+    this->offsetY = 0;
 }
 
 
@@ -84,6 +82,7 @@ const sf::Vector2f &Customer::getPosition() const {
     return this->sprite.getPosition();
 }
 
+/*
 void Customer::moveToTable() {
     switch (this->path.front().getMove())
     {
@@ -110,6 +109,7 @@ void Customer::moveToTable() {
             break;
     }
 }
+*/
 
 void Customer::setAnimation() {
 
@@ -131,17 +131,16 @@ void Customer::setAnimation() {
 void Customer::moveTo() {
     if(this->moving)
         move();
-    else if(this->movingToTable)
-        moveToTable();
+    //else if(this->movingToTable)
+        //moveToTable();
     this->actualPos = this->sprite.getPosition();
     if(this->movingStatus == MOVING_LEFT && this->actualPos.x <= this->endingPos.x) {
         this->moving = false;
         this->movingStatus = STANDING;
     }
-
-
-
 }
+
+
 
 void Customer::setEndingPosition(sf::Vector2f endPos, Move direction) {
     this->endingPos = endPos;
@@ -155,15 +154,16 @@ void Customer::setEndingDirection(sf::Vector2f endPos, Move direction) {
     this->movingStatus = direction;
 }
 
-std::queue<FollowMovement> &Customer::getPath() {
+std::queue<sf::Vector2f> &Customer::getPath() {
     return this->path;
 }
 
-void Customer::setPath(sf::Vector2f dist, Move move) {
-    this->followMovement = new FollowMovement;
-    this->followMovement->setDist(dist);
-    this->followMovement->setMove(move);
-    this->path.push(*this->followMovement);
+void Customer::setPath(sf::Vector2f dist) {
+    /*
+     * Insert the new movement of the waiter inside the path that the customer has to take
+     */
+    this->prevPos = this->path.back();
+    this->path.push(dist);
 }
 
 void Customer::initVariables() {
@@ -184,8 +184,21 @@ void Customer::updateMoving(sf::Sprite& previous) {
     this->sprite.move(direction * 10.f);
 }
 
-void Customer::moveToChair(const sf::Sprite &sp, float offset) {
 
+void Customer::setOffsetX(float x) {
+    this->offsetX = x;
+}
+
+float Customer::getOffsetX() {
+    return this->offsetX;
+}
+
+void Customer::setOffsetY(float y) {
+    this->offsetY = y;
+}
+
+float Customer::getOffsetY() {
+    return this->offsetY;
 }
 
 

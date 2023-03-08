@@ -7,16 +7,28 @@
 Game::Game(sf::RenderWindow* window, std::stack <ProgramState*>* states, int waiterTexture) : ProgramState(window, states) {
     initLevel();
     this->waiterTexture = waiterTexture;
+    //std::cout << "Init variables" << std::endl;
     initVariables();
+    //std::cout << "Init window" << std::endl;
     initWindow();
+    //std::cout << "Init Texture" << std::endl;
     initTexture();
+    //std::cout << "Init back" << std::endl;
     initBackground();
+    //std::cout << "Init map" << std::endl;
     initMap();
+    //std::cout << "Init tables" << std::endl;
     initTables();
     initPosTables();
+    //std::cout << "Init waiter" << std::endl;
     initWaiter();
+    //std::cout << "Init states" << std::endl;
+    initStates();
+    //std::cout << "Init chef" << std::endl;
     initChef();
+    //std::cout << "Init dishwasher" << std::endl;
     initDishWasher();
+    //std::cout << "Init customers" << std::endl;
     generateCustomers();
     //initTexture();
 }
@@ -30,6 +42,8 @@ Game::~Game() {
     delete this->dish;
     delete this->counter;
     delete this->dishWasher;
+    delete this->orderState;
+    delete this->receiveState;
     //FIXME check all pointer
 
     /*
@@ -69,9 +83,8 @@ void Game::render(sf::RenderTarget* target) {
     this->chef->render(*this->window);
     this->dishWasher->render(*this->window);
     if(this->map->getEntrance()->getIsCustomer()) {
-        for (auto it = this->receivingCustomers->getCustomers().begin();
-             it != this->receivingCustomers->getCustomers().end(); it++) {
-            this->window->draw(it->sprite);
+        for (auto & it : this->receiveState->getCustomers()) {
+            this->window->draw(it.sprite);
         }
     }
     this->map->getEntrance()->renderbarrier(*this->window,2);    //this->dishWasher->render(*this->window);
@@ -144,7 +157,6 @@ void Game::updateMousePos() {
 void Game::initWaiter() {
     this->waiter = new Waiter();
     setWaiterTexture(this->waiterTexture);
-    this->waiter->initStates(this->map);
 }
 
 
@@ -324,27 +336,24 @@ void Game::initChef() {
 
 }
 
-
 void Game::generateCustomers() {
     if(this->clock.getElapsedTime().asSeconds() >= this->level->getCustomerArrival()
     && !this->map->getEntrance()->getIsCustomer() && this->level->getTotalCustomerNumber() > 0)
     {
         sf::Vector2f dist = this->waiter->getPosition();
-        this->receivingCustomers = new ReceivingCustomers(this->map);
-        this->waiter->setReceivingCustomers(receivingCustomers);
+        this->receiveState = new ReceiveState(this->map);
+        this->waiter->setReceiveState(this->receiveState);
         generateRandom();
         while(this->random > 0)
         {
             std::cout << "Generating a customer" << std::endl;
             this->customer = new Customer(dist);
             dist += dist;
-            this->receivingCustomers->getCustomers().push_back(*this->customer);
+            this->receiveState->getCustomers().push_back(*this->customer);
             this->group.push_back(this->customer); //Puntatore ai customers
             this->level->reduceTotalCustomerNumber();
-            this->receivingCustomers->setGeneratedCustomers(random,
-                                                            this->maxNumberCustomers - this->level->getTotalCustomerNumber());
+            this->receiveState->setGeneratedCustomers(random, this->maxNumberCustomers - this->level->getTotalCustomerNumber());
             this->random--;
-
         }
         std::cout << "Total customers left: " << this->level->getTotalCustomerNumber() << std::endl;
         this->map->getEntrance()->setIsCustomer(true);
@@ -429,8 +438,8 @@ void Game::customerCollisionManagement() {
     }
 }
 
-ReceivingCustomers *Game::getReceivingCustomers() {
-    return this->receivingCustomers;
+ReceiveState *Game::getReceiveState() {
+    return this->receiveState;
 }
 
 
@@ -439,18 +448,21 @@ void Game::updateCustomers() {
     if(this->waiter->getMove() != STANDING && this->waiter->getState() == RECEIVING_CUSTOMERS)
         waitMove = true;
 
-    if(this->map->getEntrance()->getIsCustomer())
+    if (this->map->getEntrance()->getIsCustomer())
     {
         sf::Sprite previous = this->waiter->getSprite();
-        for (auto & it : this->receivingCustomers->getCustomers())
+        //this->receiveState->moveToChair(previous);
+        for (auto & it : this->receiveState->getCustomers())
         {
             it.update(waitMove, previous);
             previous = it.sprite;
         }
     }
     else
-        this->receivingCustomers = nullptr;
-
+    {
+        this->receiveState = nullptr;
+        this->waiter->setReceiveState(nullptr);
+    }
 }
 
 void Game::setWaiterTexture(int waiterTexture) {
@@ -460,6 +472,13 @@ void Game::setWaiterTexture(int waiterTexture) {
         this->waiter->initTexture(this->texture->getTexture("Waiter_Female_1"));
 
 
+}
+
+void Game::initStates() {
+    this->receiveState = new ReceiveState(this->map);
+    this->orderState = new OrderState(this->map);
+    this->actionsState = new ActionsState(this->map);
+    this->waiter->initStates(this->actionsState, this->receiveState, this->orderState);
 }
 
 

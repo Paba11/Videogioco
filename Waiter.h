@@ -37,20 +37,9 @@ public:
 
     //Methods to interact with the customer
     void interact(Map* map, sf::Event ev);
-    void interactionManagement();
-    void pickUp(Kitchen* kitchen);
-    void pickUp(Table* table);
-    void putDown(Table* table);
-    void putDown(Washbasin* washbasin);
-    void takingOrder(Table* table);
-    void leavingOrder(Kitchen* kitchen);
-    void receivedCustomers();
-
 
     //Getters & Setters
     Move getMove();
-    //OrderState* getOrderState();
-    //void setOrderState(OrderState* o);
     void setReceivingCustomers(ReceivingCustomers* rc);
     bool getIsReceived();
     void initTexture(sf::Texture* textureW);
@@ -58,8 +47,11 @@ public:
     ActionsState* getActionState();
     OrderState* getOrderState();
     ReceiveState* getReceiveState();
+    void setActionState(ActionsState* as);
+    void setOrderState(OrderState* os);
+    void setReceiveState(ReceiveState* rs);
 
-    void initStates(Map* map);
+    void initStates(ActionsState* as, ReceiveState* rs, OrderState* os);
 
 protected:
     //Methods' override to initialize the texture and the sprite

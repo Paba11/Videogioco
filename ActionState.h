@@ -29,11 +29,14 @@ public:
 
     //Getters & setters
     Tray* getTray();
+    void setIsOrder(bool t);
+    bool getIsOrder();
 
 private:
     GameCharacter* waiter;
     Map* map;
     Order* order;
+    bool isOrder;
 
     //Pointer to the plates carrying in a specific moment
     Tray* tray;

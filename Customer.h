@@ -25,7 +25,7 @@ public:
     void moveToTable();
     void setSprite();
     void initVariables();
-    void moveToChair(const sf::Sprite& sp, float offset);
+    void moveToChair(sf::Vector2f pos);
     //void collisionCheck(const Map& map);
     void updateAnimations() override;
     void setAnimation();
@@ -38,8 +38,12 @@ public:
 
     //Getters & Setters
     const sf::Vector2f& getPosition() const;
-    std::queue<FollowMovement>& getPath();
-    void setPath(sf::Vector2f dist, Move move);
+    std::queue<sf::Vector2f>& getPath();
+    void setPath(sf::Vector2f dist);
+    void setOffsetX(float x);
+    float getOffsetX();
+    void setOffsetY(float y);
+    float getOffsetY();
 
 private:
     sf::Vector2f actualPos;
@@ -51,9 +55,10 @@ private:
     sf::Clock clock;
 
     //Road to move to the table
-    std::queue<FollowMovement> path;
+    std::queue<sf::Vector2f> path;
     FollowMovement* followMovement;
-    int initialRoad;
+    float offsetX, offsetY;
+    sf::Vector2f prevPos;
 
 };
 

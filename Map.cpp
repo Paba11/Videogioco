@@ -139,7 +139,7 @@ Entrance* Map::distanceEntrance(sf::Sprite& gc) {
 
     std::cout << "Entrance distance: " << dist << std::endl;
 
-    if(dist <= 1)
+    if(dist <= 20)
     {
         this->isClose = IS_CLOSE_ENTRANCE;
     }
@@ -161,7 +161,7 @@ Washbasin* Map::distanceWashbasin(sf::Sprite& gc) {
 
     std::cout << "Washbasin dist: " << dist << std::endl;
 
-    if(dist <= 190)
+    if(dist <= 200)
     {
         this->isClose = IS_CLOSE_DISHWASHER;
     }
@@ -184,7 +184,7 @@ Kitchen* Map::distanceKitchen(sf::Sprite& gc) {
 
     std::cout << "Kitchen Dist: " << dist << std::endl;
 
-    if(dist <= 120)
+    if(dist <= 200)
     {
         this->isClose = IS_CLOSE_KITCHEN;
     }

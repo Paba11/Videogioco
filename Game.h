@@ -60,7 +60,7 @@ public:
 
     //Method to manage the events
     void pollEvents();
-    ReceivingCustomers* getReceivingCustomers();
+    ReceiveState* getReceiveState();
 
     //Method that update the position of the mouse relative to the game window
     void updateMousePos();
@@ -97,10 +97,15 @@ private:
     std::vector<Customer*> group;
     DishWasher* dishWasher;
     Textures* texture;
-    OrderState* orderState;
-    ReceivingCustomers* receivingCustomers;
+    //OrderState* orderState;
+    //ReceivingCustomers* receivingCustomers;
     BottomBar* bottomBar;
     //Table* table;
+
+    //Manage Waiter States
+    OrderState* orderState;
+    ReceiveState* receiveState;
+    ActionsState* actionsState;
 
     //Level variables management
     Level* level;
@@ -126,6 +131,7 @@ private:
     void initChef();
     void initBackground();
     void initTables();
+    void initStates();
     void initPosTables();
     void initMap();
     void initTexture();

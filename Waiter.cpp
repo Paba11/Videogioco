@@ -114,16 +114,20 @@ void Waiter::interact(Map* map, sf::Event ev) {
     if(!this->order && map->getIsClose() == IS_CLOSE_ENTRANCE && map->getEntrance()->getIsCustomer())
     {
         this->state = RECEIVING_CUSTOMERS;
+        this->sprite.setPosition(920,910);
         this->receiveState->handleInput(*this, ev);
+        std::cout << "Receiving customers" << std::endl;
     }
     else if(!this->order && map->getIsClose() == IS_CLOSE_TABLE)
     {
         this->state = TAKING_ORDER;
         this->orderState->handleInput(*this, ev);
+        this->actionsState->setIsOrder(true);
     }
     else
+    {
         this->actionsState->handleInput(*this, ev);
-
+    }
 }
 
 void Waiter::update() {
@@ -222,10 +226,25 @@ ReceiveState *Waiter::getReceiveState() {
     return this->receiveState;
 }
 
-void Waiter::initStates(Map *map) {
-    this->actionsState = new ActionsState(map);
-    this->orderState = new OrderState(map);
-    this->receiveState = new ReceiveState(map);
+void Waiter::initStates(ActionsState* as, ReceiveState* rs, OrderState* os) {
+    this->actionsState = as;
+    this->orderState = os;
+    this->receiveState = rs;
+}
+
+void Waiter::setActionState(ActionsState *as) {
+    delete this->actionsState;
+    this->actionsState = as;
+}
+
+void Waiter::setOrderState(OrderState *os) {
+    delete this->orderState;
+    this->orderState = os;
+}
+
+void Waiter::setReceiveState(ReceiveState *rs) {
+    delete this->receiveState;
+    this->receiveState = rs;
 }
 
 
