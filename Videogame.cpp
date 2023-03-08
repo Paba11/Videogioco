@@ -21,8 +21,13 @@ Videogame::~Videogame() {
 }
 
 void Videogame::initWindow() {
-    
-    this->window = new sf::RenderWindow();
+
+    videoMode.width = 1298;
+    videoMode.height = 1344;
+    //this->window = new sf::RenderWindow;
+    this->window = new sf::RenderWindow(this->videoMode, "VideoGame");
+    this->window->setFramerateLimit(144);
+    this->window->setVerticalSyncEnabled(false);
 
 
 }

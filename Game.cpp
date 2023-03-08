@@ -8,7 +8,6 @@ Game::Game(sf::RenderWindow* window, std::stack <ProgramState*>* states, int wai
     initLevel();
     this->waiterTexture = waiterTexture;
     initVariables();
-    initWindow();
     initTexture();
     initBackground();
     initMap();
@@ -81,7 +80,6 @@ void Game::render(sf::RenderTarget* target) {
 
 void Game::initVariables() {
 
-    this->window = nullptr;
     this->counter = new Counter();
     this->maxNumberCustomers = this->level->getTotalCustomerNumber();
     this->bottomBar = new BottomBar();
@@ -90,19 +88,7 @@ void Game::initVariables() {
 
 }
 
-void Game::initWindow() {
-    /*
-     * Initialize the window of the game with a specific size and a name on the toolbar
-     * It also limits the speed rate of the computer in order to not overflow the game
-     * and not disable the vertical synchronization
-     */
 
-    videoMode.width = 1298;
-    videoMode.height = 1344;
-    this->window = new sf::RenderWindow(videoMode, "VideoGame");
-    this->window->setFramerateLimit(144);
-    this->window->setVerticalSyncEnabled(false);
-}
 
 const bool Game::getWindowIsOpen() {
     return this->window->isOpen();

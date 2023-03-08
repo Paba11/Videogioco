@@ -6,7 +6,6 @@
 #include "HowToPlay.h"
 
 HowToPlay::HowToPlay(sf::RenderWindow *window, std::stack<ProgramState *> *states) : ProgramState(window, states) {
-    initWindow();
     initVariables();
     initSprites();
     initFont();
@@ -80,14 +79,6 @@ void HowToPlay::initVariables() {
 
 }
 
-void HowToPlay::initWindow() {
-
-    videoMode.width = 1298;
-    videoMode.height = 1344;
-    this->window->create(this->videoMode, "Videogame");
-    this->window->setFramerateLimit(144);
-    this->window->setVerticalSyncEnabled(false);
-}
 
 void HowToPlay::initFont() {
 

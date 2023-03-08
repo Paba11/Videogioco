@@ -9,7 +9,6 @@
 
 MainMenu::MainMenu(sf::RenderWindow* window, std::stack <ProgramState*>* states) : ProgramState(window, states){
 
-    initWindow();
     initFonts();
     initTexture();
     initBackground();
@@ -152,18 +151,5 @@ void MainMenu::endState() {
 
 }
 
-void MainMenu::initWindow() {
-    /*
-     * Initialize the window of the game with a specific size and a name on the toolbar
-     * It also limits the speed rate of the computer in order to not overflow the game
-     * and not disable the vertical synchronization
-     */
 
-    videoMode.width = 1298;
-    videoMode.height = 1344;
-    //this->window = new sf::RenderWindow;
-    this->window->create(this->videoMode, "VideoGame");
-    this->window->setFramerateLimit(144);
-    this->window->setVerticalSyncEnabled(false);
-}
 

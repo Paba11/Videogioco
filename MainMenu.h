@@ -44,7 +44,6 @@ private:
     void initButtons();
     void initBackground();
     void initTexture();
-    void initWindow();
 
 };
 

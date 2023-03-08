@@ -59,7 +59,6 @@ private:
     sf::Clock wasdAnimationTimer;
 
     void initVariables();
-    void initWindow();
     void initFont();
     void initTexts();
     void setText(sf::Text* text);
