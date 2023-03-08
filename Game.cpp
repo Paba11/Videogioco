@@ -7,28 +7,15 @@
 Game::Game(sf::RenderWindow* window, std::stack <ProgramState*>* states, int waiterTexture) : ProgramState(window, states) {
     initLevel();
     this->waiterTexture = waiterTexture;
-    //std::cout << "Init variables" << std::endl;
     initVariables();
-    //std::cout << "Init window" << std::endl;
-    initWindow();
-    //std::cout << "Init Texture" << std::endl;
     initTexture();
-    //std::cout << "Init back" << std::endl;
     initBackground();
-    //std::cout << "Init map" << std::endl;
     initMap();
-    //std::cout << "Init tables" << std::endl;
     initTables();
     initPosTables();
-    //std::cout << "Init waiter" << std::endl;
     initWaiter();
-    //std::cout << "Init states" << std::endl;
-    initStates();
-    //std::cout << "Init chef" << std::endl;
     initChef();
-    //std::cout << "Init dishwasher" << std::endl;
     initDishWasher();
-    //std::cout << "Init customers" << std::endl;
     generateCustomers();
     //initTexture();
 }
@@ -94,7 +81,6 @@ void Game::render(sf::RenderTarget* target) {
 
 void Game::initVariables() {
 
-    this->window = nullptr;
     this->counter = new Counter();
     this->maxNumberCustomers = this->level->getTotalCustomerNumber();
     this->bottomBar = new BottomBar();
@@ -103,19 +89,7 @@ void Game::initVariables() {
 
 }
 
-void Game::initWindow() {
-    /*
-     * Initialize the window of the game with a specific size and a name on the toolbar
-     * It also limits the speed rate of the computer in order to not overflow the game
-     * and not disable the vertical synchronization
-     */
 
-    videoMode.width = 1298;
-    videoMode.height = 1344;
-    this->window = new sf::RenderWindow(videoMode, "VideoGame");
-    this->window->setFramerateLimit(144);
-    this->window->setVerticalSyncEnabled(false);
-}
 
 const bool Game::getWindowIsOpen() {
     return this->window->isOpen();
@@ -335,6 +309,7 @@ void Game::initChef() {
     this->chef->setKitchen(this->kitchen);
 
 }
+
 
 void Game::generateCustomers() {
     if(this->clock.getElapsedTime().asSeconds() >= this->level->getCustomerArrival()

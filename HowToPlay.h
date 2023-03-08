@@ -11,6 +11,8 @@
 #include <SFML/Window.hpp>
 #include <SFML/System.hpp>
 #include <SFML/Audio.hpp>
+#include <chrono>
+#include <thread>
 
 
 class HowToPlay : public ProgramState{
@@ -28,7 +30,6 @@ public:
 
 private:
 
-    sf::RenderWindow* window;
     sf::VideoMode videoMode;
     sf::Vector2f mousePosView;
     sf::Event ev;
@@ -58,7 +59,6 @@ private:
     sf::Clock wasdAnimationTimer;
 
     void initVariables();
-    void initWindow();
     void initFont();
     void initTexts();
     void setText(sf::Text* text);

@@ -27,7 +27,6 @@ public:
 
 private:
 
-    sf::RenderWindow* window;
     sf::VideoMode videoMode;
     std::map <std::string, Button*> buttons;
     sf::Sprite waiter;
@@ -45,7 +44,6 @@ private:
 
     void initVariables();
     void initButtons();
-    void initWindow();
     void initSprite();
     void updateMousePosition();
     void initFonts();

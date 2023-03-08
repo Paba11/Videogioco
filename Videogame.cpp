@@ -7,6 +7,7 @@
 Videogame::Videogame() {
     initWindow();
     initStates();
+    this->quitGame = false;
 }
 
 
@@ -20,18 +21,19 @@ Videogame::~Videogame() {
 }
 
 void Videogame::initWindow() {
+
     videoMode.width = 1298;
     videoMode.height = 1344;
-    this->window = new sf::RenderWindow(videoMode, "VideoGame");
+    //this->window = new sf::RenderWindow;
+    this->window = new sf::RenderWindow(this->videoMode, "VideoGame");
     this->window->setFramerateLimit(144);
     this->window->setVerticalSyncEnabled(false);
+
 
 }
 
 void Videogame::render() {
 
-    this->window->clear();
-    this->window->display();
     renderState();
 }
 
@@ -83,7 +85,7 @@ void Videogame::updateState() {
         }
     }
     else
-        this->window->close();
+        this->quitGame = true;
 
 }
 
@@ -91,4 +93,8 @@ void Videogame::renderState() {
 
     if(!this->states.empty())
         this->states.top()->render();
+}
+
+const bool Videogame::getQuitGame() {
+    return this->quitGame;
 }

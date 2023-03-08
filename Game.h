@@ -80,7 +80,6 @@ private:
     //std::map<std::string, sf::Texture*> textures;
     //std::vector<Table> allTables;
     //
-    sf::RenderWindow* window;
     sf::Event ev;
     sf::VideoMode videoMode;
     sf::Vector2i mousePos;
@@ -126,7 +125,6 @@ private:
 
     //Initialize all the game objects and attributes
     void initVariables();
-    void initWindow();
     void initWaiter();
     void initChef();
     void initBackground();
