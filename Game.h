@@ -135,6 +135,7 @@ private:
     void initDishWasher();
     void initLevel();
     void setWaiterTexture(int waiterTexture);
+    void initWindow();
     int numTables=6;
     int waiterTexture;
 

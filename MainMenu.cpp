@@ -13,7 +13,7 @@ MainMenu::MainMenu(sf::RenderWindow* window, std::stack <ProgramState*>* states)
     initTexture();
     initBackground();
     initButtons();
-
+    this->ev.type = sf::Event::Closed;
 
 }
 
@@ -82,18 +82,8 @@ void MainMenu::initFonts() {
 
 void MainMenu::pollEvents() {
 
-    while (window->pollEvent(ev))
-    {
-        switch (this->ev.type)
-        {
-            case sf::Event::Closed:
-                this->window->close();
-                break;
-            case sf::Event::KeyPressed:
-                if (this->ev.key.code == sf::Keyboard::Escape)
-                    this->window->close();
-                break;
-        }
+    while (this->window->pollEvent(this->ev)) {
+
     }
 }
 

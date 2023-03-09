@@ -29,7 +29,6 @@ protected:
     sf::RenderWindow* window;
     sf::Event ev;
 
-
 private:
 
 

@@ -18,7 +18,6 @@ public:
 
 
     void update();
-    void pollEvents();
     void updateState();
 
     void render();

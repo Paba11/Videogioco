@@ -39,32 +39,11 @@ void Videogame::render() {
 
 void Videogame::update() {
 
-    pollEvents();
     updateState();
 
 }
 
-void Videogame::pollEvents() {
 
-    while (this->window->pollEvent(this->ev))
-    {
-        switch (this->ev.type)
-        {
-            case sf::Event::Closed:
-                this->window->close();
-                break;
-            case sf::Event::KeyPressed:
-                if (this->ev.key.code == sf::Keyboard::Escape)
-                    this->window->close();
-                else {
-                    //this->waiter->updateMovement();
-                    //this->waiter->interact(this->map);
-                }
-                break;
-        }
-    }
-
-}
 
 const bool Videogame::getWindowIsOpen() {
     return this->window->isOpen();

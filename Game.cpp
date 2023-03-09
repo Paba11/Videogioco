@@ -7,6 +7,7 @@
 Game::Game(sf::RenderWindow* window, std::stack <ProgramState*>* states, int waiterTexture) : ProgramState(window, states) {
     initLevel();
     this->waiterTexture = waiterTexture;
+    initWindow(); //fixme remove
     initVariables();
     initTexture();
     initBackground();
@@ -14,10 +15,13 @@ Game::Game(sf::RenderWindow* window, std::stack <ProgramState*>* states, int wai
     initTables();
     initPosTables();
     initWaiter();
+    initStates();
     initChef();
     initDishWasher();
     generateCustomers();
     //initTexture();
+    this->ev.type = sf::Event::Closed;
+
 }
 
 Game::~Game() {
@@ -102,6 +106,8 @@ void Game::pollEvents() {
     //FIXME check after git update
     while (this->window->pollEvent(this->ev))
     {
+
+
         switch (this->ev.type)
         {
             case sf::Event::Closed:
@@ -113,6 +119,8 @@ void Game::pollEvents() {
                 else if (this->ev.key.code == sf::Keyboard::J || this->ev.key.code == sf::Keyboard::K
                     || this->ev.key.code == sf::Keyboard::J)
                 {
+                    std::cout<< "PollEvent" << std::endl;
+
                     //this->waiter->updateMovement();
                     this->waiter->interact(this->map, this->ev);
                 }
@@ -454,6 +462,18 @@ void Game::initStates() {
     this->orderState = new OrderState(this->map);
     this->actionsState = new ActionsState(this->map);
     this->waiter->initStates(this->actionsState, this->receiveState, this->orderState);
+}
+
+void Game::initWindow() {
+
+    sf::VideoMode video;
+    video.width = 1298;
+    video.height = 1344;
+    //this->window = new sf::RenderWindow(video, "Videogame");
+    //this->window->create(videoMode, "Videogame");
+    this->window->setFramerateLimit(144);
+    this->window->setVerticalSyncEnabled(false);
+
 }
 
 
