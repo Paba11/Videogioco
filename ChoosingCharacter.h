@@ -27,11 +27,9 @@ public:
 
 private:
 
-    sf::VideoMode videoMode;
     std::map <std::string, Button*> buttons;
     sf::Sprite waiter;
     Textures* texture;
-    sf::Event ev;
     sf::Vector2f mousePosView;
     sf::Font font;
     sf::IntRect currentFrame;

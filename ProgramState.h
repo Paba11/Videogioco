@@ -27,12 +27,12 @@ protected:
     std::stack <ProgramState*>* states;
     bool quit;
     sf::RenderWindow* window;
-
+    sf::Event ev;
 
 
 private:
 
-    sf::Event ev;
+
 };
 
 

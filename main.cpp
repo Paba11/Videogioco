@@ -15,18 +15,4 @@ int main() {
         videogame.render();
 
     }
-    //Game loop
-    /*
-    Game game;
-
-    while (game.getWindowIsOpen())
-    {
-        //Update
-        game.update();
-
-        //Render
-        game.render();
-    }
-     */
-
 }

@@ -80,7 +80,6 @@ private:
     //std::map<std::string, sf::Texture*> textures;
     //std::vector<Table> allTables;
     //
-    sf::Event ev;
     sf::VideoMode videoMode;
     sf::Vector2i mousePos;
 

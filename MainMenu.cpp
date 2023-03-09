@@ -120,16 +120,14 @@ void MainMenu::updateButtons() {
     for(auto it : this->buttons)
         it.second->update(this->mousePosView);
 
-    if(buttons["EXIT"]->isPressed()) {   //FIXME close the application
+    if(buttons["EXIT"]->isPressed()) {
         this->quit = true;
-        //this->window->close();
     }
     if(buttons["PLAY"]->isPressed()) {
         this->quit = true;
         this->states->push(new ChoosingCharacter(this->window, this->states));
     }
     if(buttons["HOWTO"]->isPressed()) {
-        //this->window->close();
         this->states->push(new HowToPlay(this->window, this->states));
     }
 

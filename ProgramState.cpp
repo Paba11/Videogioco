@@ -16,19 +16,10 @@ ProgramState::~ProgramState() {
 
 void ProgramState::checkQuit() {
 
-    while (window->pollEvent(ev))
-    {
-        switch (this->ev.type)
-        {
-            case sf::Event::Closed:
-                this->quit = true;
-                break;
-            case sf::Event::KeyPressed:
-                if (this->ev.key.code == sf::Keyboard::Escape)
-                    this->quit = true;
-                break;
-        }
-    }
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
+        this->quit = true;
+    if(!this->window->isOpen())
+        this->quit = true;
 }
 
 const bool ProgramState::getQuit() const{

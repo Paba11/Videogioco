@@ -32,7 +32,6 @@ private:
 
     sf::VideoMode videoMode;
     sf::Vector2f mousePosView;
-    sf::Event ev;
     std::map <std::string, Button*> buttons;
 
     sf::Font font;

@@ -143,28 +143,28 @@ std::vector<Customer> &ReceiveState::getCustomers() {
 
 void ReceiveState::setGeneratedCustomers(int numberCustomer, int textureNumber) {
     if(numberCustomer == 4) {
-        this->customers.back().sprite.setPosition(1550, 830);   //1000, 700
-        this->customers.back().setEndingPosition(sf::Vector2f{1300, 830}, MOVING_LEFT);
+        this->customers.back().sprite.setPosition(1550, 910);   //1000, 700
+        this->customers.back().setEndingPosition(sf::Vector2f{1300, 910}, MOVING_LEFT);
 
         std::cout << "4" << std::endl;
     }
     else if(numberCustomer == 3) {
-        this->customers.back().sprite.setPosition(1500, 830);   //1000, 800
-        this->customers.back().setEndingPosition(sf::Vector2f{1200, 830}, MOVING_LEFT);
+        this->customers.back().sprite.setPosition(1500, 910);   //1000, 800
+        this->customers.back().setEndingPosition(sf::Vector2f{1200, 910}, MOVING_LEFT);
 
         std::cout << "3" << std::endl;
 
     }
     else if(numberCustomer == 2) {
-        this->customers.back().sprite.setPosition(1450, 830);   //1100, 700
-        this->customers.back().setEndingPosition(sf::Vector2f{1100, 830}, MOVING_LEFT);
+        this->customers.back().sprite.setPosition(1450, 910);   //1100, 700
+        this->customers.back().setEndingPosition(sf::Vector2f{1100, 910}, MOVING_LEFT);
 
         std::cout << "2" << std::endl;
 
     }
     else if(numberCustomer == 1) {
-        this->customers.back().sprite.setPosition(1400, 830); //always generated
-        this->customers.back().setEndingPosition(sf::Vector2f{1000, 830}, MOVING_LEFT);
+        this->customers.back().sprite.setPosition(1400, 910); //always generated
+        this->customers.back().setEndingPosition(sf::Vector2f{1000, 910}, MOVING_LEFT);
         std::cout << "1" << std::endl;
 
     }

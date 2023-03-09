@@ -31,6 +31,7 @@ void Customer::update(bool waitMove, sf::Sprite previous) {
 
 void Customer::setSprite() {
 
+    this->sprite.setOrigin(16,32);
     this->currentFrame = sf::IntRect(0, 0, 32, 32); //box of 32x32
     this->sprite.setTextureRect(this->currentFrame);
     this->sprite.setScale(3.f,3.f);

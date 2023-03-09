@@ -36,7 +36,6 @@ private:
     Textures* texture;
     sf::Sprite background;
     sf::VideoMode videoMode;
-    sf::Event ev;
     sf::Vector2f mousePosView;
     sf::Font font;
 
