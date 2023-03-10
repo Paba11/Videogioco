@@ -27,7 +27,7 @@
 #include <list>
 #include <random>
 
-class Game : public ProgramState{
+class Game : public ProgramState {
 public:
     //Constructor & Destructor
     Game(sf::RenderWindow* window, std::stack <ProgramState*>* states, int waiterTexture);
@@ -82,6 +82,7 @@ private:
     //
     sf::VideoMode videoMode;
     sf::Vector2i mousePos;
+    sf::Event ev;
 
     //GameCharacters and objects
     Waiter* waiter;
@@ -135,7 +136,6 @@ private:
     void initDishWasher();
     void initLevel();
     void setWaiterTexture(int waiterTexture);
-    void initWindow();
     int numTables=6;
     int waiterTexture;
 

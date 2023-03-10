@@ -20,8 +20,6 @@ void Waiter::initVariables() {
     this->preMovingStatus = STANDING;
     this->speed = 8;
     this->order = nullptr;
-    this->receivingCustomers = nullptr;
-    this->targetCustomer = nullptr;
     this->isReceived = false;
 }
 
@@ -206,9 +204,6 @@ void Waiter::interactionManagement() {
 
 }
 */
-void Waiter::setReceivingCustomers(ReceivingCustomers *rc) {
-    this->receivingCustomers = rc;
-}
 
 bool Waiter::getIsReceived() {
     return this->isReceived;

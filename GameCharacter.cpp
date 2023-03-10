@@ -40,7 +40,7 @@ void GameCharacter::initSprite() {
 
 }
 
-const sf::FloatRect GameCharacter::getBounds() const {
+sf::FloatRect GameCharacter::getBounds() {
     return this->sprite.getGlobalBounds();
 }
 
@@ -59,10 +59,6 @@ void GameCharacter::setPositionW(float x, float y) {
     this->sprite.setPosition(x, y);
 }
 
-void GameCharacter::initAnimation() {
-
-}
-
 void GameCharacter::updateAnimations() {
 
 
@@ -75,7 +71,7 @@ void GameCharacter::initValidMovement() {
     validMovement["Down"] = true;
 }
 
-sf::FloatRect GameCharacter::getGlobalHitbox() const {
+sf::FloatRect GameCharacter::getGlobalHitbox() {
     return this->sprite.getTransform().transformRect(hitbox);
 }
 

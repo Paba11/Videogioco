@@ -40,7 +40,6 @@ public:
 
     //Getters & Setters
     Move getMove();
-    void setReceivingCustomers(ReceivingCustomers* rc);
     bool getIsReceived();
     void initTexture(sf::Texture* textureW);
 
@@ -71,9 +70,6 @@ protected:
     Order* order;
 
     //Attributes to receive the customers
-    Table* targetTable;
-    Customer* targetCustomer;
-    ReceivingCustomers* receivingCustomers;
     std::queue<FollowMovement> direction;
     bool isReceived;
 };

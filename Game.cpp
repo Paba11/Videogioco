@@ -7,7 +7,6 @@
 Game::Game(sf::RenderWindow* window, std::stack <ProgramState*>* states, int waiterTexture) : ProgramState(window, states) {
     initLevel();
     this->waiterTexture = waiterTexture;
-    initWindow(); //fixme remove
     initVariables();
     initTexture();
     initBackground();
@@ -117,7 +116,7 @@ void Game::pollEvents() {
                 if (this->ev.key.code == sf::Keyboard::Escape)
                     this->quit = true;
                 else if (this->ev.key.code == sf::Keyboard::J || this->ev.key.code == sf::Keyboard::K
-                    || this->ev.key.code == sf::Keyboard::J)
+                    || this->ev.key.code == sf::Keyboard::L)
                 {
                     std::cout<< "PollEvent" << std::endl;
 
@@ -464,17 +463,7 @@ void Game::initStates() {
     this->waiter->initStates(this->actionsState, this->receiveState, this->orderState);
 }
 
-void Game::initWindow() {
 
-    sf::VideoMode video;
-    video.width = 1298;
-    video.height = 1344;
-    //this->window = new sf::RenderWindow(video, "Videogame");
-    //this->window->create(videoMode, "Videogame");
-    this->window->setFramerateLimit(144);
-    this->window->setVerticalSyncEnabled(false);
-
-}
 
 
 

@@ -28,15 +28,14 @@ public:
     void render(sf::RenderTarget& target);
 
     //Method to have the borders of the GameCharacter
-    const sf::FloatRect getBounds() const;
+    sf::FloatRect getBounds();
 
     //Methods to modify GameCharacter position
     void setPositionW(sf::Vector2f pos);
     void setPositionW(float x, float y);
-    virtual void initAnimation();
     std::map<std::string, bool> validMovement;
     void initValidMovement();
-    sf::FloatRect getGlobalHitbox() const;
+    sf::FloatRect getGlobalHitbox();
 
     //Getters & Setters
     void setEvent(sf::Event ev);
