@@ -8,6 +8,7 @@ ProgramState::ProgramState(sf::RenderWindow* window, std::stack <ProgramState*>*
 
     this->states = states;
     this->window = window;
+    this->quit = false;
 }
 
 ProgramState::~ProgramState() {

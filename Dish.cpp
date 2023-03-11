@@ -9,7 +9,7 @@ Dish::Dish() {
 }
 
 Dish::~Dish() {
-    delete this->texture;
+    //delete this->texture;
 }
 
 void Dish::render(sf::RenderTarget& target) {

@@ -18,6 +18,7 @@ Customer::Customer(sf::Vector2f dist) {
 
 Customer::~Customer() {
 
+    delete this->followMovement;
 }
 
 void Customer::update(bool waitMove, sf::Sprite previous) {

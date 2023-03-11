@@ -28,7 +28,7 @@ Game::~Game() {
     delete this->chef;
     delete this->map;
     delete this->customer;
-    delete this->dish;
+    //delete this->dish;    //TODO: add the dishes
     delete this->counter;
     delete this->dishWasher;
     delete this->orderState;
