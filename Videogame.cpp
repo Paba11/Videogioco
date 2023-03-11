@@ -56,7 +56,8 @@ void Videogame::initStates() {
 void Videogame::updateState() {
 
     if(!this->states.empty()) {
-        this->states.top()->update();
+        if(!this->states.top()->getQuit())
+            this->states.top()->update();
         if(this->states.top()->getQuit()) {
             this->states.top()->endState(); //FIXME check the terminal when close the game from the window
             delete this->states.top();
@@ -70,7 +71,7 @@ void Videogame::updateState() {
 
 void Videogame::renderState() {
 
-    if(!this->states.empty())
+    if(!this->states.empty() && !this->states.top()->getQuit())
         this->states.top()->render();
 }
 

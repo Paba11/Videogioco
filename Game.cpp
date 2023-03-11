@@ -24,7 +24,6 @@ Game::Game(sf::RenderWindow* window, std::stack <ProgramState*>* states, int wai
 }
 
 Game::~Game() {
-    delete this->window;
     delete this->waiter;
     delete this->chef;
     delete this->map;
@@ -34,6 +33,7 @@ Game::~Game() {
     delete this->dishWasher;
     delete this->orderState;
     delete this->receiveState;
+
     //FIXME check all pointer
 
     /*

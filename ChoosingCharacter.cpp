@@ -56,12 +56,14 @@ void ChoosingCharacter::updateButtons() {
 
 void ChoosingCharacter::render(sf::RenderTarget* target) {
 
-    this->window->clear();
-    this->window->draw(this->background);
-    this->window->draw(this->text);
-    this->renderButtons();
-    this->window->draw(waiter);
-    this->window->display();
+    if(!this->quit) { //fixme
+        this->window->clear();
+        this->window->draw(this->background);
+        this->window->draw(this->text);
+        this->renderButtons();
+        this->window->draw(waiter);
+        this->window->display();
+    }
 }
 
 void ChoosingCharacter::renderButtons() {
