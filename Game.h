@@ -66,7 +66,6 @@ public:
     void updateMousePos();
 
     //Method to check if the window is still open, so if the game is running
-    const bool getWindowIsOpen();
 
     //Update the current level
     void updateLevel();
@@ -80,7 +79,6 @@ private:
     //std::map<std::string, sf::Texture*> textures;
     //std::vector<Table> allTables;
     //
-    sf::VideoMode videoMode;
     sf::Vector2i mousePos;
     sf::Event ev;
 

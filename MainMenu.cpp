@@ -48,9 +48,6 @@ void MainMenu::render(sf::RenderTarget* target) {
 
 }
 
-const bool MainMenu::getWindowIsOpen() {
-    return this->window->isOpen();
-}
 
 
 void MainMenu::initBackground() {

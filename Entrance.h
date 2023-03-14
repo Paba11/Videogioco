@@ -22,7 +22,7 @@ public:
     sf::Sprite getSprite();
     void setIsCustomer(bool t);
     bool getIsCustomer();
-    void renderbarrier(sf::RenderTarget &target, int barrierNumber);
+    void renderBarrier(sf::RenderTarget &target, int barrierNumber);
     void render(sf::RenderTarget &target);
     void updateBox();
 

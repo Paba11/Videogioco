@@ -68,7 +68,7 @@ void Game::render(sf::RenderTarget* target) {
     //Draw Game
     renderMap();
 
-    this->map->getEntrance()->renderbarrier(*this->window,1);
+    this->map->getEntrance()->renderBarrier(*this->window,1);
     this->waiter->render(*this->window);
     this->chef->render(*this->window);
     this->dishWasher->render(*this->window);
@@ -77,7 +77,7 @@ void Game::render(sf::RenderTarget* target) {
             this->window->draw(it.sprite);
         }
     }
-    this->map->getEntrance()->renderbarrier(*this->window,2);    //this->dishWasher->render(*this->window);
+    this->map->getEntrance()->renderBarrier(*this->window,2);    //this->dishWasher->render(*this->window);
 
     this->window->display();
 }
@@ -94,9 +94,7 @@ void Game::initVariables() {
 
 
 
-const bool Game::getWindowIsOpen() {
-    return this->window->isOpen();
-}
+
 
 void Game::pollEvents() {
     /*

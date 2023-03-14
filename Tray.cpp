@@ -37,9 +37,7 @@ void Tray::initSprite() {
     this->sprite.setTexture(this->texture);
 }
 
-const sf::Vector2f &Tray::getPosition() const {
-    return this->sprite.getPosition();
-}
+
 
 void Tray::setState(TrayState ts) {
     this->state = ts;

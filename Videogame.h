@@ -22,7 +22,6 @@ public:
 
     void render();
     void renderState();
-    const bool getWindowIsOpen();
     const bool getQuitGame();
 private:
     void initWindow();

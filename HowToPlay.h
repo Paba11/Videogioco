@@ -30,12 +30,11 @@ public:
 
 private:
 
-    sf::VideoMode videoMode;
+
     sf::Vector2f mousePosView;
     std::map <std::string, Button*> buttons;
 
     sf::Font font;
-    sf::Sprite background;
     sf::Sprite wasd; //arrows
     sf::Sprite waiter;
     sf::Text moveWaiter;

@@ -35,7 +35,6 @@ public:
     //void setTables(std::vector<Table> allTable);
 
     //Initialize variables, update and render
-    void initTrees();
     void initSprites();
     void render(sf::RenderTarget& target);
     void initPosTrees();

@@ -27,7 +27,6 @@ public:
     void render(sf::RenderTarget* target) override;
     void renderButtons();
     void updateButtons();
-    const bool getWindowIsOpen();
     void pollEvents();
 
     void endState() override;
@@ -35,7 +34,6 @@ public:
 private:
     Textures* texture;
     sf::Sprite background;
-    sf::VideoMode videoMode;
     sf::Vector2f mousePosView;
     sf::Font font;
 

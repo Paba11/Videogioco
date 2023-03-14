@@ -126,7 +126,6 @@ void HowToPlay::initTexts() {
 
 void HowToPlay::initSprites() {
 
-    this->background.setTexture(*this->texture->getTexture("ChoosingCharacterBackground"));
     initWasdSprite();
     initWaiterSprite();
 

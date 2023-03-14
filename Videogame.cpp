@@ -44,11 +44,6 @@ void Videogame::update() {
 }
 
 
-
-const bool Videogame::getWindowIsOpen() {
-    return this->window->isOpen();
-}
-
 void Videogame::initStates() {
     this->states.push(new MainMenu(this->window, &this->states));
 }

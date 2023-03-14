@@ -53,7 +53,7 @@ bool Entrance::getIsCustomer() {
     return this->isCustomer;
 }
 
-void Entrance::renderbarrier(sf::RenderTarget &target, int barrierNumber) {
+void Entrance::renderBarrier(sf::RenderTarget &target, int barrierNumber) {
 
     if(barrierNumber == 1)
         target.draw(this->barrier1);

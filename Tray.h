@@ -28,7 +28,6 @@ public:
     void render(sf::RenderTarget &target);
 
     //Getters & Setters
-    const sf::Vector2f& getPosition() const;
 
     //Method to set the tray state
     void setState(TrayState ts);
