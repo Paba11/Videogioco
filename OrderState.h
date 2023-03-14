@@ -14,13 +14,6 @@
 #include "Order.h"
 #include "Map.h"
 
-#define MAX_DRINKS 4;
-#define MAX_APPETIZERS 4;
-#define MAX_MAIN_DISHES 6;
-#define MAX_DESSERT 3;
-
-//TODO: CHANGE TEXTURE WHILE THE CUSTOMERS ARE ORDERING, IN ORDER TO SELECT THE RIGHT DISHES AND QUANTITY
-
 
 class OrderState : public WaiterStates {
 public:
@@ -30,20 +23,15 @@ public:
 
     //Handle the input
     void handleInput(GameCharacter& gc, sf::Event ev) override;
+    void update(GameCharacter& gc) override;
 
     //Texture and updating
-    void manageOrder();
     void setAnimation();
-    void update();
     void render();
-    bool select();
 
     //Actions of the order state
     void setOrderVariables(Table* t, Order* o);
-    void setAppetizers();
-    void setMainCourses();
-    void setDesserts();
-    void setDrinks();
+    void randomOrder();
 
     //Getters & Setters
     Order* getOrder();
@@ -52,18 +40,12 @@ public:
     void setTable(Table* t);
 
 private:
-    sf::Texture texture;
-    sf::Sprite sprite;
-    void initTexture();
-    void initSprite();
+    void initVariables(Map* map);
 
     Order* order;
     Table* table;
     Map* map;
     Current current;
-    int cursor;
-    int actualMax;
-    bool flag;
 };
 
 

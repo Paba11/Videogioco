@@ -23,7 +23,6 @@ public:
     ~Chef();
 
     //Chef actions
-    void updateMovement(int action);
     void move();
     void setAnimation();
     void cook();
@@ -53,7 +52,6 @@ private:
     Dish* dish;
     std::vector<Dish*> dishes;
     Order* order;
-    bool isClose;
     Kitchen* kitchen;
     sf::Time time;
     sf::Clock clock;

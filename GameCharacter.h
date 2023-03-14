@@ -40,12 +40,16 @@ public:
     //Getters & Setters
     void setEvent(sf::Event ev);
     Move getMovingStatus();
+    void setMovingStatus(Move m);
     Move movingStatus;
     const sf::Vector2f& getPosition() const;
     sf::FloatRect& getHitbox();
     sf::Sprite& getSprite();
     Actions getState();
     void setState(Actions a);
+    sf::Vector2f getPrevPos();
+    sf::Vector2f getCurrPos();
+    Move getDirection();
 
 protected:
     sf::Sprite sprite;
@@ -54,8 +58,9 @@ protected:
     sf::IntRect currentFrame;
     sf::Clock animationTimer;
     sf::Event ev;
+    sf::Vector2f prevPos, currPos;
     float speed;
-    Move preMovingStatus;
+    Move preMovingStatus, dir;
 
     Actions state;
 

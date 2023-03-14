@@ -41,6 +41,7 @@ public:
     //Methods to update the game
     void update() override;
     void updateCustomers();
+    void updateReceivingCustomer();
 
     //Methods to display the correct images
     void render(sf::RenderTarget* target) override;

@@ -17,42 +17,8 @@ ActionsState::~ActionsState() {
 
 void ActionsState::handleInput(GameCharacter &w, sf::Event ev) {
     this->waiter = &w;
-
-    if(ev.key.code == sf::Keyboard::J && this->map->getIsClose() == IS_CLOSE_KITCHEN && this->isOrder)
-    {
-        this->waiter->setState(LEAVING_ORDER);
-        leavingOrder(this->map->getKitchen());
-        std::cout << "IsClose Kitchen works correctly" << std::endl;
-        this->map->setIsClose(IS_CLOSE_NOTHING);
-    }
-    else if(sf::Keyboard::isKeyPressed(sf::Keyboard::K) && this->tray->getState() == EMPTY_TRAY && !this->isOrder)
-    {
-        if(this->map->getIsClose() == IS_CLOSE_TABLE) {
-            this->waiter->setState(TAKING_EMPTY_DISHES);
-            pickUp(this->map->getTableToPickUp());
-            std::cout << "PickUp table works correctly" << std::endl;
-        }
-        else if(this->map->getIsClose() == IS_CLOSE_KITCHEN) {
-            waiter->setState(TAKING_DISHES);
-            pickUp(this->map->getKitchen());
-            std::cout << "PickUp kitchen works correctly" << std::endl;
-        }
-    }
-    else if(sf::Keyboard::isKeyPressed(sf::Keyboard::L) && !this->isOrder)
-    {
-        if (this->map->getIsClose() == IS_CLOSE_TABLE && this->tray->getState() == FILLED_TRAY) {
-            this->waiter->setState(LEAVING_DISHES);
-            putDown(this->map->getTableToPickUp());
-            std::cout << "PutDown Table works correctly" << std::endl;
-        }
-        else if (this->map->getIsClose() == IS_CLOSE_DISHWASHER && this->tray->getState() == EMPTY_PLATES) {
-            this->waiter->setState(LEAVING_EMPTY_DISHES);
-            putDown(this->map->getWashbasin());
-            std::cout << "IsClose Table works correctly" << std::endl;
-        }
-    }
-    this->map->setIsClose(IS_CLOSE_NOTHING);
-    this->waiter->setState(DOING_NOTHING);
+    this->event = ev;
+    actionManagement();
 }
 
 void ActionsState::update(GameCharacter &w) {
@@ -164,10 +130,6 @@ void ActionsState::putDown(Washbasin* washbasin) {
     }
 }
 
-void ActionsState::takingOrder(Table* table) {
-
-}
-
 void ActionsState::leavingOrder(Kitchen* kitchen) {
     //Leave the order at the kitchen
 
@@ -189,4 +151,43 @@ void ActionsState::setIsOrder(bool t) {
 
 bool ActionsState::getIsOrder() {
     return this->isOrder;
+}
+
+void ActionsState::actionManagement() {
+    if(this->event.key.code == sf::Keyboard::J && this->map->getIsClose() == IS_CLOSE_KITCHEN && this->isOrder)
+    {
+        this->waiter->setState(LEAVING_ORDER);
+        leavingOrder(this->map->getKitchen());
+        std::cout << "IsClose Kitchen works correctly" << std::endl;
+        this->map->setIsClose(IS_CLOSE_NOTHING);
+    }
+    else if(this->event.key.code == sf::Keyboard::K && this->tray->getState() == EMPTY_TRAY && !this->isOrder)
+    {
+        if(this->map->getIsClose() == IS_CLOSE_TABLE) {
+            this->waiter->setState(TAKING_EMPTY_DISHES);
+            pickUp(this->map->getTableToPickUp());
+            std::cout << "PickUp table works correctly" << std::endl;
+        }
+        else if(this->map->getIsClose() == IS_CLOSE_KITCHEN) {
+            waiter->setState(TAKING_DISHES);
+            pickUp(this->map->getKitchen());
+            std::cout << "PickUp kitchen works correctly" << std::endl;
+        }
+    }
+    else if(this->event.key.code == sf::Keyboard::L && !this->isOrder)
+    {
+        if (this->map->getIsClose() == IS_CLOSE_TABLE && this->tray->getState() == FILLED_TRAY) {
+            this->waiter->setState(LEAVING_DISHES);
+            putDown(this->map->getTableToPickUp());
+            std::cout << "PutDown Table works correctly" << std::endl;
+        }
+        else if (this->map->getIsClose() == IS_CLOSE_DISHWASHER && this->tray->getState() == EMPTY_PLATES) {
+            this->waiter->setState(LEAVING_EMPTY_DISHES);
+            putDown(this->map->getWashbasin());
+            std::cout << "IsClose Table works correctly" << std::endl;
+        }
+    }
+    this->map->setIsClose(IS_CLOSE_NOTHING);
+    this->waiter->setState(DOING_NOTHING);
+
 }

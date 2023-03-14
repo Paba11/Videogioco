@@ -50,6 +50,7 @@ void Game::update() {
     generateCustomers();
     updateCollision();
     updateCustomers();
+    updateReceivingCustomer();
     this->map->getEntrance()->updateBox();
     this->waiter->update();
     this->dishWasher->update();
@@ -73,7 +74,8 @@ void Game::render(sf::RenderTarget* target) {
     this->chef->render(*this->window);
     this->dishWasher->render(*this->window);
     if(this->map->getEntrance()->getIsCustomer()) {
-        for (auto & it : this->receiveState->getCustomers()) {
+        for (auto & it : this->receiveState->getCustomers())
+        {
             this->window->draw(it.sprite);
         }
     }
@@ -116,9 +118,7 @@ void Game::pollEvents() {
                 else if (this->ev.key.code == sf::Keyboard::J || this->ev.key.code == sf::Keyboard::K
                     || this->ev.key.code == sf::Keyboard::L)
                 {
-                    std::cout<< "PollEvent" << std::endl;
-
-                    //this->waiter->updateMovement();
+                    //std::cout<< "PollEvent" << std::endl;
                     this->waiter->interact(this->map, this->ev);
                 }
                 break;
@@ -320,7 +320,7 @@ void Game::generateCustomers() {
     if(this->clock.getElapsedTime().asSeconds() >= this->level->getCustomerArrival()
     && !this->map->getEntrance()->getIsCustomer() && this->level->getTotalCustomerNumber() > 0)
     {
-        sf::Vector2f dist = this->waiter->getPosition();
+        sf::Vector2f dist = this->map->getEntrance()->getWelcomeSquare().getPosition();
         this->receiveState = new ReceiveState(this->map);
         this->waiter->setReceiveState(this->receiveState);
         generateRandom();
@@ -328,7 +328,6 @@ void Game::generateCustomers() {
         {
             std::cout << "Generating a customer" << std::endl;
             this->customer = new Customer(dist);
-            dist += dist;
             this->receiveState->getCustomers().push_back(*this->customer);
             this->group.push_back(this->customer); //Puntatore ai customers
             this->level->reduceTotalCustomerNumber();
@@ -424,24 +423,30 @@ ReceiveState *Game::getReceiveState() {
 
 
 void Game::updateCustomers() {
-    bool waitMove = false;
-    if(this->waiter->getMove() != STANDING && this->waiter->getState() == RECEIVING_CUSTOMERS)
-        waitMove = true;
 
-    if (this->map->getEntrance()->getIsCustomer())
+    for (auto & it : this->receiveState->getCustomers())
     {
-        sf::Sprite previous = this->waiter->getSprite();
-        //this->receiveState->moveToChair(previous);
-        for (auto & it : this->receiveState->getCustomers())
-        {
-            it.update(waitMove, previous);
-            previous = it.sprite;
-        }
+        it.update();
     }
-    else
+    if(this->waiter->getState() == RECEIVING_CUSTOMERS)
     {
-        this->receiveState = nullptr;
-        this->waiter->setReceiveState(nullptr);
+        if (this->waiter->getIsReceived())
+        {
+            sf::Sprite previous = this->waiter->getSprite();
+            //this->receiveState->moveToChair(previous);
+            for (auto & it : this->receiveState->getCustomers())
+            {
+                it.update();
+                previous = it.sprite;
+            }
+        }
+        /*
+        else
+        {
+            this->receiveState = nullptr;
+            this->waiter->setReceiveState(nullptr);
+        }
+         */
     }
 }
 
@@ -459,6 +464,13 @@ void Game::initStates() {
     this->orderState = new OrderState(this->map);
     this->actionsState = new ActionsState(this->map);
     this->waiter->initStates(this->actionsState, this->receiveState, this->orderState);
+}
+
+void Game::updateReceivingCustomer() {
+    if(this->waiter->getState() == RECEIVING_CUSTOMERS)
+    {
+        this->receiveState->update(*this->waiter);
+    }
 }
 
 

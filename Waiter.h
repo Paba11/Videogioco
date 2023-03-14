@@ -37,12 +37,12 @@ public:
 
     //Methods to interact with the customer
     void interact(Map* map, sf::Event ev);
+    void checkReceiving();
 
     //Getters & Setters
     Move getMove();
     bool getIsReceived();
     void initTexture(sf::Texture* textureW);
-
     ActionsState* getActionState();
     OrderState* getOrderState();
     ReceiveState* getReceiveState();
@@ -58,7 +58,6 @@ protected:
     void initVariables();
 
     //Attributes of the waiter
-    int ability;
     Genre genre;
 
     //State pattern

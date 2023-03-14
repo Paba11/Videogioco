@@ -11,26 +11,23 @@ Customer::Customer() {
 
 Customer::Customer(sf::Vector2f dist) {
     initVariables();
-    this->offsetX = dist.x;
+    this->offsetX = 0;
     this->offsetY = 0;
 }
 
 
 Customer::~Customer() {
 
-    delete this->followMovement;
 }
 
-void Customer::update(bool waitMove, sf::Sprite previous) {
+void Customer::update() {
     setAnimation();
     updateAnimations();
-    if(waitMove)
-        updateMoving(previous);
     moveTo();
 }
 
 
-void Customer::setSprite() {
+void Customer::initSprite() {
 
     this->sprite.setOrigin(16,32);
     this->currentFrame = sf::IntRect(0, 0, 32, 32); //box of 32x32
@@ -133,8 +130,6 @@ void Customer::setAnimation() {
 void Customer::moveTo() {
     if(this->moving)
         move();
-    //else if(this->movingToTable)
-        //moveToTable();
     this->actualPos = this->sprite.getPosition();
     if(this->movingStatus == MOVING_LEFT && this->actualPos.x <= this->endingPos.x) {
         this->moving = false;
@@ -150,22 +145,16 @@ void Customer::setEndingPosition(sf::Vector2f endPos, Move direction) {
     this->movingStatus = direction;
 }
 
-void Customer::setEndingDirection(sf::Vector2f endPos, Move direction) {
-    this->endingPos = endPos;
-    this->movingToTable = true;
-    this->movingStatus = direction;
-}
-
-std::queue<sf::Vector2f> &Customer::getPath() {
+std::queue<Move> &Customer::getPath() {
     return this->path;
 }
 
-void Customer::setPath(sf::Vector2f dist) {
+void Customer::setPath(Move m) {
     /*
      * Insert the new movement of the waiter inside the path that the customer has to take
      */
-    this->prevPos = this->path.back();
-    this->path.push(dist);
+
+    this->path.push(m);
 }
 
 void Customer::initVariables() {
@@ -173,19 +162,19 @@ void Customer::initVariables() {
     this->patience = 100;
     this->movingStatus = STANDING;
     this->preMovingStatus = STANDING;
-    this->speed = 4;
+    this->speed = 8;
     this->moving = false;
-    this->movingToTable = false;
     //TODO:INITIALIZE THE QUEUE OF MOVES
 }
-
+/*
 void Customer::updateMoving(sf::Sprite& previous) {
     //this->clock
-    sf::Vector2f direction = previous.getPosition() - this->sprite.getPosition();
-    direction = sf::Vector2f(direction.x / std::abs(direction.x), direction.y / std::abs(direction.y));
-    this->sprite.move(direction * 10.f);
+    if((this->path.back().x - previous.getPosition().x != 0) || (this->path.back().y - previous.getPosition().y != 0))
+    {
+        this->path;
+    }
 }
-
+*/
 
 void Customer::setOffsetX(float x) {
     this->offsetX = x;
@@ -201,6 +190,10 @@ void Customer::setOffsetY(float y) {
 
 float Customer::getOffsetY() {
     return this->offsetY;
+}
+
+float Customer::getTotalOffset() {
+    return this->offsetX + this->offsetY;
 }
 
 

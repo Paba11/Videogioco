@@ -13,14 +13,12 @@ ReceiveState::~ReceiveState() {
 }
 
 void ReceiveState::handleInput(GameCharacter& gc, sf::Event ev) {
-
+    this->table = pickEmptyTable();
+    update(gc);
 }
 
 void ReceiveState::update(GameCharacter& gc) {
-    if(!this->table)
-    {
-        this->table = pickEmptyTable();
-    }
+    move();
 }
 
 
@@ -48,73 +46,22 @@ Table* ReceiveState::pickEmptyTable() {
 }
 
 
-Move ReceiveState::checkState(float distX, float distY) {
-    Move direction = MOVING_LEFT;
-    if(distX != 0 && distY == 0)
-    {
-        if(distX < 0)
-            direction = MOVING_RIGHT;
-        else if(distX > 0)
-            direction = MOVING_LEFT;
-    }
-    else if(distX == 0 && distY != 0)
-    {
-        if(distY < 0)
-            direction = MOVING_DOWN;
-        else if(distY > 0)
-            direction = MOVING_UP;
-    }
-    else
-    {
-        //TODO IMPLEMENT CASE IN WHICH BOTH ARE DIFFERENT
-    }
-    return direction;
-}
-
-
 void ReceiveState::move() {
     /*
-     * Move the selected customer in the specific position indicated
+     * Move the selected customer
      */
-    float x, y;
-    for(auto & it : this->customers)
+
+    int i = 1;
+    for(auto & it: this->customers)
     {
-        while(it.getOffsetX() + it.getOffsetY() > TOTAL_OFFSET)
+        if(it.getPath().size() > i * INITIAL_MOVES)
         {
-            it.setOffsetX(abs(it.getPath().front().x - it.sprite.getPosition().x));
-            it.setOffsetY(abs(it.getPath().front().y - it.sprite.getPosition().y));
-            if(x > 2)
-            {
-
-            }
-            if(y > 2)
-            {
-
-            }
+            it.setMovingStatus(it.getPath().front());
+            it.getPath().pop();
+            it.move();
         }
+        i += 1;
     }
-
-
-}
-
-void ReceiveState::follow(sf::Vector2f prePosition, sf::Vector2f finalPosition, Move status) {
-    /*
-     * if previous moving status = final moving status then just modify the value of dist
-     * if change of direction then set a new breakpoint
-     */
-
-    float distX = (prePosition.x - finalPosition.x);
-    float distY = (prePosition.y - finalPosition.y);
-    Move direction = checkState(distX, distY);
-/*
-    for(auto & tmp : this->map->getEntrance()->getCustomers())
-    {
-        if(tmp.getPath().back().getMove() == direction)
-            tmp.getPath().back().setDist(finalPosition);
-        else
-            tmp.setPath(finalPosition, direction);
-    }
-*/
 }
 
 void ReceiveState::setTable(Table *t) {
@@ -142,29 +89,34 @@ std::vector<Customer> &ReceiveState::getCustomers() {
 }
 
 void ReceiveState::setGeneratedCustomers(int numberCustomer, int textureNumber) {
-    if(numberCustomer == 4) {
+    if(numberCustomer == 1) {
         this->customers.back().sprite.setPosition(1550, 910);   //1000, 700
-        this->customers.back().setEndingPosition(sf::Vector2f{1300, 910}, MOVING_LEFT);
-
+        this->customers.back().setEndingPosition(sf::Vector2f{1256, 910}, MOVING_LEFT);
+        for(int i = 0; i < 4 * INITIAL_MOVES; i++)
+            this->customers.back().setPath(MOVING_LEFT);
         std::cout << "4" << std::endl;
     }
-    else if(numberCustomer == 3) {
+    else if(numberCustomer == 2) {
         this->customers.back().sprite.setPosition(1500, 910);   //1000, 800
-        this->customers.back().setEndingPosition(sf::Vector2f{1200, 910}, MOVING_LEFT);
-
+        this->customers.back().setEndingPosition(sf::Vector2f{1172, 910}, MOVING_LEFT);
+        for(int i = 0; i < 3 * INITIAL_MOVES; i++)
+            this->customers.back().setPath(MOVING_LEFT);
         std::cout << "3" << std::endl;
 
     }
-    else if(numberCustomer == 2) {
+    else if(numberCustomer == 3) {
         this->customers.back().sprite.setPosition(1450, 910);   //1100, 700
-        this->customers.back().setEndingPosition(sf::Vector2f{1100, 910}, MOVING_LEFT);
-
+        this->customers.back().setEndingPosition(sf::Vector2f{1088, 910}, MOVING_LEFT);
+        for(int i = 0; i < 2 * INITIAL_MOVES; i++)
+            this->customers.back().setPath(MOVING_LEFT);
         std::cout << "2" << std::endl;
 
     }
-    else if(numberCustomer == 1) {
+    else if(numberCustomer == 4) {
         this->customers.back().sprite.setPosition(1400, 910); //always generated
-        this->customers.back().setEndingPosition(sf::Vector2f{1000, 910}, MOVING_LEFT);
+        this->customers.back().setEndingPosition(sf::Vector2f{1004, 910}, MOVING_LEFT);
+        for(int i = 0; i < INITIAL_MOVES; i++)
+            this->customers.back().setPath(MOVING_LEFT);
         std::cout << "1" << std::endl;
 
     }
@@ -178,21 +130,16 @@ void ReceiveState::setGeneratedCustomers(int numberCustomer, int textureNumber) 
         this->customers.back().sprite.setTexture(*this->texture->getTexture("Customer4"));
 
 
-    this->customers.back().setSprite();
+    this->customers.back().initSprite();
     std::cout << "set customer" << std::endl;
 
 }
 
-void ReceiveState::moveToChair(sf::Sprite* sprite) {
-    /*
-     * Keep a constant distance from the sprite before calling the rest of the functions
-     */
-    sf::Vector2f previous = sprite->getPosition();
+void ReceiveState::addToPath(Move dir) {
     for(auto & it: this->customers)
     {
-        it.setPath(previous);
-        previous = it.getPosition();
+        it.setPath(dir);
     }
-    move();
 }
+
 

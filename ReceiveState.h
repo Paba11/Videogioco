@@ -7,7 +7,9 @@
 
 #include "WaiterStates.h"
 #include "Map.h"
+#include <cmath>
 
+#define INITIAL_MOVES 70
 #define TOTAL_OFFSET 50
 
 class ReceiveState : public WaiterStates {
@@ -20,14 +22,11 @@ public:
 
     //Methods to receive the customer
     Table* pickEmptyTable();
-    Move checkState(float distX, float distY);
     void setGeneratedCustomers(int numberCustomer, int textureNumber);
-    void update();
 
     //Move to the table
     void move();
-    void moveToChair(sf::Sprite* sprite);
-    void follow(sf::Vector2f prePosition, sf::Vector2f finalPosition, Move status);
+    void addToPath(Move dir);
 
     //Getters & Setters
     void setTable(Table* t);
@@ -41,9 +40,9 @@ private:
     Textures* texture = new Textures();
     Map* map;
     Table* table;
-
     Customer* customer;
     std::vector<Customer> customers;
+
 };
 
 

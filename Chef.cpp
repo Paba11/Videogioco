@@ -30,10 +30,6 @@ void Chef::initSprite() {
     //this->sprite.setPosition();
 }
 
-void Chef::updateMovement(int action) {
-
-}
-
 void Chef::move() {
 
 }

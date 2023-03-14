@@ -11,6 +11,7 @@
 class FollowMovement {
 public:
     FollowMovement();
+    FollowMovement(Move m, sf::Vector2f d);
     ~FollowMovement();
 
     void initDistance();

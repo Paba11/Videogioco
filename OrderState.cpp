@@ -5,13 +5,12 @@
 #include "OrderState.h"
 
 OrderState::OrderState(Map* m) {
-    initTexture();
-    initSprite();
-    this->map = m;
-    this->order = nullptr;
-    this->current = DRINK;
+    initVariables(m);
+
+    /*
     this->actualMax = MAX_DRINKS;
     this->cursor = 0;
+     */
 }
 
 OrderState::~OrderState() {
@@ -20,14 +19,6 @@ OrderState::~OrderState() {
 
 Order *OrderState::getOrder() {
     return this->order;
-}
-
-void OrderState::initTexture() {
-
-}
-
-void OrderState::initSprite() {
-
 }
 
 void OrderState::setOrder(Order *o) {
@@ -48,6 +39,33 @@ void OrderState::setOrderVariables(Table* t, Order* o) {
     this->order->initPointersToNull();
 }
 
+void OrderState::setAnimation() {
+   //TODO: SET THE ANIMATION OF THE CUSTOMERS TALKING
+}
+
+void OrderState::render() {
+    //TODO: RENDER THE TEXTURE ON THE SCREEN
+}
+
+void OrderState::handleInput(GameCharacter &gc, sf::Event ev) {
+    //TODO: HANDLE THE INPUT
+}
+
+void OrderState::update(GameCharacter &gc) {
+
+}
+
+void OrderState::randomOrder() {
+
+}
+
+void OrderState::initVariables(Map* m) {
+    this->map = m;
+    this->order = nullptr;
+    this->current = DRINK;
+}
+
+/*
 void OrderState::setAppetizers() {
     cursor = 0;
     setAnimation();
@@ -103,64 +121,4 @@ void OrderState::setDrinks() {
         this->flag = false;
     }
 }
-
-
-void OrderState::manageOrder() {
-    setDrinks();
-    setAppetizers();
-    setMainCourses();
-    setDesserts();
-}
-
-void OrderState::setAnimation() {
-    if(this->current == DRINK)
-    {
-        this->current = APPETIZER;
-        this->actualMax = MAX_APPETIZERS;
-    }
-    else if(this->current == APPETIZER)
-    {
-        this->current = MAIN_DISH;
-        this->actualMax = MAX_MAIN_DISHES;
-    }
-    else if(this->current == MAIN_DISH)
-    {
-        this->current = DESSERT;
-        this->actualMax = MAX_DESSERT;
-    }
-}
-
-bool OrderState::select() {
-    this->flag = false;
-    if(sf::Keyboard::isKeyPressed(sf::Keyboard::W))
-    {
-        cursor = ((cursor-1)%actualMax);
-        update();
-        render();
-    }
-    else if(sf::Keyboard::isKeyPressed(sf::Keyboard::S))
-    {
-        cursor = ((cursor+1)%actualMax);
-        update();
-        render();
-    }
-    else if(sf::Keyboard::isKeyPressed(sf::Keyboard::J))
-    {
-        flag = true;
-        update();
-        render();
-    }
-    return flag;
-}
-
-void OrderState::update() {
-    //TODO: UPDATE THE CURSOR IN THE CORRECT POSITION
-}
-
-void OrderState::render() {
-    //TODO: RENDER THE TEXTURE ON THE SCREEN
-}
-
-void OrderState::handleInput(GameCharacter &gc, sf::Event ev) {
-    //TODO: HANDLE THE INPUT
-}
+*/

@@ -10,53 +10,52 @@
 #include "FollowMovement.h"
 #include <queue>
 
+#define TOTAL_OFFSET 50
+
 enum Mood {EXCELLENT, GOOD, NORMAL, BAD};
 
 class Customer final : public GameCharacter {
 public:
     //Constructor & Destructor
     Customer();
-    Customer(sf::Vector2f dist);
-    ~Customer();
+    explicit Customer(sf::Vector2f dist);
+    ~Customer() override;
 
     //Methods to update and display the customer on the screen
-    void update(bool waitMove, sf::Sprite previous);
+    void update();
     void move();
-    void moveToTable();
-    void setSprite();
+    void initSprite();
     void initVariables();
-    void moveToChair(sf::Vector2f pos);
+
     //void collisionCheck(const Map& map);
     void updateAnimations() override;
     void setAnimation();
-    //void moveToChair();
+
     void updateMoving(sf::Sprite& previous);
     void moveTo();
     void setEndingPosition(sf::Vector2f endingPos, Move direction);
-    void setEndingDirection(sf::Vector2f endingPos, Move direction);
     sf::Sprite sprite; //fixme create a function to set the texture from receivingCustomer.h
 
     //Getters & Setters
     const sf::Vector2f& getPosition() const;
-    std::queue<sf::Vector2f>& getPath();
-    void setPath(sf::Vector2f dist);
+    std::queue<Move>& getPath();
+    void setPath(Move m);
     void setOffsetX(float x);
     float getOffsetX();
     void setOffsetY(float y);
     float getOffsetY();
+    float getTotalOffset();
 
 private:
     sf::Vector2f actualPos;
     Mood mood;
     int patience;
     bool moving;
-    bool movingToTable;
     sf::Vector2f endingPos;
     sf::Clock clock;
 
     //Road to move to the table
-    std::queue<sf::Vector2f> path;
-    FollowMovement* followMovement;
+    std::queue<Move> path;
     float offsetX, offsetY;
     sf::Vector2f prevPos;
 

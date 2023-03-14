@@ -102,3 +102,20 @@ Actions GameCharacter::getState() {
 void GameCharacter::setState(Actions a) {
     this->state = a;
 }
+
+sf::Vector2f GameCharacter::getPrevPos() {
+    return this->prevPos;
+}
+
+sf::Vector2f GameCharacter::getCurrPos() {
+    return this->currPos;
+}
+
+Move GameCharacter::getDirection() {
+    return this->dir;
+}
+
+void GameCharacter::setMovingStatus(Move m) {
+    this->movingStatus = m;
+}
+

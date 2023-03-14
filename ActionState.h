@@ -18,13 +18,13 @@ public:
 
     void handleInput(GameCharacter& waiter, sf::Event ev) override;
     void update(GameCharacter& waiter) override;
+    void actionManagement();
 
     //Methods to interact
     void pickUp(Kitchen* kitchen);
     void pickUp(Table* table);
     void putDown(Table* table);
     void putDown(Washbasin* washbasin);
-    void takingOrder(Table* table);
     void leavingOrder(Kitchen* kitchen);
 
     //Getters & setters
@@ -37,6 +37,7 @@ private:
     Map* map;
     Order* order;
     bool isOrder;
+    sf::Event event;
 
     //Pointer to the plates carrying in a specific moment
     Tray* tray;

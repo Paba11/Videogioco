@@ -72,28 +72,47 @@ void Waiter::updateMovement() {
 
 void Waiter::move() {
     //std::cout << "First position: " << this->sprite.getPosition().x << ", " << this->sprite.getPosition().y;
-    sf::Vector2f prePosition = this->sprite.getPosition();
+    this->currPos = this->sprite.getPosition();
+    this->prevPos = this->currPos;
+
         switch (this->movingStatus) {
             case MOVING_LEFT:
                 if(this->validMovement["Left"])
+                {
                     this->sprite.move(this->speed * (-0.15f), this->speed * (0.f));
+                    checkReceiving();
+                }
+                this->dir = MOVING_LEFT;
                 break;
 
             case MOVING_RIGHT:
                 if(this->validMovement["Right"])
+                {
                     this->sprite.move(this->speed * (0.15f), this->speed * (0.f));
+                    checkReceiving();
+                }
+                this->dir = MOVING_RIGHT;
                 break;
 
             case MOVING_UP:
                 if(this->validMovement["Up"])
+                {
                     this->sprite.move(this->speed * (0.f), this->speed * (-0.15f));
+                    checkReceiving();
+                }
+                this->dir = MOVING_UP;
                 break;
 
             case MOVING_DOWN:
                 if(this->validMovement["Down"])
+                {
                     this->sprite.move(this->speed * (0.f), this->speed * (0.15f));
+                    checkReceiving();
+                }
+                this->dir = MOVING_DOWN;
                 break;
             case STANDING:
+                this->dir = STANDING;
                 break;
         }
         /*
@@ -109,22 +128,27 @@ void Waiter::interact(Map* map, sf::Event ev) {
     map->distanceKitchen(this->sprite);
     map->distanceWashbasin(this->sprite);
 
-    if(!this->order && map->getIsClose() == IS_CLOSE_ENTRANCE && map->getEntrance()->getIsCustomer())
+    if(this->state == DOING_NOTHING)
     {
-        this->state = RECEIVING_CUSTOMERS;
-        this->sprite.setPosition(920,910);
-        this->receiveState->handleInput(*this, ev);
-        std::cout << "Receiving customers" << std::endl;
-    }
-    else if(!this->order && map->getIsClose() == IS_CLOSE_TABLE)
-    {
-        this->state = TAKING_ORDER;
-        this->orderState->handleInput(*this, ev);
-        this->actionsState->setIsOrder(true);
-    }
-    else
-    {
-        this->actionsState->handleInput(*this, ev);
+        if(!this->order && map->getIsClose() == IS_CLOSE_ENTRANCE && map->getEntrance()->getIsCustomer()
+            && ev.key.code == sf::Keyboard::J)
+        {
+            this->state = RECEIVING_CUSTOMERS;
+            this->sprite.setPosition(920,910);
+            this->receiveState->handleInput(*this, ev);
+            std::cout << "Receiving customers" << std::endl;
+        }
+        else if(!this->order && map->getIsClose() == IS_CLOSE_TABLE)
+        {
+            this->state = TAKING_ORDER;
+            this->orderState->handleInput(*this, ev);
+            this->actionsState->setIsOrder(true);
+        }
+        else
+        {
+            this->actionsState->handleInput(*this, ev);
+            this->state = DOING_NOTHING;
+        }
     }
 }
 
@@ -240,6 +264,13 @@ void Waiter::setOrderState(OrderState *os) {
 void Waiter::setReceiveState(ReceiveState *rs) {
     delete this->receiveState;
     this->receiveState = rs;
+}
+
+void Waiter::checkReceiving() {
+    if(this->state == RECEIVING_CUSTOMERS)
+    {
+        this->receiveState->addToPath(this->dir);
+    }
 }
 
 
