@@ -9,6 +9,7 @@
 #include "Kitchen.h"
 #include "Entrance.h"
 #include "Table.h"
+#include "Counter.h"
 #include <cmath>
 #include <SFML/Graphics.hpp>
 #include <SFML/Window.hpp>
@@ -17,7 +18,7 @@
 
 #define MAX_SIZE 10
 
-enum Position {IS_CLOSE_TABLE, IS_CLOSE_KITCHEN, IS_CLOSE_DISHWASHER, IS_CLOSE_NOTHING, IS_CLOSE_ENTRANCE};
+enum Position {IS_CLOSE_TABLE, IS_CLOSE_KITCHEN, IS_CLOSE_DISHWASHER, IS_CLOSE_NOTHING, IS_CLOSE_ENTRANCE, IS_CLOSE_DIRTY_DISHES};
 
 class Map {
 public:
@@ -47,6 +48,8 @@ public:
     Kitchen* distanceKitchen(sf::Sprite& gc);
     Washbasin* distanceWashbasin(sf::Sprite& gc);
     Entrance* distanceEntrance(sf::Sprite& gc);
+    sf::RectangleShape* distanceDirtyDishes(sf::Sprite& gc);
+    std::vector<sf::RectangleShape> distanceChefDishes(sf::Sprite &gc);
     bool distanceSpecificTable(Table* t, sf::Sprite& gc);
     Position getIsClose();
     void setIsClose(Position pos);
@@ -65,6 +68,7 @@ private:
     Washbasin* washbasin;
     Kitchen* kitchen;
     Entrance* entranceObj;
+    Counter* counter;
     Textures* texture = new Textures;
 };
 

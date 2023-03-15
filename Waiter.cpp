@@ -127,6 +127,8 @@ void Waiter::interact(Map* map, sf::Event ev) {
     map->distanceEntrance(this->sprite);
     map->distanceKitchen(this->sprite);
     map->distanceWashbasin(this->sprite);
+    map->distanceDirtyDishes(this->sprite);
+    map->distanceChefDishes(this->sprite);
 
     if(this->state == DOING_NOTHING)
     {

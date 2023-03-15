@@ -7,6 +7,7 @@
 
 Kitchen::Kitchen() {
     this->state = EMPTY;
+    this->counter = new Counter();
     initSprite();
 
 }
@@ -148,4 +149,8 @@ void Kitchen::setWaitingOrder() {
 
 std::queue<Order *> &Kitchen::getReadyOrders() {
     return this->readyOrders;
+}
+
+Counter *Kitchen::getCounter() {
+    return this->counter;
 }

@@ -8,6 +8,7 @@ Map::Map() {
     this->kitchen = new Kitchen();
     this->washbasin = new Washbasin();
     this->entranceObj = new Entrance();
+    this->counter = new Counter();
     this->isClose = IS_CLOSE_NOTHING;
     initSprites();
     //Temporary code
@@ -170,14 +171,9 @@ Washbasin* Map::distanceWashbasin(sf::Sprite& gc) {
 }
 
 Kitchen* Map::distanceKitchen(sf::Sprite& gc) {
-    /*
-     * Calculate the position of the waiter from the Kitchen
-     */
+
 
     float dist;
-
-    //std::cout << std::endl << " posX: " << k->getSprite().getPosition().x << " PosY: " <<
-    //          k->getSprite().getPosition().y << std::endl;
 
     dist = std::sqrt(std::pow(this->kitchen->getSprite().getPosition().x - gc.getPosition().x, 2) +
                      std::pow(this->kitchen->getSprite().getPosition().y - gc.getPosition().y, 2));
@@ -237,3 +233,43 @@ void Map::setIsClose(Position pos) {
 Table *Map::getTableToPickUp() {
     return this->table;
 }
+
+sf::RectangleShape *Map::distanceDirtyDishes(sf::Sprite &gc) {
+
+    float dist;
+
+    dist = std::sqrt(std::pow(this->kitchen->getCounter()->getPlaceDirtyDishes().getPosition().x - gc.getPosition().x, 2) +
+                     std::pow(this->kitchen->getCounter()->getPlaceDirtyDishes().getPosition().y - gc.getPosition().y, 2));
+
+    std::cout << "Dirty Dish Dist: " << dist << std::endl;
+
+    if(dist <= 200)
+    {
+        this->isClose = IS_CLOSE_DIRTY_DISHES;
+    }
+
+    return &this->kitchen->getCounter()->getPlaceDirtyDishes();
+}
+
+std::vector<sf::RectangleShape> Map::distanceChefDishes(sf::Sprite &gc) {
+
+    float dist;
+    int i=0;
+    for (auto &it: this->kitchen->getCounter()->getPlaceChefDishes()){
+
+        dist = std::sqrt(std::pow(this->kitchen->getCounter()->getPlaceChefDishes()[i].getPosition().x - gc.getPosition().x, 2) +
+                         std::pow(this->kitchen->getCounter()->getPlaceChefDishes()[i].getPosition().y - gc.getPosition().y, 2));
+
+        std::cout << "Chef Dish " << i <<" Dist: " << dist << std::endl;
+        i++;
+    }
+    /*
+    if(dist <= 200)
+    {
+        this->isClose = IS_CLOSE_DIRTY_DISHES;
+    }
+    */ //TODO: create a new value for isClose
+    return this->kitchen->getCounter()->getPlaceChefDishes();
+}
+
+

@@ -39,7 +39,8 @@ const sf::FloatRect Counter::getBounds() const {
 void Counter::setDirtyDishes() {
 
     this->placeForDirtyDishes.setSize(this->dishHitbox);
-    this->placeForDirtyDishes.setPosition(1020.f,260.f);
+    this->placeForDirtyDishes.setOrigin(42.5f,40.f);
+    this->placeForDirtyDishes.setPosition(1062.5f,300.f);
     this->placeForDirtyDishes.setOutlineColor(sf::Color::White);    //Fixme set trasparent when finished
     this->placeForDirtyDishes.setOutlineThickness(1.f);
     this->placeForDirtyDishes.setFillColor(sf::Color::Transparent);
@@ -54,14 +55,23 @@ void Counter::setChefDishes() {
         sf::RectangleShape rectangle;
 
         rectangle.setSize(this->dishHitbox);
+        rectangle.setOrigin(42.5f,40.f);
         rectangle.setOutlineColor(sf::Color::White);    //Fixme set trasparent when finished
         rectangle.setOutlineThickness(1.f);
         rectangle.setFillColor(sf::Color::Transparent);
         chefDishes.push_back(rectangle);
     }
 
-    this->chefDishes[0].setPosition(1020.f, 400.f);
-    this->chefDishes[1].setPosition(1020.f, 480.f);
-    this->chefDishes[2].setPosition(1100.f, 550.f);
-    this->chefDishes[3].setPosition(1200.f, 550.f);
+    this->chefDishes[0].setPosition(1062.5f, 440.f);
+    this->chefDishes[1].setPosition(1062.5f, 520.f);
+    this->chefDishes[2].setPosition(1142.5f, 590.f);
+    this->chefDishes[3].setPosition(1242.5f, 590.f);
+}
+
+sf::RectangleShape &Counter::getPlaceDirtyDishes() {
+    return this->placeForDirtyDishes;
+}
+
+std::vector<sf::RectangleShape> Counter::getPlaceChefDishes() {
+    return this->chefDishes;
 }

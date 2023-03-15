@@ -17,6 +17,8 @@ public:
     ~Counter();
     void render(sf::RenderTarget& target);
     const sf::FloatRect getBounds() const;
+    sf::RectangleShape& getPlaceDirtyDishes();
+    std::vector<sf::RectangleShape> getPlaceChefDishes();
     void setDirtyDishes();
     void setChefDishes();
 

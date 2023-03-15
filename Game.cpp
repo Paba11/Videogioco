@@ -86,7 +86,6 @@ void Game::render(sf::RenderTarget* target) {
 
 void Game::initVariables() {
 
-    this->counter = new Counter();
     this->maxNumberCustomers = this->level->getTotalCustomerNumber();
     this->bottomBar = new BottomBar();
     //initWaiter();
@@ -292,6 +291,7 @@ void Game::initMap() {
     this->map = new Map();
     this->kitchen = this->map->getKitchen();
     this->washbasin = this->map->getWashbasin();
+    this->counter = this->map->getKitchen()->getCounter();
 }
 
 void Game::initTexture() {

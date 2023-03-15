@@ -16,6 +16,7 @@
 #include "Tray.h"
 #include "Recipe.h"
 #include "Textures.h"
+#include "Counter.h"
 #include <queue>
 
 
@@ -57,6 +58,7 @@ public:
     DishState getState();
     const sf::Sprite getSprite();
     const sf::FloatRect getBounds() const;
+    Counter* getCounter();
 
 
 private:
@@ -75,6 +77,7 @@ private:
     bool isEmptyPlates;
     DishState state;
     Recipe recipe;
+    Counter* counter;
 };
 
 
