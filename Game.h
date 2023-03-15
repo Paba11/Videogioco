@@ -17,7 +17,6 @@
 #include "Chef.h"
 #include "Counter.h"
 #include "Level.h"
-#include "ReceivingCustomers.h"
 #include "BottomBar.h"
 #include <SFML/Graphics.hpp>
 #include <SFML/Window.hpp>

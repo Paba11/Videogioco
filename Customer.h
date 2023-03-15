@@ -23,7 +23,8 @@ public:
 
     //Methods to update and display the customer on the screen
     void update();
-    void move();
+
+    //Initialize attributes
     void initSprite();
     void initVariables();
 
@@ -31,7 +32,8 @@ public:
     void updateAnimations() override;
     void setAnimation();
 
-    void updateMoving(sf::Sprite& previous);
+    //Move the customer
+    void move();
     void moveTo();
     void setEndingPosition(sf::Vector2f endingPos, Move direction);
     sf::Sprite sprite; //fixme create a function to set the texture from receivingCustomer.h
@@ -40,11 +42,6 @@ public:
     const sf::Vector2f& getPosition() const;
     std::queue<Move>& getPath();
     void setPath(Move m);
-    void setOffsetX(float x);
-    float getOffsetX();
-    void setOffsetY(float y);
-    float getOffsetY();
-    float getTotalOffset();
 
 private:
     sf::Vector2f actualPos;
@@ -52,12 +49,9 @@ private:
     int patience;
     bool moving;
     sf::Vector2f endingPos;
-    sf::Clock clock;
 
     //Road to move to the table
     std::queue<Move> path;
-    float offsetX, offsetY;
-    sf::Vector2f prevPos;
 
 };
 

@@ -11,8 +11,6 @@ Customer::Customer() {
 
 Customer::Customer(sf::Vector2f dist) {
     initVariables();
-    this->offsetX = 0;
-    this->offsetY = 0;
 }
 
 
@@ -81,34 +79,6 @@ const sf::Vector2f &Customer::getPosition() const {
     return this->sprite.getPosition();
 }
 
-/*
-void Customer::moveToTable() {
-    switch (this->path.front().getMove())
-    {
-        case MOVING_LEFT:
-            if (this->validMovement["Left"] && this->sprite.getPosition().x != this->path.front().getDist().x)
-                this->sprite.move(this->speed * (-0.15f), this->speed * (0.f));
-            break;
-
-        case MOVING_RIGHT:
-            if (this->validMovement["Right"] && this->sprite.getPosition().x != this->path.front().getDist().x)
-                this->sprite.move(this->speed * (0.15f), this->speed * (0.f));
-            break;
-
-        case MOVING_UP:
-            if (this->validMovement["Up"] && this->sprite.getPosition().y != this->path.front().getDist().y)
-                this->sprite.move(this->speed * (0.f), this->speed * (-0.15f));
-            break;
-
-        case MOVING_DOWN:
-            if (this->validMovement["Down"] && this->sprite.getPosition().y != this->path.front().getDist().y)
-                this->sprite.move(this->speed * (0.f), this->speed * (0.15f));
-            break;
-        case STANDING:
-            break;
-    }
-}
-*/
 
 void Customer::setAnimation() {
 
@@ -164,7 +134,6 @@ void Customer::initVariables() {
     this->preMovingStatus = STANDING;
     this->speed = 8;
     this->moving = false;
-    //TODO:INITIALIZE THE QUEUE OF MOVES
 }
 /*
 void Customer::updateMoving(sf::Sprite& previous) {
@@ -176,24 +145,6 @@ void Customer::updateMoving(sf::Sprite& previous) {
 }
 */
 
-void Customer::setOffsetX(float x) {
-    this->offsetX = x;
-}
 
-float Customer::getOffsetX() {
-    return this->offsetX;
-}
-
-void Customer::setOffsetY(float y) {
-    this->offsetY = y;
-}
-
-float Customer::getOffsetY() {
-    return this->offsetY;
-}
-
-float Customer::getTotalOffset() {
-    return this->offsetX + this->offsetY;
-}
 
 

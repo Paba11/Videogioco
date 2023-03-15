@@ -30,10 +30,6 @@ void Chef::initSprite() {
     //this->sprite.setPosition();
 }
 
-void Chef::move() {
-
-}
-
 void Chef::setAnimation() {
 
     if(this->state == WAIT)
@@ -82,7 +78,7 @@ void Chef::checkOrder() {
     {
         setOrder();
         this->state = COOK;
-        move();
+        setAnimation();
         this->clock.restart();
     }
 }

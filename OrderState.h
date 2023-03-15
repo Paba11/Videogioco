@@ -25,12 +25,8 @@ public:
     void handleInput(GameCharacter& gc, sf::Event ev) override;
     void update(GameCharacter& gc) override;
 
-    //Texture and updating
-    void setAnimation();
-    void render();
-
     //Actions of the order state
-    void setOrderVariables(Table* t, Order* o);
+    void setOrderVariables(Table* t);
     void randomOrder();
 
     //Getters & Setters

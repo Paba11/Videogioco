@@ -14,7 +14,6 @@
 #include "OrderState.h"
 #include "ActionState.h"
 #include "ReceiveState.h"
-#include "ReceivingCustomers.h"
 #include "FollowMovement.h"
 #include <cmath>
 
@@ -49,6 +48,8 @@ public:
     void setActionState(ActionsState* as);
     void setOrderState(OrderState* os);
     void setReceiveState(ReceiveState* rs);
+    Order* getOrder();
+    void setOrder(Order* o);
 
     void initStates(ActionsState* as, ReceiveState* rs, OrderState* os);
 
@@ -69,7 +70,6 @@ protected:
     Order* order;
 
     //Attributes to receive the customers
-    std::queue<FollowMovement> direction;
     bool isReceived;
 };
 

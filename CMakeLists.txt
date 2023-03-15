@@ -33,7 +33,6 @@ add_executable( videogioco                  main.cpp
                 Order.h                     Order.cpp
                 OrderState.h                OrderState.cpp
                 ProgramState.h              ProgramState.cpp
-                ReceivingCustomers.h        ReceivingCustomers.cpp
                 ReceiveState.h              ReceiveState.cpp
                 Recipe.h                    Recipe.cpp
                 Stool.h                     Stool.cpp
