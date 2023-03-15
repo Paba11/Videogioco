@@ -23,8 +23,8 @@ public:
     ~Chef();
 
     //Chef actions
-    void move();
     void setAnimation();
+    void updateAnimations() override;
     void cook();
     void checkOrder();
 
@@ -36,7 +36,6 @@ public:
     Dish* getDish();
     void setOrder();
     Order* getOrder();
-    void updateAnimations() override;
     void setKitchen(Kitchen* k);
     Kitchen* getKitchen();
 
@@ -46,8 +45,6 @@ private:
     void initSprite() override;
 
     //Attributes of the Chef
-    float speed;
-    int ability;
     Do state;
     Dish* dish;
     std::vector<Dish*> dishes;

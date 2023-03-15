@@ -17,7 +17,6 @@
 #include "../NPC/Chef.h"
 #include "../Map/Counter.h"
 #include "../Level.h"
-#include "../ReceivingCustomers.h"
 #include "../BottomBar.h"
 #include <SFML/Graphics.hpp>
 #include <SFML/Window.hpp>

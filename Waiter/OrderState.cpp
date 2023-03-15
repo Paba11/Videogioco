@@ -33,18 +33,9 @@ void OrderState::setTable(Table *t) {
     this->table = t;
 }
 
-void OrderState::setOrderVariables(Table* t, Order* o) {
+void OrderState::setOrderVariables(Table* t) {
     this->table = t;
-    this->order = o;
     this->order->initPointersToNull();
-}
-
-void OrderState::setAnimation() {
-   //TODO: SET THE ANIMATION OF THE CUSTOMERS TALKING
-}
-
-void OrderState::render() {
-    //TODO: RENDER THE TEXTURE ON THE SCREEN
 }
 
 void OrderState::handleInput(GameCharacter &gc, sf::Event ev) {

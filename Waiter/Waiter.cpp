@@ -154,6 +154,14 @@ void Waiter::interact(Map* map, sf::Event ev) {
     }
 }
 
+Order *Waiter::getOrder() {
+    return this->order;
+}
+
+void Waiter::setOrder(Order* o) {
+    this->order = o;
+}
+
 void Waiter::update() {
     updateAnimations();
     updateMovement();
