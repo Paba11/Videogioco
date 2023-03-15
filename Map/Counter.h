@@ -8,7 +8,7 @@
 #include <SFML/Window.hpp>
 #include <SFML/System.hpp>
 #include <SFML/Audio.hpp>
-#include "Textures.h"
+#include "../Textures.h"
 
 
 class Counter {

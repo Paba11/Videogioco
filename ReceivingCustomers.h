@@ -5,9 +5,9 @@
 #ifndef VIDEOGIOCO_RECEIVINGCUSTOMERS_H
 #define VIDEOGIOCO_RECEIVINGCUSTOMERS_H
 
-#include "Map.h"
-#include "WaiterStates.h"
-#include "Customer.h"
+#include "Map/Map.h"
+#include "Waiter/WaiterStates.h"
+#include "NPC/Customer.h"
 #include "Textures.h"
 #include "FollowMovement.h"
 

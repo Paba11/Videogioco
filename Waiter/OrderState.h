@@ -11,8 +11,8 @@
 #include <SFML/System.hpp>
 #include <SFML/Audio.hpp>
 #include "WaiterStates.h"
-#include "Order.h"
-#include "Map.h"
+#include "../Dish/Order.h"
+#include "../Map/Map.h"
 
 
 class OrderState : public WaiterStates {

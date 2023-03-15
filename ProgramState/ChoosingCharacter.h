@@ -7,7 +7,7 @@
 
 
 #include "ProgramState.h"
-#include "Button.h"
+#include "../Button.h"
 
 class ChoosingCharacter : public ProgramState{
 public:

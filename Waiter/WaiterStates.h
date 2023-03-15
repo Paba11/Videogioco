@@ -5,7 +5,7 @@
 #ifndef VIDEOGIOCO_WAITERSTATES_H
 #define VIDEOGIOCO_WAITERSTATES_H
 
-#include "GameCharacter.h"
+#include "../GameCharacter.h"
 
 enum Genre {BOY, GIRL};
 

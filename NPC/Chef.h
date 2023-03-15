@@ -5,12 +5,12 @@
 #ifndef VIDEOGIOCO_CHEF_H
 #define VIDEOGIOCO_CHEF_H
 
-#include "GameCharacter.h"
-#include "Dish.h"
-#include "Order.h"
-#include "Kitchen.h"
+#include "../GameCharacter.h"
+#include "../Dish/Dish.h"
+#include "../Dish/Order.h"
+#include "../Map/Kitchen.h"
 #include <vector>
-#include "Textures.h"
+#include "../Textures.h"
 
 
 enum Do {WAIT, COOK, DO};

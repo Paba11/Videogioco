@@ -69,7 +69,6 @@ void Game::render(sf::RenderTarget* target) {
     renderMap();
 
     this->map->getEntrance()->renderBarrier(*this->window,1);
-    this->waiter->render(*this->window);
     this->chef->render(*this->window);
     this->dishWasher->render(*this->window);
     if(this->map->getEntrance()->getIsCustomer()) {
@@ -79,7 +78,7 @@ void Game::render(sf::RenderTarget* target) {
         }
     }
     this->map->getEntrance()->renderBarrier(*this->window,2);    //this->dishWasher->render(*this->window);
-
+    this->waiter->render(*this->window);
     this->window->display();
 }
 
@@ -192,21 +191,22 @@ void Game::initTables() {
 
 void Game::initPosTables() {
 
-    this->map->getAllTables()[0].sprite.setPosition(85,270);
-    this->map->getAllTables()[0].posStool(85,270);
-    this->map->getAllTables()[1].sprite.setPosition(85,540);
+    this->map->getAllTables()[0].sprite.setPosition(140,334);    //60 64
+    this->map->getAllTables()[0].posStool(80,270); //80 270
+    this->map->getAllTables()[1].sprite.setPosition(140,604);
     this->map->getAllTables()[1].posStool(85,540);
-    this->map->getAllTables()[2].sprite.setPosition(85,810);
+    this->map->getAllTables()[2].sprite.setPosition(140,874);
     this->map->getAllTables()[2].posStool(85,810);
-    this->map->getAllTables()[3].sprite.setPosition(490,270);
+    this->map->getAllTables()[3].sprite.setPosition(550,334);
     this->map->getAllTables()[3].posStool(490,270);
-    this->map->getAllTables()[4].sprite.setPosition(490,540);
+    this->map->getAllTables()[4].sprite.setPosition(550,604);
     this->map->getAllTables()[4].posStool(490,540);
-    this->map->getAllTables()[5].sprite.setPosition(490,810);
+    this->map->getAllTables()[5].sprite.setPosition(550,874);
     this->map->getAllTables()[5].posStool(490,810);
-    for(int i=0; i<numTables; i++)
+    for(int i=0; i<numTables; i++) {
+        this->map->getAllTables()[i].setTable();
         this->map->getAllTables()[i].sprite.setScale(2, 2);
-
+    }
 }
 
 void Game::windowsCollision() {

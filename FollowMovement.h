@@ -5,7 +5,7 @@
 #ifndef VIDEOGIOCO_FOLLOWMOVEMENT_H
 #define VIDEOGIOCO_FOLLOWMOVEMENT_H
 
-#include "WaiterStates.h"
+#include "Waiter/WaiterStates.h"
 #include "GameCharacter.h"
 
 class FollowMovement {

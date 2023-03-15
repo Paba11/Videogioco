@@ -10,12 +10,12 @@
 #include <SFML/Window.hpp>
 #include <SFML/System.hpp>
 #include <SFML/Audio.hpp>
-#include "Dish.h"
-#include "Order.h"
-#include "Recipe.h"
+#include "../Dish/Dish.h"
+#include "../Dish/Order.h"
+#include "../Dish/Recipe.h"
 #include "Stool.h"
-#include "MealMenu.h"
-#include "Customer.h"
+#include "../Dish/MealMenu.h"
+#include "../NPC/Customer.h"
 #include <queue>
 
 enum TableState {CHOOSING, WAITING_TO_ORDER, WAITING_DISHES, EATING, ENDED};
@@ -57,10 +57,15 @@ public:
     std::vector<Customer>& getCustomers();
     void setIsOccupied(bool t);
     bool getIsOccupied();
+    void setChosenTable();
 
     //Initialize table
     void initStoolTable();
     void posStool(float x, float y);
+
+    void updateBox();
+    void setTable();
+
 
 private:
     //Attributes of the table
@@ -74,6 +79,11 @@ private:
     int customerNumber;
     sf::Clock timer;
     bool isOccupied;
+
+    sf::RectangleShape interactionSquare;
+    sf::Color boxOpacity = {253,202,78,255};
+    bool cicle;
+    bool chosenTable;
 
 };
 

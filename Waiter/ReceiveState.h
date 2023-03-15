@@ -6,7 +6,7 @@
 #define VIDEOGIOCO_RECEIVESTATE_H
 
 #include "WaiterStates.h"
-#include "Map.h"
+#include "../Map/Map.h"
 #include <cmath>
 
 #define INITIAL_MOVES 70

@@ -10,12 +10,12 @@
 #include <SFML/Window.hpp>
 #include <SFML/System.hpp>
 #include <SFML/Audio.hpp>
-#include "Dish.h"
-#include "Order.h"
+#include "../Dish/Dish.h"
+#include "../Dish/Order.h"
 #include "Table.h"
-#include "Tray.h"
-#include "Recipe.h"
-#include "Textures.h"
+#include "../Tray.h"
+#include "../Dish/Recipe.h"
+#include "../Textures.h"
 #include "Counter.h"
 #include <queue>
 
