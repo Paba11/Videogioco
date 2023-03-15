@@ -8,7 +8,6 @@
 
 ChoosingCharacter::ChoosingCharacter(sf::RenderWindow* window, std::stack <ProgramState*>* states) : ProgramState(window, states) {
 
-    initVariables();
     initFonts();
     initText();
     initSprite();
@@ -78,12 +77,6 @@ void ChoosingCharacter::endState() {
     std::cout << "Exit from ChoosingCharacter" << std::endl;
 }
 
-void ChoosingCharacter::initVariables() {
-
-    this->texture = new Textures();
-
-
-}
 
 void ChoosingCharacter::initButtons() {
 
@@ -121,14 +114,14 @@ void ChoosingCharacter::initFonts() {
 
 void ChoosingCharacter::initSprite() {
 
-    this->waiter.setTexture(*this->texture->getTexture("Waiter"));
+    this->waiter.setTexture(*this->textures->getTexture("Waiter"));
     this->currentFrame = sf::IntRect (0,0,50,50);
     this->waiter.setTextureRect(this->currentFrame);
     this->waiter.setOrigin(25,25);
     this->waiter.setScale(4.f,4.f);
     this->waiter.setPosition(1298/2,1344/2);
 
-    this->background.setTexture(*this->texture->getTexture("ChoosingCharacterBackground"));
+    this->background.setTexture(*this->textures->getTexture("ChoosingCharacterBackground"));
 
 }
 
@@ -174,9 +167,9 @@ void ChoosingCharacter::updateAnimations() {
 void ChoosingCharacter::changeTexture() {
 
     if(abs(this->chosedTexture) % 2 == 0)
-        this->waiter.setTexture(*this->texture->getTexture("Waiter"));
+        this->waiter.setTexture(*this->textures->getTexture("Waiter"));
     else
-        this->waiter.setTexture(*this->texture->getTexture("Waiter_Female_1"));
+        this->waiter.setTexture(*this->textures->getTexture("Waiter_Female_1"));
 }
 
 void ChoosingCharacter::initText() {

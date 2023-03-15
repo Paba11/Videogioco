@@ -9,6 +9,7 @@ ProgramState::ProgramState(sf::RenderWindow* window, std::stack <ProgramState*>*
     this->states = states;
     this->window = window;
     this->quit = false;
+    this->textures = new Textures();
 }
 
 ProgramState::~ProgramState() {

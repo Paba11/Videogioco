@@ -10,7 +10,6 @@
 MainMenu::MainMenu(sf::RenderWindow* window, std::stack <ProgramState*>* states) : ProgramState(window, states){
 
     initFonts();
-    initTexture();
     initBackground();
     initButtons();
     this->ev.type = sf::Event::Closed;
@@ -55,14 +54,11 @@ void MainMenu::initBackground() {
      * Initialize the map texture and connect it to a sprite
      */
 
-    this->background.setTexture(*this->texture->getTexture("MainMenu"));
+    this->background.setTexture(*this->textures->getTexture("MainMenu"));
     this->background.setScale(1.f,1.f);
 
 }
 
-void MainMenu::initTexture() {
-    this->texture = new Textures();
-}
 
 
 

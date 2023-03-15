@@ -13,7 +13,6 @@
 #include "Map.h"
 #include "Customer.h"
 #include "Table.h"
-#include "Textures.h"
 #include "ProgramState.h"
 #include "Chef.h"
 #include "Counter.h"
@@ -94,7 +93,6 @@ private:
     Customer* customer;
     std::vector<Customer*> group;
     DishWasher* dishWasher;
-    Textures* texture;
     //OrderState* orderState;
     //ReceivingCustomers* receivingCustomers;
     BottomBar* bottomBar;
@@ -131,7 +129,6 @@ private:
     void initStates();
     void initPosTables();
     void initMap();
-    void initTexture();
     void initDishWasher();
     void initLevel();
     void setWaiterTexture(int waiterTexture);

@@ -29,7 +29,6 @@ private:
 
     std::map <std::string, Button*> buttons;
     sf::Sprite waiter;
-    Textures* texture;
     sf::Vector2f mousePosView;
     sf::Font font;
     sf::IntRect currentFrame;
@@ -40,7 +39,6 @@ private:
 
 
 
-    void initVariables();
     void initButtons();
     void initSprite();
     void updateMousePosition();

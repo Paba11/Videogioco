@@ -5,7 +5,6 @@
 #ifndef VIDEOGIOCO_HOWTOPLAY_H
 #define VIDEOGIOCO_HOWTOPLAY_H
 #include "ProgramState.h"
-#include "Textures.h"
 #include "Button.h"
 #include <SFML/Graphics.hpp>
 #include <SFML/Window.hpp>
@@ -50,13 +49,12 @@ private:
     sf::Sprite lSprite;
     sf::Text lText;
 
-    Textures* texture;
     sf::IntRect waiterCurrentFrame;
     sf::Clock waiterAnimationTimer;
     sf::IntRect wasdCurrentFrame;
     sf::Clock wasdAnimationTimer;
 
-    void initVariables();
+
     void initFont();
     void initTexts();
     void setText(sf::Text* text);

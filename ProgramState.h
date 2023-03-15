@@ -9,6 +9,7 @@
 #include <SFML/Window.hpp>
 #include <SFML/System.hpp>
 #include <SFML/Audio.hpp>
+#include "Textures.h"
 #include <stack>
 #include <map>
 
@@ -28,6 +29,7 @@ protected:
     bool quit;
     sf::RenderWindow* window;
     sf::Event ev;
+    Textures* textures;
 
 private:
 

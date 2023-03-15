@@ -7,7 +7,6 @@
 
 
 #include <SFML/Graphics.hpp>
-#include "Textures.h"
 #include <SFML/Window.hpp>
 #include <SFML/System.hpp>
 #include <SFML/Audio.hpp>
@@ -32,7 +31,6 @@ public:
     void endState() override;
 
 private:
-    Textures* texture;
     sf::Sprite background;
     sf::Vector2f mousePosView;
     sf::Font font;
@@ -40,7 +38,6 @@ private:
     std::map <std::string, Button*> buttons;
     void initButtons();
     void initBackground();
-    void initTexture();
 
 };
 

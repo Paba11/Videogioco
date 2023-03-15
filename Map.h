@@ -46,7 +46,7 @@ public:
     void calculatePosition(sf::Sprite& gc);
     Table* distanceTable(sf::Sprite& gc);
     Kitchen* distanceKitchen(sf::Sprite& gc);
-    Washbasin* distanceWashbasin(sf::Sprite& gc);
+    Washbasin* distanceWashbasin(sf::Sprite& gc);   //fixme set the right sprite's origin
     Entrance* distanceEntrance(sf::Sprite& gc);
     sf::RectangleShape* distanceDirtyDishes(sf::Sprite& gc);
     std::vector<sf::RectangleShape> distanceChefDishes(sf::Sprite &gc);

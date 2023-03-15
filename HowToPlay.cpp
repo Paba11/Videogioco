@@ -6,7 +6,6 @@
 #include "HowToPlay.h"
 
 HowToPlay::HowToPlay(sf::RenderWindow *window, std::stack<ProgramState *> *states) : ProgramState(window, states) {
-    initVariables();
     initSprites();
     initFont();
     initButtons();
@@ -73,12 +72,6 @@ void HowToPlay::endState() {
     std::cout << "Exit from HowToPlay" << std::endl;
 }
 
-void HowToPlay::initVariables() {
-
-    this->texture = new Textures();
-
-}
-
 
 void HowToPlay::initFont() {
 
@@ -129,15 +122,15 @@ void HowToPlay::initSprites() {
     initWasdSprite();
     initWaiterSprite();
 
-    this->jSprite.setTexture(*this->texture->getTexture("jKey"));
+    this->jSprite.setTexture(*this->textures->getTexture("jKey"));
     this->jSprite.setScale(3.f, 3.f);
     this->jSprite.setPosition(100,700);
 
-    this->kSprite.setTexture(*this->texture->getTexture("kKey"));
+    this->kSprite.setTexture(*this->textures->getTexture("kKey"));
     this->kSprite.setScale(3.f, 3.f);
     this->kSprite.setPosition(100,800);
 
-    this->lSprite.setTexture(*this->texture->getTexture("lKey"));
+    this->lSprite.setTexture(*this->textures->getTexture("lKey"));
     this->lSprite.setScale(3.f, 3.f);
     this->lSprite.setPosition(100,900);
 
@@ -182,7 +175,7 @@ void HowToPlay::updateAnimations() {
 void HowToPlay::initWaiterSprite() {
 
 
-    this->waiter.setTexture(*this->texture->getTexture("Waiter"));
+    this->waiter.setTexture(*this->textures->getTexture("Waiter"));
     this->waiterCurrentFrame = sf::IntRect (0,200.f,50,50);
     this->waiter.setTextureRect(this->waiterCurrentFrame);
     this->waiter.setOrigin(25,25);
@@ -193,7 +186,7 @@ void HowToPlay::initWaiterSprite() {
 
 void HowToPlay::initWasdSprite() {
 
-    this->wasd.setTexture(*this->texture->getTexture("WASD"));
+    this->wasd.setTexture(*this->textures->getTexture("WASD"));
     this->wasdCurrentFrame = sf::IntRect (0,0,70,37);
     this->wasd.setTextureRect(this->wasdCurrentFrame);
     this->wasd.setScale(3.f,3.f);

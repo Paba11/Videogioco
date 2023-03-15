@@ -8,7 +8,6 @@ Game::Game(sf::RenderWindow* window, std::stack <ProgramState*>* states, int wai
     initLevel();
     this->waiterTexture = waiterTexture;
     initVariables();
-    initTexture();
     initBackground();
     initMap();
     initTables();
@@ -143,7 +142,7 @@ void Game::initBackground() {
      * Initialize the map texture and connect it to a sprite
      */
 
-    this->background.setTexture(*this->texture->getTexture("RestaurantMap"));
+    this->background.setTexture(*this->textures->getTexture("RestaurantMap"));
     this->background.setScale(2.f,2.f);
 
 }
@@ -180,9 +179,9 @@ void Game::initTables() {
     for(int i=0; i<numTables; i++){
       Table t;
       //Stool s;
-      t.sprite.setTexture(*this->texture->getTexture("Table"));
+      t.sprite.setTexture(*this->textures->getTexture("Table"));
       for(int j=0; j<4; j++)
-          t.stoolTable[j].sprite.setTexture(*this->texture->getTexture("Stool"));
+          t.stoolTable[j].sprite.setTexture(*this->textures->getTexture("Stool"));
      // s.sprite.setTexture(*this->texture->getTexture("Stool"));
      // t.stoolTable.push_back(s);
       this->map->getAllTables().push_back(t);
@@ -292,10 +291,6 @@ void Game::initMap() {
     this->kitchen = this->map->getKitchen();
     this->washbasin = this->map->getWashbasin();
     this->counter = this->map->getKitchen()->getCounter();
-}
-
-void Game::initTexture() {
-    this->texture = new Textures();
 }
 
 void Game::endState() {
@@ -452,11 +447,9 @@ void Game::updateCustomers() {
 
 void Game::setWaiterTexture(int waiterTexture) {
     if(waiterTexture == 0)
-        this->waiter->initTexture(this->texture->getTexture("Waiter"));
+        this->waiter->initTexture(this->textures->getTexture("Waiter"));
     else
-        this->waiter->initTexture(this->texture->getTexture("Waiter_Female_1"));
-
-
+        this->waiter->initTexture(this->textures->getTexture("Waiter_Female_1"));
 }
 
 void Game::initStates() {
