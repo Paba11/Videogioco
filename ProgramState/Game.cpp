@@ -331,6 +331,7 @@ void Game::generateCustomers() {
         }
         std::cout << "Total customers left: " << this->level->getTotalCustomerNumber() << std::endl;
         this->map->getEntrance()->setIsCustomer(true);
+        this->map->getEntrance()->setCustomerReceived(true);
         //this->receivingCustomers->enterTheRestaurant();
         this->clock.restart();
     }

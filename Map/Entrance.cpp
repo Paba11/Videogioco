@@ -8,6 +8,7 @@ Entrance::Entrance() {
     this->texture = new Textures();
     initSprite();
     this->isCustomer = false;
+    this->customerReceived = false;
 
 
 }
@@ -62,13 +63,13 @@ void Entrance::renderBarrier(sf::RenderTarget &target, int barrierNumber) {
 }
 
 void Entrance::render(sf::RenderTarget &target) {
-    if(isCustomer)
+    if(customerReceived)
         target.draw(this->welcomeSquare);
 }
 
 void Entrance::updateBox() {
 
-    if(isCustomer) {
+    if(customerReceived) {
         this->welcomeSquare.setFillColor(this->boxOpacity);
 
         if(this->boxOpacity.a == 255)
@@ -87,6 +88,10 @@ void Entrance::updateBox() {
 
 sf::RectangleShape &Entrance::getWelcomeSquare() {
     return this->welcomeSquare;
+}
+
+void Entrance::setCustomerReceived(bool t) {
+    this->customerReceived = t;
 }
 
 

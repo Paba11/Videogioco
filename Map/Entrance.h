@@ -22,6 +22,7 @@ public:
     sf::Sprite getSprite();
     void setIsCustomer(bool t);
     bool getIsCustomer();
+    void setCustomerReceived(bool t);
     void renderBarrier(sf::RenderTarget &target, int barrierNumber);
     void render(sf::RenderTarget &target);
     void updateBox();
@@ -40,7 +41,7 @@ private:
     sf::Color boxOpacity = {253,202,78,255};
     bool cicle = true;
 
-
+    bool customerReceived;
     bool isCustomer;
 
 };
