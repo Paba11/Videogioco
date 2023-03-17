@@ -39,7 +39,10 @@ public:
     //Methods to update the game
     void update() override;
     void updateCustomers();
+    void updateInteractions();
     void updateReceivingCustomer();
+    void updateOrderState();
+    void updateTables();
 
     //Methods to display the correct images
     void render(sf::RenderTarget* target) override;
@@ -59,7 +62,7 @@ public:
 
     //Method to manage the events
     void pollEvents();
-    ReceiveState* getReceiveState();
+    std::shared_ptr<ReceiveState> getReceiveState();
 
     //Method that update the position of the mouse relative to the game window
     void updateMousePos();
@@ -98,9 +101,9 @@ private:
     //Table* table;
 
     //Manage Waiter States
-    OrderState* orderState;
-    ReceiveState* receiveState;
-    ActionsState* actionsState;
+    std::shared_ptr<OrderState> orderState;
+    std::shared_ptr<ReceiveState> receiveState;
+    std::shared_ptr<ActionsState> actionsState;
 
     //Level variables management
     Level* level;

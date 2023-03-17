@@ -40,10 +40,12 @@ public:
     void setTableNumber(int i);
     Current getCurrent();
     void setCurrent(Current c);
-
+    int getPeopleNumber();
+    void setPeopleNumber(int i);
 
 private:
     int tableNumber;
+    int peopleNumber;
 
     //Attributes that stores the time to complete the preparation of each table course
     std::vector<Apt> appetizers;

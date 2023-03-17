@@ -6,7 +6,7 @@
 
 
 Order::Order() {
-    this->current = APPETIZER;
+    current = Current::APPETIZER;
 }
 
 Order::~Order() {
@@ -14,38 +14,42 @@ Order::~Order() {
 }
 
 Apt Order::getAppetizer(int i) {
-    return this->appetizers[i];
+    return appetizers[i];
 }
 
 Mn Order::getMainCourse(int i) {
-    return this->mainCourse[i];
+    return mainCourse[i];
 }
 
 Dsr Order::getDessert(int i) {
-    return this->desserts[i];
+    return desserts[i];
 }
 
 Drk Order::getDrink(int i) {
-    return this->drinks[i];
+    return drinks[i];
 }
 
 const int Order::getTableNumber() {
-    return this->tableNumber;
+    return tableNumber;
 }
 
 Current Order::getCurrent() {
-    return this->current;
+    return current;
 }
 
 void Order::setCurrent(Current c) {
-    this->current = c;
+    current = c;
 }
 
 void Order::setAppetizer(int i) {
     this->apt = new Apt;
     if(i == 0)
     {
-        *this->apt = NACHOS;
+        *this->apt = Apt::NACHOS;
+    }
+    else if(i == 1)
+    {
+        *this->apt = Apt::OMELETTE;
     }
     this->appetizers.push_back(*this->apt);
     this->apt = nullptr;
@@ -55,19 +59,19 @@ void Order::setMainCourse(int i) {
     this->mn = new Mn;
     if(i == 0)
     {
-        *this->mn = HAMBURGER;
+        *this->mn = Mn::HAMBURGER;
     }
     if(i == 1)
     {
-        *this->mn = MEAT;
+        *this->mn = Mn::MEAT;
     }
     if(i == 2)
     {
-        *this->mn = MEATBALLS;
+        *this->mn = Mn::MEATBALLS;
     }
     if(i == 3)
     {
-        *this->mn = CHICKEN;
+        *this->mn = Mn::CHICKEN;
     }
     this->mainCourse.push_back(*this->mn);
     this->mn = nullptr;
@@ -77,15 +81,15 @@ void Order::setDessert(int i) {
     this->dsr = new Dsr;
     if(i == 0)
     {
-        *this->dsr = CHOCOLATE_CAKE;
+        *this->dsr = Dsr::CHOCOLATE_CAKE;
     }
     if(i == 1)
     {
-        *this->dsr = CHEESE_CAKE;
+        *this->dsr = Dsr::CHEESE_CAKE;
     }
     if(i == 2)
     {
-        *this->dsr = JELLY;
+        *this->dsr = Dsr::JELLY;
     }
     this->desserts.push_back(*this->dsr);
     this->dsr = nullptr;
@@ -95,19 +99,19 @@ void Order::setDrink(int i) {
     this->drk = new Drk;
     if(i == 0)
     {
-       *this->drk = WATER;
+       *this->drk = Drk::WATER;
     }
     else if(i == 1)
     {
-       *this->drk = WINE;
+       *this->drk = Drk::WINE;
     }
     else if(i == 2)
     {
-        *this->drk = BEER;
+        *this->drk = Drk::BEER;
     }
     else if(i == 3)
     {
-        *this->drk = COKE;
+        *this->drk = Drk::COKE;
     }
     this->drinks.push_back(*this->drk);
     this->drk = nullptr;
@@ -138,6 +142,14 @@ void Order::initPointersToNull() {
     this->mn = nullptr;
     this->dsr = nullptr;
     this->apt = nullptr;
+}
+
+int Order::getPeopleNumber() {
+    return this->peopleNumber;
+}
+
+void Order::setPeopleNumber(int i) {
+    this->peopleNumber = i;
 }
 
 

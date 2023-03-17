@@ -10,6 +10,7 @@
 #include <SFML/Window.hpp>
 #include <SFML/System.hpp>
 #include <SFML/Audio.hpp>
+#include <random>
 #include "WaiterStates.h"
 #include "Order.h"
 #include "Map.h"
@@ -18,7 +19,7 @@
 class OrderState : public WaiterStates {
 public:
     //Constructor & Destructor
-    OrderState(Map* map);
+    OrderState(Table& table);
     ~OrderState();
 
     //Handle the input
@@ -27,21 +28,25 @@ public:
 
     //Actions of the order state
     void setOrderVariables(Table* t);
-    void randomOrder();
+    std::shared_ptr<Order> takeOrder();
+    void randomChoices();
+    void generateRandom(int max);
 
     //Getters & Setters
-    Order* getOrder();
-    void setOrder(Order* o);
+    std::shared_ptr<Order> getOrder();
+    void setOrder(std::shared_ptr<Order> o);
     Table* getTable();
     void setTable(Table* t);
 
 private:
-    void initVariables(Map* map);
+    void initVariables(Table* t);
 
-    Order* order;
+    std::shared_ptr<Order> order;
     Table* table;
-    Map* map;
     Current current;
+
+    std::random_device rd;
+    int random;
 };
 
 

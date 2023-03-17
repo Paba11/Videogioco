@@ -6,7 +6,7 @@
 
 
 Kitchen::Kitchen() {
-    this->state = EMPTY;
+    this->state = DishState::EMPTY;
     this->counter = new Counter();
     initSprite();
 
@@ -70,14 +70,8 @@ void Kitchen::render(sf::RenderTarget& target) {
         target.draw(this->sprite);
 }
 
-void Kitchen::setState(int i) {
-    switch(i)
-    {
-        case 0:
-            this->state = EMPTY;
-        case 1:
-            this->state = FULL;
-    }
+void Kitchen::setState(DishState ds) {
+    state = ds;
 }
 
 DishState Kitchen::getState() {

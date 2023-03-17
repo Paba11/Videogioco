@@ -6,7 +6,7 @@
 
 
 Drink::Drink(Drk d) {
-    this->type = d;
+    type = d;
     calculatePrice();
     initTexture();
     initSprite();
@@ -21,21 +21,21 @@ void Drink::initTexture() {
 }
 
 void Drink::calculatePrice() {
-    switch(this->type)
+    switch(type)
     {
-        case WATER:
-            this->price = 2;
-        case WINE:
-            this->price = 6;
-        case BEER:
-            this->price = 5;
-        case COKE:
-            this->price = 4;
+        case Drk::WATER:
+            price = 2;
+        case Drk::WINE:
+            price = 6;
+        case Drk::BEER:
+            price = 5;
+        case Drk::COKE:
+            price = 4;
     }
 }
 
 int Drink::getPrice() {
-    return this->price;
+    return price;
 }
 
 

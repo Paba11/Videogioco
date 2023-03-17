@@ -30,8 +30,6 @@ Game::~Game() {
     //delete this->dish;    //TODO: add the dishes
     delete this->counter;
     delete this->dishWasher;
-    delete this->orderState;
-    delete this->receiveState;
 
     //FIXME check all pointer
 
@@ -49,7 +47,8 @@ void Game::update() {
     generateCustomers();
     updateCollision();
     updateCustomers();
-    updateReceivingCustomer();
+    updateTables();
+    updateInteractions();
     this->map->getEntrance()->updateBox();
     this->waiter->update();
     this->dishWasher->update();
@@ -91,9 +90,6 @@ void Game::initVariables() {
     //initChef();
 
 }
-
-
-
 
 
 void Game::pollEvents() {
@@ -158,7 +154,7 @@ void Game::renderMap() {
     for(int i=0;i<numTables;i++) {
         this->window->draw(this->map->getAllTables()[i].sprite);
         for(int j=0; j<4;j++)
-            this->window->draw(this->map->getAllTables()[i].stoolTable[j].sprite);
+            this->window->draw(this->map->getAllTables()[i].getStoolTable()[j].sprite);
     }
 }
 
@@ -181,7 +177,7 @@ void Game::initTables() {
       //Stool s;
       t.sprite.setTexture(*this->textures->getTexture("Table"));
       for(int j=0; j<4; j++)
-          t.stoolTable[j].sprite.setTexture(*this->textures->getTexture("Stool"));
+          t.getStoolTable()[j].sprite.setTexture(*this->textures->getTexture("Stool"));
      // s.sprite.setTexture(*this->texture->getTexture("Stool"));
      // t.stoolTable.push_back(s);
       this->map->getAllTables().push_back(t);
@@ -245,7 +241,7 @@ void Game::collision() {
         if(this->waiter->getGlobalHitbox().intersects(this->map->getAllTables()[i].sprite.getGlobalBounds()))
            collisionManagement();
         for(int j=0; j < 4; j++){
-            if(this->waiter->getGlobalHitbox().intersects(this->map->getAllTables()[i].stoolTable[j].sprite.getGlobalBounds()))
+            if(this->waiter->getGlobalHitbox().intersects(this->map->getAllTables()[i].getStoolTable()[j].sprite.getGlobalBounds()))
                 collisionManagement();
         }
 
@@ -265,20 +261,20 @@ void Game::collisionManagement() {
 
     sf::Vector2f prePosition;
     prePosition = this->waiter->getPosition();
-    if (this->waiter->getMove() == MOVING_DOWN) {
+    if (this->waiter->getMove() == Move::MOVING_DOWN) {
         this->waiter->validMovement["Down"] = false;
         prePosition.y--;
     }
-    else if (this->waiter->getMove() == MOVING_UP) {
+    else if (this->waiter->getMove() == Move::MOVING_UP) {
         this->waiter->validMovement["Up"] = false;
         prePosition.y++;
     }
-    else if (this->waiter->getMove() == MOVING_LEFT){
+    else if (this->waiter->getMove() == Move::MOVING_LEFT){
         this->waiter->validMovement["Left"] = false;
         prePosition.x++;
     }
 
-    else if(this->waiter->getMove() == MOVING_RIGHT) {
+    else if(this->waiter->getMove() == Move::MOVING_RIGHT) {
         this->waiter->validMovement["Right"] = false;
         prePosition.x--;
     }
@@ -310,14 +306,13 @@ void Game::initChef() {
 
 }
 
-
 void Game::generateCustomers() {
-    if(this->clock.getElapsedTime().asSeconds() >= this->level->getCustomerArrival()
-    && !this->map->getEntrance()->getIsCustomer() && this->level->getTotalCustomerNumber() > 0)
+    if(clock.getElapsedTime().asSeconds() >= level->getCustomerArrival()
+    && !map->getEntrance()->getIsCustomer() && level->getTotalCustomerNumber() > 0)
     {
-        sf::Vector2f dist = this->map->getEntrance()->getWelcomeSquare().getPosition();
-        this->receiveState = new ReceiveState(this->map);
-        this->waiter->setReceiveState(this->receiveState);
+        sf::Vector2f dist = map->getEntrance()->getWelcomeSquare().getPosition();
+        receiveState = std::make_shared<ReceiveState>(map);
+        waiter->setReceiveState(receiveState);
         generateRandom();
         while(this->random > 0)
         {
@@ -375,7 +370,7 @@ void Game::customerCollision() {
             if(i->getGlobalHitbox().intersects(this->map->getAllTables()[x].sprite.getGlobalBounds()))
                 customerCollisionManagement();
             for(int j=0; j < 4; j++){
-                if(this->waiter->getGlobalHitbox().intersects(this->map->getAllTables()[x].stoolTable[j].sprite.getGlobalBounds()))
+                if(this->waiter->getGlobalHitbox().intersects(this->map->getAllTables()[x].getStoolTable()[j].sprite.getGlobalBounds()))
                     customerCollisionManagement();
             }
 
@@ -395,16 +390,16 @@ void Game::customerCollisionManagement() {
     for(auto & i : this->group)
     {
         prePosition = i->getPosition();
-        if (this->waiter->getMove() == MOVING_DOWN) {               //Confront the move of the waiter because it moves in the same direction
+        if (i->getMovingStatus() == Move::MOVING_DOWN) {               //Confront the move of the waiter because it moves in the same direction
             i->validMovement["Down"] = false;
             prePosition.y--;
-        } else if (this->waiter->getMove() == MOVING_UP) {
+        } else if (i->getMovingStatus() == Move::MOVING_UP) {
             i->validMovement["Up"] = false;
             prePosition.y++;
-        } else if (this->waiter->getMove() == MOVING_LEFT) {
+        } else if (i->getMovingStatus() == Move::MOVING_LEFT) {
             i->validMovement["Left"] = false;
             prePosition.x++;
-        } else if (this->waiter->getMove() == MOVING_RIGHT) {
+        } else if (i->getMovingStatus() == Move::MOVING_RIGHT) {
             i->validMovement["Right"] = false;
             prePosition.x--;
         }
@@ -412,36 +407,15 @@ void Game::customerCollisionManagement() {
     }
 }
 
-ReceiveState *Game::getReceiveState() {
+std::shared_ptr<ReceiveState> Game::getReceiveState() {
     return this->receiveState;
 }
 
 
 void Game::updateCustomers() {
-
     for (auto & it : this->receiveState->getCustomers())
     {
         it.update();
-    }
-    if(this->waiter->getState() == RECEIVING_CUSTOMERS)
-    {
-        if (this->waiter->getIsReceived())
-        {
-            sf::Sprite previous = this->waiter->getSprite();
-            //this->receiveState->moveToChair(previous);
-            for (auto & it : this->receiveState->getCustomers())
-            {
-                it.update();
-                previous = it.sprite;
-            }
-        }
-        /*
-        else
-        {
-            this->receiveState = nullptr;
-            this->waiter->setReceiveState(nullptr);
-        }
-         */
     }
 }
 
@@ -453,16 +427,41 @@ void Game::setWaiterTexture(int waiterTexture) {
 }
 
 void Game::initStates() {
-    this->receiveState = new ReceiveState(this->map);
-    this->orderState = new OrderState(this->map);
-    this->actionsState = new ActionsState(this->map);
-    this->waiter->initStates(this->actionsState, this->receiveState, this->orderState);
+    receiveState = std::make_shared<ReceiveState>(map);
+    orderState = std::make_shared<OrderState>(map->getAllTables().front());
+    actionsState = std::make_shared<ActionsState>(map);
+    waiter->initStates(actionsState, receiveState, orderState);
 }
 
 void Game::updateReceivingCustomer() {
-    if(this->waiter->getState() == RECEIVING_CUSTOMERS)
+    if(this->waiter->getState() == Actions::RECEIVING_CUSTOMERS)
     {
         this->receiveState->update(*this->waiter);
+    }
+}
+
+void Game::updateInteractions() {
+    updateReceivingCustomer();
+    updateOrderState();
+}
+
+void Game::updateOrderState() {
+    if(this->waiter->getState() == Actions::TAKING_ORDER)
+    {
+        this->orderState->update(*this->waiter);
+    }
+}
+
+void Game::updateTables() {
+    for(auto & it : this->map->getAllTables())
+    {
+        it.update();
+        if(it.getState() == WAITING_TO_ORDER && !it.getIsReady())
+        {
+            this->orderState = std::make_shared<OrderState>(it);
+            this->waiter->setOrderState(this->orderState);
+            it.setIsReady(true);
+        }
     }
 }
 

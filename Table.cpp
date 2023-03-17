@@ -5,11 +5,12 @@
 #include "Table.h"
 
 Table::Table() {
-    this->numStoolsTable = 4;
-    this->state = CHOOSING;
-    this->course = APPETIZER;
-    this->isOccupied = false;
-    this->customerNumber = 0;
+    numStoolsTable = 4;
+    state = CHOOSING;
+    course = Current::APPETIZER;
+    isReady = false;
+    isOccupied = false;
+    customerNumber = 0;
     initSprite();
     initStoolTable();
 
@@ -20,9 +21,16 @@ Table::~Table() {
 }
 
 void Table::update() {
-    if(isOccupied)
+    if(this->isOccupied)
     {
-
+        switch(this->state)
+        {
+            case CHOOSING:
+                ordering();
+                break;
+            case WAITING_TO_ORDER:
+                break;
+        }
     }
 }
 
@@ -116,11 +124,9 @@ void Table::receivingCustomers(std::vector<Customer>& c) {
     this->customers.reserve(c.size());
     this->customerNumber += c.size();
     this->isOccupied = true;
+    this->timer.restart();
     std::move(c.begin(), c.end(), std::back_inserter(this->customers));
     c.clear();
-}
-
-void Table::ordering() {
 
 }
 
@@ -143,4 +149,23 @@ void Table::setCustomers(std::vector<Customer> &cust) {
 
 std::vector<Customer> &Table::getCustomers() {
     return this->customers;
+}
+
+void Table::ordering() {
+    if(this->timer.getElapsedTime().asSeconds() > TIME_TO_CHOOSE)
+    {
+        this->state = WAITING_TO_ORDER;
+    }
+}
+
+void Table::setIsReady(bool t) {
+    this->isReady = t;
+}
+
+bool Table::getIsReady() {
+    return this->isReady;
+}
+
+std::vector<Stool> &Table::getStoolTable() {
+    return this->stoolTable;
 }

@@ -12,9 +12,9 @@
 #include <SFML/Audio.hpp>
 #include <SFML/Graphics.hpp>
 
-enum Move {MOVING_UP, MOVING_DOWN, MOVING_LEFT, MOVING_RIGHT, STANDING};
-enum Actions {DOING_NOTHING, RECEIVING_CUSTOMERS, TAKING_ORDER, LEAVING_ORDER, TAKING_DISHES,
-    LEAVING_DISHES, TAKING_EMPTY_DISHES, LEAVING_EMPTY_DISHES};
+enum class Move {MOVING_UP, MOVING_DOWN, MOVING_LEFT, MOVING_RIGHT, STANDING};
+enum class Actions {DOING_NOTHING, RECEIVING_CUSTOMERS, TAKING_ORDER, LEAVING_ORDER, TAKING_DISHES,
+                    LEAVING_DISHES, TAKING_EMPTY_DISHES, LEAVING_EMPTY_DISHES};
 
 class GameCharacter {
 public:
@@ -23,8 +23,8 @@ public:
     virtual ~GameCharacter();
 
     //Method to Update GameCharacter variables and to display it on the screen
-    virtual void update();
-    virtual void updateAnimations();
+    virtual void update() = 0;
+    virtual void updateAnimations() = 0;
     void render(sf::RenderTarget& target);
 
     //Method to have the borders of the GameCharacter

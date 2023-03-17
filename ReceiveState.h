@@ -27,6 +27,7 @@ public:
     //Move to the table
     void move();
     void addToPath(Move dir);
+    void moveToTable();
 
     //Getters & Setters
     void setTable(Table* t);

@@ -18,9 +18,9 @@
 #include "Customer.h"
 #include <queue>
 
-enum TableState {CHOOSING, WAITING_TO_ORDER, WAITING_DISHES, EATING, ENDED};
+enum TableState {CHOOSING, WAITING_TO_ORDER, ORDERING, WAITING_DISHES, EATING, ENDED};
 
-#define TIME_TO_CHOOSE 15;
+#define TIME_TO_CHOOSE 20
 
 class Table {
 public:
@@ -36,7 +36,6 @@ public:
     void receivingCustomers(std::vector<Customer>& customer);
     void ordering();
 
-
     //Getters & Setters
     int getTavNum();
     void setTavNum(int tavNum);
@@ -50,13 +49,15 @@ public:
     void setOrder();
     Current getCourse() const;
     void setCourse(Current c);
-    std::vector <Stool> stoolTable;
+    std::vector<Stool>& getStoolTable();
     void setCustomerNumber(int i);
     int getCustomerNumber();
     void setCustomers(std::vector<Customer>& cust);
     std::vector<Customer>& getCustomers();
     void setIsOccupied(bool t);
     bool getIsOccupied();
+    void setIsReady(bool t);
+    bool getIsReady();
 
     //Initialize table
     void initStoolTable();
@@ -65,6 +66,7 @@ public:
 private:
     //Attributes of the table
     int tavNum;
+    std::vector<Stool> stoolTable;
     std::queue<Dish*> dishes;
     std::vector<Customer> customers;
     TableState state;
@@ -74,6 +76,7 @@ private:
     int customerNumber;
     sf::Clock timer;
     bool isOccupied;
+    bool isReady;
 
 };
 

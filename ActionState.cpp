@@ -30,7 +30,7 @@ void ActionsState::pickUp(Kitchen* kitchen) {
     //PICK UP THE PLATES FROM THE KITCHEN
 
     Dish* d;
-    if(this->tray->getState() == EMPTY_TRAY && kitchen->getState() == FULL)
+    if(this->tray->getState() == TrayState::EMPTY_TRAY && kitchen->getState() == DishState::FULL)
     {
         while (!kitchen->getDishes().empty())
         {
@@ -41,9 +41,9 @@ void ActionsState::pickUp(Kitchen* kitchen) {
             //this->update();
         }
         //Set the tray to filled
-        this->tray->setState(FILLED_TRAY);
+        this->tray->setState(TrayState::FILLED_TRAY);
         //Set the kitchen to empty
-        kitchen->setState(EMPTY);
+        kitchen->setState(DishState::EMPTY);
     }
 }
 
@@ -52,7 +52,7 @@ void ActionsState::pickUp(Table* table) {
     //PICK UP THE EMPTY PLATES FROM THE TABLE
 
     Dish* d;
-    if(this->tray->getState() == EMPTY_TRAY && table->getState() == ENDED)
+    if(this->tray->getState() == TrayState::EMPTY_TRAY && table->getState() == TableState::ENDED)
     {
         while(!table->getDishes().empty())
         {
@@ -65,22 +65,22 @@ void ActionsState::pickUp(Table* table) {
         }
 
         //Set the tray to empty plates
-        this->tray->setState(EMPTY_PLATES);
+        this->tray->setState(TrayState::EMPTY_PLATES);
 
         //Set the table to the next instruction on the order
         switch(table->getCourse())
         {
-            case APPETIZER:
+            case Current::APPETIZER:
                 table->setState(WAITING_DISHES);
-                table->setCourse(MAIN_DISH);
+                table->setCourse(Current::MAIN_DISH);
                 break;
-            case MAIN_DISH:
+            case Current::MAIN_DISH:
                 table->setState(WAITING_DISHES);
-                table->setCourse(DESSERT);
+                table->setCourse(Current::DESSERT);
                 break;
-            case DESSERT:
+            case Current::DESSERT:
                 table->setState(ENDED);
-                table->setCourse(END);
+                table->setCourse(Current::END);
                 break;
         }
     }
@@ -89,7 +89,7 @@ void ActionsState::pickUp(Table* table) {
 void ActionsState::putDown(Table* table) {
     //Leave the plates at the table
 
-    if(this->tray->getState() == FILLED_TRAY && table->getState() == WAITING_DISHES &&
+    if(this->tray->getState() == TrayState::FILLED_TRAY && table->getState() == WAITING_DISHES &&
        this->tray->getDishes().front()->getTavNum() == table->getTavNum())
     {
         while(!this->tray->getDishes().empty())
@@ -103,14 +103,14 @@ void ActionsState::putDown(Table* table) {
         //Set the table in the right state
         table->setState(EATING);
         //Set the tray in the right state
-        this->tray->setState(EMPTY_TRAY);
+        this->tray->setState(TrayState::EMPTY_TRAY);
     }
 }
 
 void ActionsState::putDown(Washbasin* washbasin) {
     //Lave the plates at the washbasin
 
-    if(this->tray->getState() == EMPTY_PLATES && !washbasin->getIsPlates())
+    if(this->tray->getState() == TrayState::EMPTY_PLATES && !washbasin->getIsPlates())
     {
         //Set the table in the right state
         washbasin->setIsPlates(true);
@@ -126,7 +126,7 @@ void ActionsState::putDown(Washbasin* washbasin) {
         }
         washbasin->setNumPlates(count);
         //Set the tray in the right state
-        this->tray->setState(EMPTY_TRAY);
+        this->tray->setState(TrayState::EMPTY_TRAY);
     }
 }
 
@@ -156,38 +156,38 @@ bool ActionsState::getIsOrder() {
 void ActionsState::actionManagement() {
     if(this->event.key.code == sf::Keyboard::J && this->map->getIsClose() == IS_CLOSE_KITCHEN && this->isOrder)
     {
-        this->waiter->setState(LEAVING_ORDER);
+        this->waiter->setState(Actions::LEAVING_ORDER);
         leavingOrder(this->map->getKitchen());
         std::cout << "IsClose Kitchen works correctly" << std::endl;
         this->map->setIsClose(IS_CLOSE_NOTHING);
     }
-    else if(this->event.key.code == sf::Keyboard::K && this->tray->getState() == EMPTY_TRAY && !this->isOrder)
+    else if(this->event.key.code == sf::Keyboard::K && this->tray->getState() == TrayState::EMPTY_TRAY && !this->isOrder)
     {
         if(this->map->getIsClose() == IS_CLOSE_TABLE) {
-            this->waiter->setState(TAKING_EMPTY_DISHES);
+            this->waiter->setState(Actions::TAKING_EMPTY_DISHES);
             pickUp(this->map->getTableToPickUp());
             std::cout << "PickUp table works correctly" << std::endl;
         }
         else if(this->map->getIsClose() == IS_CLOSE_KITCHEN) {
-            waiter->setState(TAKING_DISHES);
+            waiter->setState(Actions::TAKING_DISHES);
             pickUp(this->map->getKitchen());
             std::cout << "PickUp kitchen works correctly" << std::endl;
         }
     }
     else if(this->event.key.code == sf::Keyboard::L && !this->isOrder)
     {
-        if (this->map->getIsClose() == IS_CLOSE_TABLE && this->tray->getState() == FILLED_TRAY) {
-            this->waiter->setState(LEAVING_DISHES);
+        if (this->map->getIsClose() == IS_CLOSE_TABLE && this->tray->getState() == TrayState::FILLED_TRAY) {
+            this->waiter->setState(Actions::LEAVING_DISHES);
             putDown(this->map->getTableToPickUp());
             std::cout << "PutDown Table works correctly" << std::endl;
         }
-        else if (this->map->getIsClose() == IS_CLOSE_DISHWASHER && this->tray->getState() == EMPTY_PLATES) {
-            this->waiter->setState(LEAVING_EMPTY_DISHES);
+        else if (this->map->getIsClose() == IS_CLOSE_DISHWASHER && this->tray->getState() == TrayState::EMPTY_PLATES) {
+            this->waiter->setState(Actions::LEAVING_EMPTY_DISHES);
             putDown(this->map->getWashbasin());
             std::cout << "IsClose Table works correctly" << std::endl;
         }
     }
     this->map->setIsClose(IS_CLOSE_NOTHING);
-    this->waiter->setState(DOING_NOTHING);
+    this->waiter->setState(Actions::DOING_NOTHING);
 
 }

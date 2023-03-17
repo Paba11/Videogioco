@@ -50,6 +50,7 @@ public:
     Entrance* distanceEntrance(sf::Sprite& gc);
     sf::RectangleShape* distanceDirtyDishes(sf::Sprite& gc);
     std::vector<sf::RectangleShape> distanceChefDishes(sf::Sprite &gc);
+    bool distanceInteractionSquare(sf::Sprite& gc, Table* table);
     bool distanceSpecificTable(Table* t, sf::Sprite& gc);
     Position getIsClose();
     void setIsClose(Position pos);

@@ -5,7 +5,7 @@
 #include "Dish.h"
 
 Dish::Dish() {
-    this->state = COOKING;
+    state = State::COOKING;
 }
 
 Dish::~Dish() {

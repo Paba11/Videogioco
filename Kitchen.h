@@ -22,7 +22,7 @@
 
 #define MAX_TABLES 10
 
-enum DishState {EMPTY, FULL};
+enum class DishState {EMPTY, FULL};
 
 class Kitchen {
 public:
@@ -54,7 +54,7 @@ public:
     Dish* getDish();
     void setDish(Dish* dish);
     std::queue<Dish*>& getDishes();
-    void setState(int i);
+    void setState(DishState ds);
     DishState getState();
     const sf::Sprite getSprite();
     const sf::FloatRect getBounds() const;

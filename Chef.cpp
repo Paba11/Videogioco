@@ -53,9 +53,9 @@ Dish *Chef::getDish() {
 
 void Chef::cook() {
     //TODO: SELECT THE CURRENT DISH AND COOK IT FOR THE RIGHT TIME
-    switch(this->order->getCurrent())
+    switch(order->getCurrent())
     {
-        case APPETIZER:
+        //case ::APPETIZER:
             //if (this->clock.getElapsedTime() >= this->order->getAppetizers(i)) {
 
         //} else

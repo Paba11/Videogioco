@@ -15,7 +15,7 @@
 #include <queue>
 
 #define MAX_DISHES 4
-enum TrayState {EMPTY_TRAY = 1, FILLED_TRAY, EMPTY_PLATES};
+enum class TrayState {EMPTY_TRAY, FILLED_TRAY, EMPTY_PLATES};
 
 class Tray {
 public:

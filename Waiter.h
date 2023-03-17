@@ -17,8 +17,9 @@
 #include "FollowMovement.h"
 #include <cmath>
 
-#define INTERACT 1;
+#define INTERACT 1
 
+enum class Genre {BOY, GIRL};
 
 class Waiter final : public GameCharacter {
 public:
@@ -42,16 +43,16 @@ public:
     Move getMove();
     bool getIsReceived();
     void initTexture(sf::Texture* textureW);
-    ActionsState* getActionState();
-    OrderState* getOrderState();
-    ReceiveState* getReceiveState();
-    void setActionState(ActionsState* as);
-    void setOrderState(OrderState* os);
-    void setReceiveState(ReceiveState* rs);
-    Order* getOrder();
-    void setOrder(Order* o);
+    std::shared_ptr<ActionsState> getActionState();
+    std::shared_ptr<OrderState> getOrderState();
+    std::shared_ptr<ReceiveState> getReceiveState();
+    void setActionState(std::shared_ptr<ActionsState> as);
+    void setOrderState(std::shared_ptr<OrderState> os);
+    void setReceiveState(std::shared_ptr<ReceiveState> rs);
+    std::shared_ptr<Order> getOrder();
+    void setOrder(std::shared_ptr<Order> o);
 
-    void initStates(ActionsState* as, ReceiveState* rs, OrderState* os);
+    void initStates(std::shared_ptr<ActionsState> as, std::shared_ptr<ReceiveState> rs, std::shared_ptr<OrderState> os);
 
 protected:
     //Methods' override to initialize the texture and the sprite
@@ -62,12 +63,12 @@ protected:
     Genre genre;
 
     //State pattern
-    ActionsState* actionsState;
-    OrderState* orderState;
-    ReceiveState* receiveState;
+    std::shared_ptr<ActionsState> actionsState;
+    std::shared_ptr<OrderState> orderState;
+    std::shared_ptr<ReceiveState> receiveState;
 
     //Attributes to take an order
-    Order* order;
+    std::shared_ptr<Order> order;
 
     //Attributes to receive the customers
     bool isReceived;

@@ -16,10 +16,6 @@ GameCharacter::~GameCharacter() {
 
 }
 
-void GameCharacter::update() {
-
-}
-
 void GameCharacter::render(sf::RenderTarget& target) {
     target.draw(this->sprite);
 }
@@ -57,11 +53,6 @@ void GameCharacter::setPositionW(float x, float y) {
      * Set the position of the waiter inside the map
      */
     this->sprite.setPosition(x, y);
-}
-
-void GameCharacter::updateAnimations() {
-
-
 }
 
 void GameCharacter::initValidMovement() {

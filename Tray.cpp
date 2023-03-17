@@ -6,7 +6,7 @@
 
 
 Tray::Tray() {
-    this->state = EMPTY_TRAY;
+    this->state = TrayState::EMPTY_TRAY;
     initTexture();
     initSprite();
 }

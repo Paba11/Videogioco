@@ -49,28 +49,29 @@ void Customer::updateAnimations() {
 }
 
 void Customer::move() {
+
     switch (this->movingStatus)
     {
-        case MOVING_LEFT:
+        case Move::MOVING_LEFT:
             if (this->validMovement["Left"])
                 this->sprite.move(this->speed * (-0.15f), this->speed * (0.f));
             break;
 
-        case MOVING_RIGHT:
+        case Move::MOVING_RIGHT:
             if (this->validMovement["Right"])
                 this->sprite.move(this->speed * (0.15f), this->speed * (0.f));
             break;
 
-        case MOVING_UP:
+        case Move::MOVING_UP:
             if (this->validMovement["Up"])
                 this->sprite.move(this->speed * (0.f), this->speed * (-0.15f));
             break;
 
-        case MOVING_DOWN:
+        case Move::MOVING_DOWN:
             if (this->validMovement["Down"])
                 this->sprite.move(this->speed * (0.f), this->speed * (0.15f));
             break;
-        case STANDING:
+        case Move::STANDING:
             break;
     }
 }
@@ -82,15 +83,15 @@ const sf::Vector2f &Customer::getPosition() const {
 
 void Customer::setAnimation() {
 
-    if(this->movingStatus == STANDING)
+    if(this->movingStatus == Move::STANDING)
         this->currentFrame.top = 0.f;
-    else if(this->movingStatus == MOVING_DOWN)
+    else if(this->movingStatus == Move::MOVING_DOWN)
         this->currentFrame.top = 0.f;
-    else if(this->movingStatus == MOVING_LEFT)
+    else if(this->movingStatus == Move::MOVING_LEFT)
         this->currentFrame.top = 33.f;
-    else if(this->movingStatus == MOVING_RIGHT)
+    else if(this->movingStatus == Move::MOVING_RIGHT)
         this->currentFrame.top = 66.f;
-    else if(this->movingStatus == MOVING_UP)
+    else if(this->movingStatus == Move::MOVING_UP)
         this->currentFrame.top = 99.f;
 
     this->sprite.setTextureRect(this->currentFrame);
@@ -101,9 +102,9 @@ void Customer::moveTo() {
     if(this->moving)
         move();
     this->actualPos = this->sprite.getPosition();
-    if(this->movingStatus == MOVING_LEFT && this->actualPos.x <= this->endingPos.x) {
+    if(this->movingStatus == Move::MOVING_LEFT && this->actualPos.x <= this->endingPos.x) {
         this->moving = false;
-        this->movingStatus = STANDING;
+        this->movingStatus = Move::STANDING;
     }
 }
 
@@ -130,11 +131,54 @@ void Customer::setPath(Move m) {
 void Customer::initVariables() {
     this->mood = GOOD;
     this->patience = 100;
-    this->movingStatus = STANDING;
-    this->preMovingStatus = STANDING;
+    this->movingStatus = Move::STANDING;
+    this->preMovingStatus = Move::STANDING;
     this->speed = 8;
     this->moving = false;
 }
+
+void Customer::setEndingPosition(sf::Vector2f endPos) {
+    this->endingPos = endPos;
+    this->moving = true;
+    if((endPos.y - this->sprite.getPosition().y >= 0) && (endPos.x - this->sprite.getPosition().x >= 0))
+    {
+        if(this->validMovement["Down"])
+            this->movingStatus = Move::MOVING_DOWN;
+        else if(this->validMovement["Left"])
+            this->movingStatus = Move::MOVING_LEFT;
+        else
+            this->movingStatus = Move::MOVING_RIGHT;
+    }
+    else if((endPos.y - this->sprite.getPosition().y >= 0) && (endPos.x - this->sprite.getPosition().x <= 0))
+    {
+        if(this->validMovement["Down"])
+            this->movingStatus = Move::MOVING_DOWN;
+        else if(this->validMovement["Right"])
+            this->movingStatus = Move::MOVING_RIGHT;
+        else
+            this->movingStatus = Move::MOVING_LEFT;
+    }
+    else if((endPos.y - this->sprite.getPosition().y <= 0) && (endPos.x - this->sprite.getPosition().x <= 0))
+    {
+        if(this->validMovement["Up"])
+            this->movingStatus = Move::MOVING_UP;
+        else if(this->validMovement["Right"])
+            this->movingStatus = Move::MOVING_RIGHT;
+        else
+            this->movingStatus = Move::MOVING_LEFT;
+    }
+    else if((endPos.y - this->sprite.getPosition().y <= 0) && (endPos.x - this->sprite.getPosition().x >= 0))
+    {
+        if(this->validMovement["Up"])
+            this->movingStatus = Move::MOVING_UP;
+        else if(this->validMovement["Left"])
+            this->movingStatus = Move::MOVING_LEFT;
+        else
+            this->movingStatus = Move::MOVING_RIGHT;
+    }
+}
+
+
 /*
 void Customer::updateMoving(sf::Sprite& previous) {
     //this->clock

@@ -11,7 +11,7 @@
 #include <SFML/System.hpp>
 #include <SFML/Audio.hpp>
 
-enum State {READY, COOKING, WAITING, IN_QUEUE};
+enum class State {READY, COOKING, WAITING, IN_QUEUE};
 
 
 class Dish {

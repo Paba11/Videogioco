@@ -7,7 +7,6 @@
 
 #include "GameCharacter.h"
 
-enum Genre {BOY, GIRL};
 
 class WaiterStates {
 public:

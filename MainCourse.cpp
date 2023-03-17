@@ -6,7 +6,7 @@
 
 
 MainCourse::MainCourse(Mn t) {
-    this->type = t;
+    type = t;
     calculatePrice();
     initTexture();
     initSprite();
@@ -17,24 +17,24 @@ MainCourse::~MainCourse() {
 }
 
 void MainCourse::initTexture() {
-    switch(this->type)
+    switch(type)
     {
-        case 1:
+        case Mn::HAMBURGER:
             if (!this->texture->loadFromFile("../Textures/Main1.png"))
             {
                 std::cout << "ERROR::DISH::CAN'T LOAD TEXTURE FILE" << std::endl;
             }
-        case 2:
+        case Mn::MEATBALLS:
             if (!this->texture->loadFromFile("../Textures/Main2.png"))
             {
                 std::cout << "ERROR::DISH::CAN'T LOAD TEXTURE FILE" << std::endl;
             }
-        case 3:
+        case Mn::MEAT:
             if (!this->texture->loadFromFile("../Textures/Main3.png"))
             {
                 std::cout << "ERROR::DISH::CAN'T LOAD TEXTURE FILE" << std::endl;
             }
-        case 4:
+        case Mn::CHICKEN:
             if (!this->texture->loadFromFile("../Textures/Main4.png"))
             {
                 std::cout << "ERROR::DISH::CAN'T LOAD TEXTURE FILE" << std::endl;
@@ -45,13 +45,13 @@ void MainCourse::initTexture() {
 void MainCourse::initPreparationTime() {
     switch(this->type)
     {
-        case HAMBURGER:
+        case Mn::HAMBURGER:
             this->preparationTime = 20;
-        case MEAT:
+        case Mn::MEAT:
             this->preparationTime = 30;
-        case CHICKEN:
+        case Mn::CHICKEN:
             this->preparationTime = 25;
-        case MEATBALLS:
+        case Mn::MEATBALLS:
             this->preparationTime = 30;
     }
 }
@@ -59,13 +59,13 @@ void MainCourse::initPreparationTime() {
 void MainCourse::calculatePrice() {
     switch(this->type)
     {
-        case HAMBURGER:
+        case Mn::HAMBURGER:
             this->price = 14;
-        case MEAT:
+        case Mn::MEAT:
             this->price = 18;
-        case MEATBALLS:
+        case Mn::MEATBALLS:
             this->price = 15;
-        case CHICKEN:
+        case Mn::CHICKEN:
             this->price = 12;
     }
 }

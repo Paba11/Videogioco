@@ -272,4 +272,22 @@ std::vector<sf::RectangleShape> Map::distanceChefDishes(sf::Sprite &gc) {
     return this->kitchen->getCounter()->getPlaceChefDishes();
 }
 
+bool Map::distanceInteractionSquare(sf::Sprite &gc, Table *table) {
+    bool ret = false;
+    float dist;
+    /*
+    dist = std::sqrt(std::pow(table->getInteractionSquare().getPosition().x - gc.getPosition().x, 2) +
+                     std::pow(table->getInteractionSquare().getPosition().y - gc.getPosition().y, 2));
+
+    std::cout << "Square distance: " << dist << std::endl;
+    */
+    if(dist <= 20)
+    {
+        this->isClose = IS_CLOSE_TABLE;
+        ret = true;
+    }
+
+    return ret;
+}
+
 

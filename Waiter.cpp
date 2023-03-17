@@ -4,6 +4,8 @@
 
 #include "Waiter.h"
 
+#include <utility>
+
 
 Waiter::Waiter() {
     initSprite();
@@ -11,16 +13,16 @@ Waiter::Waiter() {
 }
 
 Waiter::~Waiter() {
-    delete this->order;
+
 }
 
 void Waiter::initVariables() {
-    this->state = DOING_NOTHING;
-    this->movingStatus = STANDING;
-    this->preMovingStatus = STANDING;
-    this->speed = 8;
-    this->order = nullptr;
-    this->isReceived = false;
+    state = Actions::DOING_NOTHING;
+    movingStatus = Move::STANDING;
+    preMovingStatus = Move::STANDING;
+    speed = 8;
+    order = nullptr;
+    isReceived = false;
 }
 
 void Waiter::initSprite() {
@@ -38,29 +40,29 @@ void Waiter::initSprite() {
 
 void Waiter::updateMovement() {
     this->preMovingStatus = this->movingStatus;
-    this->movingStatus = STANDING;
+    this->movingStatus = Move::STANDING;
 
     //variabile evento ev
 
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)) {
-        this->movingStatus = MOVING_LEFT;
+        this->movingStatus = Move::MOVING_LEFT;
         if(preMovingStatus != this->movingStatus)
             this->validMovement["Left"] = true;
 
     }
     else if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)) {
-        this->movingStatus = MOVING_RIGHT;
+        this->movingStatus = Move::MOVING_RIGHT;
         if(preMovingStatus != this->movingStatus)
             this->validMovement["Right"] = true;
 
     }
     else if (sf::Keyboard::isKeyPressed(sf::Keyboard::W)) {
-        this->movingStatus = MOVING_UP;
+        this->movingStatus = Move::MOVING_UP;
         if(preMovingStatus != this->movingStatus)
             this->validMovement["Up"] = true;
     }
     else if (sf::Keyboard::isKeyPressed(sf::Keyboard::S)) {
-        this->movingStatus = MOVING_DOWN;
+        this->movingStatus = Move::MOVING_DOWN;
         if(preMovingStatus != this->movingStatus)
             this->validMovement["Down"] = true;
     }
@@ -76,43 +78,43 @@ void Waiter::move() {
     this->prevPos = this->currPos;
 
         switch (this->movingStatus) {
-            case MOVING_LEFT:
+            case Move::MOVING_LEFT:
                 if(this->validMovement["Left"])
                 {
                     this->sprite.move(this->speed * (-0.15f), this->speed * (0.f));
                     checkReceiving();
                 }
-                this->dir = MOVING_LEFT;
+                this->dir = Move::MOVING_LEFT;
                 break;
 
-            case MOVING_RIGHT:
+            case Move::MOVING_RIGHT:
                 if(this->validMovement["Right"])
                 {
                     this->sprite.move(this->speed * (0.15f), this->speed * (0.f));
                     checkReceiving();
                 }
-                this->dir = MOVING_RIGHT;
+                this->dir = Move::MOVING_RIGHT;
                 break;
 
-            case MOVING_UP:
+            case Move::MOVING_UP:
                 if(this->validMovement["Up"])
                 {
                     this->sprite.move(this->speed * (0.f), this->speed * (-0.15f));
                     checkReceiving();
                 }
-                this->dir = MOVING_UP;
+                this->dir = Move::MOVING_UP;
                 break;
 
-            case MOVING_DOWN:
+            case Move::MOVING_DOWN:
                 if(this->validMovement["Down"])
                 {
                     this->sprite.move(this->speed * (0.f), this->speed * (0.15f));
                     checkReceiving();
                 }
-                this->dir = MOVING_DOWN;
+                this->dir = Move::MOVING_DOWN;
                 break;
-            case STANDING:
-                this->dir = STANDING;
+            case Move::STANDING:
+                this->dir = Move::STANDING;
                 break;
         }
         /*
@@ -123,43 +125,53 @@ void Waiter::move() {
 }
 
 void Waiter::interact(Map* map, sf::Event ev) {
-    map->distanceTable(this->sprite);
+    Table* t = map->distanceTable(this->sprite);
     map->distanceEntrance(this->sprite);
     map->distanceKitchen(this->sprite);
     map->distanceWashbasin(this->sprite);
     map->distanceDirtyDishes(this->sprite);
     map->distanceChefDishes(this->sprite);
 
-    if(this->state == DOING_NOTHING)
+    if(this->state == Actions::DOING_NOTHING)
     {
         if(!this->order && map->getIsClose() == IS_CLOSE_ENTRANCE && map->getEntrance()->getIsCustomer()
             && ev.key.code == sf::Keyboard::J)
         {
-            this->state = RECEIVING_CUSTOMERS;
+            this->state = Actions::RECEIVING_CUSTOMERS;
             this->sprite.setPosition(920,910);
             this->receiveState->handleInput(*this, ev);
             std::cout << "Receiving customers" << std::endl;
         }
-        else if(!this->order && map->getIsClose() == IS_CLOSE_TABLE)
+        else if(!this->order && map->getIsClose() == IS_CLOSE_TABLE && t->getIsReady())
         {
-            this->state = TAKING_ORDER;
+            this->state = Actions::TAKING_ORDER;
             this->orderState->handleInput(*this, ev);
             this->actionsState->setIsOrder(true);
         }
         else
         {
             this->actionsState->handleInput(*this, ev);
-            this->state = DOING_NOTHING;
+            this->state = Actions::DOING_NOTHING;
+        }
+    }
+    else if(this->state == Actions::RECEIVING_CUSTOMERS && ev.key.code == sf::Keyboard::J)
+    {
+        if(map->distanceInteractionSquare(this->getSprite(), this->receiveState->getTable()))
+        {
+            this->state = Actions::DOING_NOTHING;
+            this->receiveState->getTable()->setCustomers(this->receiveState->getCustomers());
+            this->receiveState->moveToTable();
+            this->receiveState->getTable()->setIsOccupied(true);
         }
     }
 }
 
-Order *Waiter::getOrder() {
+std::shared_ptr<Order> Waiter::getOrder() {
     return this->order;
 }
 
-void Waiter::setOrder(Order* o) {
-    this->order = o;
+void Waiter::setOrder(std::shared_ptr<Order> o) {
+    this->order = std::move(o);
 }
 
 void Waiter::update() {
@@ -187,26 +199,26 @@ void Waiter::updateAnimations() {
 
 void Waiter::setAnimation() {
 
-    if(this->movingStatus == STANDING)
+    if(this->movingStatus == Move::STANDING)
         this->currentFrame.top = 0.f;
 
-    else if(this->movingStatus == MOVING_DOWN)
+    else if(this->movingStatus == Move::MOVING_DOWN)
         this->currentFrame.top = 50.f;
 
-    else if(this->movingStatus == MOVING_LEFT)
+    else if(this->movingStatus == Move::MOVING_LEFT)
         this->currentFrame.top = 100.f;
 
-    else if(this->movingStatus == MOVING_RIGHT)
+    else if(this->movingStatus == Move::MOVING_RIGHT)
         this->currentFrame.top = 150.f;
 
-    else if(this->movingStatus == MOVING_UP)
+    else if(this->movingStatus == Move::MOVING_UP)
         this->currentFrame.top = 200.f;
 
     this->sprite.setTextureRect(this->currentFrame);
 
 }
 
-OrderState* Waiter::getOrderState() {
+std::shared_ptr<OrderState> Waiter::getOrderState() {
     return this->orderState;
 }
 
@@ -247,37 +259,34 @@ void Waiter::initTexture(sf::Texture* textureW) {       //initTexture with a poi
     this->sprite.setTexture(*textureW);
 }
 
-ActionsState *Waiter::getActionState() {
+std::shared_ptr<ActionsState> Waiter::getActionState() {
     return this->actionsState;
 }
 
-ReceiveState *Waiter::getReceiveState() {
+std::shared_ptr<ReceiveState> Waiter::getReceiveState() {
     return this->receiveState;
 }
 
-void Waiter::initStates(ActionsState* as, ReceiveState* rs, OrderState* os) {
-    this->actionsState = as;
-    this->orderState = os;
-    this->receiveState = rs;
+void Waiter::initStates(std::shared_ptr<ActionsState> as, std::shared_ptr<ReceiveState> rs, std::shared_ptr<OrderState> os) {
+    this->actionsState = std::move(as);
+    this->orderState = std::move(os);
+    this->receiveState = std::move(rs);
 }
 
-void Waiter::setActionState(ActionsState *as) {
-    delete this->actionsState;
-    this->actionsState = as;
+void Waiter::setActionState(std::shared_ptr<ActionsState> as) {
+    this->actionsState = std::move(as);
 }
 
-void Waiter::setOrderState(OrderState *os) {
-    delete this->orderState;
-    this->orderState = os;
+void Waiter::setOrderState(std::shared_ptr<OrderState> os) {
+    this->orderState = std::move(os);
 }
 
-void Waiter::setReceiveState(ReceiveState *rs) {
-    delete this->receiveState;
-    this->receiveState = rs;
+void Waiter::setReceiveState(std::shared_ptr<ReceiveState> rs) {
+    this->receiveState = std::move(rs);
 }
 
 void Waiter::checkReceiving() {
-    if(this->state == RECEIVING_CUSTOMERS)
+    if(this->state == Actions::RECEIVING_CUSTOMERS)
     {
         this->receiveState->addToPath(this->dir);
     }

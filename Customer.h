@@ -36,6 +36,7 @@ public:
     void move();
     void moveTo();
     void setEndingPosition(sf::Vector2f endingPos, Move direction);
+    void setEndingPosition(sf::Vector2f endingPos);
     sf::Sprite sprite; //fixme create a function to set the texture from receivingCustomer.h
 
     //Getters & Setters

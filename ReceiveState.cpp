@@ -91,32 +91,32 @@ std::vector<Customer> &ReceiveState::getCustomers() {
 void ReceiveState::setGeneratedCustomers(int numberCustomer, int textureNumber) {
     if(numberCustomer == 1) {
         this->customers.back().sprite.setPosition(1550, 910);   //1000, 700
-        this->customers.back().setEndingPosition(sf::Vector2f{1256, 910}, MOVING_LEFT);
+        this->customers.back().setEndingPosition(sf::Vector2f{1256, 910}, Move::MOVING_LEFT);
         for(int i = 0; i < 4 * INITIAL_MOVES; i++)
-            this->customers.back().setPath(MOVING_LEFT);
+            this->customers.back().setPath(Move::MOVING_LEFT);
         std::cout << "4" << std::endl;
     }
     else if(numberCustomer == 2) {
         this->customers.back().sprite.setPosition(1500, 910);   //1000, 800
-        this->customers.back().setEndingPosition(sf::Vector2f{1172, 910}, MOVING_LEFT);
+        this->customers.back().setEndingPosition(sf::Vector2f{1172, 910}, Move::MOVING_LEFT);
         for(int i = 0; i < 3 * INITIAL_MOVES; i++)
-            this->customers.back().setPath(MOVING_LEFT);
+            this->customers.back().setPath(Move::MOVING_LEFT);
         std::cout << "3" << std::endl;
 
     }
     else if(numberCustomer == 3) {
         this->customers.back().sprite.setPosition(1450, 910);   //1100, 700
-        this->customers.back().setEndingPosition(sf::Vector2f{1088, 910}, MOVING_LEFT);
+        this->customers.back().setEndingPosition(sf::Vector2f{1088, 910}, Move::MOVING_LEFT);
         for(int i = 0; i < 2 * INITIAL_MOVES; i++)
-            this->customers.back().setPath(MOVING_LEFT);
+            this->customers.back().setPath(Move::MOVING_LEFT);
         std::cout << "2" << std::endl;
 
     }
     else if(numberCustomer == 4) {
         this->customers.back().sprite.setPosition(1400, 910); //always generated
-        this->customers.back().setEndingPosition(sf::Vector2f{1004, 910}, MOVING_LEFT);
+        this->customers.back().setEndingPosition(sf::Vector2f{1004, 910}, Move::MOVING_LEFT);
         for(int i = 0; i < INITIAL_MOVES; i++)
-            this->customers.back().setPath(MOVING_LEFT);
+            this->customers.back().setPath(Move::MOVING_LEFT);
         std::cout << "1" << std::endl;
 
     }
@@ -139,6 +139,15 @@ void ReceiveState::addToPath(Move dir) {
     for(auto & it: this->customers)
     {
         it.setPath(dir);
+    }
+}
+
+void ReceiveState::moveToTable() {
+    int i = 0;
+    for(auto & it: this->customers)
+    {
+        it.setEndingPosition(this->table->getStoolTable()[i].sprite.getPosition());
+        i++;
     }
 }
 

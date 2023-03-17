@@ -17,43 +17,42 @@ Appetizer::~Appetizer() {
 }
 
 void Appetizer::initTexture() {
-    switch(this->type)
+    switch(type)
     {
-        case 1:
-            if (!this->texture->loadFromFile("../Textures/Appetizer1.png"))
+        case Apt::NACHOS:
+            if (!texture->loadFromFile("../Textures/Appetizer1.png"))
             {
                 std::cout << "ERROR::DISH::CAN'T LOAD TEXTURE FILE" << std::endl;
             }
-        case 2:
-            if (!this->texture->loadFromFile("../Textures/Appetizer2.png"))
+        case Apt::OMELETTE:
+            if (!texture->loadFromFile("../Textures/Appetizer2.png"))
             {
                 std::cout << "ERROR::DISH::CAN'T LOAD TEXTURE FILE" << std::endl;
             }
-        case 3:
-            if (!this->texture->loadFromFile("../Textures/Appetizer3.png"))
-            {
-                std::cout << "ERROR::DISH::CAN'T LOAD TEXTURE FILE" << std::endl;
-            }
-    };
+    }
 }
 
 
 void Appetizer::initPreparationTime() {
-    switch(this->type)
+    switch(type)
     {
-        case NACHOS:
-            this->preparationTime = 10;
+        case Apt::NACHOS:
+            preparationTime = 10;
+        case Apt::OMELETTE:
+            preparationTime = 20;
     }
 }
 
 void Appetizer::calculatePrice() {
-    switch(this->type)
+    switch(type)
     {
-        case NACHOS:
-            this->price = 8;
+        case Apt::NACHOS:
+            price = 8;
+        case Apt::OMELETTE:
+            price = 10;
     }
 }
 
 int Appetizer::getPrice() {
-    return this->price;
+    return price;
 }
