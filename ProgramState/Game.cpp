@@ -456,7 +456,7 @@ void Game::updateTables() {
     for(auto & it : this->map->getAllTables())
     {
         it.update();
-        if(it.getState() == WAITING_TO_ORDER && !it.getIsReady())
+        if(it.getState() == TableState::WAITING_TO_ORDER && !it.getIsReady())
         {
             this->orderState = std::make_shared<OrderState>(it);
             this->waiter->setOrderState(this->orderState);

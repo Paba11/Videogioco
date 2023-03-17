@@ -71,15 +71,15 @@ void ActionsState::pickUp(Table* table) {
         switch(table->getCourse())
         {
             case Current::APPETIZER:
-                table->setState(WAITING_DISHES);
+                table->setState(TableState::WAITING_DISHES);
                 table->setCourse(Current::MAIN_DISH);
                 break;
             case Current::MAIN_DISH:
-                table->setState(WAITING_DISHES);
+                table->setState(TableState::WAITING_DISHES);
                 table->setCourse(Current::DESSERT);
                 break;
             case Current::DESSERT:
-                table->setState(ENDED);
+                table->setState(TableState::ENDED);
                 table->setCourse(Current::END);
                 break;
         }
@@ -89,7 +89,7 @@ void ActionsState::pickUp(Table* table) {
 void ActionsState::putDown(Table* table) {
     //Leave the plates at the table
 
-    if(this->tray->getState() == TrayState::FILLED_TRAY && table->getState() == WAITING_DISHES &&
+    if(this->tray->getState() == TrayState::FILLED_TRAY && table->getState() == TableState::WAITING_DISHES &&
        this->tray->getDishes().front()->getTavNum() == table->getTavNum())
     {
         while(!this->tray->getDishes().empty())
@@ -101,7 +101,7 @@ void ActionsState::putDown(Table* table) {
         }
 
         //Set the table in the right state
-        table->setState(EATING);
+        table->setState(TableState::EATING);
         //Set the tray in the right state
         this->tray->setState(TrayState::EMPTY_TRAY);
     }

@@ -6,7 +6,7 @@
 
 Table::Table() {
     numStoolsTable = 4;
-    state = CHOOSING;
+    state = TableState::CHOOSING;
     course = Current::APPETIZER;
     isReady = false;
     isOccupied = false;
@@ -27,10 +27,10 @@ void Table::update() {
     {
         switch(this->state)
         {
-            case CHOOSING:
+            case TableState::CHOOSING:
                 ordering();
                 break;
-            case WAITING_TO_ORDER:
+            case TableState::WAITING_TO_ORDER:
                 break;
         }
     }
@@ -80,12 +80,12 @@ void Table::setState(TableState s) {
     this->state = s;
 }
 
-Order *Table::getOrder() const {
-    return this->order;
+std::shared_ptr<Order> Table::getOrder() {
+    return order;
 }
 
-void Table::setOrder() {
-
+void Table::setOrder(std::shared_ptr<Order> ord) {
+    order = std::move(ord);
 }
 
 Current Table::getCourse() const {
@@ -156,7 +156,7 @@ std::vector<Customer> &Table::getCustomers() {
 void Table::ordering() {
     if(this->timer.getElapsedTime().asSeconds() > TIME_TO_CHOOSE)
     {
-        this->state = WAITING_TO_ORDER;
+        this->state = TableState::WAITING_TO_ORDER;
     }
 }
 

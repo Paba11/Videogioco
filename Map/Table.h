@@ -18,7 +18,7 @@
 #include "../NPC/Customer.h"
 #include <queue>
 
-enum TableState {CHOOSING, WAITING_TO_ORDER, ORDERING, WAITING_DISHES, EATING, ENDED};
+enum class TableState {CHOOSING, WAITING_TO_ORDER, ORDERING, WAITING_DISHES, EATING, ENDED};
 
 #define TIME_TO_CHOOSE 20
 
@@ -45,8 +45,8 @@ public:
     std::queue<Dish*> getDishes();
     TableState getState();
     void setState(TableState s);
-    Order* getOrder() const;
-    void setOrder();
+    std::shared_ptr<Order> getOrder();
+    void setOrder(std::shared_ptr<Order> ord);
     Current getCourse() const;
     void setCourse(Current c);
     std::vector<Stool>& getStoolTable();
@@ -76,7 +76,7 @@ private:
     std::vector<Customer> customers;
     TableState state;
     Current course;
-    Order* order;
+    std::shared_ptr<Order> order;
     int numStoolsTable;
     int customerNumber;
     sf::Clock timer;
