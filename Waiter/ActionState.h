@@ -40,7 +40,7 @@ private:
     sf::Event event;
 
     //Pointer to the plates carrying in a specific moment
-    Tray* tray;
+    std::unique_ptr<Tray> tray;
 };
 
 #endif //VIDEOGIOCO_ACTIONSTATE_H
