@@ -8,41 +8,44 @@ find_package(SFML 2.5 COMPONENTS graphics audio REQUIRED)
 include_directories(${SFML_INCLUDE_DIR})
 
 add_executable( videogioco                  main.cpp
-                ActionState.h               ActionState.cpp
-                Appetizer.h                 Appetizer.cpp
+                Waiter/ActionState.h        Waiter/ActionState.cpp
+                Dish/Appetizer.h            Dish/Appetizer.cpp
                 Bill.h                      Bill.cpp
                 Button.h                    Button.cpp
-                Chef.h                      Chef.cpp
-                Counter.h                   Counter.cpp
-                Customer.h                  Customer.cpp
-                Dessert.h                   Dessert.cpp
-                Dish.h                      Dish.cpp
-                DishWasher.h                DishWasher.cpp
-                Drink.h                     Drink.cpp
-                Entrance.h                  Entrance.cpp
+                NPC/Chef.h                  NPC/Chef.cpp
+                Map/Counter.h               Map/Counter.cpp
+                NPC/Customer.h              NPC/Customer.cpp
+                Dish/Dessert.h              Dish/Dessert.cpp
+                Dish/Dish.h                 Dish/Dish.cpp
+                NPC/DishWasher.h            NPC/DishWasher.cpp
+                Dish/Drink.h                Dish/Drink.cpp
+                Map/Entrance.h              Map/Entrance.cpp
                 FollowMovement.h            FollowMovement.cpp
-                Game.h                      Game.cpp
+                ProgramState/Game.h         ProgramState/Game.cpp
                 GameCharacter.h             GameCharacter.cpp
-                Kitchen.h                   Kitchen.cpp
+                Map/Kitchen.h               Map/Kitchen.cpp
                 Level.h                     Level.cpp
                 LevelHeader.h
-                MainMenu.h                  MainMenu.cpp
-                MainCourse.h                MainCourse.cpp
-                Map.h                       Map.cpp
-                MealMenu.h
-                Order.h                     Order.cpp
-                OrderState.h                OrderState.cpp
-                ProgramState.h              ProgramState.cpp
-                ReceiveState.h              ReceiveState.cpp
-                Recipe.h                    Recipe.cpp
-                Stool.h                     Stool.cpp
-                Table.h                     Table.cpp
+                ProgramState/MainMenu.h     ProgramState/MainMenu.cpp
+                Dish/MainCourse.h           Dish/MainCourse.cpp
+                Map/Map.h                   Map/Map.cpp
+                Dish/MealMenu.h
+                Dish/Order.h                Dish/Order.cpp
+                Waiter/OrderState.h         Waiter/OrderState.cpp
+                ProgramState/ProgramState.h ProgramState/ProgramState.cpp
+                Waiter/ReceiveState.h       Waiter/ReceiveState.cpp
+                Dish/Recipe.h               Dish/Recipe.cpp
+                Map/Stool.h                 Map/Stool.cpp
+                Map/Table.h                 Map/Table.cpp
                 Textures.h                  Textures.cpp
                 Tray.h                      Tray.cpp
                 Videogame.h                 Videogame.cpp
-                Waiter.h                    Waiter.cpp
-                WaiterStates.h              WaiterStates.cpp
-                Washbasin.h                 Washbasin.cpp BottomBar.cpp BottomBar.h ChoosingCharacter.cpp ChoosingCharacter.h HowToPlay.cpp HowToPlay.h)
+                Waiter/Waiter.h             Waiter/Waiter.cpp
+                Waiter/WaiterStates.h       Waiter/WaiterStates.cpp
+                Map/Washbasin.h             Map/Washbasin.cpp
+                BottomBar.cpp               BottomBar.h
+                ProgramState/ChoosingCharacter.cpp ProgramState/ChoosingCharacter.h
+                ProgramState/HowToPlay.cpp  ProgramState/HowToPlay.h)
 
 
 target_link_libraries(videogioco sfml-graphics sfml-audio)

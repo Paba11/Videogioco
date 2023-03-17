@@ -10,7 +10,7 @@
 #include <SFML/Window.hpp>
 #include <SFML/System.hpp>
 #include <SFML/Audio.hpp>
-#include "Button.h"
+#include "../Button.h"
 #include "ProgramState.h"
 #include "ChoosingCharacter.h"
 #include "HowToPlay.h"

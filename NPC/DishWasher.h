@@ -5,10 +5,10 @@
 #ifndef VIDEOGIOCO_DISHWASHER_H
 #define VIDEOGIOCO_DISHWASHER_H
 
-#include "GameCharacter.h"
-#include "Textures.h"
-#include "Kitchen.h"
-#include "Washbasin.h"
+#include "../GameCharacter.h"
+#include "../Textures.h"
+#include "../Map/Kitchen.h"
+#include "../Map/Washbasin.h"
 
 
 class DishWasher final : public GameCharacter {

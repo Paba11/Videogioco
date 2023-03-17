@@ -6,8 +6,8 @@
 #define VIDEOGIOCO_ACTIONSTATE_H
 
 #include "WaiterStates.h"
-#include "GameCharacter.h"
-#include "Map.h"
+#include "../GameCharacter.h"
+#include "../Map/Map.h"
 
 #include <cmath>
 

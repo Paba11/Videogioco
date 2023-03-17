@@ -5,11 +5,11 @@
 #ifndef VIDEOGIOCO_BILL_H
 #define VIDEOGIOCO_BILL_H
 
-#include "Table.h"
-#include "Drink.h"
-#include "Appetizer.h"
-#include "MainCourse.h"
-#include "Dessert.h"
+#include "Map/Table.h"
+#include "Dish/Drink.h"
+#include "Dish/Appetizer.h"
+#include "Dish/MainCourse.h"
+#include "Dish/Dessert.h"
 
 class Bill {
 public:

@@ -11,6 +11,8 @@ Table::Table() {
     isReady = false;
     isOccupied = false;
     customerNumber = 0;
+    cicle = true;
+    chosenTable = false;
     initSprite();
     initStoolTable();
 
@@ -32,19 +34,20 @@ void Table::update() {
                 break;
         }
     }
+    updateBox();
 }
 
 void Table::render(sf::RenderTarget &target) {
     target.draw(this->sprite);
+    target.draw(this->interactionSquare);
 }
 
 void Table::initSprite() {
-    /*
-     * Set the texture on the sprite and resize it
-     */
-    // this->sprite.setTexture(this->texture);
 
-    //this->sprite.setScale(3.5, 3.5);
+    interactionSquare.setSize({62,62});
+    interactionSquare.setOrigin(31,31);
+    interactionSquare.setOutlineThickness(1);
+    interactionSquare.setFillColor(sf::Color::Transparent);
 }
 
 int Table::getTavNum() {
@@ -127,7 +130,6 @@ void Table::receivingCustomers(std::vector<Customer>& c) {
     this->timer.restart();
     std::move(c.begin(), c.end(), std::back_inserter(this->customers));
     c.clear();
-
 }
 
 void Table::setIsOccupied(bool t) {
@@ -168,4 +170,36 @@ bool Table::getIsReady() {
 
 std::vector<Stool> &Table::getStoolTable() {
     return this->stoolTable;
+}
+
+void Table::updateBox() {
+
+    if(chosenTable) {
+        this->interactionSquare.setFillColor(this->boxOpacity);
+
+        if(this->boxOpacity.a == 255)
+            cicle = false;
+        if(this->boxOpacity.a == 0)
+            cicle = true;
+        if(cicle)
+            this->boxOpacity.a += 5;
+        else
+            this->boxOpacity.a-= 5;
+
+
+    }
+
+}
+
+void Table::setTable() {
+
+    this->sprite.setOrigin(30,32);
+    this->interactionSquare.setPosition(this->sprite.getPosition().x,this->sprite.getPosition().y - 40);
+
+}
+
+void Table::setChosenTable() {
+
+    this->chosenTable = true;
+
 }

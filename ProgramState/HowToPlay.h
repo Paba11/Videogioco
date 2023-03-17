@@ -5,7 +5,7 @@
 #ifndef VIDEOGIOCO_HOWTOPLAY_H
 #define VIDEOGIOCO_HOWTOPLAY_H
 #include "ProgramState.h"
-#include "Button.h"
+#include "../Button.h"
 #include <SFML/Graphics.hpp>
 #include <SFML/Window.hpp>
 #include <SFML/System.hpp>

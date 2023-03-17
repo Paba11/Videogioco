@@ -218,6 +218,7 @@ Table* Map::distanceTable(sf::Sprite& gc) {
             //t = &this->map->getTable(i);
             this->isClose = IS_CLOSE_TABLE;
         }
+
     }
     return table;
 }

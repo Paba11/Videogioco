@@ -5,16 +5,16 @@
 #ifndef VIDEOGIOCO_WAITER_H
 #define VIDEOGIOCO_WAITER_H
 
-#include "Dish.h"
-#include "GameCharacter.h"
-#include "Order.h"
-#include "Map.h"
-#include "Textures.h"
+#include "../Dish/Dish.h"
+#include "../GameCharacter.h"
+#include "../Dish/Order.h"
+#include "../Map/Map.h"
+#include "../Textures.h"
 #include "WaiterStates.h"
 #include "OrderState.h"
 #include "ActionState.h"
 #include "ReceiveState.h"
-#include "FollowMovement.h"
+#include "../FollowMovement.h"
 #include <cmath>
 
 #define INTERACT 1

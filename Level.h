@@ -8,15 +8,15 @@
 
 #include <map>
 #include <vector>
-#include "Waiter.h"
-#include "DishWasher.h"
-#include "Map.h"
-#include "Customer.h"
-#include "Table.h"
+#include "Waiter/Waiter.h"
+#include "NPC/DishWasher.h"
+#include "Map/Map.h"
+#include "NPC/Customer.h"
+#include "Map/Table.h"
 #include "Textures.h"
-#include "ProgramState.h"
-#include "Chef.h"
-#include "Counter.h"
+#include "ProgramState/ProgramState.h"
+#include "NPC/Chef.h"
+#include "Map/Counter.h"
 #include "LevelHeader.h"
 #include <SFML/Graphics.hpp>
 #include <SFML/Window.hpp>

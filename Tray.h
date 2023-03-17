@@ -11,7 +11,7 @@
 #ifndef VIDEOGIOCO_TRAY_H
 #define VIDEOGIOCO_TRAY_H
 
-#include "Dish.h"
+#include "Dish/Dish.h"
 #include <queue>
 
 #define MAX_DISHES 4

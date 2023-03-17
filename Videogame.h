@@ -8,8 +8,8 @@
 #include <SFML/Window.hpp>
 #include <SFML/System.hpp>
 #include <SFML/Audio.hpp>
-#include "Game.h"
-#include "MainMenu.h"
+#include "ProgramState/Game.h"
+#include "ProgramState/MainMenu.h"
 
 class Videogame {
 public:

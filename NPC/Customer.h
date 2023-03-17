@@ -6,8 +6,8 @@
 #define VIDEOGIOCO_CUSTOMER_H
 
 
-#include "GameCharacter.h"
-#include "FollowMovement.h"
+#include "../GameCharacter.h"
+#include "../FollowMovement.h"
 #include <queue>
 
 #define TOTAL_OFFSET 50
