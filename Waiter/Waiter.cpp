@@ -139,6 +139,7 @@ void Waiter::interact(Map* map, sf::Event ev) {
         {
             this->state = Actions::RECEIVING_CUSTOMERS;
             this->sprite.setPosition(920,910);
+            map->getEntrance()->setCustomerReceived(false);
             this->receiveState->handleInput(*this, ev);
             std::cout << "Receiving customers" << std::endl;
         }
