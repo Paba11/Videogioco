@@ -135,11 +135,12 @@ void Waiter::interact(Map* map, sf::Event ev) {
         if(!this->order && map->getIsClose() == IS_CLOSE_ENTRANCE && map->getEntrance()->getIsCustomer()
             && ev.key.code == sf::Keyboard::J)
         {
-            this->state = RECEIVING_CUSTOMERS;
+
             this->sprite.setPosition(920,910);
-            this->receiveState->handleInput(*this, ev);
             std::cout << "Receiving customers" << std::endl;
+            this->receiveState->handleInput(*this, ev);
             map->getEntrance()->setCustomerReceived(false);
+            this->state = RECEIVING_CUSTOMERS;
         }
         else if(!this->order && map->getIsClose() == IS_CLOSE_TABLE)
         {

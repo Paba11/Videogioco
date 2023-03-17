@@ -20,17 +20,17 @@ void Appetizer::initTexture() {
     switch(this->type)
     {
         case 1:
-            if (!this->texture->loadFromFile("../Textures/Appetizer1.png"))
+            if (!texture->loadFromFile("../Textures/Appetizer1.png"))
             {
                 std::cout << "ERROR::DISH::CAN'T LOAD TEXTURE FILE" << std::endl;
             }
         case 2:
-            if (!this->texture->loadFromFile("../Textures/Appetizer2.png"))
+            if (!texture->loadFromFile("../Textures/Appetizer2.png"))
             {
                 std::cout << "ERROR::DISH::CAN'T LOAD TEXTURE FILE" << std::endl;
             }
         case 3:
-            if (!this->texture->loadFromFile("../Textures/Appetizer3.png"))
+            if (!texture->loadFromFile("../Textures/Appetizer3.png"))
             {
                 std::cout << "ERROR::DISH::CAN'T LOAD TEXTURE FILE" << std::endl;
             }

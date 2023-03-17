@@ -58,6 +58,8 @@ public:
     void setIsOccupied(bool t);
     bool getIsOccupied();
     void setChosenTable();
+    bool getChosenTable();
+    sf::RectangleShape getInteractionSquare();
 
     //Initialize table
     void initStoolTable();

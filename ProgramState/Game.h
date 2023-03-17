@@ -40,6 +40,7 @@ public:
     void update() override;
     void updateCustomers();
     void updateReceivingCustomer();
+    void updateTable();
 
     //Methods to display the correct images
     void render(sf::RenderTarget* target) override;
