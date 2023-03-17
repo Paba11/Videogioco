@@ -35,6 +35,7 @@ Table* ReceiveState::pickEmptyTable() {
             notFound = false;
             this->table = &t.back();
             this->table->setIsOccupied(true);
+            this->table->setChosenTable();
             while(!t.empty())
             {
                 this->map->getAllTables().push_back(t.back());

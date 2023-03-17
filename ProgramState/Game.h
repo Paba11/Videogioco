@@ -43,6 +43,7 @@ public:
     void updateReceivingCustomer();
     void updateOrderState();
     void updateTables();
+    void updateTable();
 
     //Methods to display the correct images
     void render(sf::RenderTarget* target) override;

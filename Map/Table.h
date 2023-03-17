@@ -59,6 +59,8 @@ public:
     void setIsReady(bool t);
     bool getIsReady();
     void setChosenTable();
+    bool getChosenTable();
+    sf::RectangleShape getInteractionSquare();
 
     //Initialize table
     void initStoolTable();

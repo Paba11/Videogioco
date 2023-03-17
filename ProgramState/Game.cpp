@@ -50,6 +50,7 @@ void Game::update() {
     updateTables();
     updateInteractions();
     this->map->getEntrance()->updateBox();
+    updateTable();
     this->waiter->update();
     this->dishWasher->update();
     this->chef->update();
@@ -151,7 +152,7 @@ void Game::renderMap() {
     this->map->getEntrance()->render(*this->window);
     this->map->render(*this->window);
     for(int i=0;i<numTables;i++) {
-        this->window->draw(this->map->getAllTables()[i].sprite);
+        this->map->getAllTables()[i].render(*this->window);
         for(int j=0; j<4;j++)
             this->window->draw(this->map->getAllTables()[i].getStoolTable()[j].sprite);
     }
@@ -167,6 +168,7 @@ void Game::updateCollision() {
     {
         customerCollision();
     }
+    //if(this->waiter->getState() == RECEIVING_CUSTOMERS)
 }
 
 void Game::initTables() {
@@ -326,6 +328,7 @@ void Game::generateCustomers() {
         }
         std::cout << "Total customers left: " << this->level->getTotalCustomerNumber() << std::endl;
         this->map->getEntrance()->setIsCustomer(true);
+        this->map->getEntrance()->setCustomerReceived(true);
         //this->receivingCustomers->enterTheRestaurant();
         this->clock.restart();
     }
@@ -463,6 +466,16 @@ void Game::updateTables() {
             it.setIsReady(true);
         }
     }
+}
+
+void Game::updateTable() {
+
+    for(int i = 0; i < numTables; i++){
+        if(map->getAllTables()[i].getChosenTable())
+            map->getAllTables()[i].updateBox();
+    }
+
+
 }
 
 

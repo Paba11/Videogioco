@@ -34,12 +34,12 @@ void Table::update() {
                 break;
         }
     }
-    updateBox();
 }
 
 void Table::render(sf::RenderTarget &target) {
     target.draw(this->sprite);
-    target.draw(this->interactionSquare);
+    if(chosenTable)
+        target.draw(this->interactionSquare);
 }
 
 void Table::initSprite() {
@@ -202,4 +202,12 @@ void Table::setChosenTable() {
 
     this->chosenTable = true;
 
+}
+
+sf::RectangleShape Table::getInteractionSquare() {
+    return this->interactionSquare;
+}
+
+bool Table::getChosenTable() {
+    return chosenTable;
 }
