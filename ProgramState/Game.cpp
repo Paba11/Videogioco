@@ -254,7 +254,8 @@ void Game::collision() {
         if(this->waiter->getGlobalHitbox().intersects(this->map->trees[i].getGlobalBounds()))
             collisionManagement();
     }
-
+    if(this->waiter->getPosition().y < 230)
+        collisionManagement();
 
 
 }
