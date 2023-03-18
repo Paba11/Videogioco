@@ -22,10 +22,10 @@ public:
     ~Customer() override;
 
     //Methods to update and display the customer on the screen
-    void update();
+    void update() override;
 
     //Initialize attributes
-    void initSprite();
+    void initSprite() override;
     void initVariables();
 
     //void collisionCheck(const Map& map);

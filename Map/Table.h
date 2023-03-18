@@ -46,7 +46,7 @@ public:
     TableState getState();
     void setState(TableState s);
     std::shared_ptr<Order> getOrder();
-    void setOrder(std::shared_ptr<Order> ord);
+    void setOrder(const std::shared_ptr<Order>& ord);
     Current getCourse() const;
     void setCourse(Current c);
     std::vector<Stool>& getStoolTable();

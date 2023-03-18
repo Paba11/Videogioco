@@ -89,7 +89,7 @@ private:
     Waiter* waiter;
     Chef* chef;
     Dish* dish;
-    Map* map;
+    std::shared_ptr<Map> map;
     Kitchen* kitchen;
     Counter* counter;
     Washbasin* washbasin;

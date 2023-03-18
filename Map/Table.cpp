@@ -84,8 +84,9 @@ std::shared_ptr<Order> Table::getOrder() {
     return order;
 }
 
-void Table::setOrder(std::shared_ptr<Order> ord) {
-    order = std::move(ord);
+void Table::setOrder(const std::shared_ptr<Order>& ord) {
+    order.reset();
+    order = ord;
 }
 
 Current Table::getCourse() const {

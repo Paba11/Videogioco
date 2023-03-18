@@ -36,7 +36,7 @@ public:
     void setAnimation();
 
     //Methods to interact with the customer
-    void interact(Map* map, sf::Event ev);
+    void interact(const std::shared_ptr<Map>& map, sf::Event ev);
     void checkReceiving();
 
     //Getters & Setters
@@ -46,13 +46,13 @@ public:
     std::shared_ptr<ActionsState> getActionState();
     std::shared_ptr<OrderState> getOrderState();
     std::shared_ptr<ReceiveState> getReceiveState();
-    void setActionState(std::shared_ptr<ActionsState> as);
-    void setOrderState(std::shared_ptr<OrderState> os);
-    void setReceiveState(std::shared_ptr<ReceiveState> rs);
+    void setActionState(const std::shared_ptr<ActionsState>& as);
+    void setOrderState(const std::shared_ptr<OrderState>& os);
+    void setReceiveState(const std::shared_ptr<ReceiveState>& rs);
     std::shared_ptr<Order> getOrder();
     void setOrder(std::shared_ptr<Order> o);
 
-    void initStates(std::shared_ptr<ActionsState> as, std::shared_ptr<ReceiveState> rs, std::shared_ptr<OrderState> os);
+    void initStates(const std::shared_ptr<ActionsState>& as, const std::shared_ptr<ReceiveState>& rs, const std::shared_ptr<OrderState>& os);
 
 protected:
     //Methods' override to initialize the texture and the sprite

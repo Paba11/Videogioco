@@ -25,7 +25,6 @@ Game::Game(sf::RenderWindow* window, std::stack <ProgramState*>* states, int wai
 Game::~Game() {
     delete this->waiter;
     delete this->chef;
-    delete this->map;
     delete this->customer;
     //delete this->dish;    //TODO: add the dishes
     delete this->counter;
@@ -286,7 +285,7 @@ void Game::collisionManagement() {
 }
 
 void Game::initMap() {
-    this->map = new Map();
+    map = std::make_shared<Map>();
     this->kitchen = this->map->getKitchen();
     this->washbasin = this->map->getWashbasin();
     this->counter = this->map->getKitchen()->getCounter();
@@ -314,8 +313,11 @@ void Game::generateCustomers() {
     && !map->getEntrance()->getIsCustomer() && level->getTotalCustomerNumber() > 0)
     {
         sf::Vector2f dist = map->getEntrance()->getWelcomeSquare().getPosition();
+        receiveState.reset();
         receiveState = std::make_shared<ReceiveState>(map);
+        std::cout << "crea nuovo receive state" << std::endl;
         waiter->setReceiveState(receiveState);
+        std::cout << "Assegna receive state" << std::endl;
         generateRandom();
         while(this->random > 0)
         {
@@ -438,9 +440,9 @@ void Game::initStates() {
 }
 
 void Game::updateReceivingCustomer() {
-    if(this->waiter->getState() == Actions::RECEIVING_CUSTOMERS)
+    if(waiter->getState() == Actions::RECEIVING_CUSTOMERS)
     {
-        this->receiveState->update(*this->waiter);
+        receiveState->update(waiter);
     }
 }
 
@@ -452,7 +454,7 @@ void Game::updateInteractions() {
 void Game::updateOrderState() {
     if(this->waiter->getState() == Actions::TAKING_ORDER)
     {
-        this->orderState->update(*this->waiter);
+        this->orderState->update(this->waiter);
     }
 }
 

@@ -7,7 +7,7 @@
 #include <utility>
 
 OrderState::OrderState(Table& t) {
-    initVariables(&t);
+    initVariables(t);
     current = Current::APPETIZER;
 }
 
@@ -19,28 +19,31 @@ std::shared_ptr<Order> OrderState::getOrder() {
     return this->order;
 }
 
-void OrderState::setOrder(std::shared_ptr<Order> o) {
-    this->order = std::move(o);
+void OrderState::setOrder(const std::shared_ptr<Order>& o) {
+    order.reset();
+    order = o;
 }
 
-Table *OrderState::getTable() {
-    return this->table;
+const std::shared_ptr<Table>& OrderState::getTable() {
+    return table;
 }
 
-void OrderState::setTable(Table *t) {
-    this->table = t;
+void OrderState::setTable(const std::shared_ptr<Table>& t) {
+    table.reset();
+    table = t;
 }
 
-void OrderState::setOrderVariables(Table* t) {
-    this->table = t;
-    this->order->initPointersToNull();
+void OrderState::setOrderVariables(const std::shared_ptr<Table>& t) {
+    table.reset();
+    table = t;
+    order->initPointersToNull();
 }
 
-void OrderState::handleInput(GameCharacter &gc, sf::Event ev) {
+void OrderState::handleInput(GameCharacter* gc, sf::Event ev) {
     takeOrder();
 }
 
-void OrderState::update(GameCharacter &gc) {
+void OrderState::update(GameCharacter* gc) {
 
 }
 
@@ -74,8 +77,9 @@ void OrderState::randomChoices() {
     }
 }
 
-void OrderState::initVariables(Table* t) {
-    table = t;
+void OrderState::initVariables(Table& t) {
+    table.reset();
+    table = std::make_shared<Table>(t);
     order = std::make_shared<Order>();
     order->setTableNumber(table->getTavNum());
     current = Current::DRINK;

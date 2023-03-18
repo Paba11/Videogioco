@@ -14,11 +14,11 @@
 
 class ReceiveState : public WaiterStates {
 public:
-    ReceiveState(Map* map);
+    ReceiveState(const std::shared_ptr<Map>& map);
     ~ReceiveState();
 
-    void handleInput(GameCharacter& gc, sf::Event ev) override;
-    void update(GameCharacter& gc) override;
+    void handleInput(GameCharacter* gc, sf::Event ev) override;
+    void update(GameCharacter* gc) override;
 
     //Methods to receive the customer
     Table* pickEmptyTable();
@@ -32,16 +32,16 @@ public:
     //Getters & Setters
     void setTable(Table* t);
     Table* getTable();
-    void setCustomer(Customer* c);
-    Customer* getCustomer();
+    void setCustomer(const std::shared_ptr<Customer>& c);
+    const std::shared_ptr<Customer>& getCustomer();
     void setCustomers(Customer& c);
     std::vector<Customer>& getCustomers();
 
 private:
     Textures* texture = new Textures();
-    Map* map;
+    std::shared_ptr<Map> map;
     Table* table;
-    Customer* customer;
+    std::shared_ptr<Customer> customer;
     std::vector<Customer> customers;
 
 };

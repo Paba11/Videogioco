@@ -13,8 +13,8 @@ public:
     WaiterStates();
     ~WaiterStates();
 
-    virtual void handleInput(GameCharacter& gc, sf::Event ev);
-    virtual void update(GameCharacter& gc);
+    virtual void handleInput(GameCharacter* gc, sf::Event ev) = 0;
+    virtual void update(GameCharacter* gc) = 0;
 };
 
 #endif //VIDEOGIOCO_WAITERSTATES_H

@@ -124,7 +124,7 @@ void Waiter::move() {
 */
 }
 
-void Waiter::interact(Map* map, sf::Event ev) {
+void Waiter::interact(const std::shared_ptr<Map>& map, sf::Event ev) {
     Table* t = map->distanceTable(this->sprite);
     map->distanceEntrance(this->sprite);
     map->distanceKitchen(this->sprite);
@@ -140,18 +140,18 @@ void Waiter::interact(Map* map, sf::Event ev) {
             this->state = Actions::RECEIVING_CUSTOMERS;
             this->sprite.setPosition(920,910);
             map->getEntrance()->setCustomerReceived(false);
-            this->receiveState->handleInput(*this, ev);
+            this->receiveState->handleInput(this, ev);
             std::cout << "Receiving customers" << std::endl;
         }
         else if(!this->order && map->getIsClose() == IS_CLOSE_TABLE && t->getIsReady())
         {
             this->state = Actions::TAKING_ORDER;
-            this->orderState->handleInput(*this, ev);
+            this->orderState->handleInput(this, ev);
             this->actionsState->setIsOrder(true);
         }
         else
         {
-            this->actionsState->handleInput(*this, ev);
+            this->actionsState->handleInput(this, ev);
             this->state = Actions::DOING_NOTHING;
         }
     }
@@ -268,22 +268,28 @@ std::shared_ptr<ReceiveState> Waiter::getReceiveState() {
     return this->receiveState;
 }
 
-void Waiter::initStates(std::shared_ptr<ActionsState> as, std::shared_ptr<ReceiveState> rs, std::shared_ptr<OrderState> os) {
-    this->actionsState = std::move(as);
-    this->orderState = std::move(os);
-    this->receiveState = std::move(rs);
+void Waiter::initStates(const std::shared_ptr<ActionsState>& as, const std::shared_ptr<ReceiveState>& rs, const std::shared_ptr<OrderState>& os) {
+    actionsState.reset();
+    actionsState = as;
+    orderState.reset();
+    orderState = os;
+    receiveState.reset();
+    receiveState = rs;
 }
 
-void Waiter::setActionState(std::shared_ptr<ActionsState> as) {
-    this->actionsState = std::move(as);
+void Waiter::setActionState(const std::shared_ptr<ActionsState>& as) {
+    actionsState.reset();
+    actionsState = as;
 }
 
-void Waiter::setOrderState(std::shared_ptr<OrderState> os) {
-    this->orderState = std::move(os);
+void Waiter::setOrderState(const std::shared_ptr<OrderState>& os) {
+    orderState.reset();
+    orderState = os;
 }
 
-void Waiter::setReceiveState(std::shared_ptr<ReceiveState> rs) {
-    this->receiveState = std::move(rs);
+void Waiter::setReceiveState(const std::shared_ptr<ReceiveState>& rs) {
+    receiveState.reset();
+    receiveState = rs;
 }
 
 void Waiter::checkReceiving() {

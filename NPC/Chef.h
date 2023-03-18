@@ -35,7 +35,7 @@ public:
     void setDishes(Dish& d);
     Dish* getDish();
     void setOrder();
-    Order* getOrder();
+    std::shared_ptr<Order> getOrder();
     void setKitchen(Kitchen* k);
     Kitchen* getKitchen();
 
@@ -48,7 +48,7 @@ private:
     Do state;
     Dish* dish;
     std::vector<Dish*> dishes;
-    Order* order;
+    std::shared_ptr<Order> order;
     Kitchen* kitchen;
     sf::Time time;
     sf::Clock clock;

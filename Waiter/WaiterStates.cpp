@@ -11,11 +11,3 @@ WaiterStates::WaiterStates() {
 WaiterStates::~WaiterStates() {
 
 }
-
-void WaiterStates::handleInput(GameCharacter &gc, sf::Event ev) {
-
-}
-
-void WaiterStates::update(GameCharacter &gc) {
-
-}

@@ -19,30 +19,30 @@
 class OrderState : public WaiterStates {
 public:
     //Constructor & Destructor
-    OrderState(Table& table);
+    explicit OrderState(Table& table);
     ~OrderState();
 
     //Handle the input
-    void handleInput(GameCharacter& gc, sf::Event ev) override;
-    void update(GameCharacter& gc) override;
+    void handleInput(GameCharacter* gc, sf::Event ev) override;
+    void update(GameCharacter* gc) override;
 
     //Actions of the order state
-    void setOrderVariables(Table* t);
+    void setOrderVariables(const std::shared_ptr<Table>& t);
     std::shared_ptr<Order> takeOrder();
     void randomChoices();
     void generateRandom(int max);
 
     //Getters & Setters
     std::shared_ptr<Order> getOrder();
-    void setOrder(std::shared_ptr<Order> o);
-    Table* getTable();
-    void setTable(Table* t);
+    void setOrder(const std::shared_ptr<Order>& o);
+    const std::shared_ptr<Table>& getTable();
+    void setTable(const std::shared_ptr<Table>& t);
 
 private:
-    void initVariables(Table* t);
+    void initVariables(Table& t);
 
     std::shared_ptr<Order> order;
-    Table* table;
+    std::shared_ptr<Table> table;
     Current current;
 
     std::random_device rd;

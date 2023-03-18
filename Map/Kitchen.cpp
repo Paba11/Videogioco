@@ -6,29 +6,28 @@
 
 
 Kitchen::Kitchen() {
-    this->state = DishState::EMPTY;
-    this->counter = new Counter();
+    state = DishState::EMPTY;
+    counter = std::make_unique<Counter>();
     initSprite();
 
 }
 
 Kitchen::~Kitchen() {
     Dish* d;
-    for(int i=0; !this->dishes.empty(); i++)
+    for(int i=0; !dishes.empty(); i++)
     {
-        d = this->dishes.front();
-        this->dishes.pop();
+        d = dishes.front();
+        dishes.pop();
         delete d;
     }
-    delete this->current;
 }
 
-void Kitchen::insertNewOrder(Order *o) {
-    this->newOrders.push(o);
+void Kitchen::insertNewOrder(const std::shared_ptr<Order>& o) {
+    newOrders.push(o);
 }
 
-Order* Kitchen::makeNewOrder() {
-    this->current = this->newOrders.front();
+std::shared_ptr<Order> Kitchen::makeNewOrder() {
+    current = newOrders.front();
     this->newOrders.pop();
     return this->current;
 }
@@ -90,18 +89,18 @@ std::queue<Dish *> &Kitchen::getDishes() {
     return this->dishes;
 }
 
-Order* Kitchen::getReadyOrder() {
-    this->current = nullptr;
-    if(!this->readyOrders.empty())
+std::shared_ptr<Order> Kitchen::getReadyOrder() {
+    current = nullptr;
+    if(!readyOrders.empty())
     {
-        this->current = this->readyOrders.front();
-        this->readyOrders.pop();
+        current = readyOrders.front();
+        readyOrders.pop();
     }
-    return this->current;
+    return current;
 }
 
-void Kitchen::setReadyOrder(Order *o) {
-    this->readyOrders.push(o);
+void Kitchen::setReadyOrder(std::shared_ptr<Order> o) {
+    readyOrders.push(o);
 }
 
 void Kitchen::getWaitingOrder(int tavNum) {
@@ -109,28 +108,28 @@ void Kitchen::getWaitingOrder(int tavNum) {
      * Insert the order that was waiting in the queue of the not ready tables inside the readyQueue
      */
     int i = 100;
-    std::queue<Order*> tmp;
-    while(i != tavNum && !this->waitingOrders.empty())
+    std::queue<std::shared_ptr<Order>> tmp;
+    while(i != tavNum && !waitingOrders.empty())
     {
-        i = this->waitingOrders.front()->getTableNumber();
-        tmp.push(this->waitingOrders.front());
-        this->waitingOrders.pop();
+        i = waitingOrders.front()->getTableNumber();
+        tmp.push(waitingOrders.front());
+        waitingOrders.pop();
     }
     if (i == tavNum)
     {
         while(tmp.size()!=1)
         {
-            this->waitingOrders.push(tmp.front());
+            waitingOrders.push(tmp.front());
             tmp.pop();
         }
-        this->readyOrders.push(tmp.front());
+        readyOrders.push(tmp.front());
         tmp.pop();
     }
     else
     {
         while(!tmp.empty())
         {
-            this->waitingOrders.push(tmp.front());
+            waitingOrders.push(tmp.front());
             tmp.pop();
         }
     }
@@ -141,10 +140,10 @@ void Kitchen::setWaitingOrder() {
     this->current = nullptr;
 }
 
-std::queue<Order *> &Kitchen::getReadyOrders() {
+std::queue<std::shared_ptr<Order>> &Kitchen::getReadyOrders() {
     return this->readyOrders;
 }
 
 Counter *Kitchen::getCounter() {
-    return this->counter;
+    return counter.get();
 }

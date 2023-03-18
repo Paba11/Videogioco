@@ -13,11 +13,11 @@
 
 class ActionsState final : public WaiterStates {
 public:
-    ActionsState(Map* map);
+    explicit ActionsState(std::shared_ptr<Map> map);
     ~ActionsState();
 
-    void handleInput(GameCharacter& waiter, sf::Event ev) override;
-    void update(GameCharacter& waiter) override;
+    void handleInput(GameCharacter* waiter, sf::Event ev) override;
+    void update(GameCharacter* waiter) override;
     void actionManagement();
 
     //Methods to interact
@@ -33,9 +33,9 @@ public:
     bool getIsOrder();
 
 private:
-    GameCharacter* waiter;
-    Map* map;
-    Order* order;
+    std::shared_ptr<GameCharacter> waiter;
+    std::shared_ptr<Map> map;
+    std::shared_ptr<Order> order;
     bool isOrder;
     sf::Event event;
 

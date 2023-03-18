@@ -4,20 +4,21 @@
 
 #include "ReceiveState.h"
 
-ReceiveState::ReceiveState(Map *m) {
-    this->map = m;
+ReceiveState::ReceiveState(const std::shared_ptr<Map>& m) {
+    map.reset();
+    map = m;
 }
 
 ReceiveState::~ReceiveState() {
 
 }
 
-void ReceiveState::handleInput(GameCharacter& gc, sf::Event ev) {
-    this->table = pickEmptyTable();
+void ReceiveState::handleInput(GameCharacter* gc, sf::Event ev) {
+    table = pickEmptyTable();
     update(gc);
 }
 
-void ReceiveState::update(GameCharacter& gc) {
+void ReceiveState::update(GameCharacter* gc) {
     move();
 }
 
@@ -26,24 +27,24 @@ Table* ReceiveState::pickEmptyTable() {
     std::vector<Table> t;
     bool notFound = true;
 
-    while(!this->map->getAllTables().empty() && notFound)
+    while(!map->getAllTables().empty() && notFound)
     {
-        t.push_back(this->map->getAllTables().back());
-        this->map->getAllTables().pop_back();
+        t.push_back(map->getAllTables().back());
+        map->getAllTables().pop_back();
         if(!t.back().getIsOccupied())
         {
             notFound = false;
-            this->table = &t.back();
-            this->table->setIsOccupied(true);
-            this->table->setChosenTable();
+            table = &t.back();
+            table->setIsOccupied(true);
+            table->setChosenTable();
             while(!t.empty())
             {
-                this->map->getAllTables().push_back(t.back());
+                map->getAllTables().push_back(t.back());
                 t.pop_back();
             }
         }
     }
-    return this->table;
+    return table;
 }
 
 
@@ -66,78 +67,79 @@ void ReceiveState::move() {
 }
 
 void ReceiveState::setTable(Table *t) {
-    this->table = t;
+    table = t;
 }
 
 Table *ReceiveState::getTable() {
-    return this->table;
+    return table;
 }
 
-void ReceiveState::setCustomer(Customer *c) {
-    this->customer = c;
+void ReceiveState::setCustomer(const std::shared_ptr<Customer>& c) {
+    customer.reset();
+    customer = c;
 }
 
-Customer *ReceiveState::getCustomer() {
-    return this->customer;
+const std::shared_ptr<Customer>& ReceiveState::getCustomer() {
+    return customer;
 }
 
 void ReceiveState::setCustomers(Customer& c) {
-    this->customers.push_back(c);
+    customers.push_back(c);
 }
 
 std::vector<Customer> &ReceiveState::getCustomers() {
-    return this->customers;
+    return customers;
 }
 
 void ReceiveState::setGeneratedCustomers(int numberCustomer, int textureNumber) {
     if(numberCustomer == 1) {
-        this->customers.back().sprite.setPosition(1550, 910);   //1000, 700
-        this->customers.back().setEndingPosition(sf::Vector2f{1256, 910}, Move::MOVING_LEFT);
+        customers.back().sprite.setPosition(1550, 910);   //1000, 700
+        customers.back().setEndingPosition(sf::Vector2f{1256, 910}, Move::MOVING_LEFT);
         for(int i = 0; i < 4 * INITIAL_MOVES; i++)
-            this->customers.back().setPath(Move::MOVING_LEFT);
+            customers.back().setPath(Move::MOVING_LEFT);
         std::cout << "4" << std::endl;
     }
     else if(numberCustomer == 2) {
-        this->customers.back().sprite.setPosition(1500, 910);   //1000, 800
-        this->customers.back().setEndingPosition(sf::Vector2f{1172, 910}, Move::MOVING_LEFT);
+        customers.back().sprite.setPosition(1500, 910);   //1000, 800
+        customers.back().setEndingPosition(sf::Vector2f{1172, 910}, Move::MOVING_LEFT);
         for(int i = 0; i < 3 * INITIAL_MOVES; i++)
-            this->customers.back().setPath(Move::MOVING_LEFT);
+            customers.back().setPath(Move::MOVING_LEFT);
         std::cout << "3" << std::endl;
 
     }
     else if(numberCustomer == 3) {
-        this->customers.back().sprite.setPosition(1450, 910);   //1100, 700
-        this->customers.back().setEndingPosition(sf::Vector2f{1088, 910}, Move::MOVING_LEFT);
+        customers.back().sprite.setPosition(1450, 910);   //1100, 700
+        customers.back().setEndingPosition(sf::Vector2f{1088, 910}, Move::MOVING_LEFT);
         for(int i = 0; i < 2 * INITIAL_MOVES; i++)
-            this->customers.back().setPath(Move::MOVING_LEFT);
+            customers.back().setPath(Move::MOVING_LEFT);
         std::cout << "2" << std::endl;
 
     }
     else if(numberCustomer == 4) {
-        this->customers.back().sprite.setPosition(1400, 910); //always generated
-        this->customers.back().setEndingPosition(sf::Vector2f{1004, 910}, Move::MOVING_LEFT);
+        customers.back().sprite.setPosition(1400, 910); //always generated
+        customers.back().setEndingPosition(sf::Vector2f{1004, 910}, Move::MOVING_LEFT);
         for(int i = 0; i < INITIAL_MOVES; i++)
-            this->customers.back().setPath(Move::MOVING_LEFT);
+            customers.back().setPath(Move::MOVING_LEFT);
         std::cout << "1" << std::endl;
 
     }
     if(textureNumber-1 % 4 == 0)
-        this->customers.back().sprite.setTexture(*this->texture->getTexture("Customer1"));
+        customers.back().sprite.setTexture(*texture->getTexture("Customer1"));
     if(textureNumber-1 % 4 == 1)
-        this->customers.back().sprite.setTexture(*this->texture->getTexture("Customer2"));
+        customers.back().sprite.setTexture(*texture->getTexture("Customer2"));
     if(textureNumber-1 % 4 == 2)
-        this->customers.back().sprite.setTexture(*this->texture->getTexture("Customer3"));
+        customers.back().sprite.setTexture(*texture->getTexture("Customer3"));
     if(textureNumber-1 % 4 == 3)
-        this->customers.back().sprite.setTexture(*this->texture->getTexture("Customer4"));
+        customers.back().sprite.setTexture(*texture->getTexture("Customer4"));
 
 
-    this->customers.back().initSprite();
+    customers.back().initSprite();
     std::cout << "set customer" << std::endl;
 
 }
 
 void ReceiveState::addToPath(Move dir) {
-    for(auto & it: this->customers)
+    for(auto & it: customers)
     {
         it.setPath(dir);
     }
@@ -145,9 +147,9 @@ void ReceiveState::addToPath(Move dir) {
 
 void ReceiveState::moveToTable() {
     int i = 0;
-    for(auto & it: this->customers)
+    for(auto & it: customers)
     {
-        it.setEndingPosition(this->table->getStoolTable()[i].sprite.getPosition());
+        it.setEndingPosition(table->getStoolTable()[i].sprite.getPosition());
         i++;
     }
 }

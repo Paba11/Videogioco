@@ -12,7 +12,6 @@ Chef::Chef() {
 
 Chef::~Chef() {
     delete this->dish;
-    delete this->order;
 }
 
 
@@ -64,58 +63,58 @@ void Chef::cook() {
 }
 
 void Chef::setOrder() {
-    this->order = this->kitchen->getReadyOrder();
+    order = this->kitchen->getReadyOrder();
 }
 
-Order *Chef::getOrder() {
-    Order* o = this->order;
-    this->order = nullptr;
+std::shared_ptr<Order> Chef::getOrder() {
+    std::shared_ptr<Order> o = std::move(order);
+    order = nullptr;
     return o;
 }
 
 void Chef::checkOrder() {
-    if(!this->kitchen->getReadyOrders().empty())
+    if(!kitchen->getReadyOrders().empty())
     {
         setOrder();
-        this->state = COOK;
+        state = COOK;
         setAnimation();
-        this->clock.restart();
+        clock.restart();
     }
 }
 
 void Chef::update() {
 
-    if(!this->order && this->state == WAIT)
+    if(!order && state == WAIT)
     {
         checkOrder();
     }
-    if(this->state == COOK)
+    if(state == COOK)
     {
         cook();
     }
-    this->setAnimation();
-    this->updateAnimations();
+    setAnimation();
+    updateAnimations();
 }
 
 void Chef::updateAnimations() {
 
-    if(this->animationTimer.getElapsedTime().asSeconds() >= 0.4f) {
+    if(animationTimer.getElapsedTime().asSeconds() >= 0.4f) {
         //Idle animation
 
-        this->currentFrame.left += 40.f;
-        if (this->currentFrame.left >= 120)
-            this->currentFrame.left = 0;
+        currentFrame.left += 40.f;
+        if (currentFrame.left >= 120)
+            currentFrame.left = 0;
 
-        this->animationTimer.restart();
-        this->sprite.setTextureRect(this->currentFrame);
+        animationTimer.restart();
+        sprite.setTextureRect(currentFrame);
     }
 }
 
 void Chef::setKitchen(Kitchen *k) {
-    this->kitchen = k;
+    kitchen = k;
 }
 
 Kitchen *Chef::getKitchen() {
-    return this->kitchen;
+    return kitchen;
 }
 

@@ -4,7 +4,8 @@
 
 #include "ActionState.h"
 
-ActionsState::ActionsState(Map* m) {
+ActionsState::ActionsState(std::shared_ptr<Map> m) {
+    map.reset();
     map = m;
     waiter = nullptr;
     tray = std::make_unique<Tray>();
@@ -15,13 +16,14 @@ ActionsState::~ActionsState() {
 
 }
 
-void ActionsState::handleInput(GameCharacter &w, sf::Event ev) {
-    waiter = &w;
+void ActionsState::handleInput(GameCharacter* w, sf::Event ev) {
+    if(waiter == nullptr)
+        waiter.reset(w);
     event = ev;
     actionManagement();
 }
 
-void ActionsState::update(GameCharacter &w) {
+void ActionsState::update(GameCharacter* w) {
 
 }
 
