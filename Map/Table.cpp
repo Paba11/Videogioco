@@ -33,13 +33,26 @@ void Table::update() {
             case TableState::WAITING_TO_ORDER:
                 break;
         }
+
+        if(customers.size() > 0){
+
+            for(auto i : customers)
+                i.update();
+        }
+
+
     }
 }
 
 void Table::render(sf::RenderTarget &target) {
     target.draw(sprite);
+
     if(chosenTable)
         target.draw(interactionSquare);
+    if(customers.size() > 0){
+        for(int i = customers.size() -1 ; i >= 0; i--)
+            target.draw(customers[i].sprite);
+    }
 }
 
 void Table::initSprite() {
@@ -148,6 +161,15 @@ void Table::setCustomers(std::vector<Customer>& cust) {
     customers.reserve(cust.size());
     std::move(cust.begin(), cust.end(), std::back_inserter(this->customers));
     cust.clear();
+    int i =  0;
+    for(auto &it : customers){
+        if( i % 2 == 0)
+            it.movingStatus = Move::MOVING_RIGHT;
+        else if(i % 2 == 1)
+            it.movingStatus = Move::MOVING_LEFT;
+
+        i++;
+    }
 }
 
 std::vector<Customer> &Table::getCustomers() {
@@ -199,9 +221,8 @@ void Table::setTable() {
 
 }
 
-void Table::setChosenTable() {
-
-    this->chosenTable = true;
+void Table::setChosenTable(bool t) {
+    this->chosenTable = t;
 
 }
 

@@ -136,9 +136,10 @@ void Game::renderMap() {
     map->getEntrance()->render(*this->window);
     map->render(*this->window);
     for(int i=0;i<numTables;i++) {
-        map->getAllTables()[i].render(*this->window);
         for(int j=0; j<4;j++)
             window->draw(map->getAllTables()[i].getStoolTable()[j].sprite);
+
+        map->getAllTables()[i].render(*this->window);
     }
 }
 

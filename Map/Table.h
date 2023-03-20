@@ -58,7 +58,7 @@ public:
     bool getIsOccupied();
     void setIsReady(bool t);
     bool getIsReady();
-    void setChosenTable();
+    void setChosenTable(bool t);
     bool getChosenTable();
     sf::RectangleShape getInteractionSquare();
 

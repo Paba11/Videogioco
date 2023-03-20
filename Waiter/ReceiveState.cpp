@@ -43,7 +43,7 @@ Table* ReceiveState::pickEmptyTable() {
             notFound = false;
             table = &it;
             table->setIsOccupied(true);
-            table->setChosenTable();
+            table->setChosenTable(true);
         }
     }
     return table;
@@ -174,6 +174,7 @@ void ReceiveState::moveToTable() {
             table->setCustomers(customers);
             isSit = true;
             map->getEntrance()->setIsCustomer(false);
+
         }
     }
 }
@@ -238,6 +239,7 @@ bool ReceiveState::checkPos() {
 void ReceiveState::setAtTable() {
     isAtTable = true;
     table->setIsOccupied(true);
+    table->setChosenTable(false);
 }
 
 bool ReceiveState::getIsSit() {
