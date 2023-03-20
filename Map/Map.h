@@ -29,8 +29,8 @@ public:
     //Getters & Setters
     Table& getTable(int i);
     std::vector<Table>& getAllTables();
-    Kitchen* getKitchen() const;
-    Washbasin* getWashbasin() const;
+    const std::shared_ptr<Kitchen>& getKitchen();
+    const std::shared_ptr<Washbasin>& getWashbasin();
     Entrance* getEntrance() const;
     Table& selectFreeTable();
     //void setTables(std::vector<Table> allTable);
@@ -45,8 +45,8 @@ public:
     //Methods to calculate the distance with objects
     void calculatePosition(sf::Sprite& gc);
     Table* distanceTable(sf::Sprite& gc);
-    Kitchen* distanceKitchen(sf::Sprite& gc);
-    Washbasin* distanceWashbasin(sf::Sprite& gc);   //fixme set the right sprite's origin
+    const std::shared_ptr<Kitchen>& distanceKitchen(sf::Sprite& gc);
+    const std::shared_ptr<Washbasin>& distanceWashbasin(sf::Sprite& gc);   //fixme set the right sprite's origin
     Entrance* distanceEntrance(sf::Sprite& gc);
     sf::RectangleShape* distanceDirtyDishes(sf::Sprite& gc);
     std::vector<sf::RectangleShape> distanceChefDishes(sf::Sprite &gc);
@@ -66,8 +66,8 @@ private:
     std::vector<Table> allTables;
     std::queue<Table> occupiedTables;
     Table* table;
-    Washbasin* washbasin;
-    Kitchen* kitchen;
+    std::shared_ptr<Washbasin> washbasin;
+    std::shared_ptr<Kitchen> kitchen;
     Entrance* entranceObj;
     Counter* counter;
     Textures* texture = new Textures;

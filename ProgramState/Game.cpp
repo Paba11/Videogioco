@@ -23,22 +23,7 @@ Game::Game(sf::RenderWindow* window, std::stack <ProgramState*>* states, int wai
 }
 
 Game::~Game() {
-    delete this->waiter;
-    delete this->chef;
-    delete this->customer;
-    //delete this->dish;    //TODO: add the dishes
-    delete this->counter;
-    delete this->dishWasher;
 
-    //FIXME check all pointer
-
-    /*
-    //Delete Textures
-    for(auto &i : this->textures)
-    {
-        delete i.second;
-    }
-     */
 }
 
 void Game::update() {
@@ -48,12 +33,12 @@ void Game::update() {
     updateCustomers();
     updateTables();
     updateInteractions();
-    this->map->getEntrance()->updateBox();
+    map->getEntrance()->updateBox();
     updateTable();
-    this->waiter->update();
-    this->dishWasher->update();
-    this->chef->update();
-    this->checkQuit();
+    waiter->update();
+    dishWasher->update();
+    chef->update();
+    checkQuit();
 
     //this->updateMousePos();
 }
@@ -67,24 +52,24 @@ void Game::render(sf::RenderTarget* target) {
     //Draw Game
     renderMap();
 
-    this->map->getEntrance()->renderBarrier(*this->window,1);
-    this->chef->render(*this->window);
-    this->dishWasher->render(*this->window);
+    map->getEntrance()->renderBarrier(*this->window,1);
+    chef->render(*this->window);
+    dishWasher->render(*this->window);
     if(this->map->getEntrance()->getIsCustomer()) {
         for (auto & it : this->receiveState->getCustomers())
         {
             this->window->draw(it.sprite);
         }
     }
-    this->map->getEntrance()->renderBarrier(*this->window,2);    //this->dishWasher->render(*this->window);
-    this->waiter->render(*this->window);
+    map->getEntrance()->renderBarrier(*this->window,2);    //this->dishWasher->render(*this->window);
+    waiter->render(*this->window);
     this->window->display();
 }
 
 void Game::initVariables() {
 
-    this->maxNumberCustomers = this->level->getTotalCustomerNumber();
-    this->bottomBar = new BottomBar();
+    maxNumberCustomers = level->getTotalCustomerNumber();
+    bottomBar = std::make_shared<BottomBar>();
     //initWaiter();
     //initChef();
 
@@ -106,13 +91,13 @@ void Game::pollEvents() {
                 this->quit = true;
                 break;
             case sf::Event::KeyPressed:
-                if (this->ev.key.code == sf::Keyboard::Escape)
+                if (ev.key.code == sf::Keyboard::Escape)
                     this->quit = true;
-                else if (this->ev.key.code == sf::Keyboard::J || this->ev.key.code == sf::Keyboard::K
-                    || this->ev.key.code == sf::Keyboard::L)
+                else if (ev.key.code == sf::Keyboard::J || ev.key.code == sf::Keyboard::K
+                    || ev.key.code == sf::Keyboard::L)
                 {
                     //std::cout<< "PollEvent" << std::endl;
-                    this->waiter->interact(this->map, this->ev);
+                    waiter->interact(map, ev);
                 }
                 break;
         }
@@ -123,12 +108,12 @@ void Game::updateMousePos() {
     /*
      * Set the variable mousePos to the pixel in which the mouse is pointing (respect to the game window)
      */
-    this->mousePos = sf::Mouse::getPosition(*this->window);
+    mousePos = sf::Mouse::getPosition(*this->window);
 }
 
 void Game::initWaiter() {
-    this->waiter = new Waiter();
-    setWaiterTexture(this->waiterTexture);
+    waiter = std::make_shared<Waiter>();
+    setWaiterTexture(waiterTexture);
 }
 
 
@@ -137,23 +122,23 @@ void Game::initBackground() {
      * Initialize the map texture and connect it to a sprite
      */
 
-    this->background.setTexture(*this->textures->getTexture("RestaurantMap"));
-    this->background.setScale(2.f,2.f);
+    background.setTexture(*this->textures->getTexture("RestaurantMap"));
+    background.setScale(2.f,2.f);
 
 }
 
 void Game::renderMap() {
-    this->window->draw(this->background);
-    this->kitchen->render(*this->window);
-    this->counter->render(*this->window);
-    this->washbasin->render(*this->window);
-    this->bottomBar->render(*this->window);
-    this->map->getEntrance()->render(*this->window);
-    this->map->render(*this->window);
+    window->draw(this->background);
+    kitchen->render(*this->window);
+    counter->render(*this->window);
+    washbasin->render(*this->window);
+    bottomBar->render(*this->window);
+    map->getEntrance()->render(*this->window);
+    map->render(*this->window);
     for(int i=0;i<numTables;i++) {
-        this->map->getAllTables()[i].render(*this->window);
+        map->getAllTables()[i].render(*this->window);
         for(int j=0; j<4;j++)
-            this->window->draw(this->map->getAllTables()[i].getStoolTable()[j].sprite);
+            window->draw(map->getAllTables()[i].getStoolTable()[j].sprite);
     }
 }
 
@@ -163,7 +148,7 @@ void Game::updateCollision() {
      */
     windowsCollision();
     collision();
-    if(this->waiter->getIsReceived())
+    if(waiter->getIsReceived())
     {
         customerCollision();
     }
@@ -181,7 +166,7 @@ void Game::initTables() {
           t.getStoolTable()[j].sprite.setTexture(*this->textures->getTexture("Stool"));
      // s.sprite.setTexture(*this->texture->getTexture("Stool"));
      // t.stoolTable.push_back(s);
-      this->map->getAllTables().push_back(t);
+      map->getAllTables().push_back(t);
   }
 
 
@@ -189,50 +174,50 @@ void Game::initTables() {
 
 void Game::initPosTables() {
 
-    this->map->getAllTables()[0].sprite.setPosition(140,334);    //60 64
-    this->map->getAllTables()[0].posStool(80,270); //80 270
-    this->map->getAllTables()[1].sprite.setPosition(140,604);
-    this->map->getAllTables()[1].posStool(85,540);
-    this->map->getAllTables()[2].sprite.setPosition(140,874);
-    this->map->getAllTables()[2].posStool(85,810);
-    this->map->getAllTables()[3].sprite.setPosition(550,334);
-    this->map->getAllTables()[3].posStool(490,270);
-    this->map->getAllTables()[4].sprite.setPosition(550,604);
-    this->map->getAllTables()[4].posStool(490,540);
-    this->map->getAllTables()[5].sprite.setPosition(550,874);
-    this->map->getAllTables()[5].posStool(490,810);
+    map->getAllTables()[0].sprite.setPosition(140,334);    //60 64
+    map->getAllTables()[0].posStool(80,270); //80 270
+    map->getAllTables()[1].sprite.setPosition(140,604);
+    map->getAllTables()[1].posStool(85,540);
+    map->getAllTables()[2].sprite.setPosition(140,874);
+    map->getAllTables()[2].posStool(85,810);
+    map->getAllTables()[3].sprite.setPosition(550,334);
+    map->getAllTables()[3].posStool(490,270);
+    map->getAllTables()[4].sprite.setPosition(550,604);
+    map->getAllTables()[4].posStool(490,540);
+    map->getAllTables()[5].sprite.setPosition(550,874);
+    map->getAllTables()[5].posStool(490,810);
     for(int i=0; i<numTables; i++) {
-        this->map->getAllTables()[i].setTable();
-        this->map->getAllTables()[i].sprite.setScale(2, 2);
+        map->getAllTables()[i].setTable();
+        map->getAllTables()[i].sprite.setScale(2, 2);
     }
 }
 
 void Game::windowsCollision() {
 
     //Left side of the map collision
-    if(this->waiter->getBounds().left < 0.f)
+    if(waiter->getBounds().left < 0.f)
     {
-        this->waiter->setPositionW(0.f, this->waiter->getPosition().y);
+        waiter->setPositionW(0.f, waiter->getPosition().y);
     }
 
     //Upper side of the map collision
-    if(this->waiter->getBounds().top < 85.f)
+    if(waiter->getBounds().top < 85.f)
     {
-        this->waiter->setPositionW(this->waiter->getPosition().x, 85.f);
+        waiter->setPositionW(waiter->getPosition().x, 85.f);
     }
 
     //Right side of the map collision
-    if(this->waiter->getBounds().left + this->waiter->getBounds().width >= this->window->getSize().x)
+    if(waiter->getBounds().left + waiter->getBounds().width >= window->getSize().x)
     {
-        this->waiter->setPositionW(this->window->getSize().x - this->waiter->getBounds().width,
-                                   this->waiter->getPosition().y);
+        waiter->setPositionW(window->getSize().x - waiter->getBounds().width,
+                                   waiter->getPosition().y);
     }
 
     //Bottom side of the map collision
-    if(this->waiter->getBounds().top + this->waiter->getBounds().height >= this->window->getSize().y)
+    if(waiter->getBounds().top + waiter->getBounds().height >= window->getSize().y)
     {
-        this->waiter->setPositionW(this->waiter->getPosition().x,
-                                   this->window->getSize().y - this->waiter->getBounds().height);
+        waiter->setPositionW(waiter->getPosition().x,
+                                   window->getSize().y - waiter->getBounds().height);
     }
 
 }
@@ -240,21 +225,21 @@ void Game::windowsCollision() {
 void Game::collision() {
 
     for(int i=0; i < numTables; i++){
-        if(this->waiter->getGlobalHitbox().intersects(this->map->getAllTables()[i].sprite.getGlobalBounds()))
+        if(waiter->getGlobalHitbox().intersects(map->getAllTables()[i].sprite.getGlobalBounds()))
            collisionManagement();
         for(int j=0; j < 4; j++){
-            if(this->waiter->getGlobalHitbox().intersects(this->map->getAllTables()[i].getStoolTable()[j].sprite.getGlobalBounds()))
+            if(waiter->getGlobalHitbox().intersects(map->getAllTables()[i].getStoolTable()[j].sprite.getGlobalBounds()))
                 collisionManagement();
         }
 
     }
-    if(this->waiter->getGlobalHitbox().intersects(this->counter->getBounds()))
+    if(waiter->getGlobalHitbox().intersects(counter->getBounds()))
         collisionManagement();
     for(int i=0; i< map->numTrees; i++){
-        if(this->waiter->getGlobalHitbox().intersects(this->map->trees[i].getGlobalBounds()))
+        if(waiter->getGlobalHitbox().intersects(map->trees[i].getGlobalBounds()))
             collisionManagement();
     }
-    if(this->waiter->getPosition().y < 230)
+    if(waiter->getPosition().y < 230)
         collisionManagement();
 
 
@@ -263,33 +248,36 @@ void Game::collision() {
 void Game::collisionManagement() {
 
     sf::Vector2f prePosition;
-    prePosition = this->waiter->getPosition();
-    if (this->waiter->getMove() == Move::MOVING_DOWN) {
-        this->waiter->validMovement["Down"] = false;
+    prePosition = waiter->getPosition();
+    if (waiter->getMove() == Move::MOVING_DOWN) {
+        waiter->validMovement["Down"] = false;
         prePosition.y--;
     }
-    else if (this->waiter->getMove() == Move::MOVING_UP) {
-        this->waiter->validMovement["Up"] = false;
+    else if (waiter->getMove() == Move::MOVING_UP) {
+        waiter->validMovement["Up"] = false;
         prePosition.y++;
     }
-    else if (this->waiter->getMove() == Move::MOVING_LEFT){
-        this->waiter->validMovement["Left"] = false;
+    else if (waiter->getMove() == Move::MOVING_LEFT){
+        waiter->validMovement["Left"] = false;
         prePosition.x++;
     }
 
-    else if(this->waiter->getMove() == Move::MOVING_RIGHT) {
-        this->waiter->validMovement["Right"] = false;
+    else if(waiter->getMove() == Move::MOVING_RIGHT) {
+        waiter->validMovement["Right"] = false;
         prePosition.x--;
     }
-    this->waiter->setPositionW(prePosition);
+    waiter->setPositionW(prePosition);
 
 }
 
 void Game::initMap() {
     map = std::make_shared<Map>();
-    this->kitchen = this->map->getKitchen();
-    this->washbasin = this->map->getWashbasin();
-    this->counter = this->map->getKitchen()->getCounter();
+    kitchen.reset();
+    kitchen = map->getKitchen();
+    washbasin.reset();                      //fixme controllare
+    washbasin = map->getWashbasin();
+    counter.reset();
+    counter = map->getKitchen()->getCounter();
 }
 
 void Game::endState() {
@@ -298,14 +286,14 @@ void Game::endState() {
 }
 
 void Game::initDishWasher() {
-    this->dishWasher = new DishWasher();
-    this->dishWasher->setWashbasin(*this->map->getWashbasin());
+    dishWasher = std::make_shared<DishWasher>();
+    dishWasher->setWashbasin(map->getWashbasin());
 }
 
 void Game::initChef() {
 
-    this->chef = new Chef();
-    this->chef->setKitchen(this->kitchen);
+    chef = std::make_shared<Chef>();
+    chef->setKitchen(kitchen);
 
 }
 
@@ -320,48 +308,48 @@ void Game::generateCustomers() {
         waiter->setReceiveState(receiveState);
         std::cout << "Assegna receive state" << std::endl;
         generateRandom();
-        while(this->random > 0)
+        while(random > 0)
         {
             std::cout << "Generating a customer" << std::endl;
-            this->customer = new Customer(dist);
-            this->receiveState->getCustomers().push_back(*this->customer);
-            this->group.push_back(this->customer); //Puntatore ai customers
-            this->level->reduceTotalCustomerNumber();
-            this->receiveState->setGeneratedCustomers(random, this->maxNumberCustomers - this->level->getTotalCustomerNumber());
-            this->random--;
+            customer = std::make_shared<Customer>(dist);
+            receiveState->getCustomers().push_back(*this->customer);
+            group.push_back(customer); //Puntatore ai customers
+            level->reduceTotalCustomerNumber();
+            receiveState->setGeneratedCustomers(random, this->maxNumberCustomers - this->level->getTotalCustomerNumber());
+            random--;
         }
-        std::cout << "Total customers left: " << this->level->getTotalCustomerNumber() << std::endl;
-        this->map->getEntrance()->setIsCustomer(true);
-        this->map->getEntrance()->setCustomerReceived(true);
+        std::cout << "Total customers left: " << level->getTotalCustomerNumber() << std::endl;
+        map->getEntrance()->setIsCustomer(true);
+        map->getEntrance()->setCustomerReceived(true);
         //this->receivingCustomers->enterTheRestaurant();
-        this->clock.restart();
+        clock.restart();
     }
 }
 
 void Game::generateRandom() {
-    std::mt19937 gen(this->rd());
+    std::mt19937 gen(rd());
     std::uniform_int_distribution<> distrib(1, 4);
-    this->random = distrib(gen);
+    random = distrib(gen);
 }
 
 void Game::initLevel() {
-    this->level = new Level();
-    this->clock.restart();
+    level = new Level();
+    clock.restart();
 }
 
 void Game::nextLevel() {
-    this->level->setIsPassed(false);
-    Lvl current = this->level->getLevel();
+    level->setIsPassed(false);
+    Lvl current = level->getLevel();
     switch(current)
     {
         case FIRST:
-            this->level->setLevel(SECOND);
+            level->setLevel(SECOND);
         case SECOND:
-            this->level->setLevel(THIRD);
+            level->setLevel(THIRD);
         case THIRD:
-            this->level->setLevel(GAME_END);
+            level->setLevel(GAME_END);
     }
-    this->clock.restart();
+    clock.restart();
 }
 
 void Game::updateLevel() {
@@ -371,21 +359,21 @@ void Game::updateLevel() {
 }
 
 void Game::customerCollision() {
-    for(auto & i : this->group)
+    for(auto & i : group)
     {
         for(int x = 0; x < numTables; x++){
-            if(i->getGlobalHitbox().intersects(this->map->getAllTables()[x].sprite.getGlobalBounds()))
+            if(i->getGlobalHitbox().intersects(map->getAllTables()[x].sprite.getGlobalBounds()))
                 customerCollisionManagement();
             for(int j=0; j < 4; j++){
-                if(this->waiter->getGlobalHitbox().intersects(this->map->getAllTables()[x].getStoolTable()[j].sprite.getGlobalBounds()))
+                if(waiter->getGlobalHitbox().intersects(map->getAllTables()[x].getStoolTable()[j].sprite.getGlobalBounds()))
                     customerCollisionManagement();
             }
 
         }
-        if(i->getGlobalHitbox().intersects(this->counter->getBounds()))
+        if(i->getGlobalHitbox().intersects(counter->getBounds()))
             customerCollisionManagement();
         for(int x = 0; x < map->numTrees; x++){
-            if(i->getGlobalHitbox().intersects(this->map->trees[x].getGlobalBounds()))
+            if(i->getGlobalHitbox().intersects(map->trees[x].getGlobalBounds()))
                 customerCollisionManagement();
         }
     }
@@ -420,7 +408,7 @@ std::shared_ptr<ReceiveState> Game::getReceiveState() {
 
 
 void Game::updateCustomers() {
-    for (auto & it : this->receiveState->getCustomers())
+    for (auto & it : receiveState->getCustomers())
     {
         it.update();
     }
@@ -428,9 +416,9 @@ void Game::updateCustomers() {
 
 void Game::setWaiterTexture(int waiterTexture) {
     if(waiterTexture == 0)
-        this->waiter->initTexture(this->textures->getTexture("Waiter"));
+        waiter->initTexture(textures->getTexture("Waiter"));
     else
-        this->waiter->initTexture(this->textures->getTexture("Waiter_Female_1"));
+        waiter->initTexture(textures->getTexture("Waiter_Female_1"));
 }
 
 void Game::initStates() {
@@ -443,7 +431,7 @@ void Game::initStates() {
 void Game::updateReceivingCustomer() {
     if(waiter->getState() == Actions::RECEIVING_CUSTOMERS)
     {
-        receiveState->update(waiter);
+        receiveState->update(waiter.get());
     }
 }
 
@@ -453,20 +441,20 @@ void Game::updateInteractions() {
 }
 
 void Game::updateOrderState() {
-    if(this->waiter->getState() == Actions::TAKING_ORDER)
+    if(waiter->getState() == Actions::TAKING_ORDER)
     {
-        this->orderState->update(this->waiter);
+        orderState->update(waiter.get());
     }
 }
 
 void Game::updateTables() {
-    for(auto & it : this->map->getAllTables())
+    for(auto & it : map->getAllTables())
     {
         it.update();
         if(it.getState() == TableState::WAITING_TO_ORDER && !it.getIsReady())
         {
-            this->orderState = std::make_shared<OrderState>(it);
-            this->waiter->setOrderState(this->orderState);
+            orderState = std::make_shared<OrderState>(it);
+            waiter->setOrderState(orderState);
             it.setIsReady(true);
         }
     }

@@ -19,8 +19,8 @@ Entrance::~Entrance() {
 
 void Entrance::initSprite() {
 
-    this->barrier1.setTexture(*this->texture->getTexture("Barrier"));
-    this->barrier2.setTexture(*this->texture->getTexture("Barrier"));
+    barrier1.setTexture(*this->texture->getTexture("Barrier"));
+    barrier2.setTexture(*this->texture->getTexture("Barrier"));
     barrier1.setPosition(1200.f,860.f);
     barrier1.setScale(0.1f,0.1f);
     barrier2.setPosition(1200.f,940.f);
@@ -57,9 +57,9 @@ bool Entrance::getIsCustomer() {
 void Entrance::renderBarrier(sf::RenderTarget &target, int barrierNumber) {
 
     if(barrierNumber == 1)
-        target.draw(this->barrier1);
+        target.draw(barrier1);
     else
-        target.draw(this->barrier2);
+        target.draw(barrier2);
 }
 
 void Entrance::render(sf::RenderTarget &target) {
@@ -70,16 +70,16 @@ void Entrance::render(sf::RenderTarget &target) {
 void Entrance::updateBox() {
 
     if(customerReceived) {
-        this->welcomeSquare.setFillColor(this->boxOpacity);
+        welcomeSquare.setFillColor(this->boxOpacity);
 
-        if(this->boxOpacity.a == 255)
+        if(boxOpacity.a == 255)
             cicle = false;
-        if(this->boxOpacity.a == 0)
+        if(boxOpacity.a == 0)
             cicle = true;
         if(cicle)
-            this->boxOpacity.a += 5;
+            boxOpacity.a += 5;
         else
-            this->boxOpacity.a-= 5;
+            boxOpacity.a-= 5;
 
 
     }

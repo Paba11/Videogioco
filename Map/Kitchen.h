@@ -58,7 +58,7 @@ public:
     DishState getState();
     const sf::Sprite getSprite();
     const sf::FloatRect getBounds() const;
-    Counter* getCounter();
+    std::shared_ptr<Counter> getCounter() const;
 
 
 private:
@@ -77,7 +77,7 @@ private:
     bool isEmptyPlates;
     DishState state;
     Recipe recipe;
-    std::unique_ptr<Counter> counter;
+    std::shared_ptr<Counter> counter;
 };
 
 

@@ -110,11 +110,12 @@ void Chef::updateAnimations() {
     }
 }
 
-void Chef::setKitchen(Kitchen *k) {
+void Chef::setKitchen(std::shared_ptr<Kitchen> k) {
+    kitchen.reset();
     kitchen = k;
 }
 
-Kitchen *Chef::getKitchen() {
+const std::shared_ptr<Kitchen> Chef::getKitchen() {
     return kitchen;
 }
 

@@ -36,8 +36,8 @@ public:
     Dish* getDish();
     void setOrder();
     std::shared_ptr<Order> getOrder();
-    void setKitchen(Kitchen* k);
-    Kitchen* getKitchen();
+    void setKitchen(std::shared_ptr<Kitchen> k);
+    const std::shared_ptr<Kitchen> getKitchen();
 
 private:
     //Methods' override to init the texture and the sprite
@@ -49,7 +49,7 @@ private:
     Dish* dish;
     std::vector<Dish*> dishes;
     std::shared_ptr<Order> order;
-    Kitchen* kitchen;
+    std::shared_ptr<Kitchen> kitchen;
     sf::Time time;
     sf::Clock clock;
 

@@ -7,7 +7,7 @@
 
 Kitchen::Kitchen() {
     state = DishState::EMPTY;
-    counter = std::make_unique<Counter>();
+    counter = std::make_shared<Counter>();
     initSprite();
 
 }
@@ -34,9 +34,9 @@ std::shared_ptr<Order> Kitchen::makeNewOrder() {
 
 void Kitchen::initSprite() {
 
-    this->sprite.setTexture(*this->texture->getTexture("Kitchen"));
-    this->sprite.setPosition(1200,420);
-    this->sprite.setScale(3.f,3.f);
+    sprite.setTexture(*this->texture->getTexture("Kitchen"));
+    sprite.setPosition(1200,420);
+    sprite.setScale(3.f,3.f);
 }
 
 bool Kitchen::getIsEmptyPlates() {
@@ -144,6 +144,6 @@ std::queue<std::shared_ptr<Order>> &Kitchen::getReadyOrders() {
     return this->readyOrders;
 }
 
-Counter *Kitchen::getCounter() {
-    return counter.get();
+std::shared_ptr<Counter> Kitchen::getCounter() const{
+    return counter;
 }

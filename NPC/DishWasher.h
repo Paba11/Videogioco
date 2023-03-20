@@ -25,8 +25,8 @@ public:
     void move();
 
     //Getters & Setters
-    void setWashbasin(Washbasin& washbasin);
-    Washbasin* getWashbasin();
+    void setWashbasin(const std::shared_ptr<Washbasin>& w);
+    std::shared_ptr<Washbasin> getWashbasin();
 
 private:
     //Methods' override to init the texture and the sprite
@@ -36,7 +36,7 @@ private:
 
     sf::Time time;
     sf::Clock clock;
-    Washbasin* washbasin;
+    std::shared_ptr<Washbasin> washbasin;
     float timer;
     bool isWashing;
     int numPlates;
