@@ -18,18 +18,18 @@ Counter::~Counter() {
 
 void Counter::initSprite() {
 
-    this->sprite.setTexture(*this->texture->getTexture("Counter"));
-    this->sprite.setPosition(1020,170);
-    this->sprite.setScale(3.f,3.f);
+    sprite.setTexture(*this->texture->getTexture("Counter"));
+    sprite.setPosition(1020,170);
+    sprite.setScale(3.f,3.f);
 
 }
 
 void Counter::render(sf::RenderTarget& target) {
-    target.draw(this->sprite);
-    target.draw(this->placeForDirtyDishes);
+    target.draw(sprite);
+    target.draw(placeForDirtyDishes);
 
     for(int i = 0; i < 4; i++)
-        target.draw(this->chefDishes[i]);
+        target.draw(chefDishes[i]);
 }
 
 const sf::FloatRect Counter::getBounds() const {
@@ -38,12 +38,12 @@ const sf::FloatRect Counter::getBounds() const {
 
 void Counter::setDirtyDishes() {
 
-    this->placeForDirtyDishes.setSize(this->dishHitbox);
-    this->placeForDirtyDishes.setOrigin(42.5f,40.f);
-    this->placeForDirtyDishes.setPosition(1062.5f,300.f);
-    this->placeForDirtyDishes.setOutlineColor(sf::Color::White);    //Fixme set trasparent when finished
-    this->placeForDirtyDishes.setOutlineThickness(1.f);
-    this->placeForDirtyDishes.setFillColor(sf::Color::Transparent);
+    placeForDirtyDishes.setSize(this->dishHitbox);
+    placeForDirtyDishes.setOrigin(42.5f,40.f);
+    placeForDirtyDishes.setPosition(1062.5f,300.f);
+    placeForDirtyDishes.setOutlineColor(sf::Color::White);    //Fixme set trasparent when finished
+    placeForDirtyDishes.setOutlineThickness(1.f);
+    placeForDirtyDishes.setFillColor(sf::Color::Transparent);
     //this->placeForDirtyDishes.setTexture(this->texture->getTexture("Main1")); //work but only without both outline/Fill
 
 

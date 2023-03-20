@@ -13,6 +13,6 @@ Stool::~Stool() {
 }
 
 void Stool::initSprite() {
-    this->sprite.setScale(2.f,2.f);
+    sprite.setScale(2.f,2.f);
 }
 

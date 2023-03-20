@@ -21,11 +21,11 @@ public:
     void actionManagement();
 
     //Methods to interact
-    void pickUp(Kitchen* kitchen);
+    void pickUp(std::shared_ptr<Kitchen> kitchen);
     void pickUp(Table* table);
     void putDown(Table* table);
-    void putDown(Washbasin* washbasin);
-    void leavingOrder(Kitchen* kitchen);
+    void putDown(std::shared_ptr<Washbasin> washbasin);
+    void leavingOrder(std::shared_ptr<Kitchen> kitchen);
 
     //Getters & setters
     Tray* getTray();

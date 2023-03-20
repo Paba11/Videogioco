@@ -79,16 +79,17 @@ void DishWasher::updateVariables() {
     }
 }
 
-void DishWasher::setWashbasin(Washbasin &w) {
-    this->washbasin = &w;
+void DishWasher::setWashbasin(const std::shared_ptr<Washbasin>& w) {
+    washbasin.reset();
+    washbasin = w;
 }
 
 void DishWasher::move() {
     //TODO: MOVE THE DISHWASHER FROM THE TABLE TO THE WASHBASIN AND UPDATE THE ANIMATION
 }
 
-Washbasin *DishWasher::getWashbasin() {
-    return this->washbasin;
+std::shared_ptr<Washbasin> DishWasher::getWashbasin() {
+    return washbasin;
 }
 
 void DishWasher::setAnimation() {

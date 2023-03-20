@@ -37,9 +37,9 @@ void Table::update() {
 }
 
 void Table::render(sf::RenderTarget &target) {
-    target.draw(this->sprite);
+    target.draw(sprite);
     if(chosenTable)
-        target.draw(this->interactionSquare);
+        target.draw(interactionSquare);
 }
 
 void Table::initSprite() {
@@ -176,16 +176,16 @@ std::vector<Stool> &Table::getStoolTable() {
 void Table::updateBox() {
 
     if(chosenTable) {
-        this->interactionSquare.setFillColor(this->boxOpacity);
+        interactionSquare.setFillColor(boxOpacity);
 
-        if(this->boxOpacity.a == 255)
+        if(boxOpacity.a == 255)
             cicle = false;
-        if(this->boxOpacity.a == 0)
+        if(boxOpacity.a == 0)
             cicle = true;
         if(cicle)
-            this->boxOpacity.a += 5;
+            boxOpacity.a += 5;
         else
-            this->boxOpacity.a-= 5;
+            boxOpacity.a-= 5;
 
 
     }
@@ -194,8 +194,8 @@ void Table::updateBox() {
 
 void Table::setTable() {
 
-    this->sprite.setOrigin(30,32);
-    this->interactionSquare.setPosition(this->sprite.getPosition().x,this->sprite.getPosition().y - 40);
+    sprite.setOrigin(30,32);
+    interactionSquare.setPosition(sprite.getPosition().x,sprite.getPosition().y - 40);
 
 }
 

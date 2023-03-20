@@ -5,8 +5,8 @@
 #include "Map.h"
 
 Map::Map() {
-    this->kitchen = new Kitchen();
-    this->washbasin = new Washbasin();
+    this->kitchen = std::make_shared<Kitchen>();
+    this->washbasin = std::make_shared<Washbasin>();
     this->entranceObj = new Entrance();
     this->counter = new Counter();
     this->isClose = IS_CLOSE_NOTHING;
@@ -18,8 +18,6 @@ Map::Map() {
 }
 
 Map::~Map() {
-    delete this->washbasin;
-    delete this->kitchen;
     delete this->entranceObj;
     /*
     for(int i = 0; i < MAX_SIZE; i++)
@@ -33,12 +31,12 @@ Table& Map::getTable(int i) {
     return this->allTables[i];
 }
 
-Kitchen *Map::getKitchen() const {
-    return this->kitchen;
+const std::shared_ptr<Kitchen>& Map::getKitchen() {
+    return kitchen;
 }
 
-Washbasin *Map::getWashbasin() const {
-    return this->washbasin;
+const std::shared_ptr<Washbasin>& Map::getWashbasin(){
+    return washbasin;
 }
 
 /*
@@ -147,7 +145,7 @@ Entrance* Map::distanceEntrance(sf::Sprite& gc) {
     return this->entranceObj;
 }
 
-Washbasin* Map::distanceWashbasin(sf::Sprite& gc) {
+const std::shared_ptr<Washbasin>& Map::distanceWashbasin(sf::Sprite& gc) {
     /*
      * Calculate the position of the waiter from the Washbasin
      */
@@ -167,10 +165,10 @@ Washbasin* Map::distanceWashbasin(sf::Sprite& gc) {
         this->isClose = IS_CLOSE_DISHWASHER;
     }
 
-    return this->washbasin;
+    return washbasin;
 }
 
-Kitchen* Map::distanceKitchen(sf::Sprite& gc) {
+const std::shared_ptr<Kitchen>& Map::distanceKitchen(sf::Sprite& gc) {
 
 
     float dist;

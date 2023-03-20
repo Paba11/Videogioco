@@ -86,19 +86,19 @@ private:
     sf::Event ev;
 
     //GameCharacters and objects
-    Waiter* waiter;
-    Chef* chef;
+    std::shared_ptr<Waiter> waiter;
+    std::shared_ptr<Chef> chef;
     Dish* dish;
     std::shared_ptr<Map> map;
-    Kitchen* kitchen;
-    Counter* counter;
-    Washbasin* washbasin;
-    Customer* customer;
-    std::vector<Customer*> group;
-    DishWasher* dishWasher;
+    std::shared_ptr<Kitchen> kitchen;
+    std::shared_ptr<Counter> counter;
+    std::shared_ptr<Washbasin> washbasin;
+    std::shared_ptr<Customer> customer;
+    std::vector<std::shared_ptr<Customer>> group;
+    std::shared_ptr<DishWasher> dishWasher;
     //OrderState* orderState;
     //ReceivingCustomers* receivingCustomers;
-    BottomBar* bottomBar;
+    std::shared_ptr<BottomBar> bottomBar;
     //Table* table;
 
     //Manage Waiter States
@@ -107,7 +107,7 @@ private:
     std::shared_ptr<ActionsState> actionsState;
 
     //Level variables management
-    Level* level;
+    Level* level;       //TODO eventually change in smart pointer
 
     //Generate random numbers
     std::random_device rd;
