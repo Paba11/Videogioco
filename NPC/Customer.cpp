@@ -104,7 +104,6 @@ void Customer::moveTo() {
     this->actualPos = this->sprite.getPosition();
     if(this->movingStatus == Move::MOVING_LEFT && this->actualPos.x <= this->endingPos.x) {
         this->moving = false;
-        this->movingStatus = Move::STANDING;
     }
 }
 

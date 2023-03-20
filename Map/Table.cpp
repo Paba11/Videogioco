@@ -167,7 +167,6 @@ void Table::setCustomers(std::vector<Customer>& cust) {
             it.movingStatus = Move::MOVING_RIGHT;
         else if(i % 2 == 1)
             it.movingStatus = Move::MOVING_LEFT;
-
         i++;
     }
 }
