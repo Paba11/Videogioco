@@ -431,7 +431,10 @@ void Game::initStates() {
 void Game::updateReceivingCustomer() {
     if(waiter->getState() == Actions::RECEIVING_CUSTOMERS)
     {
-        receiveState->update(waiter.get());
+        if(receiveState->getIsSit())
+            receiveState.reset();
+        else
+            receiveState->update(waiter.get());
     }
 }
 
@@ -457,6 +460,11 @@ void Game::updateTables() {
             waiter->setOrderState(orderState);
             it.setIsReady(true);
         }
+        if(it.getIsOccupied())
+        {
+            for(auto & i: it.getCustomers())
+                i.update();
+        }
     }
 }
 
@@ -466,7 +474,6 @@ void Game::updateTable() {
         if(map->getAllTables()[i].getChosenTable())
             map->getAllTables()[i].updateBox();
     }
-
 
 }
 

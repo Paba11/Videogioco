@@ -27,10 +27,8 @@ void ReceiveState::handleInput(GameCharacter* gc, sf::Event ev) {
 void ReceiveState::update(GameCharacter* gc) {
     if(!isAtTable)
         move();
-    else {
-        //std::cout << "try to move " << std::endl;
+    else
         moveToTable();
-    }
 }
 
 
@@ -143,9 +141,12 @@ void ReceiveState::setGeneratedCustomers(int numberCustomer, int textureNumber) 
 }
 
 void ReceiveState::addToPath(Move dir) {
-    for(auto & it: customers)
+    if(!isAtTable)
     {
-        it.setPath(dir);
+        for(auto & it: customers)
+        {
+         it.setPath(dir);
+        }
     }
 }
 

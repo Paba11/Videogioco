@@ -29,6 +29,7 @@ public:
     //Method to move, update and render the waiter
     void updateMovement();
     void update() override;
+    void updateState();
     void updateAnimations() override;
     Textures* texture = new Textures;
     void move();

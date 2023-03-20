@@ -155,12 +155,10 @@ void Waiter::interact(const std::shared_ptr<Map>& map, sf::Event ev) {
             state = Actions::DOING_NOTHING;
         }
     }
-    else if(state == Actions::RECEIVING_CUSTOMERS)
+    else if(state == Actions::RECEIVING_CUSTOMERS && ev.key.code == sf::Keyboard::J)
     {
-        if(map->distanceInteractionSquare(getSprite(), receiveState->getTable()) && ev.key.code == sf::Keyboard::J)
+        if(map->distanceInteractionSquare(getSprite(), receiveState->getTable()))
             leaveAtTable();
-        else if(receiveState->getIsSit())
-            state = Actions::DOING_NOTHING;
     }
 }
 
@@ -175,6 +173,7 @@ void Waiter::setOrder(std::shared_ptr<Order> o) {
 void Waiter::update() {
     updateAnimations();
     updateMovement();
+    updateState();
 }
 
 
@@ -302,6 +301,14 @@ void Waiter::leaveAtTable() {
     sprite.setPosition(sprite.getPosition().x, sprite.getPosition().y - 15);
     movingStatus = Move::STANDING;
     receiveState->handleInput(this, ev);
+}
+
+void Waiter::updateState() {
+    if(receiveState->getIsSit())
+    {
+        state = Actions::DOING_NOTHING;
+        receiveState.reset();
+    }
 }
 
 
