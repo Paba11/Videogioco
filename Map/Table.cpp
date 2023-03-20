@@ -195,7 +195,7 @@ void Table::updateBox() {
 void Table::setTable() {
 
     sprite.setOrigin(30,32);
-    interactionSquare.setPosition(sprite.getPosition().x,sprite.getPosition().y - 40);
+    interactionSquare.setPosition(sprite.getPosition().x,sprite.getPosition().y - 100);
 
 }
 
