@@ -125,44 +125,51 @@ void Waiter::move() {
 }
 
 void Waiter::interact(const std::shared_ptr<Map>& map, sf::Event ev) {
-    Table* t = map->distanceTable(this->sprite);
-    map->distanceEntrance(this->sprite);
-    map->distanceKitchen(this->sprite);
-    map->distanceWashbasin(this->sprite);
-    map->distanceDirtyDishes(this->sprite);
-    map->distanceChefDishes(this->sprite);
+    Table* t = map->distanceTable(sprite);
+    map->distanceEntrance(sprite);
+    map->distanceKitchen(sprite);
+    map->distanceWashbasin(sprite);
+    map->distanceDirtyDishes(sprite);
+    map->distanceChefDishes(sprite);
 
-    if(this->state == Actions::DOING_NOTHING)
+    if(state == Actions::DOING_NOTHING)
     {
-        if(!this->order && map->getIsClose() == IS_CLOSE_ENTRANCE && map->getEntrance()->getIsCustomer()
-            && ev.key.code == sf::Keyboard::J)
+        if(!order && map->getIsClose() == IS_CLOSE_ENTRANCE && map->getEntrance()->getIsCustomer()
+            && ev.key.code == sf::Keyboard::J && receiveState->checkPos())
         {
-            this->state = Actions::RECEIVING_CUSTOMERS;
-            this->sprite.setPosition(920,910);
+            state = Actions::RECEIVING_CUSTOMERS;
+            sprite.setPosition(920,910);
             map->getEntrance()->setCustomerReceived(false);
-            this->receiveState->handleInput(this, ev);
+            receiveState->handleInput(this, ev);
             std::cout << "Receiving customers" << std::endl;
         }
-        else if(!this->order && map->getIsClose() == IS_CLOSE_TABLE && t->getIsReady())
+        else if(!order && map->getIsClose() == IS_CLOSE_TABLE && t->getIsReady())
         {
-            this->state = Actions::TAKING_ORDER;
-            this->orderState->handleInput(this, ev);
-            this->actionsState->setIsOrder(true);
+            state = Actions::TAKING_ORDER;
+            orderState->handleInput(this, ev);
+            actionsState->setIsOrder(true);
         }
         else
         {
-            this->actionsState->handleInput(this, ev);
-            this->state = Actions::DOING_NOTHING;
+            actionsState->handleInput(this, ev);
+            state = Actions::DOING_NOTHING;
         }
     }
-    else if(this->state == Actions::RECEIVING_CUSTOMERS && ev.key.code == sf::Keyboard::J)
+    else if(state == Actions::RECEIVING_CUSTOMERS && ev.key.code == sf::Keyboard::J)
     {
-        if(map->distanceInteractionSquare(this->getSprite(), this->receiveState->getTable()))
+        //std::cout << "table choosen: " << receiveState->getTable()->getTavNum() << std::endl;
+        if(map->distanceInteractionSquare(getSprite(), receiveState->getTable()))
         {
-            this->state = Actions::DOING_NOTHING;
-            this->receiveState->getTable()->setCustomers(this->receiveState->getCustomers());
-            this->receiveState->moveToTable();
-            this->receiveState->getTable()->setIsOccupied(true);
+            state = Actions::DOING_NOTHING;
+            receiveState->getTable()->setCustomers(receiveState->getCustomers());
+            for(int i = 10; i > 0; i++)
+            {
+                dir = Move::MOVING_UP;
+                move();
+            }
+            receiveState->setIsAtTable(true);
+            receiveState->getTable()->setIsOccupied(true);
+            receiveState->handleInput(this, ev);
         }
     }
 }

@@ -175,6 +175,7 @@ void Game::initTables() {
     for(int i=0; i<numTables; i++){
       Table t;
       //Stool s;
+      t.setTavNum(i);
       t.sprite.setTexture(*this->textures->getTexture("Table"));
       for(int j=0; j<4; j++)
           t.getStoolTable()[j].sprite.setTexture(*this->textures->getTexture("Stool"));

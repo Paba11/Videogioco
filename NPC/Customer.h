@@ -42,6 +42,7 @@ public:
     const sf::Vector2f& getPosition() const;
     std::queue<Move>& getPath();
     void setPath(Move m);
+    bool isMoving();
 
 private:
     sf::Vector2f actualPos;

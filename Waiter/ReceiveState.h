@@ -27,7 +27,9 @@ public:
     //Move to the table
     void move();
     void addToPath(Move dir);
+    void addToPathSingleCustomer(Move dir, Customer& c);
     void moveToTable();
+    void pathToTable();
 
     //Getters & Setters
     void setTable(Table* t);
@@ -36,6 +38,9 @@ public:
     const std::shared_ptr<Customer>& getCustomer();
     void setCustomers(Customer& c);
     std::vector<Customer>& getCustomers();
+    void setIsAtTable(bool t);
+    bool getIsAtTable();
+    bool checkPos();
 
 private:
     Textures* texture = new Textures();
@@ -43,6 +48,7 @@ private:
     Table* table;
     std::shared_ptr<Customer> customer;
     std::vector<Customer> customers;
+    bool isAtTable;
 
 };
 

@@ -96,11 +96,11 @@ void Map::initPosTrees() {
 }
 
 std::vector<Table>& Map::getAllTables() {
-    return this->allTables;
+    return allTables;
 }
 
 Entrance *Map::getEntrance() const {
-    return this->entranceObj;
+    return entranceObj;
 }
 
 Table& Map::selectFreeTable() {
@@ -273,16 +273,16 @@ std::vector<sf::RectangleShape> Map::distanceChefDishes(sf::Sprite &gc) {
     return this->kitchen->getCounter()->getPlaceChefDishes();
 }
 
-bool Map::distanceInteractionSquare(sf::Sprite &gc, Table *table) {
+bool Map::distanceInteractionSquare(sf::Sprite &gc, Table *t) {
     bool ret = false;
     float dist;
-    /*
-    dist = std::sqrt(std::pow(table->getInteractionSquare().getPosition().x - gc.getPosition().x, 2) +
-                     std::pow(table->getInteractionSquare().getPosition().y - gc.getPosition().y, 2));
+    //std::cout << "Table num: " << t->getTavNum();
+    dist = std::sqrt(std::pow(t->getInteractionSquare().getPosition().x - gc.getPosition().x, 2) +
+                     std::pow(t->getInteractionSquare().getPosition().y - gc.getPosition().y, 2));
 
-    std::cout << "Square distance: " << dist << std::endl;
-    */
-    if(dist <= 20)
+    //std::cout << "Square distance: " << dist << std::endl;
+
+    if(dist <= 30)
     {
         this->isClose = IS_CLOSE_TABLE;
         ret = true;

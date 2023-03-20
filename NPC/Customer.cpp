@@ -178,6 +178,10 @@ void Customer::setEndingPosition(sf::Vector2f endPos) {
     }
 }
 
+bool Customer::isMoving() {
+    return moving;
+}
+
 
 /*
 void Customer::updateMoving(sf::Sprite& previous) {
