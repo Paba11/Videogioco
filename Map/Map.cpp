@@ -206,13 +206,13 @@ Table* Map::distanceTable(sf::Sprite& gc) {
         dist = std::sqrt(std::pow(table->sprite.getPosition().x - gc.getPosition().x, 2) +
                          std::pow(table->sprite.getPosition().y - gc.getPosition().y, 2));
 
-        std::cout << std::endl << "table " << i; //<< " posX: " << t->sprite.getPosition().x << " PosY:" <<
+        //std::cout << std::endl << "table " << i; //<< " posX: " << t->sprite.getPosition().x << " PosY:" <<
         // << t->sprite.getPosition().y << std::endl;
-        std::cout << " dist: " << dist << std::endl;
+        //std::cout << " dist: " << dist << std::endl;
 
         if (dist <= 130 )
         {
-            std::cout << "dist <= 130 table: " << i << std::endl;
+            //std::cout << "dist <= 130 table: " << i << std::endl;
             //t = &this->map->getTable(i);
             this->isClose = IS_CLOSE_TABLE;
         }
@@ -274,11 +274,11 @@ std::vector<sf::RectangleShape> Map::distanceChefDishes(sf::Sprite &gc) {
 bool Map::distanceInteractionSquare(sf::Sprite &gc, Table *t) {
     bool ret = false;
     float dist;
-    //std::cout << "Table num: " << t->getTavNum();
+    std::cout << "Table num: " << t->getTavNum();
     dist = std::sqrt(std::pow(t->getInteractionSquare().getPosition().x - gc.getPosition().x, 2) +
                      std::pow(t->getInteractionSquare().getPosition().y - gc.getPosition().y, 2));
 
-    //std::cout << "Square distance: " << dist << std::endl;
+    std::cout << "Square distance: " << dist << std::endl;
 
     if(dist <= 30)
     {

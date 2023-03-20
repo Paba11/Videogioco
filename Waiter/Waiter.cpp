@@ -157,20 +157,9 @@ void Waiter::interact(const std::shared_ptr<Map>& map, sf::Event ev) {
     }
     else if(state == Actions::RECEIVING_CUSTOMERS && ev.key.code == sf::Keyboard::J)
     {
-        //std::cout << "table choosen: " << receiveState->getTable()->getTavNum() << std::endl;
         if(map->distanceInteractionSquare(getSprite(), receiveState->getTable()))
-        {
-            state = Actions::DOING_NOTHING;
-            receiveState->getTable()->setCustomers(receiveState->getCustomers());
-            for(int i = 10; i > 0; i++)
-            {
-                dir = Move::MOVING_UP;
-                move();
-            }
-            receiveState->setIsAtTable(true);
-            receiveState->getTable()->setIsOccupied(true);
-            receiveState->handleInput(this, ev);
-        }
+            leaveAtTable();
+
     }
 }
 
@@ -304,6 +293,19 @@ void Waiter::checkReceiving() {
     {
         this->receiveState->addToPath(this->dir);
     }
+}
+
+void Waiter::leaveAtTable() {
+    state = Actions::DOING_NOTHING;
+    receiveState->setAtTable();
+    std::cout << "customer set in table " << std::endl;
+    for(int i = 10; i > 0; i--)
+    {
+        movingStatus = Move::MOVING_UP;
+        move();
+    }
+    movingStatus = Move::STANDING;
+    receiveState->handleInput(this, ev);
 }
 
 

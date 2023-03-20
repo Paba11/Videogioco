@@ -30,6 +30,7 @@ public:
     void addToPathSingleCustomer(Move dir, Customer& c);
     void moveToTable();
     void pathToTable();
+    void setAtTable();
 
     //Getters & Setters
     void setTable(Table* t);

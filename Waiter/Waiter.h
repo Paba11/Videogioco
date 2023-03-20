@@ -37,6 +37,7 @@ public:
     //Methods to interact with the customer
     void interact(const std::shared_ptr<Map>& map, sf::Event ev);
     void checkReceiving();
+    void leaveAtTable();
 
     //Getters & Setters
     Move getMove();

@@ -213,4 +213,10 @@ bool ReceiveState::checkPos() {
     return pos;
 }
 
+void ReceiveState::setAtTable() {
+    table->setCustomers(customers);
+    isAtTable = false;
+    table->setIsOccupied(true);
+}
+
 
