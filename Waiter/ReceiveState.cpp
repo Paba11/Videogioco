@@ -8,6 +8,7 @@ ReceiveState::ReceiveState(const std::shared_ptr<Map>& m) {
     map.reset();
     map = m;
     isAtTable = false;
+    isSit = false;
 }
 
 ReceiveState::~ReceiveState() {
@@ -26,8 +27,10 @@ void ReceiveState::handleInput(GameCharacter* gc, sf::Event ev) {
 void ReceiveState::update(GameCharacter* gc) {
     if(!isAtTable)
         move();
-    else
+    else {
+        //std::cout << "try to move " << std::endl;
         moveToTable();
+    }
 }
 
 
@@ -147,13 +150,29 @@ void ReceiveState::addToPath(Move dir) {
 }
 
 void ReceiveState::moveToTable() {
+    int count = 0;
     for(auto & it: this->customers)
     {
-        if(!it.getPath().empty())
+        if(!it.getPath().empty() && it.getPath().front() != Move::STANDING)
         {
+            //std::cout << "Move customer " << std::endl;
             it.setMovingStatus(it.getPath().front());
             it.getPath().pop();
             it.move();
+        }
+        else if(it.getPath().front() == Move::STANDING)
+        {
+            it.getSprite().setPosition(map->getEntrance()->getWelcomeSquare().getPosition());
+            it.getPath().pop();
+        }
+        else if(it.getPath().empty())
+            count += 1;
+
+        if(count == customers.size())
+        {
+            table->setCustomers(customers);
+            isSit = true;
+            map->getEntrance()->setIsCustomer(false);
         }
     }
 }
@@ -174,32 +193,34 @@ void ReceiveState::pathToTable() {
     int i = 0;
     for(auto & it: customers)                       //Set the path to the right amount of moves
     {
+        addToPathSingleCustomer(Move::STANDING, it);
+        //std::cout << "path to table" << std::endl;
         if(i == 0)
         {
-            for(int m = 0; m < 10; m++)
+            for(int m = 0; m < 70; m++)
                 addToPathSingleCustomer(Move::MOVING_LEFT, it);
-            for(int m = 0; m < 50; m++)
+            for(int m = 0; m < 100; m++)
                 addToPathSingleCustomer(Move::MOVING_DOWN, it);
         }
         else if(i == 1)
         {
-            for(int m = 0; m < 10; m++)
+            for(int m = 0; m < 70; m++)
                 addToPathSingleCustomer(Move::MOVING_RIGHT, it);
-            for(int m = 0; m < 50; m++)
+            for(int m = 0; m < 100; m++)
                 addToPathSingleCustomer(Move::MOVING_DOWN, it);
         }
         else if(i == 2)
         {
-            for(int m = 0; m < 10; m++)
+            for(int m = 0; m < 70; m++)
                 addToPathSingleCustomer(Move::MOVING_LEFT, it);
-            for(int m = 0; m < 30; m++)
+            for(int m = 0; m < 50; m++)
                 addToPathSingleCustomer(Move::MOVING_DOWN, it);
         }
         else if(i == 3)
         {
-            for (int m = 0; m < 10; m++)
+            for (int m = 0; m < 70; m++)
                 addToPathSingleCustomer(Move::MOVING_RIGHT, it);
-            for (int m = 0; m < 30; m++)
+            for (int m = 0; m < 50; m++)
                 addToPathSingleCustomer(Move::MOVING_DOWN, it);
         }
         i++;
@@ -208,15 +229,18 @@ void ReceiveState::pathToTable() {
 
 bool ReceiveState::checkPos() {
     bool pos = false;
-    if(!customers.back().isMoving())
+    if(!customers.front().isMoving())
         pos = true;
     return pos;
 }
 
 void ReceiveState::setAtTable() {
-    table->setCustomers(customers);
-    isAtTable = false;
+    isAtTable = true;
     table->setIsOccupied(true);
+}
+
+bool ReceiveState::getIsSit() {
+    return isSit;
 }
 
 

@@ -42,6 +42,7 @@ public:
     void setIsAtTable(bool t);
     bool getIsAtTable();
     bool checkPos();
+    bool getIsSit();
 
 private:
     Textures* texture = new Textures();
@@ -50,7 +51,7 @@ private:
     std::shared_ptr<Customer> customer;
     std::vector<Customer> customers;
     bool isAtTable;
-
+    bool isSit;
 };
 
 
