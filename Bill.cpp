@@ -5,9 +5,9 @@
 #include "Bill.h"
 
 Bill::Bill() {
-    this->calculatedTotal = 0;
-    this->correctTotal = 0;
-    this->isCorrect = false;
+    calculatedTotal = 0;
+    correctTotal = 0;
+    isCorrect = false;
 }
 
 Bill::~Bill() {
@@ -15,14 +15,14 @@ Bill::~Bill() {
 }
 
 bool Bill::calculateTotal() {
-    while(this->calculatedTotal == 0)
+    while(calculatedTotal == 0)
     {
         update();
         render();
     }
-    if(this->calculatedTotal == this->correctTotal)
-        this->isCorrect = true;
-    return this->isCorrect;
+    if(calculatedTotal == correctTotal)
+        isCorrect = true;
+    return isCorrect;
 }
 
 void Bill::update() {
@@ -34,48 +34,44 @@ void Bill::render() {
 }
 
 void Bill::setAppetizers(Apt apt) {
-    this->appetizers.push_back(apt);
+    appetizers.push_back(apt);
 }
 
 void Bill::setMainDishes(Mn mn) {
-    this->mainDishes.push_back(mn);
+    mainDishes.push_back(mn);
 }
 
 void Bill::setDesserts(Dsr dsr) {
-    this->desserts.push_back(dsr);
+    desserts.push_back(dsr);
 }
 
 void Bill::setDrinks(Drk drk) {
-    this->drinks.push_back(drk);
+    drinks.push_back(drk);
 }
 
 void Bill::calculateCorrectTotal() {
-    while(!this->drinks.empty())
+    while(!drinks.empty())
     {
-        this->d = new Drink(this->drinks.back());
-        this->drinks.pop_back();
-        this->correctTotal += this->d->getPrice();
-        delete this->d;
+        d = std::make_unique<Drink>(drinks.back());
+        drinks.pop_back();
+        correctTotal += d->getPrice();
     }
-    while(!this->appetizers.empty())
+    while(!appetizers.empty())
     {
-        this->a = new Appetizer(this->appetizers.back());
-        this->appetizers.pop_back();
-        this->correctTotal += this->a->getPrice();
-        delete this->a;
+        a = std::make_unique<Appetizer>(appetizers.back());
+        appetizers.pop_back();
+        correctTotal += a->getPrice();
     }
-    while(!this->mainDishes.empty())
+    while(!mainDishes.empty())
     {
-        this->m = new MainCourse(this->mainDishes.back());
-        this->mainDishes.pop_back();
-        this->correctTotal += this->m->getPrice();
-        delete m;
+        m = std::make_unique<MainCourse>(mainDishes.back());
+        mainDishes.pop_back();
+        correctTotal += m->getPrice();
     }
-    while(!this->desserts.empty())
+    while(!desserts.empty())
     {
-        this->ds = new Dessert(this->desserts.back());
-        this->desserts.pop_back();
-        this->correctTotal += this->ds->getPrice();
-        delete ds;
+        ds = std::make_unique<Dessert>(desserts.back());
+        desserts.pop_back();
+        correctTotal += ds->getPrice();
     }
 }

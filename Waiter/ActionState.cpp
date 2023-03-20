@@ -4,7 +4,7 @@
 
 #include "ActionState.h"
 
-ActionsState::ActionsState(std::shared_ptr<Map> m) {
+ActionsState::ActionsState(const std::shared_ptr<Map>& m) {
     map.reset();
     map = m;
     waiter = nullptr;

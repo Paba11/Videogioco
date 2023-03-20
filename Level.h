@@ -50,7 +50,7 @@ private:
     float initialHumor;
     float customerArrival;
     int maxTables;
-    Customer* customer;
+    std::shared_ptr<Customer> customer;
     std::vector<Customer> customers;
     sf::Clock clock;
     Lvl lvl;

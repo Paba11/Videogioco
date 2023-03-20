@@ -36,10 +36,10 @@ private:
     std::vector<Mn> mainDishes;
     std::vector<Dsr> desserts;
     std::vector<Drk> drinks;
-    Drink* d;
-    Appetizer* a;
-    MainCourse* m;
-    Dessert* ds;
+    std::unique_ptr<Drink> d;
+    std::unique_ptr<Appetizer> a;
+    std::unique_ptr<MainCourse> m;
+    std::unique_ptr<Dessert> ds;
     int calculatedTotal;
     int correctTotal;
     bool isCorrect;

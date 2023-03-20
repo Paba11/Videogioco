@@ -13,7 +13,7 @@
 
 class ActionsState final : public WaiterStates {
 public:
-    explicit ActionsState(std::shared_ptr<Map> map);
+    explicit ActionsState(const std::shared_ptr<Map>& map);
     ~ActionsState();
 
     void handleInput(GameCharacter* waiter, sf::Event ev) override;

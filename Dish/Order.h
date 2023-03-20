@@ -52,10 +52,10 @@ private:
     std::vector<Mn> mainCourse;
     std::vector<Dsr> desserts;
     std::vector<Drk> drinks;
-    Apt* apt;
-    Mn* mn;
-    Dsr* dsr;
-    Drk* drk;
+    std::unique_ptr<Apt> apt;
+    std::unique_ptr<Mn> mn;
+    std::unique_ptr<Dsr> dsr;
+    std::unique_ptr<Drk> drk;
     Current current;
 
 };

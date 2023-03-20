@@ -42,114 +42,114 @@ void Order::setCurrent(Current c) {
 }
 
 void Order::setAppetizer(int i) {
-    this->apt = new Apt;
+    apt = std::make_unique<Apt>();
     if(i == 0)
     {
-        *this->apt = Apt::NACHOS;
+        *apt = Apt::NACHOS;
     }
     else if(i == 1)
     {
-        *this->apt = Apt::OMELETTE;
+        *apt = Apt::OMELETTE;
     }
-    this->appetizers.push_back(*this->apt);
-    this->apt = nullptr;
+    appetizers.push_back(*apt);
+    apt.reset();
 }
 
 void Order::setMainCourse(int i) {
-    this->mn = new Mn;
+    mn = std::make_unique<Mn>();
     if(i == 0)
     {
-        *this->mn = Mn::HAMBURGER;
+        *mn = Mn::HAMBURGER;
     }
     if(i == 1)
     {
-        *this->mn = Mn::MEAT;
+        *mn = Mn::MEAT;
     }
     if(i == 2)
     {
-        *this->mn = Mn::MEATBALLS;
+        *mn = Mn::MEATBALLS;
     }
     if(i == 3)
     {
-        *this->mn = Mn::CHICKEN;
+        *mn = Mn::CHICKEN;
     }
-    this->mainCourse.push_back(*this->mn);
-    this->mn = nullptr;
+    mainCourse.push_back(*mn);
+    mn.reset();
 }
 
 void Order::setDessert(int i) {
-    this->dsr = new Dsr;
+    dsr = std::make_unique<Dsr>();
     if(i == 0)
     {
-        *this->dsr = Dsr::CHOCOLATE_CAKE;
+        *dsr = Dsr::CHOCOLATE_CAKE;
     }
     if(i == 1)
     {
-        *this->dsr = Dsr::CHEESE_CAKE;
+        *dsr = Dsr::CHEESE_CAKE;
     }
     if(i == 2)
     {
-        *this->dsr = Dsr::JELLY;
+        *dsr = Dsr::JELLY;
     }
-    this->desserts.push_back(*this->dsr);
-    this->dsr = nullptr;
+    desserts.push_back(*dsr);
+    dsr.reset();
 }
 
 void Order::setDrink(int i) {
-    this->drk = new Drk;
+    drk = std::make_unique<Drk>();
     if(i == 0)
     {
-       *this->drk = Drk::WATER;
+       *drk = Drk::WATER;
     }
     else if(i == 1)
     {
-       *this->drk = Drk::WINE;
+       *drk = Drk::WINE;
     }
     else if(i == 2)
     {
-        *this->drk = Drk::BEER;
+        *drk = Drk::BEER;
     }
     else if(i == 3)
     {
-        *this->drk = Drk::COKE;
+        *drk = Drk::COKE;
     }
-    this->drinks.push_back(*this->drk);
-    this->drk = nullptr;
+    drinks.push_back(*drk);
+    drk.reset();
 }
 
 void Order::setTableNumber(int i) {
-    this->tableNumber = i;
+    tableNumber = i;
 }
 
 std::vector<Apt> &Order::getAppetizers() {
-    return this->appetizers;
+    return appetizers;
 }
 
 std::vector<Mn> &Order::getMainCourses() {
-    return this->mainCourse;
+    return mainCourse;
 }
 
 std::vector<Dsr> &Order::getDesserts() {
-    return this->desserts;
+    return desserts;
 }
 
 std::vector<Drk> &Order::getDrinks() {
-    return this->drinks;
+    return drinks;
 }
 
 void Order::initPointersToNull() {
-    this->drk = nullptr;
-    this->mn = nullptr;
-    this->dsr = nullptr;
-    this->apt = nullptr;
+    drk.reset();
+    mn.reset();
+    dsr.reset();
+    apt.reset();
 }
 
 int Order::getPeopleNumber() {
-    return this->peopleNumber;
+    return peopleNumber;
 }
 
 void Order::setPeopleNumber(int i) {
-    this->peopleNumber = i;
+    peopleNumber = i;
 }
 
 

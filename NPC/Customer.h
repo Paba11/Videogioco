@@ -7,7 +7,6 @@
 
 
 #include "../GameCharacter.h"
-#include "../FollowMovement.h"
 #include <queue>
 
 #define TOTAL_OFFSET 50

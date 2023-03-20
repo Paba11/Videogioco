@@ -20,7 +20,6 @@ add_executable( videogioco                  main.cpp
                 NPC/DishWasher.h            NPC/DishWasher.cpp
                 Dish/Drink.h                Dish/Drink.cpp
                 Map/Entrance.h              Map/Entrance.cpp
-                FollowMovement.h            FollowMovement.cpp
                 ProgramState/Game.h         ProgramState/Game.cpp
                 GameCharacter.h             GameCharacter.cpp
                 Map/Kitchen.h               Map/Kitchen.cpp

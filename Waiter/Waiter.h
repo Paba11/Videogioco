@@ -14,7 +14,6 @@
 #include "OrderState.h"
 #include "ActionState.h"
 #include "ReceiveState.h"
-#include "../FollowMovement.h"
 #include <cmath>
 
 #define INTERACT 1
