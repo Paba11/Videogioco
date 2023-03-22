@@ -36,6 +36,7 @@ public:
     std::map<std::string, bool> validMovement;
     void initValidMovement();
     sf::FloatRect getGlobalHitbox();
+    virtual void initTexture();
 
     //Getters & Setters
     void setEvent(sf::Event ev);
@@ -65,7 +66,7 @@ protected:
     Actions state;
 
     //Method to init the texture and the sprite
-    virtual void initTexture();
+
     virtual void initSprite();
 
 };

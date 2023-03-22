@@ -24,7 +24,6 @@ void GameCharacter::initTexture() {
     /*
      * Load a texture from a file
      */
-
 }
 
 void GameCharacter::initSprite() {
@@ -32,7 +31,7 @@ void GameCharacter::initSprite() {
      * Set the texture on the sprite
      */
 
-    this->sprite.setTexture(this->texture);
+    //this->sprite.setTexture(this->texture);
 
 }
 

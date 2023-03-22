@@ -16,9 +16,6 @@ DishWasher::~DishWasher() {
     delete this->texture;
 }
 
-void DishWasher::initTexture() {
-
-}
 
 void DishWasher::initSprite() {
     /*

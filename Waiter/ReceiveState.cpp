@@ -12,7 +12,6 @@ ReceiveState::ReceiveState(const std::shared_ptr<Map>& m) {
 }
 
 ReceiveState::~ReceiveState() {
-
 }
 
 void ReceiveState::handleInput(GameCharacter* gc, sf::Event ev) {
@@ -125,6 +124,7 @@ void ReceiveState::setGeneratedCustomers(int numberCustomer, int textureNumber) 
         std::cout << "1" << std::endl;
 
     }
+    /*
     if(textureNumber-1 % 4 == 0)
         customers.back().sprite.setTexture(*texture->getTexture("Customer1"));
     if(textureNumber-1 % 4 == 1)
@@ -133,6 +133,23 @@ void ReceiveState::setGeneratedCustomers(int numberCustomer, int textureNumber) 
         customers.back().sprite.setTexture(*texture->getTexture("Customer3"));
     if(textureNumber-1 % 4 == 3)
         customers.back().sprite.setTexture(*texture->getTexture("Customer4"));
+        */
+    if( (textureNumber-1) % 4 == 0) {
+        customers.back().initTexture("Customer1");
+        std::cout << "Set Texture 1" << std::endl;
+    }
+    if( (textureNumber-1) % 4 == 1) {
+        customers.back().initTexture("Customer2");
+        std::cout << "Set Texture 2" << std::endl;
+    }
+    if( (textureNumber-1) % 4 == 2) {
+        customers.back().initTexture("Customer3");
+        std::cout << "Set Texture 3" << std::endl;
+    }
+    if( (textureNumber-1) % 4 == 3) {
+        customers.back().initTexture("Customer4");
+        std::cout << "Set Texture 4" << std::endl;
+    }
 
 
     customers.back().initSprite();
