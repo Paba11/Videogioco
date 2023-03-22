@@ -199,27 +199,25 @@ void Game::windowsCollision() {
     //Left side of the map collision
     if(waiter->getBounds().left < 0.f)
     {
-        waiter->setPositionW(0.f, waiter->getPosition().y);
+        collisionManagement();
     }
 
     //Upper side of the map collision
     if(waiter->getBounds().top < 85.f)
     {
-        waiter->setPositionW(waiter->getPosition().x, 85.f);
+        collisionManagement();
     }
 
     //Right side of the map collision
     if(waiter->getBounds().left + waiter->getBounds().width >= window->getSize().x)
     {
-        waiter->setPositionW(window->getSize().x - waiter->getBounds().width,
-                                   waiter->getPosition().y);
+        collisionManagement();
     }
 
     //Bottom side of the map collision
     if(waiter->getBounds().top + waiter->getBounds().height >= window->getSize().y)
     {
-        waiter->setPositionW(waiter->getPosition().x,
-                                   window->getSize().y - waiter->getBounds().height);
+        collisionManagement();
     }
 
 }
