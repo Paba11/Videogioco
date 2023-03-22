@@ -60,6 +60,7 @@ public:
     //Generate Customers and random numbers
     void generateCustomers();
     void generateRandom();
+    bool isFreeTable();
 
     //Method to manage the events
     void pollEvents();
@@ -100,6 +101,7 @@ private:
     //ReceivingCustomers* receivingCustomers;
     std::shared_ptr<BottomBar> bottomBar;
     //Table* table;
+    std::shared_ptr<Bill> bill;
 
     //Manage Waiter States
     std::shared_ptr<OrderState> orderState;
@@ -135,6 +137,7 @@ private:
     void initDishWasher();
     void initLevel();
     void setWaiterTexture(int waiterTexture);
+    void initBill();
     int numTables=6;
     int waiterTexture;
 

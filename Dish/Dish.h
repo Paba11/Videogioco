@@ -25,18 +25,19 @@ public:
     void update();
 
     //Methods to initialize the texture and the sprite based on the dish type
-    virtual void initTexture();
+    virtual void initTexture() = 0;
     void initSprite();
 
     //Method to have the position of the dish
     const sf::FloatRect getBounds() const;
 
     //Method to initialize the preparation time of the dish
-    virtual void initPreparationTime();
+    virtual void initPreparationTime() = 0;
 
     //Getters & Setters
     int getTavNum();
     void setTavNum(int i);
+    float getPreparationTime();
 
 protected:
     sf::Texture* texture;

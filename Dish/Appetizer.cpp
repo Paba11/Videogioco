@@ -6,7 +6,7 @@
 
 
 Appetizer::Appetizer(Apt t) {
-    this->type = t;
+    type = t;
     calculatePrice();
     initTexture();
     initSprite();

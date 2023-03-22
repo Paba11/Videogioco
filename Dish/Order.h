@@ -14,7 +14,6 @@
 #include "Recipe.h"
 #include "MealMenu.h"
 
-
 class Order {
 public:
     //Constructor & Destructor
@@ -22,6 +21,7 @@ public:
     ~Order();
 
     void initPointersToNull();
+    int calculateTime(Current c);
 
     //Getters & Setters
     Apt getAppetizer(int i);

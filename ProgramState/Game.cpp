@@ -299,7 +299,8 @@ void Game::initChef() {
 
 void Game::generateCustomers() {
     if(clock.getElapsedTime().asSeconds() >= level->getCustomerArrival()
-    && !map->getEntrance()->getIsCustomer() && level->getTotalCustomerNumber() > 0)
+    && !map->getEntrance()->getIsCustomer() && level->getTotalCustomerNumber() > 0
+    && isFreeTable())
     {
         sf::Vector2f dist = map->getEntrance()->getWelcomeSquare().getPosition();
         receiveState.reset();
@@ -468,6 +469,24 @@ void Game::updateTable() {
         map->getAllTables()[i].updateBox();
     }
 
+}
+
+bool Game::isFreeTable() {
+    bool free = false;
+    for(auto & i: map->getAllTables())
+    {
+        if(!i.getIsOccupied())
+        {
+            free = true;
+        }
+    }
+    return free;
+}
+
+void Game::initBill() {
+    bill = std::make_shared<Bill>();
+    chef->setBill(bill);
+    waiter->setBill(bill);
 }
 
 

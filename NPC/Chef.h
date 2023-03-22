@@ -8,6 +8,10 @@
 #include "../GameCharacter.h"
 #include "../Dish/Dish.h"
 #include "../Dish/Order.h"
+#include "../Bill.h"
+#include "../Dish/Appetizer.h"
+#include "../Dish/MainCourse.h"
+#include "../Dish/Dessert.h"
 #include "../Map/Kitchen.h"
 #include <vector>
 #include "../Textures.h"
@@ -27,6 +31,11 @@ public:
     void updateAnimations() override;
     void cook();
     void checkOrder();
+    void setState();
+    void createObjects();
+    void calculateTime();
+
+    void setBill(std::shared_ptr<Bill>& b);
 
     //Update and render
     void update() override;
@@ -50,9 +59,10 @@ private:
     std::vector<Dish*> dishes;
     Order* order;
     std::shared_ptr<Kitchen> kitchen;
-    sf::Time time;
+    float time;
     sf::Clock clock;
-
+    bool isReady;
+    std::shared_ptr<Bill> bill;
 };
 
 

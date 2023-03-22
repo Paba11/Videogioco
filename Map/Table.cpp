@@ -68,11 +68,11 @@ void Table::initSprite() {
 }
 
 int Table::getTavNum() {
-    return this->tavNum;
+    return tavNum;
 }
 
 void Table::setTavNum(int t) {
-    this->tavNum = t;
+    tavNum = t;
 }
 
 const sf::Vector2f &Table::getPosition() const {

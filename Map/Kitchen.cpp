@@ -23,9 +23,9 @@ Kitchen::~Kitchen() {
     }
 }
 
-void Kitchen::insertNewOrder(Order& o) {
-    newOrders.push(&o);
-    std::cout << "InsertingOrder" << std::endl;
+void Kitchen::insertNewOrder(Order* o) {
+    newOrders.push(o);
+    std::cout << "Inserting Order" << std::endl;
     std::queue<Order*> tmp;
     for(int i = 0; i < newOrders.size(); i++)
     {
@@ -167,6 +167,7 @@ std::queue<Order*> &Kitchen::getReadyOrders() {
 std::shared_ptr<Counter> Kitchen::getCounter() const{
     return counter;
 }
+
 
 sf::RectangleShape &Kitchen::getInteractionSquare() {
     return this->interactionSquare;}

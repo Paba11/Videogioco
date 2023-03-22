@@ -151,14 +151,20 @@ void Waiter::interact(const std::shared_ptr<Map>& map, sf::Event ev) {
             orderState->setMap(map);
             order = &orderState->takeOrder();
             t->setState(TableState::WAITING_DISHES);
+            order->setTableNumber(t->getTavNum());
             actionsState->setIsOrder(true);
             actionsState->setOrder(*order);
             orderState.reset();
+            state = Actions::DOING_NOTHING;
             std::cout << "Order taken" << std::endl;
         }
         else
         {
             actionsState->handleInput(this, ev);
+            if(!actionsState->getIsOrder())
+            {
+                order = nullptr;
+            }
             state = Actions::DOING_NOTHING;
         }
     }
@@ -332,6 +338,11 @@ void Waiter::updateState() {
 
         }
     }
+}
+
+void Waiter::setBill(std::shared_ptr<Bill> &b) {
+    bill.reset();
+    bill = b;
 }
 
 

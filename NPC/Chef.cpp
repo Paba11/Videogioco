@@ -8,6 +8,7 @@
 Chef::Chef() {
     initSprite();
     this->state = WAIT;
+    isReady = false;
 }
 
 Chef::~Chef() {
@@ -41,24 +42,36 @@ void Chef::setAnimation() {
 }
 
 void Chef::setDishes(Dish& d) {
-    this->dishes.push_back(&d);
+    dishes.push_back(&d);
 }
 
 Dish *Chef::getDish() {
-    Dish* d = this->dishes.back();
-    this->dishes.pop_back();
+    Dish* d = dishes.back();
+    dishes.pop_back();
     return d;
 }
 
 void Chef::cook() {
-    //TODO: SELECT THE CURRENT DISH AND COOK IT FOR THE RIGHT TIME
-    switch(order->getCurrent())
-    {
-        //case ::APPETIZER:
-            //if (this->clock.getElapsedTime() >= this->order->getAppetizers(i)) {
 
-        //} else
-            updateAnimations();
+    if (this->clock.getElapsedTime().asSeconds() >= time && kitchen->getState() != DishState::FULL)
+    {
+        isReady = true;
+        kitchen->setState(DishState::FULL);
+        for(auto & it: dishes)
+        {
+            kitchen->setDish(it);
+        }
+        dishes.clear();
+        state = WAIT;
+
+        if(order->getCurrent() != Current::END)
+        {
+            kitchen->setWaitingOrder();
+        }
+        else
+            bill->setFinishedOrder(order);
+
+        order = nullptr;
     }
 }
 
@@ -71,25 +84,21 @@ Order* Chef::getOrder() {
 }
 
 void Chef::checkOrder() {
-    if(!kitchen->getReadyOrders().empty())
+    if(!kitchen->getReadyOrders().empty() && state != COOK)
     {
         setOrder(kitchen->getReadyOrder());
+        kitchen->getReadyOrders().pop();
         state = COOK;
         setAnimation();
         clock.restart();
+        createObjects();
+        calculateTime();
     }
 }
 
 void Chef::update() {
-
-    if(!order && state == WAIT)
-    {
-        checkOrder();
-    }
-    if(state == COOK)
-    {
-        cook();
-    }
+    checkOrder();
+    setState();
     setAnimation();
     updateAnimations();
 }
@@ -115,5 +124,57 @@ void Chef::setKitchen(std::shared_ptr<Kitchen> k) {
 
 const std::shared_ptr<Kitchen> Chef::getKitchen() {
     return kitchen;
+}
+
+void Chef::setState() {
+    if(state == COOK)
+    {
+        cook();
+    }
+}
+
+void Chef::createObjects() {
+    switch(order->getCurrent())
+    {
+        case Current::APPETIZER:
+            order->setCurrent(Current::MAIN_DISH);
+            for(int i = 0; i < order->getPeopleNumber(); i++)
+            {
+                dish = new Appetizer(order->getAppetizers().back());
+                dishes.push_back(dish);
+                order->getAppetizers().pop_back();
+            }
+        case Current::MAIN_DISH:
+            order->setCurrent(Current::DESSERT);
+            for(int i = 0; i < order->getPeopleNumber(); i++)
+            {
+                dish = new MainCourse(order->getMainCourses().back());
+                dishes.push_back(dish);
+                order->getMainCourses().pop_back();
+            }
+        case Current::DESSERT:
+            order->setCurrent(Current::END);
+            for(int i = 0; i < order->getPeopleNumber(); i++)
+            {
+                dish = new Dessert(order->getDesserts().back());
+                dishes.push_back(dish);
+                order->getDesserts().pop_back();
+            }
+    }
+    calculateTime();
+}
+
+void Chef::calculateTime() {
+    time = 0;
+    for(auto & it: dishes)
+    {
+        if(it->getPreparationTime() > time)
+            time = it->getPreparationTime();
+    }
+}
+
+void Chef::setBill(std::shared_ptr<Bill>& b) {
+    bill.reset();
+    bill = b;
 }
 

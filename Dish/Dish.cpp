@@ -28,10 +28,6 @@ const sf::FloatRect Dish::getBounds() const {
     return this->sprite.getGlobalBounds();
 }
 
-void Dish::initTexture() {
-
-}
-
 void Dish::initPreparationTime() {
 
 }
@@ -42,6 +38,10 @@ int Dish::getTavNum() {
 
 void Dish::setTavNum(int i) {
     this->tavNum = i;
+}
+
+float Dish::getPreparationTime() {
+    return preparationTime;
 }
 
 

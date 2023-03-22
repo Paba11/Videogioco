@@ -29,9 +29,6 @@ private:
 
     //Method to initialize the preparation time;
     void initPreparationTime();
-
-
-
 };
 
 

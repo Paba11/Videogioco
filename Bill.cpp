@@ -52,7 +52,7 @@ void Bill::setDrinks(Drk drk) {
 void Bill::calculateCorrectTotal() {
     while(!drinks.empty())
     {
-        d = std::make_unique<Drink>(drinks.back());
+        //d = std::make_unique<Drink>(drinks.back());
         drinks.pop_back();
         correctTotal += d->getPrice();
     }
@@ -74,4 +74,8 @@ void Bill::calculateCorrectTotal() {
         desserts.pop_back();
         correctTotal += ds->getPrice();
     }
+}
+
+void Bill::setFinishedOrder(Order *o) {
+    finishedOrders.push_back(o);
 }

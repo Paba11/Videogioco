@@ -247,7 +247,7 @@ sf::RectangleShape *Map::distanceDirtyDishes(sf::Sprite &gc) {
 
     std::cout << "Dirty Dish Dist: " << dist << std::endl;
 
-    if(dist <= 200)
+    if(dist <= 10)
     {
         this->isClose = IS_CLOSE_DIRTY_DISHES;
     }

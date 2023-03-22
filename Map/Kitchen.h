@@ -31,7 +31,7 @@ public:
     ~Kitchen();
 
     //Method to insert and remove orders
-    void insertNewOrder(Order& order);
+    void insertNewOrder(Order* order);
     Order* makeNewOrder();
     //void insertWaitingOrder(Order* order);
     //Order* makeWaitingOrder();
@@ -49,6 +49,7 @@ public:
     void setReadyOrder(Order* order);
     void getWaitingOrder(int tavNum);
     void setWaitingOrder();
+
 
     //Getters & Setters
     bool getIsEmptyPlates();

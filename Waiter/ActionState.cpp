@@ -137,9 +137,10 @@ void ActionsState::leavingOrder(std::shared_ptr<Kitchen>& kitchen) {
 
     if(isOrder)
     {
-        kitchen->insertNewOrder(*order);
+        kitchen->insertNewOrder(order);
         order = nullptr;
         isOrder = false;
+        std::cout << "Order inserted in the kitchen queue" << std::endl;
     }
 }
 
