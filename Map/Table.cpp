@@ -212,7 +212,7 @@ void Table::updateBox() {
 
 void Table::setTable() {
 
-    sprite.setOrigin(30,32);
+    sprite.setOrigin(30,25);
     interactionSquare.setPosition(sprite.getPosition().x,sprite.getPosition().y - 100);
     setDishesPlace();
 
@@ -241,16 +241,18 @@ void Table::setDishesPlace() {
         sf::RectangleShape rectangle;
 
         rectangle.setSize(this->dishHitbox);
-        rectangle.setOrigin(15.f,15.f);
+        rectangle.setOrigin(20.f,20.f);
         rectangle.setOutlineColor(sf::Color::White);    //Fixme set trasparent when finished
         rectangle.setOutlineThickness(1.f);
         rectangle.setFillColor(sf::Color::Transparent);
         dishesPlace.push_back(rectangle);
     }
-    this->dishesPlace[0].setPosition(sprite.getPosition().x-20, sprite.getPosition().y-20);
-    this->dishesPlace[1].setPosition(sprite.getPosition().x+20, sprite.getPosition().y-20);
-    this->dishesPlace[2].setPosition(sprite.getPosition().x-20, sprite.getPosition().y+20);
-    this->dishesPlace[3].setPosition(sprite.getPosition().x+20, sprite.getPosition().y+20);
+    float offSetX = 35;
+    float offSetY = 25;
+    this->dishesPlace[0].setPosition(sprite.getPosition().x-offSetX, sprite.getPosition().y-offSetY);
+    this->dishesPlace[1].setPosition(sprite.getPosition().x+offSetX, sprite.getPosition().y-offSetY);
+    this->dishesPlace[2].setPosition(sprite.getPosition().x-offSetX, sprite.getPosition().y+offSetY);
+    this->dishesPlace[3].setPosition(sprite.getPosition().x+offSetX, sprite.getPosition().y+offSetY);
 }
 
 void Table::restartTimer() {

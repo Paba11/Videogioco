@@ -176,17 +176,17 @@ void Game::initTables() {
 
 void Game::initPosTables() {
 
-    map->getAllTables()[0].sprite.setPosition(140,334);    //60 64
+    map->getAllTables()[0].sprite.setPosition(140,320);    //60 64
     map->getAllTables()[0].posStool(80,270); //80 270
-    map->getAllTables()[1].sprite.setPosition(140,604);
+    map->getAllTables()[1].sprite.setPosition(140,590);
     map->getAllTables()[1].posStool(85,540);
-    map->getAllTables()[2].sprite.setPosition(140,874);
+    map->getAllTables()[2].sprite.setPosition(140,860);
     map->getAllTables()[2].posStool(85,810);
-    map->getAllTables()[3].sprite.setPosition(550,334);
+    map->getAllTables()[3].sprite.setPosition(550,320);
     map->getAllTables()[3].posStool(490,270);
-    map->getAllTables()[4].sprite.setPosition(550,604);
+    map->getAllTables()[4].sprite.setPosition(550,590);
     map->getAllTables()[4].posStool(490,540);
-    map->getAllTables()[5].sprite.setPosition(550,874);
+    map->getAllTables()[5].sprite.setPosition(550,860);
     map->getAllTables()[5].posStool(490,810);
     for(int i=0; i<numTables; i++) {
         map->getAllTables()[i].setTable();

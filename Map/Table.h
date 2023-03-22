@@ -80,7 +80,7 @@ private:
     int tavNum;
     std::vector<Stool> stoolTable;
     std::vector<sf::RectangleShape> dishesPlace;
-    sf::Vector2f dishHitbox = {30.f,30.f};
+    sf::Vector2f dishHitbox = {40.f,40.f};
     std::queue<Dish*> dishes;
     std::vector<Customer> customers;
     TableState state;
