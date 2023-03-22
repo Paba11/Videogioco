@@ -83,13 +83,13 @@ void Map::initPosTrees() {
 
     for(int i=0; i < numTrees; i++){
         if(i==0)
-            trees[i].setPosition(0,100);
+            trees[i].setPosition(500,980);
         else if(i==1)
             trees[1].setPosition(970,100);
         else if(i==2)
             trees[2].setPosition(0,1020);
         else if(i==3)
-            trees[3].setPosition(1235,710);
+            trees[3].setPosition(800,980);
     }
 }
 

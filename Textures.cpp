@@ -81,11 +81,6 @@ sf::Texture* Textures::getTexture(std::string name) {
      {
          std::cout << "ERROR::DISHWASHER::CAN'T LOAD TEXTURE FILE" << std::endl;
      }
-     textures["Main1"] = new sf::Texture();
-     if (!this->textures["Main1"]->loadFromFile("../Textures/Main1.png"))
-     {
-         std::cout << "ERROR::Main1::CAN'T LOAD TEXTURE FILE" << std::endl;
-     }
      textures["Customer1"] = new sf::Texture();
      if (!this->textures["Customer1"]->loadFromFile("../Textures/new_textures/Cliente1.png"))
      {
@@ -146,6 +141,57 @@ sf::Texture* Textures::getTexture(std::string name) {
      {
          std::cout << "ERROR::lKey::CAN'T LOAD TEXTURE FILE" << std::endl;
      }
+     textures["HAMBURGER"] = new sf::Texture();
+     if (!this->textures["HAMBURGER"]->loadFromFile("../Textures/Main1.png"))
+     {
+         std::cout << "ERROR::HAMBURGER::CAN'T LOAD TEXTURE FILE" << std::endl;
+     }  //
+     textures["MEAT"] = new sf::Texture();
+     if (!this->textures["MEAT"]->loadFromFile("../Textures/Main2.png"))
+     {
+         std::cout << "ERROR::MEAT::CAN'T LOAD TEXTURE FILE" << std::endl;
+     }
+     textures["MEATBALLS"] = new sf::Texture();
+     if (!this->textures["MEATBALLS"]->loadFromFile("../Textures/Main3.png"))
+     {
+         std::cout << "ERROR::MEATBALLS::CAN'T LOAD TEXTURE FILE" << std::endl;
+     }
+     textures["CHICKEN"] = new sf::Texture();
+     if (!this->textures["CHICKEN"]->loadFromFile("../Textures/Main4.png"))
+     {
+         std::cout << "ERROR::CHICKEN::CAN'T LOAD TEXTURE FILE" << std::endl;
+     }
+     textures["NACHOS"] = new sf::Texture();
+     if (!this->textures["NACHOS"]->loadFromFile("../Textures/Appetizer1.png"))
+     {
+         std::cout << "ERROR::NACHOS::CAN'T LOAD TEXTURE FILE" << std::endl;
+     }
+     textures["OMELETTE"] = new sf::Texture();
+     if (!this->textures["OMELETTE"]->loadFromFile("../Textures/Appetizer2.png"))
+     {
+         std::cout << "ERROR::OMELETTE::CAN'T LOAD TEXTURE FILE" << std::endl;
+     }
+     textures["CHOCOLATE_CAKE"] = new sf::Texture();
+     if (!this->textures["CHOCOLATE_CAKE"]->loadFromFile("../Textures/Dessert1.png"))
+     {
+         std::cout << "ERROR::CHOCOLATE_CAKE::CAN'T LOAD TEXTURE FILE" << std::endl;
+     }
+     textures["CHEESE_CAKE"] = new sf::Texture();
+     if (!this->textures["CHEESE_CAKE"]->loadFromFile("../Textures/Dessert2.png"))
+     {
+         std::cout << "ERROR::CHEESE_CAKE::CAN'T LOAD TEXTURE FILE" << std::endl;
+     }
+     textures["JELLY"] = new sf::Texture();
+     if (!this->textures["JELLY"]->loadFromFile("../Textures/Dessert3.png"))
+     {
+         std::cout << "ERROR::JELLY::CAN'T LOAD TEXTURE FILE" << std::endl;
+     }
+     textures["EmptyDish"] = new sf::Texture();
+     if (!this->textures["EmptyDish"]->loadFromFile("../Textures/EmptyDish.png"))
+     {
+         std::cout << "ERROR::EmptyDish::CAN'T LOAD TEXTURE FILE" << std::endl;
+     }
+
 
 
 }
