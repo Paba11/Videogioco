@@ -38,12 +38,14 @@ public:
     void setTable(const std::shared_ptr<Table>& t);
     bool getIsTaken();
     void setIsTaken(bool t);
+    void setMap(const std::shared_ptr<Map>& m);
 
 private:
     void initVariables(Table& t);
 
     Order order;
     std::shared_ptr<Table> table;
+    std::shared_ptr<Map> map;
     Current current;
     bool isTaken;
     sf::Clock timer;

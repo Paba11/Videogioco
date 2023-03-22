@@ -148,7 +148,9 @@ void Waiter::interact(const std::shared_ptr<Map>& map, sf::Event ev) {
             state = Actions::TAKING_ORDER;
             orderState.reset();
             orderState = std::make_unique<OrderState>(*t);
+            orderState->setMap(map);
             order = &orderState->takeOrder();
+            t->setState(TableState::WAITING_DISHES);
             actionsState->setIsOrder(true);
             actionsState->setOrder(*order);
             orderState.reset();

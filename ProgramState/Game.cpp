@@ -34,6 +34,7 @@ void Game::update() {
     updateTables();
     updateInteractions();
     map->getEntrance()->updateBox();
+    map->getKitchen()->updateBox();
     updateTable();
     waiter->update();
     dishWasher->update();
@@ -466,8 +467,7 @@ void Game::updateTables() {
 void Game::updateTable() {
 
     for(int i = 0; i < numTables; i++){
-        if(map->getAllTables()[i].getChosenTable())
-            map->getAllTables()[i].updateBox();
+        map->getAllTables()[i].updateBox();
     }
 
 }

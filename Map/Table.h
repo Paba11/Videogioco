@@ -18,9 +18,9 @@
 #include "../NPC/Customer.h"
 #include <queue>
 
-enum class TableState {CHOOSING, WAITING_TO_ORDER, ORDERING, WAITING_DISHES, EATING, ENDED};
+enum class TableState {CHOOSING, WAITING_TO_ORDER, WAITING_DISHES, EATING, ENDED};
 
-#define TIME_TO_CHOOSE 30.f
+#define TIME_TO_CHOOSE 5.f
 
 class Table {
 public:
@@ -61,6 +61,9 @@ public:
     sf::RectangleShape getInteractionSquare();
     void restartTimer();
     sf::Time getElapsedTime();
+    std::vector<sf::RectangleShape> getDishesPlace();
+    void setIsSit(bool t);
+    bool getIsSit();
 
     //Initialize table
     void initStoolTable();
@@ -68,12 +71,16 @@ public:
 
     void updateBox();
     void setTable();
+    void setDishesPlace();
+
 
 
 private:
     //Attributes of the table
     int tavNum;
     std::vector<Stool> stoolTable;
+    std::vector<sf::RectangleShape> dishesPlace;
+    sf::Vector2f dishHitbox = {30.f,30.f};
     std::queue<Dish*> dishes;
     std::vector<Customer> customers;
     TableState state;
@@ -83,6 +90,7 @@ private:
     int customerNumber;
     sf::Clock timer;
     bool isOccupied;
+    bool isSit;
 
     sf::RectangleShape interactionSquare;
     sf::Color boxOpacity = {253,202,78,255};

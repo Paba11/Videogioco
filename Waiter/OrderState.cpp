@@ -81,6 +81,7 @@ void OrderState::initVariables(Table& t) {
 }
 
 Order& OrderState::takeOrder() {
+    map->getKitchen()->setWaiterOrder(true);
     randomChoices();
     this->current = Current::MAIN_DISH;
     randomChoices();
@@ -103,6 +104,13 @@ bool OrderState::getIsTaken() {
 
 void OrderState::setIsTaken(bool t) {
     isTaken = t;
+}
+
+void OrderState::setMap(const std::shared_ptr<Map>& m) {
+
+    map.reset();
+    map = m;
+
 }
 
 /*

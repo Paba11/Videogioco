@@ -29,7 +29,6 @@ void Entrance::initSprite() {
     welcomeSquare.setSize({62,62});
     welcomeSquare.setOrigin(31,31);
     welcomeSquare.setOutlineThickness(1);
-
     welcomeSquare.setFillColor(sf::Color::Transparent);
     welcomeSquare.setPosition(920,910);
 }
@@ -80,8 +79,6 @@ void Entrance::updateBox() {
             boxOpacity.a += 5;
         else
             boxOpacity.a-= 5;
-
-
     }
 
 }

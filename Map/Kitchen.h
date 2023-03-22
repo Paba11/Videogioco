@@ -40,6 +40,9 @@ public:
     void update();
     void render(sf::RenderTarget& target);
 
+    void updateBox();
+
+
     //Methods to manage orders
     Order* getReadyOrder();
     std::queue<Order*>& getReadyOrders();
@@ -59,6 +62,8 @@ public:
     const sf::Sprite getSprite();
     const sf::FloatRect getBounds() const;
     std::shared_ptr<Counter> getCounter() const;
+    sf::RectangleShape& getInteractionSquare();
+    void setWaiterOrder(bool t);
 
 
 private:
@@ -78,6 +83,12 @@ private:
     DishState state;
     Recipe recipe;
     std::shared_ptr<Counter> counter;
+
+    sf::RectangleShape interactionSquare;
+    sf::Color boxOpacity = {253,202,78,255};
+    bool cicle = true;
+    bool waiterOrder;
+
 };
 
 

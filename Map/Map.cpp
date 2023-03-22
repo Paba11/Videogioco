@@ -172,13 +172,18 @@ const std::shared_ptr<Kitchen>& Map::distanceKitchen(sf::Sprite& gc) {
 
 
     float dist;
-
+    /*
     dist = std::sqrt(std::pow(this->kitchen->getSprite().getPosition().x - gc.getPosition().x, 2) +
                      std::pow(this->kitchen->getSprite().getPosition().y - gc.getPosition().y, 2));
 
     std::cout << "Kitchen Dist: " << dist << std::endl;
+     */
 
-    if(dist <= 200)
+    dist = std::sqrt(std::pow(this->kitchen->getInteractionSquare().getPosition().x - gc.getPosition().x, 2) +
+                     std::pow(this->kitchen->getInteractionSquare().getPosition().y - gc.getPosition().y, 2));
+
+    std::cout << "Kitchen Dist: " << dist << std::endl;
+    if(dist <= 20)
     {
         this->isClose = IS_CLOSE_KITCHEN;
     }

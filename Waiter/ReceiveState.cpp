@@ -190,6 +190,7 @@ void ReceiveState::moveToTable() {
         {
             table->setCustomers(customers);
             isSit = true;
+            table->setIsSit(true);
             map->getEntrance()->setIsCustomer(false);
 
         }

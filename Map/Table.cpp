@@ -14,6 +14,7 @@ Table::Table() {
     chosenTable = false;
     initSprite();
     initStoolTable();
+    isSit = false;
 
 }
 
@@ -38,20 +39,24 @@ void Table::update() {
             for(auto i : customers)
                 i.update();
         }
-
-
     }
 }
 
 void Table::render(sf::RenderTarget &target) {
     target.draw(sprite);
 
-    if(chosenTable)
+    for(int i = 0 ;i < 4; i++)
+        target.draw(dishesPlace[i]);
+
+    if(chosenTable || state == TableState::WAITING_TO_ORDER)
         target.draw(interactionSquare);
+
     if(customers.size() > 0){
         for(int i = customers.size() -1 ; i >= 0; i--)
             target.draw(customers[i].sprite);
     }
+
+
 }
 
 void Table::initSprite() {
@@ -175,7 +180,7 @@ std::vector<Customer> &Table::getCustomers() {
 }
 
 void Table::ordering() {
-    if(timer.getElapsedTime().asSeconds() > TIME_TO_CHOOSE)
+    if(timer.getElapsedTime().asSeconds() > TIME_TO_CHOOSE && isSit)
     {
         state = TableState::WAITING_TO_ORDER;
         std::cout << std::endl << "Ready to order" << std::endl;
@@ -188,7 +193,7 @@ std::vector<Stool> &Table::getStoolTable() {
 
 void Table::updateBox() {
 
-    if(chosenTable) {
+    if(chosenTable || state == TableState::WAITING_TO_ORDER) {
         interactionSquare.setFillColor(boxOpacity);
 
         if(boxOpacity.a == 255)
@@ -209,6 +214,7 @@ void Table::setTable() {
 
     sprite.setOrigin(30,32);
     interactionSquare.setPosition(sprite.getPosition().x,sprite.getPosition().y - 100);
+    setDishesPlace();
 
 }
 
@@ -225,11 +231,41 @@ bool Table::getChosenTable() {
     return chosenTable;
 }
 
+std::vector<sf::RectangleShape> Table::getDishesPlace() {
+    return this->dishesPlace;
+}
+
+void Table::setDishesPlace() {
+
+    for(int i = 0; i < 4; i++){
+        sf::RectangleShape rectangle;
+
+        rectangle.setSize(this->dishHitbox);
+        rectangle.setOrigin(15.f,15.f);
+        rectangle.setOutlineColor(sf::Color::White);    //Fixme set trasparent when finished
+        rectangle.setOutlineThickness(1.f);
+        rectangle.setFillColor(sf::Color::Transparent);
+        dishesPlace.push_back(rectangle);
+    }
+    this->dishesPlace[0].setPosition(sprite.getPosition().x-20, sprite.getPosition().y-20);
+    this->dishesPlace[1].setPosition(sprite.getPosition().x+20, sprite.getPosition().y-20);
+    this->dishesPlace[2].setPosition(sprite.getPosition().x-20, sprite.getPosition().y+20);
+    this->dishesPlace[3].setPosition(sprite.getPosition().x+20, sprite.getPosition().y+20);
+}
+
 void Table::restartTimer() {
     timer.restart();
 }
 
 sf::Time Table::getElapsedTime() {
     return timer.getElapsedTime();
+}
+
+void Table::setIsSit(bool t) {
+    this->isSit = t;
+}
+
+bool Table::getIsSit() {
+    return this->isSit;
 }
 
