@@ -34,7 +34,7 @@ void Waiter::initSprite() {
     //this->sprite.setTexture(*this->texture->getTexture("Waiter"));
     this->currentFrame = sf::IntRect (0,0,50,50);
     this->sprite.setTextureRect(this->currentFrame);
-    this->sprite.setScale(2.5,2.5);
+    this->sprite.setScale(2.20f,2.20f);
 }
 
 

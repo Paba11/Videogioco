@@ -30,7 +30,7 @@ public:
 
 private:
     //Methods' override to init the texture and the sprite
-    void initTexture() override;
+
     void initSprite() override;
     Textures* texture = new Textures;
 

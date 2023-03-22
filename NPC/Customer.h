@@ -7,6 +7,7 @@
 
 
 #include "../GameCharacter.h"
+#include "../Textures.h"
 #include <queue>
 
 #define TOTAL_OFFSET 50
@@ -26,6 +27,7 @@ public:
     //Initialize attributes
     void initSprite() override;
     void initVariables();
+    void initTexture(std::string textureName);
 
     //void collisionCheck(const Map& map);
     void updateAnimations() override;
@@ -50,6 +52,7 @@ private:
     int patience;
     bool moving;
     sf::Vector2f endingPos;
+    Textures* spriteTexture;
 
     //Road to move to the table
     std::queue<Move> path;

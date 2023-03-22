@@ -181,6 +181,13 @@ bool Customer::isMoving() {
     return moving;
 }
 
+void Customer::initTexture(std::string textureName) {
+
+    spriteTexture = new Textures();
+    sprite.setTexture(*this->spriteTexture->getTexture(textureName));
+
+}
+
 
 /*
 void Customer::updateMoving(sf::Sprite& previous) {
