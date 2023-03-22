@@ -8,7 +8,6 @@ Table::Table() {
     numStoolsTable = 4;
     state = TableState::CHOOSING;
     course = Current::APPETIZER;
-    isReady = false;
     isOccupied = false;
     customerNumber = 0;
     cicle = true;
@@ -138,16 +137,16 @@ int Table::getCustomerNumber() {
 }
 
 void Table::receivingCustomers(std::vector<Customer>& c) {
-    this->customers.reserve(c.size());
-    this->customerNumber += c.size();
-    this->isOccupied = true;
-    this->timer.restart();
-    std::move(c.begin(), c.end(), std::back_inserter(this->customers));
+    customers.reserve(c.size());
+    customerNumber += c.size();
+    isOccupied = true;
+    timer.restart();
+    std::move(c.begin(), c.end(), std::back_inserter(customers));
     c.clear();
 }
 
 void Table::setIsOccupied(bool t) {
-    this->isOccupied = t;
+    isOccupied = t;
 }
 
 bool Table::getIsOccupied() {
@@ -159,7 +158,7 @@ void Table::setCustomers(std::vector<Customer>& cust) {
      * Move all the elements of the passed vector to the one of te customer
      */
     customers.reserve(cust.size());
-    std::move(cust.begin(), cust.end(), std::back_inserter(this->customers));
+    std::move(cust.begin(), cust.end(), std::back_inserter(customers));
     cust.clear();
     int i =  0;
     for(auto &it : customers){
@@ -172,22 +171,15 @@ void Table::setCustomers(std::vector<Customer>& cust) {
 }
 
 std::vector<Customer> &Table::getCustomers() {
-    return this->customers;
+    return customers;
 }
 
 void Table::ordering() {
-    if(this->timer.getElapsedTime().asSeconds() > TIME_TO_CHOOSE)
+    if(timer.getElapsedTime().asSeconds() > TIME_TO_CHOOSE)
     {
-        this->state = TableState::WAITING_TO_ORDER;
+        state = TableState::WAITING_TO_ORDER;
+        std::cout << std::endl << "Ready to order" << std::endl;
     }
-}
-
-void Table::setIsReady(bool t) {
-    this->isReady = t;
-}
-
-bool Table::getIsReady() {
-    return this->isReady;
 }
 
 std::vector<Stool> &Table::getStoolTable() {
@@ -232,3 +224,12 @@ sf::RectangleShape Table::getInteractionSquare() {
 bool Table::getChosenTable() {
     return chosenTable;
 }
+
+void Table::restartTimer() {
+    timer.restart();
+}
+
+sf::Time Table::getElapsedTime() {
+    return timer.getElapsedTime();
+}
+

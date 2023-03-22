@@ -22,14 +22,23 @@ Kitchen::~Kitchen() {
     }
 }
 
-void Kitchen::insertNewOrder(const std::shared_ptr<Order>& o) {
-    newOrders.push(o);
+void Kitchen::insertNewOrder(Order& o) {
+    newOrders.push(&o);
+    std::cout << "InsertingOrder" << std::endl;
+    std::queue<Order*> tmp;
+    for(int i = 0; i < newOrders.size(); i++)
+    {
+        std::cout << "Order of table " << newOrders.front()->getTableNumber() << std::endl;
+        tmp.push(newOrders.front());
+        newOrders.pop();
+        newOrders.push(tmp.front());
+    }
 }
 
-std::shared_ptr<Order> Kitchen::makeNewOrder() {
+Order* Kitchen::makeNewOrder() {
     current = newOrders.front();
-    this->newOrders.pop();
-    return this->current;
+    newOrders.pop();
+    return current;
 }
 
 void Kitchen::initSprite() {
@@ -89,7 +98,7 @@ std::queue<Dish *> &Kitchen::getDishes() {
     return this->dishes;
 }
 
-std::shared_ptr<Order> Kitchen::getReadyOrder() {
+Order* Kitchen::getReadyOrder() {
     current = nullptr;
     if(!readyOrders.empty())
     {
@@ -99,7 +108,7 @@ std::shared_ptr<Order> Kitchen::getReadyOrder() {
     return current;
 }
 
-void Kitchen::setReadyOrder(std::shared_ptr<Order> o) {
+void Kitchen::setReadyOrder(Order* o) {
     readyOrders.push(o);
 }
 
@@ -108,7 +117,7 @@ void Kitchen::getWaitingOrder(int tavNum) {
      * Insert the order that was waiting in the queue of the not ready tables inside the readyQueue
      */
     int i = 100;
-    std::queue<std::shared_ptr<Order>> tmp;
+    std::queue<Order*> tmp;
     while(i != tavNum && !waitingOrders.empty())
     {
         i = waitingOrders.front()->getTableNumber();
@@ -136,12 +145,12 @@ void Kitchen::getWaitingOrder(int tavNum) {
 }
 
 void Kitchen::setWaitingOrder() {
-    this->waitingOrders.push(this->current);
-    this->current = nullptr;
+    waitingOrders.push(current);
+    current = nullptr;
 }
 
-std::queue<std::shared_ptr<Order>> &Kitchen::getReadyOrders() {
-    return this->readyOrders;
+std::queue<Order*> &Kitchen::getReadyOrders() {
+    return readyOrders;
 }
 
 std::shared_ptr<Counter> Kitchen::getCounter() const{

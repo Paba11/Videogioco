@@ -31,11 +31,11 @@ Table& Map::getTable(int i) {
     return this->allTables[i];
 }
 
-const std::shared_ptr<Kitchen>& Map::getKitchen() {
+std::shared_ptr<Kitchen>& Map::getKitchen() {
     return kitchen;
 }
 
-const std::shared_ptr<Washbasin>& Map::getWashbasin(){
+std::shared_ptr<Washbasin>& Map::getWashbasin(){
     return washbasin;
 }
 
@@ -259,7 +259,9 @@ std::vector<sf::RectangleShape> Map::distanceChefDishes(sf::Sprite &gc) {
         dist = std::sqrt(std::pow(this->kitchen->getCounter()->getPlaceChefDishes()[i].getPosition().x - gc.getPosition().x, 2) +
                          std::pow(this->kitchen->getCounter()->getPlaceChefDishes()[i].getPosition().y - gc.getPosition().y, 2));
 
+        /*
         std::cout << "Chef Dish " << i <<" Dist: " << dist << std::endl;
+         */
         i++;
     }
     /*

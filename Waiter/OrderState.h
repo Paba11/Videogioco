@@ -28,22 +28,25 @@ public:
 
     //Actions of the order state
     void setOrderVariables(const std::shared_ptr<Table>& t);
-    std::shared_ptr<Order> takeOrder();
+    Order& takeOrder();
     void randomChoices();
     void generateRandom(int max);
 
     //Getters & Setters
-    std::shared_ptr<Order> getOrder();
-    void setOrder(const std::shared_ptr<Order>& o);
+    Order& getOrder();
     const std::shared_ptr<Table>& getTable();
     void setTable(const std::shared_ptr<Table>& t);
+    bool getIsTaken();
+    void setIsTaken(bool t);
 
 private:
     void initVariables(Table& t);
 
-    std::shared_ptr<Order> order;
+    Order order;
     std::shared_ptr<Table> table;
     Current current;
+    bool isTaken;
+    sf::Clock timer;
 
     std::random_device rd;
     int random;

@@ -240,6 +240,7 @@ void ReceiveState::setAtTable() {
     isAtTable = true;
     table->setIsOccupied(true);
     table->setChosenTable(false);
+    table->restartTimer();
 }
 
 bool ReceiveState::getIsSit() {

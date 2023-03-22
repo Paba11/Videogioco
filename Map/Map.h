@@ -29,8 +29,8 @@ public:
     //Getters & Setters
     Table& getTable(int i);
     std::vector<Table>& getAllTables();
-    const std::shared_ptr<Kitchen>& getKitchen();
-    const std::shared_ptr<Washbasin>& getWashbasin();
+    std::shared_ptr<Kitchen>& getKitchen();
+    std::shared_ptr<Washbasin>& getWashbasin();
     Entrance* getEntrance() const;
     Table& selectFreeTable();
     //void setTables(std::vector<Table> allTable);

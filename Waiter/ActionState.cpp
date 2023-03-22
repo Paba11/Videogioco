@@ -28,7 +28,7 @@ void ActionsState::update(GameCharacter* w) {
 }
 
 
-void ActionsState::pickUp(std::shared_ptr<Kitchen> kitchen) {
+void ActionsState::pickUp(std::shared_ptr<Kitchen>& kitchen) {
     //PICK UP THE PLATES FROM THE KITCHEN
 
     Dish* d;
@@ -109,7 +109,7 @@ void ActionsState::putDown(Table* table) {
     }
 }
 
-void ActionsState::putDown(std::shared_ptr<Washbasin> washbasin) {
+void ActionsState::putDown(std::shared_ptr<Washbasin>& washbasin) {
     //Lave the plates at the washbasin
 
     if(tray->getState() == TrayState::EMPTY_PLATES && !washbasin->getIsPlates())
@@ -132,14 +132,14 @@ void ActionsState::putDown(std::shared_ptr<Washbasin> washbasin) {
     }
 }
 
-void ActionsState::leavingOrder(std::shared_ptr<Kitchen> kitchen) {
+void ActionsState::leavingOrder(std::shared_ptr<Kitchen>& kitchen) {
     //Leave the order at the kitchen
 
-    if(order)
+    if(isOrder)
     {
-        kitchen->insertNewOrder(order);
-        kitchen->update();
+        kitchen->insertNewOrder(*order);
         order = nullptr;
+        isOrder = false;
     }
 }
 
@@ -192,4 +192,8 @@ void ActionsState::actionManagement() {
     map->setIsClose(IS_CLOSE_NOTHING);
     waiter->setState(Actions::DOING_NOTHING);
 
+}
+
+void ActionsState::setOrder(Order &o) {
+    order = &o;
 }

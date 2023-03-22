@@ -447,7 +447,7 @@ void Game::updateInteractions() {
 void Game::updateOrderState() {
     if(waiter->getState() == Actions::TAKING_ORDER)
     {
-        orderState->update(waiter.get());
+
     }
 }
 
@@ -455,12 +455,6 @@ void Game::updateTables() {
     for(auto & it : map->getAllTables())
     {
         it.update();
-        if(it.getState() == TableState::WAITING_TO_ORDER && !it.getIsReady())
-        {
-            orderState = std::make_shared<OrderState>(it);
-            waiter->setOrderState(orderState);
-            it.setIsReady(true);
-        }
         if(it.getIsOccupied())
         {
             for(auto & i: it.getCustomers())

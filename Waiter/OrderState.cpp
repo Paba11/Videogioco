@@ -8,20 +8,14 @@
 
 OrderState::OrderState(Table& t) {
     initVariables(t);
-    current = Current::APPETIZER;
 }
 
 OrderState::~OrderState() {
 
 }
 
-std::shared_ptr<Order> OrderState::getOrder() {
-    return this->order;
-}
-
-void OrderState::setOrder(const std::shared_ptr<Order>& o) {
-    order.reset();
-    order = o;
+Order& OrderState::getOrder() {
+    return order;
 }
 
 const std::shared_ptr<Table>& OrderState::getTable() {
@@ -36,11 +30,11 @@ void OrderState::setTable(const std::shared_ptr<Table>& t) {
 void OrderState::setOrderVariables(const std::shared_ptr<Table>& t) {
     table.reset();
     table = t;
-    order->initPointersToNull();
+    order.initPointersToNull();
 }
 
 void OrderState::handleInput(GameCharacter* gc, sf::Event ev) {
-    takeOrder();
+
 }
 
 void OrderState::update(GameCharacter* gc) {
@@ -48,31 +42,31 @@ void OrderState::update(GameCharacter* gc) {
 }
 
 void OrderState::randomChoices() {
-    switch(this->current)
+    switch(current)
     {
         case Current::APPETIZER:
-            for(int i = 0; i < this->table->getCustomers().size(); i++)
+            for(int i = 0; i < table->getCustomers().size(); i++)
             {
                 generateRandom(1);
-                this->order->setAppetizer(this->random);
+                order.setAppetizer(random);
             }
         case Current::MAIN_DISH:
-            for(int i = 0; i < this->table->getCustomers().size(); i++)
+            for(int i = 0; i < table->getCustomers().size(); i++)
             {
                 generateRandom(3);
-                this->order->setMainCourse(this->random);
+                order.setMainCourse(random);
             }
         case Current::DESSERT:
-            for(int i = 0; i < this->table->getCustomers().size(); i++)
+            for(int i = 0; i < table->getCustomers().size(); i++)
             {
                 generateRandom(2);
-                this->order->setDessert(this->random);
+                order.setDessert(random);
             }
         case Current::DRINK:
-            for(int i = 0; i < this->table->getCustomers().size(); i++)
+            for(int i = 0; i < table->getCustomers().size(); i++)
             {
                 generateRandom(3);
-                this->order->setDrink(this->random);
+                order.setDrink(random);
             }
     }
 }
@@ -80,12 +74,13 @@ void OrderState::randomChoices() {
 void OrderState::initVariables(Table& t) {
     table.reset();
     table = std::make_shared<Table>(t);
-    order = std::make_shared<Order>();
-    order->setTableNumber(table->getTavNum());
-    current = Current::DRINK;
+    order.setTableNumber(table->getTavNum());
+    timer.restart();
+    isTaken = false;
+    current = Current::APPETIZER;
 }
 
-std::shared_ptr<Order> OrderState::takeOrder() {
+Order& OrderState::takeOrder() {
     randomChoices();
     this->current = Current::MAIN_DISH;
     randomChoices();
@@ -93,7 +88,7 @@ std::shared_ptr<Order> OrderState::takeOrder() {
     randomChoices();
     this->current = Current::DRINK;
     randomChoices();
-    return this->order;
+    return order;
 }
 
 void OrderState::generateRandom(int max) {
@@ -102,6 +97,13 @@ void OrderState::generateRandom(int max) {
     this->random = distrib(gen);
 }
 
+bool OrderState::getIsTaken() {
+    return isTaken;
+}
+
+void OrderState::setIsTaken(bool t) {
+    isTaken = t;
+}
 
 /*
 void OrderState::setAppetizers() {

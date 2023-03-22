@@ -143,11 +143,16 @@ void Waiter::interact(const std::shared_ptr<Map>& map, sf::Event ev) {
             receiveState->handleInput(this, ev);
             std::cout << "Receiving customers" << std::endl;
         }
-        else if(!order && map->getIsClose() == IS_CLOSE_TABLE && t->getIsReady())
+        else if(!order && map->getIsClose() == IS_CLOSE_TABLE && t->getState() == TableState::WAITING_TO_ORDER)
         {
             state = Actions::TAKING_ORDER;
-            orderState->handleInput(this, ev);
+            orderState.reset();
+            orderState = std::make_unique<OrderState>(*t);
+            order = &orderState->takeOrder();
             actionsState->setIsOrder(true);
+            actionsState->setOrder(*order);
+            orderState.reset();
+            std::cout << "Order taken" << std::endl;
         }
         else
         {
@@ -162,12 +167,12 @@ void Waiter::interact(const std::shared_ptr<Map>& map, sf::Event ev) {
     }
 }
 
-std::shared_ptr<Order> Waiter::getOrder() {
-    return this->order;
+Order* Waiter::getOrder() {
+    return order;
 }
 
-void Waiter::setOrder(std::shared_ptr<Order> o) {
-    this->order = std::move(o);
+void Waiter::setOrder(Order* o) {
+    order = o;
 }
 
 void Waiter::update() {
@@ -304,12 +309,29 @@ void Waiter::leaveAtTable() {
 }
 
 void Waiter::updateState() {
-    if(receiveState->getIsSit())
+    if(state == Actions::RECEIVING_CUSTOMERS && receiveState)
     {
-        state = Actions::DOING_NOTHING;
-        receiveState.reset();
+        if(receiveState->getIsSit())
+        {
+            std::cout << "Delete receive state" << std::endl;
+            receiveState->getTable()->restartTimer();
+            state = Actions::DOING_NOTHING;
+            receiveState.reset();
+        }
+    }
+    else if(state == Actions::TAKING_ORDER && orderState)
+    {
+        if(orderState->getIsTaken())
+        {
+            actionsState->setIsOrder(false);
+            std::cout << "Delete OrderState" << std::endl;
+            state = Actions::DOING_NOTHING;
+            orderState.reset();
+
+        }
     }
 }
+
 
 
 

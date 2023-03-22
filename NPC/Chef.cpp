@@ -62,20 +62,18 @@ void Chef::cook() {
     }
 }
 
-void Chef::setOrder() {
-    order = this->kitchen->getReadyOrder();
+void Chef::setOrder(Order* o) {
+    order = o;
 }
 
-std::shared_ptr<Order> Chef::getOrder() {
-    std::shared_ptr<Order> o = std::move(order);
-    order = nullptr;
-    return o;
+Order* Chef::getOrder() {
+    return order;
 }
 
 void Chef::checkOrder() {
     if(!kitchen->getReadyOrders().empty())
     {
-        setOrder();
+        setOrder(kitchen->getReadyOrder());
         state = COOK;
         setAnimation();
         clock.restart();

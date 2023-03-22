@@ -21,21 +21,22 @@ public:
     void actionManagement();
 
     //Methods to interact
-    void pickUp(std::shared_ptr<Kitchen> kitchen);
+    void pickUp(std::shared_ptr<Kitchen>& kitchen);
     void pickUp(Table* table);
     void putDown(Table* table);
-    void putDown(std::shared_ptr<Washbasin> washbasin);
-    void leavingOrder(std::shared_ptr<Kitchen> kitchen);
+    void putDown(std::shared_ptr<Washbasin>& washbasin);
+    void leavingOrder(std::shared_ptr<Kitchen>& kitchen);
 
     //Getters & setters
     Tray* getTray();
     void setIsOrder(bool t);
     bool getIsOrder();
+    void setOrder(Order& o);
 
 private:
     std::shared_ptr<GameCharacter> waiter;
     std::shared_ptr<Map> map;
-    std::shared_ptr<Order> order;
+    Order* order;
     bool isOrder;
     sf::Event event;
 

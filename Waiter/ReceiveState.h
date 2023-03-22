@@ -30,7 +30,7 @@ public:
     void addToPathSingleCustomer(Move dir, Customer& c);
     void moveToTable();
     void pathToTable();
-    void setAtTable();
+
 
     //Getters & Setters
     void setTable(Table* t);
@@ -43,6 +43,7 @@ public:
     bool getIsAtTable();
     bool checkPos();
     bool getIsSit();
+    void setAtTable();
 
 private:
     Textures* texture = new Textures();

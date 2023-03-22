@@ -20,7 +20,7 @@
 
 enum class TableState {CHOOSING, WAITING_TO_ORDER, ORDERING, WAITING_DISHES, EATING, ENDED};
 
-#define TIME_TO_CHOOSE 20
+#define TIME_TO_CHOOSE 30.f
 
 class Table {
 public:
@@ -56,11 +56,11 @@ public:
     std::vector<Customer>& getCustomers();
     void setIsOccupied(bool t);
     bool getIsOccupied();
-    void setIsReady(bool t);
-    bool getIsReady();
     void setChosenTable(bool t);
     bool getChosenTable();
     sf::RectangleShape getInteractionSquare();
+    void restartTimer();
+    sf::Time getElapsedTime();
 
     //Initialize table
     void initStoolTable();
@@ -83,7 +83,6 @@ private:
     int customerNumber;
     sf::Clock timer;
     bool isOccupied;
-    bool isReady;
 
     sf::RectangleShape interactionSquare;
     sf::Color boxOpacity = {253,202,78,255};

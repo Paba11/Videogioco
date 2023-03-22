@@ -50,8 +50,8 @@ public:
     void setActionState(const std::shared_ptr<ActionsState>& as);
     void setOrderState(const std::shared_ptr<OrderState>& os);
     void setReceiveState(const std::shared_ptr<ReceiveState>& rs);
-    std::shared_ptr<Order> getOrder();
-    void setOrder(std::shared_ptr<Order> o);
+    Order* getOrder();
+    void setOrder(Order* o);
 
     void initStates(const std::shared_ptr<ActionsState>& as, const std::shared_ptr<ReceiveState>& rs, const std::shared_ptr<OrderState>& os);
 
@@ -69,7 +69,7 @@ protected:
     std::shared_ptr<ReceiveState> receiveState;
 
     //Attributes to take an order
-    std::shared_ptr<Order> order;
+    Order* order;
 
     //Attributes to receive the customers
     bool isReceived;
