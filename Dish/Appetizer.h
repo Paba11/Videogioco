@@ -15,7 +15,7 @@ public:
     ~Appetizer();
 
     //Methods to initialize the texture and the sprite based on the dish type
-    void initTexture();
+    void initTexture() override;
 
     //Calculate the correct price & preparation time
     void calculatePrice();
@@ -29,7 +29,7 @@ private:
     int price;
 
     //Method to initialize the preparation time;
-    void initPreparationTime();
+    void initPreparationTime() override;
 };
 
 

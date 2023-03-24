@@ -9,6 +9,8 @@
 #include <SFML/System.hpp>
 #include <SFML/Audio.hpp>
 #include "../Textures.h"
+#include "../Dish/Dish.h"
+#include <queue>
 
 
 class Counter {
@@ -22,7 +24,13 @@ public:
     void setDirtyDishes();
     void setChefDishes();
 
+    //Set the dishes on the counter
+    Dish* getDish();
+    void setDish(Dish* dish);
+    std::queue<Dish *>& getDishes();
+
 private:
+    std::queue<Dish*> dishes;
     sf::Sprite sprite;
     sf::RectangleShape placeForDirtyDishes;
     std::vector <sf::RectangleShape> chefDishes;

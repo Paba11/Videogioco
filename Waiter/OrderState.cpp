@@ -63,13 +63,6 @@ void OrderState::randomChoices() {
                 order->setDessert(random);
             }
             break;
-        case Current::DRINK:
-            for(int i = 0; i < table->getCustomers().size(); i++)
-            {
-                generateRandom(3);
-                order->setDrink(random);
-            }
-            break;
     }
 }
 
@@ -91,8 +84,6 @@ std::shared_ptr<Order>& OrderState::takeOrder() {
         current = Current::MAIN_DISH;
         randomChoices();
         current = Current::DESSERT;
-        randomChoices();
-        current = Current::DRINK;
         randomChoices();
         isTaken = true;
     }

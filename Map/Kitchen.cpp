@@ -99,16 +99,6 @@ const sf::Vector2f Kitchen::getPosition() const {
     return this->sprite.getPosition();
 }
 
-Dish *Kitchen::getDish() {
-    Dish* d = this->dishes.front();
-    this->dishes.pop();
-    return d;
-}
-
-void Kitchen::setDish(Dish* d) {
-    this->dishes.push(d);
-}
-
 void Kitchen::update() {
 
 }
@@ -137,10 +127,6 @@ const sf::FloatRect Kitchen::getBounds() const {
 
 const sf::Sprite Kitchen::getSprite() {
     return this->sprite;
-}
-
-std::queue<Dish *> &Kitchen::getDishes() {
-    return this->dishes;
 }
 
 std::shared_ptr<Order>& Kitchen::getReadyOrder() {

@@ -9,6 +9,6 @@ enum class Apt {NACHOS, OMELETTE};
 enum class Mn {HAMBURGER, MEAT, MEATBALLS, CHICKEN};
 enum class Dsr {CHOCOLATE_CAKE, CHEESE_CAKE, JELLY};
 enum class Drk {WATER, WINE, BEER, COKE};
-enum class Current {APPETIZER, MAIN_DISH, DESSERT, DRINK, END};
+enum class Current {APPETIZER, MAIN_DISH, DESSERT, END};
 
 #endif //VIDEOGIOCO_MEALMENU_H

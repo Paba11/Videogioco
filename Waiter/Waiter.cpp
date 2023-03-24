@@ -127,6 +127,7 @@ void Waiter::move() {
 }
 
 void Waiter::interact(const std::shared_ptr<Map>& map, sf::Event ev) {
+    map->setIsClose(IS_CLOSE_NOTHING);
     Table* t = map->distanceTable(sprite);
     map->distanceEntrance(sprite);
     map->distanceKitchen(sprite);

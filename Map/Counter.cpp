@@ -75,3 +75,17 @@ sf::RectangleShape &Counter::getPlaceDirtyDishes() {
 std::vector<sf::RectangleShape> Counter::getPlaceChefDishes() {
     return this->chefDishes;
 }
+
+Dish *Counter::getDish() {
+    Dish* d = this->dishes.front();
+    this->dishes.pop();
+    return d;
+}
+
+void Counter::setDish(Dish* d) {
+    this->dishes.push(d);
+}
+
+std::queue<Dish *> &Counter::getDishes() {
+    return this->dishes;
+}

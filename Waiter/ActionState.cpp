@@ -36,9 +36,9 @@ void ActionsState::pickUp(std::shared_ptr<Kitchen>& kitchen) {
     Dish* d;
     if(tray->getState() == TrayState::EMPTY_TRAY && kitchen->getState() == DishState::FULL)
     {
-        while (!kitchen->getDishes().empty())
+        while (!kitchen->getCounter()->getDishes().empty())
         {
-            d = kitchen->getDish();
+            d = kitchen->getCounter()->getDish();
             tray->setDish(d);
             tray->update();
             kitchen->update();

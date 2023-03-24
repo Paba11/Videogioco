@@ -204,10 +204,10 @@ Table* Map::distanceTable(sf::Sprite& gc) {
         << ", " << this->map->getTable(i).getPosition().y << std::endl;
     }
     */
-    for(int i = 0; i < this->allTables.size() && this->isClose != IS_CLOSE_TABLE; i++)
+    for(int i = 0; i < allTables.size() && isClose != IS_CLOSE_TABLE; i++)
     {
 
-        this->table = &getTable(i);
+        table = &getTable(i);
         dist = std::sqrt(std::pow(table->sprite.getPosition().x - gc.getPosition().x, 2) +
                          std::pow(table->sprite.getPosition().y - gc.getPosition().y, 2));
 
@@ -219,7 +219,7 @@ Table* Map::distanceTable(sf::Sprite& gc) {
         {
             //std::cout << "dist <= 130 table: " << i << std::endl;
             //t = &this->map->getTable(i);
-            this->isClose = IS_CLOSE_TABLE;
+            isClose = IS_CLOSE_TABLE;
         }
 
     }

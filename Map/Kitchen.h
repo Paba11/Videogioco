@@ -54,9 +54,6 @@ public:
     bool getIsEmptyPlates();
     void setIsEmptyPlates(bool t);
     const sf::Vector2f getPosition() const;
-    Dish* getDish();
-    void setDish(Dish* dish);
-    std::queue<Dish*>& getDishes();
     void setState(DishState ds);
     DishState getState();
     const sf::Sprite getSprite();
@@ -77,7 +74,6 @@ private:
     void initTexture();
     void initSprite();
 
-    std::queue<Dish*> dishes;
     //std::queue<std::shared_ptr<Order>> newOrders;
     std::queue<std::shared_ptr<Order>> waitingOrders;
     std::queue<std::shared_ptr<Order>> readyOrders;

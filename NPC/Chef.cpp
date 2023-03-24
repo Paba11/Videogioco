@@ -59,7 +59,7 @@ void Chef::cook() {
         kitchen->setState(DishState::FULL);
         for(auto & it: dishes)
         {
-            kitchen->setDish(it);
+            kitchen->getCounter()->setDish(it);
         }
         dishes.clear();
         state = Do::WAIT;
@@ -158,6 +158,8 @@ void Chef::createObjects() {
                 dishes.push_back(dish);
                 order->getDesserts().pop_back();
             }
+            break;
+        case Current::END:
             break;
     }
     if(!dishes.empty())
