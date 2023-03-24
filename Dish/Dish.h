@@ -10,6 +10,7 @@
 #include <SFML/Window.hpp>
 #include <SFML/System.hpp>
 #include <SFML/Audio.hpp>
+#include "MealMenu.h"
 
 enum class State {READY, COOKING, WAITING, IN_QUEUE};
 
@@ -39,6 +40,9 @@ public:
     virtual void calculateTime() = 0;
     void setTavNum(int i);
     float getPreparationTime();
+    void setPrice(int i);
+    int getPrice();
+    virtual void calculatePrice() = 0;
 
 protected:
     sf::Texture* texture;
@@ -46,8 +50,8 @@ protected:
     sf::Vector2f direction;
     int tavNum;
     float preparationTime;
+    int price;
     State state;
-
 };
 
 

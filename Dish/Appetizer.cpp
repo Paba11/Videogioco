@@ -60,10 +60,6 @@ void Appetizer::calculatePrice() {
     }
 }
 
-int Appetizer::getPrice() {
-    return price;
-}
-
 void Appetizer::calculateTime() {
     preparationTime = 0;
     switch(type)

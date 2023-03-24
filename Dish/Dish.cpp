@@ -44,3 +44,13 @@ float Dish::getPreparationTime() {
     return preparationTime;
 }
 
+void Dish::setPrice(int i) {
+    price = i;
+}
+
+int Dish::getPrice() {
+    return price;
+}
+
+
+

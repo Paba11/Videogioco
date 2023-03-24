@@ -71,10 +71,6 @@ void Dessert::calculatePrice() {
     }
 }
 
-int Dessert::getPrice() {
-    return price;
-}
-
 void Dessert::calculateTime() {
     switch(type)
     {

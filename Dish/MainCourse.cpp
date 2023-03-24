@@ -83,9 +83,6 @@ void MainCourse::calculatePrice() {
     }
 }
 
-int MainCourse::getPrice() {
-    return this->price;
-}
 
 void MainCourse::calculateTime() {
     switch(type)

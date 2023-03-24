@@ -18,11 +18,9 @@ public:
     void initTexture() override;
 
     //Calculate the correct price & preparation time
-    void calculatePrice();
+    void calculatePrice() override;
     void calculateTime() override;
 
-    //Getters & Setters
-    int getPrice();
 
 private:
     //Method to initialize the preparation time;
