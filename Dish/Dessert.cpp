@@ -8,8 +8,9 @@
 Dessert::Dessert(Dsr d) {
     this->type = d;
     calculatePrice();
-    initTexture();
-    initSprite();
+    calculateTime();
+    //initTexture();
+    //initSprite();
 }
 
 Dessert::~Dessert() {
@@ -72,4 +73,19 @@ void Dessert::calculatePrice() {
 
 int Dessert::getPrice() {
     return price;
+}
+
+void Dessert::calculateTime() {
+    switch(type)
+    {
+        case Dsr::CHEESE_CAKE:
+            preparationTime = 20;
+            break;
+        case Dsr::CHOCOLATE_CAKE:
+            preparationTime = 17;
+            break;
+        case Dsr::JELLY:
+            preparationTime = 15;
+            break;
+    }
 }

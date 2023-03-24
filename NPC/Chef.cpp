@@ -3,11 +3,11 @@
 //
 
 #include "Chef.h"
-
+//TODO: ELABORATE THE TIME TO WAIT FOR THE PREPARATION
 
 Chef::Chef() {
     initSprite();
-    this->state = WAIT;
+    this->state = Do::WAIT;
     isReady = false;
 }
 
@@ -31,10 +31,10 @@ void Chef::initSprite() {
 
 void Chef::setAnimation() {
 
-    if(this->state == WAIT)
+    if(this->state == Do::WAIT)
         this->currentFrame.top = 0.f;
 
-    else if(this->state == COOK)
+    else if(this->state == Do::COOK)
         this->currentFrame.top = 40.f;
 
     this->sprite.setTextureRect(this->currentFrame);
@@ -52,7 +52,8 @@ Dish *Chef::getDish() {
 
 void Chef::cook() {
 
-    if (this->clock.getElapsedTime().asSeconds() >= time && kitchen->getState() != DishState::FULL)
+    if (this->clock.getElapsedTime().asSeconds() >= time && kitchen->getState() != DishState::FULL
+        && state == Do::COOK)
     {
         isReady = true;
         kitchen->setState(DishState::FULL);
@@ -61,17 +62,21 @@ void Chef::cook() {
             kitchen->setDish(it);
         }
         dishes.clear();
-        state = WAIT;
+        state = Do::WAIT;
 
         if(order->getCurrent() != Current::END)
         {
             kitchen->setWaitingOrder();
+            std::cout << "Set the plate in the kitchen" << std::endl;
         }
         else
             bill->setFinishedOrder(order);
 
         order = nullptr;
+        std::cout << "The plate is ready" << std::endl;
     }
+    else if (state == Do::COOK)
+        std::cout << "Still cooking" << std::endl;
 }
 
 void Chef::setOrder(std::shared_ptr<Order>& o) {
@@ -84,21 +89,19 @@ std::shared_ptr<Order>& Chef::getOrder() {
 }
 
 void Chef::checkOrder() {
-    if(!kitchen->getReadyOrders().empty() && state != COOK)
+    if(!kitchen->getReadyOrders().empty() && state != Do::COOK)
     {
         setOrder(kitchen->getReadyOrder());
-        kitchen->getReadyOrders().pop();
-        state = COOK;
+        state = Do::COOK;
         setAnimation();
-        clock.restart();
         createObjects();
-        calculateTime();
+        clock.restart();
     }
 }
 
 void Chef::update() {
     checkOrder();
-    setState();
+    cook();
     setAnimation();
     updateAnimations();
 }
@@ -124,13 +127,6 @@ void Chef::setKitchen(std::shared_ptr<Kitchen>& k) {
 
 const std::shared_ptr<Kitchen>& Chef::getKitchen() {
     return kitchen;
-}
-
-void Chef::setState() {
-    if(state == COOK)
-    {
-        cook();
-    }
 }
 
 void Chef::createObjects() {
@@ -164,14 +160,14 @@ void Chef::createObjects() {
             }
             break;
     }
-}
-
-void Chef::calculateTime() {
-    time = 0;
-    for(auto & it: dishes)
+    if(!dishes.empty())
     {
-        if(it->getPreparationTime() > time)
-            time = it->getPreparationTime();
+        time = 0;
+        for(auto & it: dishes)
+        {
+            time += it->getPreparationTime();
+        }
+        time /= dishes.size();
     }
 }
 

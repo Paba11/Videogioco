@@ -44,4 +44,3 @@ float Dish::getPreparationTime() {
     return preparationTime;
 }
 
-

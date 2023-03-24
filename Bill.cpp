@@ -50,12 +50,6 @@ void Bill::setDrinks(Drk drk) {
 }
 
 void Bill::calculateCorrectTotal() {
-    while(!drinks.empty())
-    {
-        //d = std::make_unique<Drink>(drinks.back());
-        drinks.pop_back();
-        correctTotal += d->getPrice();
-    }
     while(!appetizers.empty())
     {
         a = std::make_unique<Appetizer>(appetizers.back());

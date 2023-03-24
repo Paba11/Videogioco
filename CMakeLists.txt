@@ -18,7 +18,6 @@ add_executable( videogioco                  main.cpp
                 Dish/Dessert.h              Dish/Dessert.cpp
                 Dish/Dish.h                 Dish/Dish.cpp
                 NPC/DishWasher.h            NPC/DishWasher.cpp
-                Dish/Drink.h                Dish/Drink.cpp
                 Map/Entrance.h              Map/Entrance.cpp
                 ProgramState/Game.h         ProgramState/Game.cpp
                 GameCharacter.h             GameCharacter.cpp
@@ -33,7 +32,6 @@ add_executable( videogioco                  main.cpp
                 Waiter/OrderState.h         Waiter/OrderState.cpp
                 ProgramState/ProgramState.h ProgramState/ProgramState.cpp
                 Waiter/ReceiveState.h       Waiter/ReceiveState.cpp
-                Dish/Recipe.h               Dish/Recipe.cpp
                 Map/Stool.h                 Map/Stool.cpp
                 Map/Table.h                 Map/Table.cpp
                 Textures.h                  Textures.cpp

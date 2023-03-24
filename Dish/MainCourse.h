@@ -17,8 +17,9 @@ public:
     //Methods to initialize the texture and the sprite based on the dish type
     void initTexture();
 
-    //Calculate the correct price
+    //Calculate the correct price & preparation time
     void calculatePrice();
+    void calculateTime() override;
 
     //Getters & Setters
     int getPrice();

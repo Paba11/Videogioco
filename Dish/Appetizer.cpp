@@ -8,8 +8,9 @@
 Appetizer::Appetizer(Apt t) {
     type = t;
     calculatePrice();
-    initTexture();
-    initSprite();
+    calculateTime();
+    //initTexture();
+    //initSprite();
 }
 
 Appetizer::~Appetizer() {
@@ -61,4 +62,17 @@ void Appetizer::calculatePrice() {
 
 int Appetizer::getPrice() {
     return price;
+}
+
+void Appetizer::calculateTime() {
+    preparationTime = 0;
+    switch(type)
+    {
+        case Apt::NACHOS:
+            preparationTime = 15;
+            break;
+        case Apt::OMELETTE:
+            preparationTime = 20;
+            break;
+    }
 }

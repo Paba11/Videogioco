@@ -14,7 +14,6 @@
 #include "../Dish/Order.h"
 #include "Table.h"
 #include "../Tray.h"
-#include "../Dish/Recipe.h"
 #include "../Textures.h"
 #include "Counter.h"
 #include <queue>
@@ -86,7 +85,6 @@ private:
     int count;
     bool isEmptyPlates;
     DishState state;
-    Recipe recipe;
     std::shared_ptr<Counter> counter;
 
     sf::RectangleShape interactionSquare;

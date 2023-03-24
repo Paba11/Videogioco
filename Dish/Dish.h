@@ -36,6 +36,7 @@ public:
 
     //Getters & Setters
     int getTavNum();
+    virtual void calculateTime() = 0;
     void setTavNum(int i);
     float getPreparationTime();
 

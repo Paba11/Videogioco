@@ -8,8 +8,9 @@
 MainCourse::MainCourse(Mn t) {
     type = t;
     calculatePrice();
-    initTexture();
-    initSprite();
+    calculateTime();
+    //initTexture();
+    //initSprite();
 }
 
 MainCourse::~MainCourse() {
@@ -84,4 +85,22 @@ void MainCourse::calculatePrice() {
 
 int MainCourse::getPrice() {
     return this->price;
+}
+
+void MainCourse::calculateTime() {
+    switch(type)
+    {
+        case Mn::MEAT:
+            preparationTime = 30;
+            break;
+        case Mn::MEATBALLS:
+            preparationTime = 25;
+            break;
+        case Mn::CHICKEN:
+            preparationTime = 20;
+            break;
+        case Mn::HAMBURGER:
+            preparationTime = 18;
+            break;
+    }
 }

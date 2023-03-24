@@ -17,7 +17,7 @@
 #include "../Textures.h"
 
 
-enum Do {WAIT, COOK, DO};
+enum class Do {WAIT, COOK, DO};
 
 
 class Chef final : public GameCharacter {
@@ -31,9 +31,7 @@ public:
     void updateAnimations() override;
     void cook();
     void checkOrder();
-    void setState();
     void createObjects();
-    void calculateTime();
 
     void setBill(std::shared_ptr<Bill>& b);
 

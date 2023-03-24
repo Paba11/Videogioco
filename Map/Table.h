@@ -12,7 +12,6 @@
 #include <SFML/Audio.hpp>
 #include "../Dish/Dish.h"
 #include "../Dish/Order.h"
-#include "../Dish/Recipe.h"
 #include "Stool.h"
 #include "../Dish/MealMenu.h"
 #include "../NPC/Customer.h"

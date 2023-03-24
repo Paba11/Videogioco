@@ -16,7 +16,8 @@ ActionsState::~ActionsState() {
 }
 
 void ActionsState::handleInput(std::shared_ptr<GameCharacter>& w, sf::Event ev) {
-    if(waiter == nullptr) {
+    if(waiter == nullptr)
+    {
         waiter.reset();
         waiter = w;
     }

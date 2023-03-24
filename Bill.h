@@ -6,7 +6,6 @@
 #define VIDEOGIOCO_BILL_H
 
 #include "Map/Table.h"
-#include "Dish/Drink.h"
 #include "Dish/Appetizer.h"
 #include "Dish/MainCourse.h"
 #include "Dish/Dessert.h"
@@ -37,7 +36,6 @@ private:
     std::vector<Mn> mainDishes;
     std::vector<Dsr> desserts;
     std::vector<Drk> drinks;
-    std::unique_ptr<Drink> d;
     std::unique_ptr<Appetizer> a;
     std::unique_ptr<MainCourse> m;
     std::unique_ptr<Dessert> ds;
