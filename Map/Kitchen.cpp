@@ -67,17 +67,17 @@ void Kitchen::initSprite() {
     cornerSprite.setScale(0.05f,0.05f);
     cornerSprite.setPosition(interactionSquare.getPosition().x + 31, interactionSquare.getPosition().y - 31);
 
-    pan.setTexture(*this->texture->getTexture("Pan"));
-    panFrame = sf::IntRect(0, 0, 24, 24);
+    pan.setTexture(*this->texture->getTexture("Pan"));          //padella
+    panFrame = sf::IntRect(0, 0, 30, 30);
     pan.setTextureRect(panFrame);
-    pan.setScale(3.5f, 3.5f);
-    pan.setPosition(1200,440);
+    pan.setScale(3.f, 3.f);
+    pan.setPosition(1190,460);
 
-    pot.setTexture(*this->texture->getTexture("Pot"));
+    pot.setTexture(*this->texture->getTexture("Pot"));          //pentola
     potFrame = sf::IntRect(0, 0, 24, 24);
     pot.setTextureRect(potFrame);
     pot.setScale(3.f, 3.f);
-    pot.setPosition(1200,400);
+    pot.setPosition(1218,410);
 
 
 
