@@ -12,6 +12,7 @@
 #include "../Dish/Dish.h"
 #include <queue>
 
+enum class DishState {EMPTY, FULL};
 
 class Counter {
 public:
@@ -25,6 +26,8 @@ public:
     void setChefDishes();
 
     //Set the dishes on the counter
+    void setState(DishState ds);
+    DishState getState();
     Dish* getDish();
     void setDish(Dish* dish);
     std::queue<Dish *>& getDishes();
@@ -35,6 +38,7 @@ private:
     sf::RectangleShape placeForDirtyDishes;
     std::vector <sf::RectangleShape> chefDishes;
     Textures* texture;
+    DishState state;
 
     sf::Vector2f dishHitbox = {85.f,80.f};
 

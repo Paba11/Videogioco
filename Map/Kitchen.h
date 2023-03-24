@@ -19,10 +19,6 @@
 #include <queue>
 
 
-#define MAX_TABLES 10
-
-enum class DishState {EMPTY, FULL};
-
 class Kitchen {
 public:
     //Constructor & Destructor

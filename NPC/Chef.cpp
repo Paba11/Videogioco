@@ -52,11 +52,11 @@ Dish *Chef::getDish() {
 
 void Chef::cook() {
 
-    if (this->clock.getElapsedTime().asSeconds() >= time && kitchen->getState() != DishState::FULL
+    if (this->clock.getElapsedTime().asSeconds() >= time && kitchen->getCounter()->getState() != DishState::FULL
         && state == Do::COOK)
     {
         isReady = true;
-        kitchen->setState(DishState::FULL);
+        kitchen->getCounter()->setState(DishState::FULL);
         for(auto & it: dishes)
         {
             kitchen->getCounter()->setDish(it);

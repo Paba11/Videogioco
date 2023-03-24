@@ -5,7 +5,7 @@
 #include "Counter.h"
 
 Counter::Counter() {
-
+    state =DishState::EMPTY;
     this->texture = new Textures();
     initSprite();
     setDirtyDishes();
@@ -88,4 +88,12 @@ void Counter::setDish(Dish* d) {
 
 std::queue<Dish *> &Counter::getDishes() {
     return this->dishes;
+}
+
+void Counter::setState(DishState ds) {
+    state = ds;
+}
+
+DishState Counter::getState() {
+    return state;
 }

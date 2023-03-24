@@ -118,7 +118,7 @@ void Kitchen::setState(DishState ds) {
 }
 
 DishState Kitchen::getState() {
-    return this->state;
+    return state;
 }
 
 const sf::FloatRect Kitchen::getBounds() const {

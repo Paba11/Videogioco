@@ -34,7 +34,7 @@ void ActionsState::pickUp(std::shared_ptr<Kitchen>& kitchen) {
     //PICK UP THE PLATES FROM THE KITCHEN
 
     Dish* d;
-    if(tray->getState() == TrayState::EMPTY_TRAY && kitchen->getState() == DishState::FULL)
+    if(tray->getState() == TrayState::EMPTY_TRAY && kitchen->getCounter()->getState() == DishState::FULL)
     {
         while (!kitchen->getCounter()->getDishes().empty())
         {
@@ -47,7 +47,7 @@ void ActionsState::pickUp(std::shared_ptr<Kitchen>& kitchen) {
         //Set the tray to filled
         tray->setState(TrayState::FILLED_TRAY);
         //Set the kitchen to empty
-        kitchen->setState(DishState::EMPTY);
+        kitchen->getCounter()->setState(DishState::EMPTY);
     }
 }
 
