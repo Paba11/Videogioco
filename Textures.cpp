@@ -191,6 +191,11 @@ sf::Texture* Textures::getTexture(std::string name) {
      {
          std::cout << "ERROR::EmptyDish::CAN'T LOAD TEXTURE FILE" << std::endl;
      }
+     textures["BlockNotes"] = new sf::Texture();
+     if (!this->textures["BlockNotes"]->loadFromFile("../Textures/BlockNotes.png"))
+     {
+         std::cout << "ERROR::BlockNotes::CAN'T LOAD TEXTURE FILE" << std::endl;
+     }
 
 
 

@@ -155,6 +155,7 @@ void Waiter::interact(const std::shared_ptr<Map>& map, sf::Event ev) {
             actionsState->setIsOrder(true);
             actionsState->setOrder(*order);
             orderState.reset();
+            actionsState->getTray()->setOrderTaken(true);
             state = Actions::DOING_NOTHING;
             std::cout << "Order taken" << std::endl;
         }
@@ -202,8 +203,6 @@ void Waiter::updateAnimations() {
             this->animationTimer.restart();
             this->sprite.setTextureRect(this->currentFrame);
         }
-
-
 }
 
 

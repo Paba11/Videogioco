@@ -5,6 +5,9 @@
 #include "Table.h"
 
 Table::Table() {
+
+    initTexture();
+    initSprite();
     numStoolsTable = 4;
     state = TableState::CHOOSING;
     course = Current::APPETIZER;
@@ -12,7 +15,6 @@ Table::Table() {
     customerNumber = 0;
     cicle = true;
     chosenTable = false;
-    initSprite();
     initStoolTable();
     isSit = false;
 
@@ -29,8 +31,13 @@ void Table::update() {
         {
             case TableState::CHOOSING:
                 ordering();
+                updateCornerSprite();
                 break;
             case TableState::WAITING_TO_ORDER:
+                updateCornerSprite();
+                break;
+            case TableState::WAITING_DISHES:
+                updateCornerSprite();
                 break;
         }
 
@@ -48,8 +55,10 @@ void Table::render(sf::RenderTarget &target) {
     for(int i = 0 ;i < 4; i++)
         target.draw(dishesPlace[i]);
 
-    if(chosenTable || state == TableState::WAITING_TO_ORDER)
+    if(chosenTable || state == TableState::WAITING_TO_ORDER) {
         target.draw(interactionSquare);
+        target.draw(cornerSprite);
+    }
 
     if(customers.size() > 0){
         for(int i = customers.size() -1 ; i >= 0; i--)
@@ -214,6 +223,7 @@ void Table::setTable() {
 
     sprite.setOrigin(30,25);
     interactionSquare.setPosition(sprite.getPosition().x,sprite.getPosition().y - 80);
+    cornerSprite.setPosition(interactionSquare.getPosition().x + 31, interactionSquare.getPosition().y - 31);
     setDishesPlace();
 
 }
@@ -269,5 +279,29 @@ void Table::setIsSit(bool t) {
 
 bool Table::getIsSit() {
     return this->isSit;
+}
+
+void Table::initTexture() {
+    texture = new Textures();
+}
+
+void Table::updateCornerSprite() {
+
+    switch(state){
+
+        case TableState::CHOOSING:
+            cornerSprite.setTexture(*this->texture->getTexture("Customer1"));
+            cornerSprite.setTextureRect({0, 0, 32, 32});
+            cornerSprite.setOrigin(16,16);
+            break;
+
+        case TableState::WAITING_TO_ORDER:
+            cornerSprite.setTexture(*this->texture->getTexture("BlockNotes"));
+            cornerSprite.setTextureRect({0,0,480,480});
+            cornerSprite.setScale(0.05f,0.05f);
+            cornerSprite.setPosition(interactionSquare.getPosition().x + 31, interactionSquare.getPosition().y - 31);
+            break;
+
+    }
 }
 

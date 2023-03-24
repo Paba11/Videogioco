@@ -5,7 +5,7 @@
 #include "Entrance.h"
 
 Entrance::Entrance() {
-    this->texture = new Textures();
+    initTexture();
     initSprite();
     this->isCustomer = false;
     this->customerReceived = false;
@@ -14,7 +14,7 @@ Entrance::Entrance() {
 }
 
 Entrance::~Entrance() {
-
+    delete texture;
 }
 
 void Entrance::initSprite() {
@@ -31,9 +31,16 @@ void Entrance::initSprite() {
     welcomeSquare.setOutlineThickness(1);
     welcomeSquare.setFillColor(sf::Color::Transparent);
     welcomeSquare.setPosition(920,910);
+
+    cornerSprite.setTexture(*this->texture->getTexture("Customer1"));
+    cornerSprite.setTextureRect({0, 0, 32, 32});
+    cornerSprite.setOrigin(16,16);
+    cornerSprite.setPosition(welcomeSquare.getPosition().x + 31, welcomeSquare.getPosition().y - 31);
+
 }
 
 void Entrance::initTexture() {
+    this->texture = new Textures();
 
 }
 
@@ -62,8 +69,10 @@ void Entrance::renderBarrier(sf::RenderTarget &target, int barrierNumber) {
 }
 
 void Entrance::render(sf::RenderTarget &target) {
-    if(customerReceived)
+    if(customerReceived) {
         target.draw(this->welcomeSquare);
+        target.draw(cornerSprite);
+    }
 }
 
 void Entrance::updateBox() {

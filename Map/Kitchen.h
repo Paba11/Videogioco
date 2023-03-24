@@ -69,7 +69,7 @@ public:
 
 private:
     //Initialize the Kitchen texture and sprite
-    Textures* texture = new Textures;
+    Textures* texture;
     sf::Sprite sprite;
     void initTexture();
     void initSprite();
@@ -89,6 +89,7 @@ private:
     sf::Color boxOpacity = {253,202,78,255};
     bool cicle = true;
     bool waiterOrder;
+    sf::Sprite cornerSprite;
 
 };
 

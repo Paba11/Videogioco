@@ -12,6 +12,7 @@
 #define VIDEOGIOCO_TRAY_H
 
 #include "Dish/Dish.h"
+#include "Textures.h"
 #include <queue>
 
 #define MAX_DISHES 4
@@ -26,7 +27,7 @@ public:
     //Methods to update and render the tray
     void update();
     void render(sf::RenderTarget &target);
-
+    void updateAnimation();
     //Getters & Setters
 
     //Method to set the tray state
@@ -35,16 +36,24 @@ public:
     Dish* getDish();
     void setDish(Dish* dish);
     std::queue<Dish*>& getDishes();
+    void setOrderTaken(bool t);
 
 
 private:
-    void initTexture();
+    void initRectangle();
     void initSprite();
-    sf::Texture texture;
-    sf::Sprite sprite;
+    void initTexture();
+    sf::RectangleShape rectangle;
+    sf::Sprite blockNotes;
+    bool orderTaken;
+    Textures* texture;
 
     std::queue<Dish*> dishes;
     TrayState state;
+
+    sf::IntRect currentFrame;
+    sf::Clock animationTimer;
+
 
 };
 

@@ -9,6 +9,7 @@ Kitchen::Kitchen() {
     state = DishState::EMPTY;
     counter = std::make_shared<Counter>();
     waiterOrder = false;
+    initTexture();
     initSprite();
 
 }
@@ -54,6 +55,11 @@ void Kitchen::initSprite() {
     interactionSquare.setFillColor(sf::Color::Transparent);
     interactionSquare.setPosition(980.f,440.f);
 
+    cornerSprite.setTexture(*this->texture->getTexture("BlockNotes"));
+    cornerSprite.setTextureRect({0,0,480,480});
+    cornerSprite.setScale(0.05f,0.05f);
+    cornerSprite.setPosition(interactionSquare.getPosition().x + 31, interactionSquare.getPosition().y - 31);
+
 
 }
 
@@ -85,8 +91,10 @@ void Kitchen::update() {
 
 void Kitchen::render(sf::RenderTarget& target) {
         target.draw(this->sprite);
-        if(waiterOrder)
+        if(waiterOrder) {
             target.draw(interactionSquare);
+            target.draw(cornerSprite);
+        }
 }
 
 void Kitchen::setState(DishState ds) {
@@ -191,4 +199,9 @@ void Kitchen::updateBox() {
 void Kitchen::setWaiterOrder(bool t) {
 
     waiterOrder = t;
+}
+
+void Kitchen::initTexture() {
+
+    texture = new Textures;
 }
