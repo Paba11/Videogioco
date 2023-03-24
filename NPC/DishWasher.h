@@ -32,7 +32,6 @@ private:
     //Methods' override to init the texture and the sprite
 
     void initSprite() override;
-    Textures* texture = new Textures;
 
     sf::Time time;
     sf::Clock clock;

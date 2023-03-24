@@ -196,7 +196,16 @@ sf::Texture* Textures::getTexture(std::string name) {
      {
          std::cout << "ERROR::BlockNotes::CAN'T LOAD TEXTURE FILE" << std::endl;
      }
-
+     textures["Pan"] = new sf::Texture();
+     if (!this->textures["Pan"]->loadFromFile("../Textures/Padella.png"))
+     {
+         std::cout << "ERROR::Pan::CAN'T LOAD TEXTURE FILE" << std::endl;
+     }
+     textures["Pot"] = new sf::Texture();
+     if (!this->textures["Pot"]->loadFromFile("../Textures/Pentola.png"))
+     {
+         std::cout << "ERROR::Pot::CAN'T LOAD TEXTURE FILE" << std::endl;
+     }
 
 
 }

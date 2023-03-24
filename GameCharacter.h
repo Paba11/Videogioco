@@ -11,6 +11,7 @@
 #include <SFML/System.hpp>
 #include <SFML/Audio.hpp>
 #include <SFML/Graphics.hpp>
+#include "Textures.h"
 
 enum class Move {MOVING_UP, MOVING_DOWN, MOVING_LEFT, MOVING_RIGHT, STANDING};
 enum class Actions {DOING_NOTHING, RECEIVING_CUSTOMERS, TAKING_ORDER, LEAVING_ORDER, TAKING_DISHES,
@@ -55,11 +56,11 @@ public:
 protected:
     sf::Sprite sprite;
     sf::FloatRect hitbox = {15.f,40.f,25.f,10.f};
-    sf::Texture texture;
     sf::IntRect currentFrame;
     sf::Clock animationTimer;
     sf::Event ev;
     sf::Vector2f prevPos, currPos;
+    std::shared_ptr<Textures> texture = std::make_shared<Textures>();
     float speed;
     Move preMovingStatus, dir;
 

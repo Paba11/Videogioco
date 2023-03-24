@@ -71,6 +71,10 @@ private:
     //Initialize the Kitchen texture and sprite
     Textures* texture;
     sf::Sprite sprite;
+    sf::Sprite pan;
+    sf::Sprite pot;
+    sf::IntRect panFrame;
+    sf::IntRect potFrame;
     void initTexture();
     void initSprite();
 

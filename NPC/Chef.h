@@ -50,7 +50,6 @@ public:
 
 private:
     //Methods' override to init the texture and the sprite
-    Textures* texture;
     void initSprite() override;
 
     //Attributes of the Chef

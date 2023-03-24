@@ -67,6 +67,23 @@ void Kitchen::initSprite() {
     cornerSprite.setScale(0.05f,0.05f);
     cornerSprite.setPosition(interactionSquare.getPosition().x + 31, interactionSquare.getPosition().y - 31);
 
+    pan.setTexture(*this->texture->getTexture("Pan"));
+    panFrame = sf::IntRect(0, 0, 24, 24);
+    pan.setTextureRect(panFrame);
+    pan.setScale(3.5f, 3.5f);
+    pan.setPosition(1200,440);
+
+    pot.setTexture(*this->texture->getTexture("Pot"));
+    potFrame = sf::IntRect(0, 0, 24, 24);
+    pot.setTextureRect(potFrame);
+    pot.setScale(3.f, 3.f);
+    pot.setPosition(1200,400);
+
+
+
+
+
+
 
 }
 
@@ -102,6 +119,8 @@ void Kitchen::render(sf::RenderTarget& target) {
             target.draw(interactionSquare);
             target.draw(cornerSprite);
         }
+        target.draw(pan);
+        target.draw(pot);
 }
 
 void Kitchen::setState(DishState ds) {

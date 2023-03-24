@@ -20,7 +20,6 @@ void Chef::initSprite() {
     /*
      * Set the texture on the sprite, resize it and locate the chef in the right position
      */
-    this->texture = new Textures(); //FIXME move the texture pointer in the GameCharachter class (also for waiter)
     this->sprite.setTexture(*this->texture->getTexture("Chef"));
     this->currentFrame = sf::IntRect (0,0,40,40);
     this->sprite.setTextureRect(this->currentFrame);

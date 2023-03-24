@@ -52,7 +52,6 @@ private:
     int patience;
     bool moving;
     sf::Vector2f endingPos;
-    Textures* spriteTexture;
 
     //Road to move to the table
     std::queue<Move> path;

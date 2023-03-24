@@ -32,7 +32,6 @@ public:
     void update() override;
     void updateState();
     void updateAnimations() override;
-    Textures* texture = new Textures;
     void move();
     void setAnimation();
 
