@@ -192,8 +192,6 @@ void Waiter::updateAnimations() {
             this->animationTimer.restart();
             this->sprite.setTextureRect(this->currentFrame);
         }
-
-
 }
 
 
@@ -347,6 +345,7 @@ void Waiter::setOrder(const std::shared_ptr<Map>& map, Table* t) {
     actionsState->setOrder(order);
     orderState.reset();
     hasOrder = true;
+    actionsState->getTray()->setOrderTaken(true);
     state = Actions::DOING_NOTHING;
 }
 

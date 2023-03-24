@@ -8,7 +8,6 @@ ActionsState::ActionsState(const std::shared_ptr<Map>& m) {
     map.reset();
     map = m;
     waiter = nullptr;
-    tray = std::make_unique<Tray>();
     isOrder = false;
 }
 
@@ -138,6 +137,8 @@ void ActionsState::leavingOrder(std::shared_ptr<Kitchen>& kitchen) {
     if(isOrder)
     {
         kitchen->insertNewOrder(order);
+        map->getKitchen()->setWaiterOrder(false);
+        getTray()->setOrderTaken(false);
         order = nullptr;
         isOrder = false;
         std::cout << "Order inserted in the kitchen queue" << std::endl;
@@ -197,4 +198,10 @@ void ActionsState::actionManagement() {
 
 void ActionsState::setOrder(std::shared_ptr<Order>& o) {
     order = o;
+}
+
+void ActionsState::setTray(const std::shared_ptr<Tray>& t) {
+
+    tray.reset();
+    tray = t;
 }

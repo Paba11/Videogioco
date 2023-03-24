@@ -14,6 +14,7 @@ Game::Game(sf::RenderWindow* window, std::stack <ProgramState*>* states, int wai
     initPosTables();
     initWaiter();
     initStates();
+    initTray();
     initChef();
     initDishWasher();
     generateCustomers();
@@ -35,6 +36,7 @@ void Game::update() {
     updateInteractions();
     map->getEntrance()->updateBox();
     map->getKitchen()->updateBox();
+    actionsState->getTray()->update();
     updateTable();
     waiter->update();
     dishWasher->update();
@@ -64,6 +66,7 @@ void Game::render(sf::RenderTarget* target) {
     }
     map->getEntrance()->renderBarrier(*this->window,2);    //this->dishWasher->render(*this->window);
     waiter->render(*this->window);
+    tray->render(*this->window);
     this->window->display();
 }
 
@@ -492,6 +495,12 @@ void Game::initBill() {
     bill = std::make_shared<Bill>();
     chef->setBill(bill);
     waiter->setBill(bill);
+}
+
+void Game::initTray() {
+
+    tray = std::make_shared<Tray>();
+    actionsState->setTray(tray);
 }
 
 

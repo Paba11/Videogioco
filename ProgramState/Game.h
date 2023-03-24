@@ -102,6 +102,7 @@ private:
     std::shared_ptr<BottomBar> bottomBar;
     //Table* table;
     std::shared_ptr<Bill> bill;
+    std::shared_ptr<Tray> tray;
 
     //Manage Waiter States
     std::shared_ptr<OrderState> orderState;
@@ -132,6 +133,7 @@ private:
     void initBackground();
     void initTables();
     void initStates();
+    void initTray();
     void initPosTables();
     void initMap();
     void initDishWasher();

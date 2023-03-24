@@ -29,7 +29,7 @@ public:
     ~Table();
     void update();
     void render(sf::RenderTarget& target);
-    void initSprite();
+
     sf::Sprite sprite;
 
     //Table actions
@@ -76,6 +76,11 @@ public:
 
 
 private:
+
+    void initTexture();
+    void initSprite();
+    void updateCornerSprite();
+
     //Attributes of the table
     int tavNum;
     std::vector<Stool> stoolTable;
@@ -91,11 +96,12 @@ private:
     sf::Clock timer;
     bool isOccupied;
     bool isSit;
-
+    Textures* texture;
     sf::RectangleShape interactionSquare;
     sf::Color boxOpacity = {253,202,78,255};
     bool cicle;
     bool chosenTable;
+    sf::Sprite cornerSprite;
 
 };
 

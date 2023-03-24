@@ -34,6 +34,7 @@ private:
     sf::Sprite sprite; //fixme move here the sprite of the entrance
     Textures* texture;
     sf::RectangleShape welcomeSquare;
+    sf::Sprite cornerSprite;
     void initSprite();
     void initTexture();
     sf::Sprite barrier1;

@@ -29,6 +29,7 @@ public:
 
     //Getters & setters
     Tray* getTray();
+    void setTray(const std::shared_ptr<Tray>& t);
     void setIsOrder(bool t);
     bool getIsOrder();
     void setOrder(std::shared_ptr<Order>& o);
@@ -41,7 +42,7 @@ private:
     sf::Event event;
 
     //Pointer to the plates carrying in a specific moment
-    std::unique_ptr<Tray> tray;
+    std::shared_ptr<Tray> tray;
 };
 
 #endif //VIDEOGIOCO_ACTIONSTATE_H
