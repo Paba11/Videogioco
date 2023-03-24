@@ -25,7 +25,7 @@ class Waiter final : public GameCharacter {
 public:
     //Constructor & Destructor
     Waiter();
-    ~Waiter();
+    ~Waiter() override;
 
     //Method to move, update and render the waiter
     void updateMovement();
@@ -66,6 +66,7 @@ protected:
 
     //Attributes of the waiter
     Genre genre;
+    std::shared_ptr<GameCharacter> gc;
 
     //State pattern
     std::shared_ptr<ActionsState> actionsState;

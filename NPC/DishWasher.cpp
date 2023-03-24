@@ -13,7 +13,7 @@ DishWasher::DishWasher() {
 }
 
 DishWasher::~DishWasher() {
-    delete this->texture;
+
 }
 
 

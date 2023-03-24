@@ -12,7 +12,7 @@ Chef::Chef() {
 }
 
 Chef::~Chef() {
-    delete this->dish;
+
 }
 
 
@@ -76,6 +76,7 @@ void Chef::cook() {
 }
 
 void Chef::setOrder(std::shared_ptr<Order>& o) {
+    order.reset();
     order = o;
 }
 
@@ -164,7 +165,6 @@ void Chef::createObjects() {
             }
             break;
     }
-    calculateTime();
 }
 
 void Chef::calculateTime() {

@@ -118,6 +118,7 @@ void Game::updateMousePos() {
 void Game::initWaiter() {
     waiter = std::make_shared<Waiter>();
     setWaiterTexture(waiterTexture);
+    gc = waiter;
 }
 
 
@@ -443,7 +444,9 @@ void Game::updateReceivingCustomer() {
         if(receiveState->getIsSit())
             receiveState.reset();
         else
-            receiveState->update(waiter.get());
+        {
+            receiveState->update(gc);
+        }
     }
 }
 

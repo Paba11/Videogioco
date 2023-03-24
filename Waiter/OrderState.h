@@ -20,11 +20,11 @@ class OrderState : public WaiterStates {
 public:
     //Constructor & Destructor
     explicit OrderState(Table& table);
-    ~OrderState();
+    ~OrderState() override;
 
     //Handle the input
-    void handleInput(GameCharacter* gc, sf::Event ev) override;
-    void update(GameCharacter* gc) override;
+    void handleInput(std::shared_ptr<GameCharacter>& gc, sf::Event ev) override;
+    void update(std::shared_ptr<GameCharacter>& gc) override;
 
     //Actions of the order state
     void setOrderVariables(const std::shared_ptr<Table>& t);

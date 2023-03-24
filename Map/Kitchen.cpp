@@ -28,25 +28,25 @@ Kitchen::~Kitchen() {
 
 void Kitchen::insertNewOrder(std::shared_ptr<Order>& o) {
     std::shared_ptr<Order> ord(o);
-    newOrders.push(ord);
+    waitingOrders.push(ord);
     std::cout << "Inserting Order" << std::endl;
     std::queue<std::shared_ptr<Order>> tmp;
-    for(int i = 0; i < newOrders.size(); i++)
+    for(int i = 0; i < waitingOrders.size(); i++)
     {
-        std::cout << "Order of table " << newOrders.front()->getTableNumber() << std::endl;
-        std::shared_ptr<Order> orde = newOrders.front();
-        newOrders.pop();
+        std::cout << "Order of table " << waitingOrders.front()->getTableNumber() << std::endl;
+        std::shared_ptr<Order> orde = waitingOrders.front();
+        waitingOrders.pop();
         tmp.push(orde);
         tmp.pop();
-        newOrders.push(orde);
+        waitingOrders.push(orde);
         orde.reset();
     }
 
 }
 
 std::shared_ptr<Order>& Kitchen::makeNewOrder() {
-    current = newOrders.front();
-    newOrders.pop();
+    current = waitingOrders.front();
+    waitingOrders.pop();
     return current;
 }
 

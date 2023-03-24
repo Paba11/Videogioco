@@ -15,14 +15,14 @@ ActionsState::~ActionsState() {
 
 }
 
-void ActionsState::handleInput(GameCharacter* w, sf::Event ev) {
+void ActionsState::handleInput(std::shared_ptr<GameCharacter>& w, sf::Event ev) {
     if(waiter == nullptr)
-        waiter.reset(w);
+        waiter.reset(w.get());
     event = ev;
     actionManagement();
 }
 
-void ActionsState::update(GameCharacter* w) {
+void ActionsState::update(std::shared_ptr<GameCharacter>& w) {
 
 }
 

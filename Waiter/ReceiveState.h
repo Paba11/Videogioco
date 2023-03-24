@@ -15,10 +15,10 @@
 class ReceiveState : public WaiterStates {
 public:
     ReceiveState(const std::shared_ptr<Map>& map);
-    ~ReceiveState();
+    ~ReceiveState() override;
 
-    void handleInput(GameCharacter* gc, sf::Event ev) override;
-    void update(GameCharacter* gc) override;
+    void handleInput(std::shared_ptr<GameCharacter>& gc, sf::Event ev) override;
+    void update(std::shared_ptr<GameCharacter>& gc) override;
 
     //Methods to receive the customer
     Table* pickEmptyTable();

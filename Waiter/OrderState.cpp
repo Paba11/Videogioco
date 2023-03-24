@@ -30,11 +30,11 @@ void OrderState::setOrderVariables(const std::shared_ptr<Table>& t) {
 
 }
 
-void OrderState::handleInput(GameCharacter* gc, sf::Event ev) {
+void OrderState::handleInput(std::shared_ptr<GameCharacter>& gc, sf::Event ev) {
 
 }
 
-void OrderState::update(GameCharacter* gc) {
+void OrderState::update(std::shared_ptr<GameCharacter>& gc) {
 
 }
 

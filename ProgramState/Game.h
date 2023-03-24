@@ -88,6 +88,7 @@ private:
 
     //GameCharacters and objects
     std::shared_ptr<Waiter> waiter;
+    std::shared_ptr<GameCharacter> gc;
     std::shared_ptr<Chef> chef;
     Dish* dish;
     std::shared_ptr<Map> map;

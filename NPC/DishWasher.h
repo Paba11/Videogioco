@@ -15,7 +15,7 @@ class DishWasher final : public GameCharacter {
 public:
     //Constructor & Destructor
     DishWasher();
-    ~DishWasher();
+    ~DishWasher() override;
 
     void update() override;
     void updateWashing();

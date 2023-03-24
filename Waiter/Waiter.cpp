@@ -24,6 +24,7 @@ void Waiter::initVariables() {
     order = nullptr;
     isReceived = false;
     hasOrder = false;
+    gc = std::make_shared<Waiter>(*this);   //Added shared ptr
 }
 
 void Waiter::initSprite() {
@@ -148,7 +149,7 @@ void Waiter::interact(const std::shared_ptr<Map>& map, sf::Event ev) {
         }
         else
         {
-            actionsState->handleInput(this, ev);
+            actionsState->handleInput(gc, ev);
             if(!actionsState->getIsOrder())
             {
                 order = nullptr;
@@ -301,7 +302,7 @@ void Waiter::leaveAtTable() {
     //std::cout << "customer set in table " << std::endl;
     sprite.setPosition(sprite.getPosition().x, sprite.getPosition().y - 15);
     movingStatus = Move::STANDING;
-    receiveState->handleInput(this, ev);
+    receiveState->handleInput(gc, ev);
 }
 
 void Waiter::updateState() {
@@ -353,7 +354,7 @@ void Waiter::setReceive(const std::shared_ptr<Map>& map, sf::Event ev) {
     state = Actions::RECEIVING_CUSTOMERS;
     sprite.setPosition(920,910);
     map->getEntrance()->setCustomerReceived(false);
-    receiveState->handleInput(this, ev);
+    receiveState->handleInput(gc, ev);
 }
 
 

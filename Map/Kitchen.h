@@ -75,7 +75,7 @@ private:
     void initSprite();
 
     std::queue<Dish*> dishes;
-    std::queue<std::shared_ptr<Order>> newOrders;
+    //std::queue<std::shared_ptr<Order>> newOrders;
     std::queue<std::shared_ptr<Order>> waitingOrders;
     std::queue<std::shared_ptr<Order>> readyOrders;
     std::shared_ptr<Order> current;

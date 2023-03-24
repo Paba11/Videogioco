@@ -24,7 +24,7 @@ class Chef final : public GameCharacter {
 public:
     //Constructor & Destructor
     Chef();
-    ~Chef();
+    ~Chef() override;
 
     //Chef actions
     void setAnimation();

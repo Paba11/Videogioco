@@ -11,10 +11,10 @@
 class WaiterStates {
 public:
     WaiterStates();
-    ~WaiterStates();
+    virtual ~WaiterStates();
 
-    virtual void handleInput(GameCharacter* gc, sf::Event ev) = 0;
-    virtual void update(GameCharacter* gc) = 0;
+    virtual void handleInput(std::shared_ptr<GameCharacter>& gc, sf::Event ev) = 0;
+    virtual void update(std::shared_ptr<GameCharacter>& gc) = 0;
 };
 
 #endif //VIDEOGIOCO_WAITERSTATES_H

@@ -14,7 +14,7 @@ ReceiveState::ReceiveState(const std::shared_ptr<Map>& m) {
 ReceiveState::~ReceiveState() {
 }
 
-void ReceiveState::handleInput(GameCharacter* gc, sf::Event ev) {
+void ReceiveState::handleInput(std::shared_ptr<GameCharacter>& gc, sf::Event ev) {
     if(!isAtTable)
         table = pickEmptyTable();
     else
@@ -23,7 +23,7 @@ void ReceiveState::handleInput(GameCharacter* gc, sf::Event ev) {
     update(gc);
 }
 
-void ReceiveState::update(GameCharacter* gc) {
+void ReceiveState::update(std::shared_ptr<GameCharacter>& gc) {
     if(!isAtTable)
         move();
     else
