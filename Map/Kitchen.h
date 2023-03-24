@@ -31,8 +31,8 @@ public:
     ~Kitchen();
 
     //Method to insert and remove orders
-    void insertNewOrder(Order* order);
-    Order* makeNewOrder();
+    void insertNewOrder(std::shared_ptr<Order>& order);
+    std::shared_ptr<Order>& makeNewOrder();
     //void insertWaitingOrder(Order* order);
     //Order* makeWaitingOrder();
 
@@ -44,9 +44,9 @@ public:
 
 
     //Methods to manage orders
-    Order* getReadyOrder();
-    std::queue<Order*>& getReadyOrders();
-    void setReadyOrder(Order* order);
+    std::shared_ptr<Order>& getReadyOrder();
+    std::queue<std::shared_ptr<Order>>& getReadyOrders();
+    void setReadyOrder(std::shared_ptr<Order>& order);
     void getWaitingOrder(int tavNum);
     void setWaitingOrder();
 
@@ -75,10 +75,10 @@ private:
     void initSprite();
 
     std::queue<Dish*> dishes;
-    std::queue<Order*> newOrders;
-    std::queue<Order*> waitingOrders;
-    std::queue<Order*> readyOrders;
-    Order* current;
+    std::queue<std::shared_ptr<Order>> newOrders;
+    std::queue<std::shared_ptr<Order>> waitingOrders;
+    std::queue<std::shared_ptr<Order>> readyOrders;
+    std::shared_ptr<Order> current;
     int count;
     bool isEmptyPlates;
     DishState state;

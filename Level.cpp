@@ -16,25 +16,25 @@ Level::~Level() {
 
 
 void Level::initVariables() {
-    switch(this->lvl)
+    switch(lvl)
     {
         case FIRST:
-            this->initialHumor = LEVEL_ONE_HUMOR;
-            this->customerArrival = LEVEL_ONE_ARRIVALS;
-            this->maxTables = LEVEL_ONE_MAX_TABLES;
-            this->totalCustomerNumber = LEVEL_ONE_TOT_CUSTOMERS;
+            initialHumor = LEVEL_ONE_HUMOR;
+            customerArrival = LEVEL_ONE_ARRIVALS;
+            maxTables = LEVEL_ONE_MAX_TABLES;
+            totalCustomerNumber = LEVEL_ONE_TOT_CUSTOMERS;
             break;
         case SECOND:
-            this->initialHumor = LEVEL_TWO_HUMOR;
-            this->customerArrival = LEVEL_TWO_ARRIVALS;
-            this->maxTables = LEVEL_TWO_MAX_TABLES;
-            this->totalCustomerNumber = LEVEL_TWO_TOT_CUSTOMERS;
+            initialHumor = LEVEL_TWO_HUMOR;
+            customerArrival = LEVEL_TWO_ARRIVALS;
+            maxTables = LEVEL_TWO_MAX_TABLES;
+            totalCustomerNumber = LEVEL_TWO_TOT_CUSTOMERS;
             break;
         case THIRD:
-            this->initialHumor = LEVEL_THREE_HUMOR;
-            this->customerArrival = LEVEL_THREE_ARRIVALS;
-            this->maxTables = LEVEL_THREE_MAX_TABLES;
-            this->totalCustomerNumber = LEVEL_THREE_TOT_CUSTOMERS;
+            initialHumor = LEVEL_THREE_HUMOR;
+            customerArrival = LEVEL_THREE_ARRIVALS;
+            maxTables = LEVEL_THREE_MAX_TABLES;
+            totalCustomerNumber = LEVEL_THREE_TOT_CUSTOMERS;
             break;
     }
 }

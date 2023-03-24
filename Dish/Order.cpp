@@ -9,6 +9,29 @@ Order::Order() {
     current = Current::APPETIZER;
 }
 
+
+Order::Order(Order* o) {
+    for(auto & it: o->getAppetizers())
+    {
+        appetizers.push_back(it);
+    }
+    for(auto & it: o->getMainCourses())
+    {
+        mainCourse.push_back(it);
+    }
+    for(auto & it: o->getDesserts())
+    {
+        desserts.push_back(it);
+    }
+    for(auto & it: o->getDrinks())
+    {
+        drinks.push_back(it);
+    }
+    current = o->getCurrent();
+    tableNumber = o->getTableNumber();
+    peopleNumber = o->getPeopleNumber();
+}
+
 Order::~Order() {
 
 }

@@ -19,7 +19,7 @@ public:
     //Constructor & Destructor
     Customer();
     explicit Customer(sf::Vector2f dist);
-    ~Customer() override;
+    ~Customer();
 
     //Methods to update and display the customer on the screen
     void update() override;

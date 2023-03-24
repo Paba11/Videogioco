@@ -195,6 +195,6 @@ void ActionsState::actionManagement() {
 
 }
 
-void ActionsState::setOrder(Order &o) {
-    order = &o;
+void ActionsState::setOrder(std::shared_ptr<Order>& o) {
+    order = o;
 }

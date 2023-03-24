@@ -28,7 +28,7 @@ public:
     void setMainDishes(Mn mn);
     void setDesserts(Dsr dsr);
     void setDrinks(Drk drk);
-    void setFinishedOrder(Order* o);
+    void setFinishedOrder(std::shared_ptr<Order>& o);
 
 
 private:
@@ -41,7 +41,7 @@ private:
     std::unique_ptr<Appetizer> a;
     std::unique_ptr<MainCourse> m;
     std::unique_ptr<Dessert> ds;
-    std::vector<Order*> finishedOrders;
+    std::vector<std::shared_ptr<Order>> finishedOrders;
     int calculatedTotal;
     int correctTotal;
     bool isCorrect;

@@ -75,11 +75,11 @@ void Chef::cook() {
     }
 }
 
-void Chef::setOrder(Order* o) {
+void Chef::setOrder(std::shared_ptr<Order>& o) {
     order = o;
 }
 
-Order* Chef::getOrder() {
+std::shared_ptr<Order>& Chef::getOrder() {
     return order;
 }
 
@@ -117,12 +117,12 @@ void Chef::updateAnimations() {
     }
 }
 
-void Chef::setKitchen(std::shared_ptr<Kitchen> k) {
+void Chef::setKitchen(std::shared_ptr<Kitchen>& k) {
     kitchen.reset();
     kitchen = k;
 }
 
-const std::shared_ptr<Kitchen> Chef::getKitchen() {
+const std::shared_ptr<Kitchen>& Chef::getKitchen() {
     return kitchen;
 }
 
@@ -144,6 +144,7 @@ void Chef::createObjects() {
                 dishes.push_back(dish);
                 order->getAppetizers().pop_back();
             }
+            break;
         case Current::MAIN_DISH:
             order->setCurrent(Current::DESSERT);
             for(int i = 0; i < order->getPeopleNumber(); i++)
@@ -152,6 +153,7 @@ void Chef::createObjects() {
                 dishes.push_back(dish);
                 order->getMainCourses().pop_back();
             }
+            break;
         case Current::DESSERT:
             order->setCurrent(Current::END);
             for(int i = 0; i < order->getPeopleNumber(); i++)
@@ -160,6 +162,7 @@ void Chef::createObjects() {
                 dishes.push_back(dish);
                 order->getDesserts().pop_back();
             }
+            break;
     }
     calculateTime();
 }

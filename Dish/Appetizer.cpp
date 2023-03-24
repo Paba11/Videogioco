@@ -24,11 +24,13 @@ void Appetizer::initTexture() {
             {
                 std::cout << "ERROR::DISH::CAN'T LOAD TEXTURE FILE" << std::endl;
             }
+            break;
         case Apt::OMELETTE:
             if (!texture->loadFromFile("../Textures/Appetizer2.png"))
             {
                 std::cout << "ERROR::DISH::CAN'T LOAD TEXTURE FILE" << std::endl;
             }
+            break;
     }
 }
 
@@ -38,8 +40,10 @@ void Appetizer::initPreparationTime() {
     {
         case Apt::NACHOS:
             preparationTime = 10;
+            break;
         case Apt::OMELETTE:
             preparationTime = 20;
+            break;
     }
 }
 
@@ -48,8 +52,10 @@ void Appetizer::calculatePrice() {
     {
         case Apt::NACHOS:
             price = 8;
+            break;
         case Apt::OMELETTE:
             price = 10;
+            break;
     }
 }
 

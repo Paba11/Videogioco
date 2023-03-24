@@ -132,7 +132,7 @@ void ChoosingCharacter::pollEvents() {
 
     while (window->pollEvent(ev))
     {
-        switch (this->ev.type)
+        switch (ev.type)
         {
             case sf::Event::Closed:
                 this->window->close();

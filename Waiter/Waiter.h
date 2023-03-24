@@ -25,7 +25,7 @@ class Waiter final : public GameCharacter {
 public:
     //Constructor & Destructor
     Waiter();
-    ~Waiter() override;
+    ~Waiter();
 
     //Method to move, update and render the waiter
     void updateMovement();
@@ -40,6 +40,8 @@ public:
     void interact(const std::shared_ptr<Map>& map, sf::Event ev);
     void checkReceiving();
     void leaveAtTable();
+    void setOrder(const std::shared_ptr<Map>& map, Table* t);
+    void setReceive(const std::shared_ptr<Map>& map, sf::Event ev);
 
     //Getters & Setters
     Move getMove();
@@ -51,7 +53,7 @@ public:
     void setActionState(const std::shared_ptr<ActionsState>& as);
     void setOrderState(const std::shared_ptr<OrderState>& os);
     void setReceiveState(const std::shared_ptr<ReceiveState>& rs);
-    Order* getOrder();
+    std::shared_ptr<Order>& getOrder();
     void setOrder(Order* o);
     void setBill(std::shared_ptr<Bill>& b);
 
@@ -71,7 +73,8 @@ protected:
     std::shared_ptr<ReceiveState> receiveState;
 
     //Attributes to take an order
-    Order* order;
+    std::shared_ptr<Order> order;
+    bool hasOrder;
     std::shared_ptr<Bill> bill;
 
     //Attributes to receive the customers

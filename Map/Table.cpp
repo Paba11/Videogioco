@@ -23,9 +23,9 @@ Table::~Table() {
 }
 
 void Table::update() {
-    if(this->isOccupied)
+    if(isOccupied)
     {
-        switch(this->state)
+        switch(state)
         {
             case TableState::CHOOSING:
                 ordering();
@@ -162,6 +162,7 @@ void Table::setCustomers(std::vector<Customer>& cust) {
     /*
      * Move all the elements of the passed vector to the one of te customer
      */
+    customerNumber = cust.size();
     customers.reserve(cust.size());
     std::move(cust.begin(), cust.end(), std::back_inserter(customers));
     cust.clear();

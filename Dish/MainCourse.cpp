@@ -24,49 +24,61 @@ void MainCourse::initTexture() {
             {
                 std::cout << "ERROR::DISH::CAN'T LOAD TEXTURE FILE" << std::endl;
             }
+            break;
         case Mn::MEATBALLS:
             if (!this->texture->loadFromFile("../Textures/Main2.png"))
             {
                 std::cout << "ERROR::DISH::CAN'T LOAD TEXTURE FILE" << std::endl;
             }
+            break;
         case Mn::MEAT:
             if (!this->texture->loadFromFile("../Textures/Main3.png"))
             {
                 std::cout << "ERROR::DISH::CAN'T LOAD TEXTURE FILE" << std::endl;
             }
+            break;
         case Mn::CHICKEN:
             if (!this->texture->loadFromFile("../Textures/Main4.png"))
             {
                 std::cout << "ERROR::DISH::CAN'T LOAD TEXTURE FILE" << std::endl;
             }
+            break;
     }
 }
 
 void MainCourse::initPreparationTime() {
-    switch(this->type)
+    switch(type)
     {
         case Mn::HAMBURGER:
-            this->preparationTime = 20;
+            preparationTime = 20;
+            break;
         case Mn::MEAT:
-            this->preparationTime = 30;
+            preparationTime = 30;
+            break;
         case Mn::CHICKEN:
-            this->preparationTime = 25;
+            preparationTime = 25;
+            break;
         case Mn::MEATBALLS:
-            this->preparationTime = 30;
+            preparationTime = 30;
+            break;
     }
 }
 
 void MainCourse::calculatePrice() {
-    switch(this->type)
+    switch(type)
     {
         case Mn::HAMBURGER:
-            this->price = 14;
+            price = 14;
+            break;
         case Mn::MEAT:
-            this->price = 18;
+            price = 18;
+            break;
         case Mn::MEATBALLS:
-            this->price = 15;
+            price = 15;
+            break;
         case Mn::CHICKEN:
-            this->price = 12;
+            price = 12;
+            break;
     }
 }
 

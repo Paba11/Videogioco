@@ -31,12 +31,12 @@ public:
     Tray* getTray();
     void setIsOrder(bool t);
     bool getIsOrder();
-    void setOrder(Order& o);
+    void setOrder(std::shared_ptr<Order>& o);
 
 private:
     std::shared_ptr<GameCharacter> waiter;
     std::shared_ptr<Map> map;
-    Order* order;
+    std::shared_ptr<Order> order;
     bool isOrder;
     sf::Event event;
 

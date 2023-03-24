@@ -25,12 +25,16 @@ void Drink::calculatePrice() {
     {
         case Drk::WATER:
             price = 2;
+            break;
         case Drk::WINE:
             price = 6;
+            break;
         case Drk::BEER:
             price = 5;
+            break;
         case Drk::COKE:
             price = 4;
+            break;
     }
 }
 

@@ -43,10 +43,10 @@ public:
     //Getters & Setters
     void setDishes(Dish& d);
     Dish* getDish();
-    void setOrder(Order* o);
-    Order* getOrder();
-    void setKitchen(std::shared_ptr<Kitchen> k);
-    const std::shared_ptr<Kitchen> getKitchen();
+    void setOrder(std::shared_ptr<Order>& o);
+    std::shared_ptr<Order>& getOrder();
+    void setKitchen(std::shared_ptr<Kitchen>& k);
+    const std::shared_ptr<Kitchen>& getKitchen();
 
 private:
     //Methods' override to init the texture and the sprite
@@ -57,7 +57,7 @@ private:
     Do state;
     Dish* dish;
     std::vector<Dish*> dishes;
-    Order* order;
+    std::shared_ptr<Order> order;
     std::shared_ptr<Kitchen> kitchen;
     float time;
     sf::Clock clock;

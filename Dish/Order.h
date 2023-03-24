@@ -18,10 +18,10 @@ class Order {
 public:
     //Constructor & Destructor
     Order();
+    Order(Order* o);
     ~Order();
 
     void initPointersToNull();
-    int calculateTime(Current c);
 
     //Getters & Setters
     Apt getAppetizer(int i);

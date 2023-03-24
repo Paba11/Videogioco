@@ -347,10 +347,13 @@ void Game::nextLevel() {
     {
         case FIRST:
             level->setLevel(SECOND);
+            break;
         case SECOND:
             level->setLevel(THIRD);
+            break;
         case THIRD:
             level->setLevel(GAME_END);
+            break;
     }
     clock.restart();
 }

@@ -28,14 +28,14 @@ public:
 
     //Actions of the order state
     void setOrderVariables(const std::shared_ptr<Table>& t);
-    Order& takeOrder();
+    std::shared_ptr<Order>& takeOrder();
     void randomChoices();
     void generateRandom(int max);
 
     //Getters & Setters
-    Order& getOrder();
-    const std::shared_ptr<Table>& getTable();
-    void setTable(const std::shared_ptr<Table>& t);
+    std::shared_ptr<Order>& getOrder();
+    Table* getTable();
+    void setTable(Table* t);
     bool getIsTaken();
     void setIsTaken(bool t);
     void setMap(const std::shared_ptr<Map>& m);
@@ -43,8 +43,8 @@ public:
 private:
     void initVariables(Table& t);
 
-    Order order;
-    std::shared_ptr<Table> table;
+    std::shared_ptr<Order> order;
+    Table* table;
     std::shared_ptr<Map> map;
     Current current;
     bool isTaken;

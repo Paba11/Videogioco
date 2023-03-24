@@ -76,6 +76,6 @@ void Bill::calculateCorrectTotal() {
     }
 }
 
-void Bill::setFinishedOrder(Order *o) {
+void Bill::setFinishedOrder(std::shared_ptr<Order>& o) {
     finishedOrders.push_back(o);
 }

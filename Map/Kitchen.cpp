@@ -14,6 +14,7 @@ Kitchen::Kitchen() {
 }
 
 Kitchen::~Kitchen() {
+    /*
     Dish* d;
     for(int i=0; !dishes.empty(); i++)
     {
@@ -21,22 +22,28 @@ Kitchen::~Kitchen() {
         dishes.pop();
         delete d;
     }
+     */
 }
 
-void Kitchen::insertNewOrder(Order* o) {
-    newOrders.push(o);
+void Kitchen::insertNewOrder(std::shared_ptr<Order>& o) {
+    std::shared_ptr<Order> ord(o);
+    newOrders.push(ord);
     std::cout << "Inserting Order" << std::endl;
-    std::queue<Order*> tmp;
+    std::queue<std::shared_ptr<Order>> tmp;
     for(int i = 0; i < newOrders.size(); i++)
     {
         std::cout << "Order of table " << newOrders.front()->getTableNumber() << std::endl;
-        tmp.push(newOrders.front());
+        std::shared_ptr<Order> orde = newOrders.front();
         newOrders.pop();
-        newOrders.push(tmp.front());
+        tmp.push(orde);
+        tmp.pop();
+        newOrders.push(orde);
+        orde.reset();
     }
+
 }
 
-Order* Kitchen::makeNewOrder() {
+std::shared_ptr<Order>& Kitchen::makeNewOrder() {
     current = newOrders.front();
     newOrders.pop();
     return current;
@@ -109,7 +116,7 @@ std::queue<Dish *> &Kitchen::getDishes() {
     return this->dishes;
 }
 
-Order* Kitchen::getReadyOrder() {
+std::shared_ptr<Order>& Kitchen::getReadyOrder() {
     current = nullptr;
     if(!readyOrders.empty())
     {
@@ -119,7 +126,7 @@ Order* Kitchen::getReadyOrder() {
     return current;
 }
 
-void Kitchen::setReadyOrder(Order* o) {
+void Kitchen::setReadyOrder(std::shared_ptr<Order>& o) {
     readyOrders.push(o);
 }
 
@@ -128,7 +135,7 @@ void Kitchen::getWaitingOrder(int tavNum) {
      * Insert the order that was waiting in the queue of the not ready tables inside the readyQueue
      */
     int i = 100;
-    std::queue<Order*> tmp;
+    std::queue<std::shared_ptr<Order>> tmp;
     while(i != tavNum && !waitingOrders.empty())
     {
         i = waitingOrders.front()->getTableNumber();
@@ -160,7 +167,7 @@ void Kitchen::setWaitingOrder() {
     current = nullptr;
 }
 
-std::queue<Order*> &Kitchen::getReadyOrders() {
+std::queue<std::shared_ptr<Order>> &Kitchen::getReadyOrders() {
     return readyOrders;
 }
 
