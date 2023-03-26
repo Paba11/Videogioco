@@ -50,24 +50,25 @@ void Game::render(sf::RenderTarget* target) {
     /*
      * Clear the window, draw the objects of the game for the related actions and placement, displays it.
      */
-    this->window->clear();
+    window->clear();
 
     //Draw Game
     renderMap();
 
     map->getEntrance()->renderBarrier(*this->window,1);
     chef->render(*this->window);
+    chef->renderBar(*this->window);
     dishWasher->render(*this->window);
-    if(this->map->getEntrance()->getIsCustomer()) {
-        for (auto & it : this->receiveState->getCustomers())
+    if(map->getEntrance()->getIsCustomer()) {
+        for (auto & it : receiveState->getCustomers())
         {
-            this->window->draw(it.sprite);
+            window->draw(it.sprite);
         }
     }
     map->getEntrance()->renderBarrier(*this->window,2);    //this->dishWasher->render(*this->window);
     waiter->render(*this->window);
     tray->render(*this->window);
-    this->window->display();
+    window->display();
 }
 
 void Game::initVariables() {

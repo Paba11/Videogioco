@@ -37,6 +37,8 @@ public:
 
     //Update and render
     void update() override;
+    void updateBar();
+    void renderBar(sf::RenderTarget& target);
 
     //Getters & Setters
     void setDishes(Dish& d);
@@ -50,6 +52,9 @@ private:
     //Methods' override to init the texture and the sprite
     void initSprite() override;
     void setTextureDishes(Dish* d, Apt t);
+    void initBar();
+    sf::RectangleShape greyBar;
+    sf::RectangleShape greenBar;
 
     //Attributes of the Chef
     Do state;
@@ -61,6 +66,8 @@ private:
     sf::Clock clock;
     bool isReady;
     std::shared_ptr<Bill> bill;
+    float totalBarIteration = 30;
+    float actualBarIteration = 0;
 };
 
 

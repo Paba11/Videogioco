@@ -7,6 +7,7 @@
 
 Chef::Chef() {
     initSprite();
+    initBar();
     this->state = Do::WAIT;
     isReady = false;
 }
@@ -77,13 +78,19 @@ void Chef::cook() {
         order = nullptr;
         std::cout << "The plate is ready" << std::endl;
         kitchen->setState(DishState::EMPTY);
+        actualBarIteration = 0;
 
     }
     else if (state == Do::COOK) {
         std::cout << "Still cooking" << std::endl;
         if(clock.getElapsedTime().asSeconds() >= time * 3/4)
             kitchen->setState(DishState::ALMOST_READY);
+        if(clock.getElapsedTime().asSeconds() >= time * actualBarIteration/totalBarIteration){
+            actualBarIteration++;
+            updateBar();
+        }
     }
+
 }
 
 void Chef::setOrder(std::shared_ptr<Order>& o) {
@@ -195,5 +202,31 @@ void Chef::setTextureDishes(Dish *d, Apt t) {
         d->setTexture("OMELETTE");
         */
 
+}
+
+void Chef::initBar() {
+
+    greyBar.setSize({totalBarIteration,10});
+    greyBar.setPosition(1240,530);
+    greyBar.setFillColor(sf::Color::Black);
+
+    greenBar.setSize({0,10});
+    greenBar.setPosition(1240,530);
+    greenBar.setFillColor(sf::Color::Green);
+
+}
+
+void Chef::renderBar(sf::RenderTarget &target) {
+    if(state == Do::COOK) {
+        target.draw(greyBar);
+        target.draw(greenBar);
+    }
+
+}
+
+void Chef::updateBar() {
+    if(state == Do::COOK){
+        greenBar.setSize({greenBar.getSize().x+1, greenBar.getSize().y});
+    }
 }
 
