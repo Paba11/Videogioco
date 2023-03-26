@@ -11,6 +11,7 @@
 #include <SFML/System.hpp>
 #include <SFML/Audio.hpp>
 #include "MealMenu.h"
+#include "../Textures.h"
 
 enum class State {READY, COOKING, WAITING, IN_QUEUE};
 
@@ -26,7 +27,7 @@ public:
     void update();
 
     //Methods to initialize the texture and the sprite based on the dish type
-    virtual void initTexture() = 0;
+
     void initSprite();
 
     //Method to have the position of the dish
@@ -42,10 +43,13 @@ public:
     float getPreparationTime();
     void setPrice(int i);
     int getPrice();
+    void setPosition(sf::Vector2f pos);
     virtual void calculatePrice() = 0;
+    virtual void setTexture() = 0;
 
 protected:
-    sf::Texture* texture;
+    void initTexture();
+    Textures* texture;
     sf::Sprite sprite;
     sf::Vector2f direction;
     int tavNum;

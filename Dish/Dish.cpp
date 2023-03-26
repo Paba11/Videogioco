@@ -3,9 +3,12 @@
 //
 
 #include "Dish.h"
+#include "../Textures.h"
 
 Dish::Dish() {
     state = State::COOKING;
+    initSprite();
+    initTexture();
 }
 
 Dish::~Dish() {
@@ -21,7 +24,8 @@ void Dish::update() {
 }
 
 void Dish::initSprite() {
-    this->sprite.setTexture(*texture);
+    sprite.setOrigin(16,15);
+    sprite.setScale(2.5f,2.5f);
 }
 
 const sf::FloatRect Dish::getBounds() const {
@@ -44,6 +48,11 @@ float Dish::getPreparationTime() {
     return preparationTime;
 }
 
+void Dish::initTexture() {
+
+    texture = new Textures();
+
+}
 void Dish::setPrice(int i) {
     price = i;
 }
@@ -51,6 +60,11 @@ void Dish::setPrice(int i) {
 int Dish::getPrice() {
     return price;
 }
+
+void Dish::setPosition(sf::Vector2f pos) {
+    sprite.setPosition(pos);
+}
+
 
 
 

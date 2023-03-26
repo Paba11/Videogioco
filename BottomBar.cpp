@@ -24,7 +24,7 @@ void BottomBar::render(sf::RenderTarget& target) {
 
 void BottomBar::initSprite() {
 
-    this->sprite.setPosition(5,1200);
+    this->sprite.setPosition(5,1210);
     this->sprite.setTexture(*this->texture->getTexture("BottomBar"));
     this->sprite.setScale(0.7f,0.7f);
 }

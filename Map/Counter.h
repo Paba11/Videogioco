@@ -12,13 +12,14 @@
 #include "../Dish/Dish.h"
 #include <queue>
 
-enum class DishState {EMPTY, FULL};
+enum class DishState {EMPTY, FULL, COOKING, ALMOST_READY};
 
 class Counter {
 public:
     Counter();
     ~Counter();
     void render(sf::RenderTarget& target);
+    void renderDishes(sf::RenderTarget& target);
     const sf::FloatRect getBounds() const;
     sf::RectangleShape& getPlaceDirtyDishes();
     std::vector<sf::RectangleShape> getPlaceChefDishes();
@@ -29,7 +30,7 @@ public:
     void setState(DishState ds);
     DishState getState();
     Dish* getDish();
-    void setDish(Dish* dish);
+    void setDish(Dish* dish, int i);
     std::queue<Dish *>& getDishes();
 
 private:

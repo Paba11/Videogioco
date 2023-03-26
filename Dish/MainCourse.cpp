@@ -17,32 +17,20 @@ MainCourse::~MainCourse() {
 
 }
 
-void MainCourse::initTexture() {
+void MainCourse::setTexture() {
     switch(type)
     {
         case Mn::HAMBURGER:
-            if (!this->texture->loadFromFile("../Textures/Main1.png"))
-            {
-                std::cout << "ERROR::DISH::CAN'T LOAD TEXTURE FILE" << std::endl;
-            }
+            sprite.setTexture(*this->texture->getTexture("HAMBURGER"));
             break;
         case Mn::MEATBALLS:
-            if (!this->texture->loadFromFile("../Textures/Main2.png"))
-            {
-                std::cout << "ERROR::DISH::CAN'T LOAD TEXTURE FILE" << std::endl;
-            }
+            sprite.setTexture(*this->texture->getTexture("MEATBALLS"));
             break;
         case Mn::MEAT:
-            if (!this->texture->loadFromFile("../Textures/Main3.png"))
-            {
-                std::cout << "ERROR::DISH::CAN'T LOAD TEXTURE FILE" << std::endl;
-            }
+            sprite.setTexture(*this->texture->getTexture("MEAT"));
             break;
         case Mn::CHICKEN:
-            if (!this->texture->loadFromFile("../Textures/Main4.png"))
-            {
-                std::cout << "ERROR::DISH::CAN'T LOAD TEXTURE FILE" << std::endl;
-            }
+            sprite.setTexture(*this->texture->getTexture("CHICKEN"));
             break;
     }
 }

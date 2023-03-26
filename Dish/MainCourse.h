@@ -15,7 +15,7 @@ public:
     ~MainCourse();
 
     //Methods to initialize the texture and the sprite based on the dish type
-    void initTexture() override;
+    void setTexture();
 
     //Calculate the correct price & preparation time
     void calculatePrice() override;

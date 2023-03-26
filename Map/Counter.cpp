@@ -27,9 +27,12 @@ void Counter::initSprite() {
 void Counter::render(sf::RenderTarget& target) {
     target.draw(sprite);
     target.draw(placeForDirtyDishes);
-
+    /*
     for(int i = 0; i < 4; i++)
         target.draw(chefDishes[i]);
+    */
+
+    renderDishes(target);
 }
 
 const sf::FloatRect Counter::getBounds() const {
@@ -44,7 +47,6 @@ void Counter::setDirtyDishes() {
     placeForDirtyDishes.setOutlineColor(sf::Color::White);    //Fixme set trasparent when finished
     placeForDirtyDishes.setOutlineThickness(1.f);
     placeForDirtyDishes.setFillColor(sf::Color::Transparent);
-    //this->placeForDirtyDishes.setTexture(this->texture->getTexture("Main1")); //work but only without both outline/Fill
 
 
 }
@@ -82,7 +84,8 @@ Dish *Counter::getDish() {
     return d;
 }
 
-void Counter::setDish(Dish* d) {
+void Counter::setDish(Dish* d, int i) {
+    d->setPosition(chefDishes[i].getPosition());
     this->dishes.push(d);
 }
 
@@ -96,4 +99,19 @@ void Counter::setState(DishState ds) {
 
 DishState Counter::getState() {
     return state;
+}
+
+void Counter::renderDishes(sf::RenderTarget& target) {
+
+    std::queue<Dish*> tmp;
+    Dish* ptr;
+    for(int i = 0; i < dishes.size(); i++)
+    {
+        ptr = dishes.front();
+        dishes.pop();
+        ptr->render(target);
+        tmp.push(ptr);
+        tmp.pop();
+        dishes.push(ptr);
+    }
 }

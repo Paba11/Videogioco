@@ -86,12 +86,12 @@ void MainMenu::initButtons() {
                                   sf::Color(70,70,70,200),
                                   sf::Color(150,150,150,255),
                                   sf::Color(20,20,20,200));
-    this->buttons["EXIT"] = new Button(800,1200,150,50,&this->font, "QUIT",
+    this->buttons["EXIT"] = new Button(850,1200,150,50,&this->font, "QUIT",
                                        sf::Color(70,70,70,200),
                                        sf::Color(150,150,150,255),
                                        sf::Color(20,20,20,200));
 
-    this->buttons["HOWTO"] = new Button(500,1200,150,50,&this->font, "CONTROLS",
+    this->buttons["HOWTO"] = new Button(500,1200,250,50,&this->font, "CONTROLS",
                                         sf::Color(70,70,70,200),
                                         sf::Color(150,150,150,255),
                                         sf::Color(20,20,20,200));

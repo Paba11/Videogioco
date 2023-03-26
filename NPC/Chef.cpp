@@ -57,9 +57,11 @@ void Chef::cook() {
     {
         isReady = true;
         kitchen->getCounter()->setState(DishState::FULL);
+        int i=0;
         for(auto & it: dishes)
         {
-            kitchen->getCounter()->setDish(it);
+            kitchen->getCounter()->setDish(it, i);
+            i++;
         }
         dishes.clear();
         state = Do::WAIT;
@@ -74,9 +76,14 @@ void Chef::cook() {
 
         order = nullptr;
         std::cout << "The plate is ready" << std::endl;
+        kitchen->setState(DishState::EMPTY);
+
     }
-    else if (state == Do::COOK)
+    else if (state == Do::COOK) {
         std::cout << "Still cooking" << std::endl;
+        if(clock.getElapsedTime().asSeconds() >= time * 3/4)
+            kitchen->setState(DishState::ALMOST_READY);
+    }
 }
 
 void Chef::setOrder(std::shared_ptr<Order>& o) {
@@ -93,6 +100,7 @@ void Chef::checkOrder() {
     {
         setOrder(kitchen->getReadyOrder());
         state = Do::COOK;
+        kitchen->setState(DishState::COOKING);
         setAnimation();
         createObjects();
         clock.restart();
@@ -137,6 +145,7 @@ void Chef::createObjects() {
             for(int i = 0; i < order->getPeopleNumber(); i++)
             {
                 dish = new Appetizer(order->getAppetizers().back());
+                //setTextureDishes(dish, order->getAppetizers().back());
                 dishes.push_back(dish);
                 order->getAppetizers().pop_back();
             }
@@ -176,5 +185,15 @@ void Chef::createObjects() {
 void Chef::setBill(std::shared_ptr<Bill>& b) {
     bill.reset();
     bill = b;
+}
+
+void Chef::setTextureDishes(Dish *d, Apt t) {
+/*
+    if(t == Apt::NACHOS)
+        d->setTexture("NACHOS");
+    else
+        d->setTexture("OMELETTE");
+        */
+
 }
 

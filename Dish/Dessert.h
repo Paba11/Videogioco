@@ -16,7 +16,7 @@ public:
     ~Dessert();
 
     //Methods to initialize the texture and the sprite based on the dish type
-    void initTexture() override;
+    void setTexture() override;
 
     //Calculate the correct price & preparation time
     void calculatePrice() override;

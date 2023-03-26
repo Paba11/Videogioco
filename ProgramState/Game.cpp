@@ -35,7 +35,7 @@ void Game::update() {
     updateTables();
     updateInteractions();
     map->getEntrance()->updateBox();
-    map->getKitchen()->updateBox();
+    map->getKitchen()->update();
     actionsState->getTray()->update();
     updateTable();
     waiter->update();

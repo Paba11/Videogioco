@@ -19,6 +19,10 @@
 #include <queue>
 
 
+#define MAX_TABLES 10
+
+
+
 class Kitchen {
 public:
     //Constructor & Destructor
@@ -34,6 +38,7 @@ public:
     //Update and render of the kitchen textures
     void update();
     void render(sf::RenderTarget& target);
+    void updateAnimations();
 
     void updateBox();
 
@@ -67,6 +72,7 @@ private:
     sf::Sprite pot;
     sf::IntRect panFrame;
     sf::IntRect potFrame;
+    sf::Clock animationTimer;
     void initTexture();
     void initSprite();
 

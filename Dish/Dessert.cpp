@@ -17,26 +17,17 @@ Dessert::~Dessert() {
 
 }
 
-void Dessert::initTexture() {
+void Dessert::setTexture() {
     switch(type)
     {
         case Dsr::CHOCOLATE_CAKE:
-            if (!texture->loadFromFile("../Textures/Dessert1.png"))
-            {
-                std::cout << "ERROR::DISH::CAN'T LOAD TEXTURE FILE" << std::endl;
-            }
+            sprite.setTexture(*this->texture->getTexture("CHOCOLATE_CAKE"));
             break;
         case Dsr::CHEESE_CAKE:
-            if (!texture->loadFromFile("../Textures/Dessert2.png"))
-            {
-                std::cout << "ERROR::DISH::CAN'T LOAD TEXTURE FILE" << std::endl;
-            }
+            sprite.setTexture(*this->texture->getTexture("CHEESECAKE"));
             break;
         case Dsr::JELLY:
-            if (!texture->loadFromFile("../Textures/Dessert3.png"))
-            {
-                std::cout << "ERROR::DISH::CAN'T LOAD TEXTURE FILE" << std::endl;
-            }
+            sprite.setTexture(*this->texture->getTexture("JELLY"));
             break;
     }
 }

@@ -9,28 +9,21 @@ Appetizer::Appetizer(Apt t) {
     type = t;
     calculatePrice();
     calculateTime();
-    //initTexture();
-    //initSprite();
+    setTexture();
 }
 
 Appetizer::~Appetizer() {
 
 }
 
-void Appetizer::initTexture() {
+void Appetizer::setTexture() {
     switch(type)
     {
         case Apt::NACHOS:
-            if (!texture->loadFromFile("../Textures/Appetizer1.png"))
-            {
-                std::cout << "ERROR::DISH::CAN'T LOAD TEXTURE FILE" << std::endl;
-            }
+            sprite.setTexture(*this->texture->getTexture("NACHOS"));
             break;
         case Apt::OMELETTE:
-            if (!texture->loadFromFile("../Textures/Appetizer2.png"))
-            {
-                std::cout << "ERROR::DISH::CAN'T LOAD TEXTURE FILE" << std::endl;
-            }
+            sprite.setTexture(*this->texture->getTexture("OMELETTE"));
             break;
     }
 }

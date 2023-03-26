@@ -65,7 +65,7 @@ void Kitchen::initSprite() {
     cornerSprite.setTexture(*this->texture->getTexture("BlockNotes"));
     cornerSprite.setTextureRect({0,0,480,480});
     cornerSprite.setScale(0.05f,0.05f);
-    cornerSprite.setPosition(interactionSquare.getPosition().x + 31, interactionSquare.getPosition().y - 31);
+    cornerSprite.setPosition(interactionSquare.getPosition().x - 31, interactionSquare.getPosition().y - 31);
 
     pan.setTexture(*this->texture->getTexture("Pan"));          //padella
     panFrame = sf::IntRect(0, 0, 30, 30);
@@ -100,7 +100,8 @@ const sf::Vector2f Kitchen::getPosition() const {
 }
 
 void Kitchen::update() {
-
+    updateBox();
+    updateAnimations();
 }
 
 void Kitchen::render(sf::RenderTarget& target) {
@@ -216,4 +217,34 @@ void Kitchen::setWaiterOrder(bool t) {
 void Kitchen::initTexture() {
 
     texture = new Textures;
+}
+
+void Kitchen::updateAnimations() {
+
+    switch(state){
+
+        case DishState::EMPTY:
+            potFrame.left = 0;
+            panFrame.left = 0;
+            pot.setTextureRect(potFrame);
+            pan.setTextureRect(panFrame);
+            break;
+
+        case DishState::COOKING:
+            potFrame.left = 24;
+            panFrame.left = 30;
+            pot.setTextureRect(potFrame);
+            pan.setTextureRect(panFrame);
+            break;
+
+        case DishState::ALMOST_READY:
+            potFrame.left = 48;
+            panFrame.left = 60;
+            pot.setTextureRect(potFrame);
+            pan.setTextureRect(panFrame);
+            break;
+
+
+    }
+
 }

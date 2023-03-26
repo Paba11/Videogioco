@@ -49,6 +49,7 @@ public:
 private:
     //Methods' override to init the texture and the sprite
     void initSprite() override;
+    void setTextureDishes(Dish* d, Apt t);
 
     //Attributes of the Chef
     Do state;
