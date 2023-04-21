@@ -68,13 +68,13 @@ void Game::render(sf::RenderTarget* target) {
     map->getEntrance()->renderBarrier(*this->window,2);    //this->dishWasher->render(*this->window);
     waiter->render(*this->window);
     tray->render(*this->window);
+    bottomBar->render(*this->window);
     window->display();
 }
 
 void Game::initVariables() {
 
     maxNumberCustomers = level->getTotalCustomerNumber();
-    bottomBar = std::make_shared<BottomBar>();
     //initWaiter();
     //initChef();
 
@@ -138,7 +138,6 @@ void Game::renderMap() {
     kitchen->render(*this->window);
     counter->render(*this->window);
     washbasin->render(*this->window);
-    bottomBar->render(*this->window);
     map->getEntrance()->render(*this->window);
     map->render(*this->window);
     for(int i=0;i<numTables;i++) {
@@ -285,6 +284,8 @@ void Game::initMap() {
     washbasin = map->getWashbasin();
     counter.reset();
     counter = map->getKitchen()->getCounter();
+    bottomBar.reset();
+    bottomBar = map->getKitchen()->getBottomBar();
 }
 
 void Game::endState() {

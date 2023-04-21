@@ -16,6 +16,7 @@
 #include "../Tray.h"
 #include "../Textures.h"
 #include "Counter.h"
+#include "../BottomBar.h"
 #include <queue>
 
 
@@ -60,6 +61,7 @@ public:
     const sf::Sprite getSprite();
     const sf::FloatRect getBounds() const;
     std::shared_ptr<Counter> getCounter() const;
+    std::shared_ptr<BottomBar> getBottomBar() const;
     sf::RectangleShape& getInteractionSquare();
     void setWaiterOrder(bool t);
 
@@ -84,6 +86,7 @@ private:
     bool isEmptyPlates;
     DishState state;
     std::shared_ptr<Counter> counter;
+    std::shared_ptr<BottomBar> bottomBar;
 
     sf::RectangleShape interactionSquare;
     sf::Color boxOpacity = {253,202,78,255};

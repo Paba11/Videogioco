@@ -8,6 +8,7 @@
 Kitchen::Kitchen() {
     state = DishState::EMPTY;
     counter = std::make_shared<Counter>();
+    bottomBar = std::make_shared<BottomBar>();
     waiterOrder = false;
     initTexture();
     initSprite();
@@ -28,6 +29,7 @@ Kitchen::~Kitchen() {
 
 void Kitchen::insertNewOrder(std::shared_ptr<Order>& o) {
     std::shared_ptr<Order> ord(o);
+    bottomBar->setOrder(o->getTableNumber());
     readyOrders.push(ord);
     std::cout << "Inserting Order" << std::endl;
     std::queue<std::shared_ptr<Order>> tmp;
@@ -68,13 +70,13 @@ void Kitchen::initSprite() {
     cornerSprite.setPosition(interactionSquare.getPosition().x - 31, interactionSquare.getPosition().y - 31);
 
     pan.setTexture(*this->texture->getTexture("Pan"));          //padella
-    panFrame = sf::IntRect(0, 0, 30, 30);
+    panFrame = sf::IntRect(0, 0, 30, 25);
     pan.setTextureRect(panFrame);
     pan.setScale(3.f, 3.f);
     pan.setPosition(1190,460);
 
     pot.setTexture(*this->texture->getTexture("Pot"));          //pentola
-    potFrame = sf::IntRect(0, 0, 24, 24);
+    potFrame = sf::IntRect(0, 0, 22, 24);
     pot.setTextureRect(potFrame);
     pot.setScale(3.f, 3.f);
     pot.setPosition(1218,410);
@@ -231,14 +233,14 @@ void Kitchen::updateAnimations() {
             break;
 
         case DishState::COOKING:
-            potFrame.left = 24;
+            potFrame.left = 22;
             panFrame.left = 30;
             pot.setTextureRect(potFrame);
             pan.setTextureRect(panFrame);
             break;
 
         case DishState::ALMOST_READY:
-            potFrame.left = 48;
+            potFrame.left = 44;
             panFrame.left = 60;
             pot.setTextureRect(potFrame);
             pan.setTextureRect(panFrame);
@@ -247,4 +249,8 @@ void Kitchen::updateAnimations() {
 
     }
 
+}
+
+std::shared_ptr<BottomBar> Kitchen::getBottomBar() const {
+    return bottomBar;
 }

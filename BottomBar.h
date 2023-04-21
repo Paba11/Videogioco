@@ -17,10 +17,18 @@ public:
     ~BottomBar();
 
     void update();
+    void updateOrders();
     void render(sf::RenderTarget& target);
+    void setOrder(int n);
 
 private:
     void initSprite();
+    void initFont();
+    void setOrdersPosition();
+    std::vector<int> orders;
+    std::vector<sf::Text> numOrder;
+    std::vector<sf::Sprite> ordersSprite;
+    sf::Font font;
     sf::Sprite sprite;
     Textures* texture;
 

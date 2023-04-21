@@ -206,7 +206,11 @@ sf::Texture* Textures::getTexture(std::string name) {
      {
          std::cout << "ERROR::Pot::CAN'T LOAD TEXTURE FILE" << std::endl;
      }
-
+     textures["BlockNotesBottomBar"] = new sf::Texture();
+     if (!this->textures["BlockNotesBottomBar"]->loadFromFile("../Textures/BlockNotes BottomBar.png"))
+     {
+         std::cout << "ERROR::BlockNotesBottomBar::CAN'T LOAD TEXTURE FILE" << std::endl;
+     }
 
 }
 
