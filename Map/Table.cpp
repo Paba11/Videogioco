@@ -17,9 +17,9 @@ Table::Table() {
     chosenTable = false;
     initStoolTable();
     isSit = false;
-    humor = 500;
+    humor = INITIAL_HUMOR;
     isSetFinalScore = false;
-
+    isNotSatisfied = false;
 }
 
 Table::~Table() {
@@ -37,9 +37,17 @@ void Table::update() {
                 break;
             case TableState::WAITING_TO_ORDER:
                 updateCornerSprite();
+                updateHumor();
                 break;
             case TableState::WAITING_DISHES:
                 updateCornerSprite();
+                updateHumor();
+                break;
+            case TableState::ENDED:
+                updateHumor();
+                break;
+            case TableState::IS_LEAVING:
+                leaveTable();
                 break;
         }
 
@@ -48,6 +56,7 @@ void Table::update() {
             for(auto i : customers)
                 i.update();
         }
+        std::cout << "Table " << tavNum << " humor: " << humor << std::endl;
     }
 }
 
@@ -328,8 +337,16 @@ void Table::updateHumor() {
         case TableState::EATING:
             break;
         case TableState::ENDED:
+            state = TableState::IS_LEAVING;
+            break;
+        case TableState::LEFT:
             reInitTable();
             break;
+    }
+    if(humor < 500 && state != TableState::IS_LEAVING)
+    {
+        isNotSatisfied = true;
+        state = TableState::IS_LEAVING;
     }
 }
 
@@ -358,6 +375,43 @@ void Table::reInitTable() {
         isSit = false;
         humor = 500;
         isSetFinalScore = false;
+        order.reset();
+        isNotSatisfied = false;
+        while (!dishes.empty())
+        {
+            dishes.pop();
+        }
     }
+}
+
+void Table::leaveTable() {
+    //TODO: when customer exit the restaurant reset the customer vector
+    switch(tavNum)
+    {
+        case 0:
+            break;
+        case 1:
+            break;
+        case 2:
+            break;
+        case 3:
+            break;
+        case 4:
+            break;
+        case 5:
+            break;
+    }
+}
+
+void Table::restartScoreTimer() {
+    scoreTimer.restart();
+}
+
+bool Table::getIsNotSatisfied() {
+    return isNotSatisfied;
+}
+
+void Table::setIsNotSatisfied(bool t) {
+    isNotSatisfied = t;
 }
 

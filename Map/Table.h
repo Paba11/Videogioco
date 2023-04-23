@@ -17,9 +17,10 @@
 #include "../NPC/Customer.h"
 #include <queue>
 
-enum class TableState {CHOOSING, WAITING_TO_ORDER, WAITING_DISHES, EATING, ENDED};
+enum class TableState {CHOOSING, WAITING_TO_ORDER, WAITING_DISHES, EATING, ENDED, IS_LEAVING, LEFT};
 
 #define TIME_TO_CHOOSE 5.f
+#define INITIAL_HUMOR 500000
 
 class Table {
 public:
@@ -36,6 +37,7 @@ public:
     void ordering();
     void updateHumor();
     void reInitTable();
+    void leaveTable();
 
     //Getters & Setters
     int getTavNum();
@@ -61,12 +63,15 @@ public:
     bool getChosenTable();
     sf::RectangleShape getInteractionSquare();
     void restartTimer();
+    void restartScoreTimer();
     std::vector<sf::RectangleShape> getDishesPlace();
     void setIsSit(bool t);
     bool getIsSetFinalScore();
     void setIsSetFinalScore(bool t);
     void setHumor(int i);
     int getHumor();
+    bool getIsNotSatisfied();
+    void setIsNotSatisfied(bool t);
 
     //Initialize table
     void initStoolTable();
@@ -107,6 +112,7 @@ private:
     int humor;
     sf::Clock scoreTimer;
     bool isSetFinalScore;
+    bool isNotSatisfied;
 };
 
 

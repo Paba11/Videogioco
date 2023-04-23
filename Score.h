@@ -19,14 +19,18 @@ public:
     //Set the animations to calculate the bill
     void update();
     void render();
+    void gameOver();
 
     //Getters & Setters
     void addPoints(int i);
-    void setTable(Table* t, int i);
+    void setTable(Table* t);
+    void addNotSatisfied();
 
 private:
     std::vector<Table*> table;
     int totalPoints;
+
+    int notSatisfiedTables;
 };
 
 

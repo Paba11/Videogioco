@@ -57,6 +57,8 @@ public:
 
     void initStates(const std::shared_ptr<ActionsState>& as, const std::shared_ptr<ReceiveState>& rs, const std::shared_ptr<OrderState>& os);
 
+    sf::Clock receivingTimer;
+
 protected:
     //Methods' override to initialize the texture and the sprite
     void initSprite() override;

@@ -129,7 +129,6 @@ void Customer::setPath(Move m) {
 
 void Customer::initVariables() {
     this->mood = GOOD;
-    this->patience = 100;
     this->movingStatus = Move::STANDING;
     this->preMovingStatus = Move::STANDING;
     this->speed = 8;

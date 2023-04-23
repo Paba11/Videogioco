@@ -72,8 +72,6 @@ void Chef::cook() {
             kitchen->setWaitingOrder();
             std::cout << "Set the plate in the kitchen" << std::endl;
         }
-        else
-            bill->setFinishedOrder(order);
 
         order = nullptr;
         std::cout << "The plate is ready" << std::endl;
@@ -187,21 +185,6 @@ void Chef::createObjects() {
         }
         time /= dishes.size();
     }
-}
-
-void Chef::setBill(std::shared_ptr<Bill>& b) {
-    bill.reset();
-    bill = b;
-}
-
-void Chef::setTextureDishes(Dish *d, Apt t) {
-/*
-    if(t == Apt::NACHOS)
-        d->setTexture("NACHOS");
-    else
-        d->setTexture("OMELETTE");
-        */
-
 }
 
 void Chef::initBar() {
