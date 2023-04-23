@@ -17,6 +17,8 @@ Table::Table() {
     chosenTable = false;
     initStoolTable();
     isSit = false;
+    humor = 500;
+    isSetFinalScore = false;
 
 }
 
@@ -270,16 +272,12 @@ void Table::restartTimer() {
     timer.restart();
 }
 
-sf::Time Table::getElapsedTime() {
-    return timer.getElapsedTime();
-}
-
 void Table::setIsSit(bool t) {
-    this->isSit = t;
+    isSit = t;
 }
 
-bool Table::getIsSit() {
-    return this->isSit;
+bool Table::getIsSetFinalScore() {
+    return isSetFinalScore;
 }
 
 void Table::initTexture() {
@@ -303,6 +301,63 @@ void Table::updateCornerSprite() {
             cornerSprite.setPosition(interactionSquare.getPosition().x + 31, interactionSquare.getPosition().y - 31);
             break;
 
+    }
+}
+
+void Table::updateHumor() {
+    switch(state)
+    {
+        case TableState::CHOOSING:
+            break;
+        case TableState::WAITING_TO_ORDER:
+            if(scoreTimer.getElapsedTime().asSeconds() > 20)
+                humor -= 5;
+            else if(scoreTimer.getElapsedTime().asSeconds() > 40)
+                humor -= 7;
+            else
+                humor -= 3;
+            break;
+        case TableState::WAITING_DISHES:
+            if(scoreTimer.getElapsedTime().asSeconds() > 20)
+                humor -= 5;
+            else if(scoreTimer.getElapsedTime().asSeconds() > 40)
+                humor -= 7;
+            else
+                humor -= 3;
+            break;
+        case TableState::EATING:
+            break;
+        case TableState::ENDED:
+            reInitTable();
+            break;
+    }
+}
+
+void Table::setIsSetFinalScore(bool t) {
+    isSetFinalScore = t;
+}
+
+void Table::setHumor(int i) {
+    humor = i;
+}
+
+int Table::getHumor() {
+    return humor;
+}
+
+void Table::reInitTable() {
+    if(isSetFinalScore)
+    {
+        numStoolsTable = 4;
+        state = TableState::CHOOSING;
+        course = Current::APPETIZER;
+        isOccupied = false;
+        customerNumber = 0;
+        cicle = true;
+        chosenTable = false;
+        isSit = false;
+        humor = 500;
+        isSetFinalScore = false;
     }
 }
 

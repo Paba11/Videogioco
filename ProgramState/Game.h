@@ -25,6 +25,7 @@
 #include <list>
 #include <random>
 
+
 class Game : public ProgramState {
 public:
     //Constructor & Destructor
@@ -102,7 +103,6 @@ private:
     //ReceivingCustomers* receivingCustomers;
     std::shared_ptr<BottomBar> bottomBar;
     //Table* table;
-    std::shared_ptr<Bill> bill;
     std::shared_ptr<Tray> tray;
 
     //Manage Waiter States
@@ -111,7 +111,8 @@ private:
     std::shared_ptr<ActionsState> actionsState;
 
     //Level variables management
-    Level* level;       //TODO eventually change in smart pointer
+    Level* level;
+    Score score;
 
     //Generate random numbers
     std::random_device rd;
@@ -140,7 +141,7 @@ private:
     void initDishWasher();
     void initLevel();
     void setWaiterTexture(int waiterTexture);
-    void initBill();
+
     int numTables=6;
     int waiterTexture;
 

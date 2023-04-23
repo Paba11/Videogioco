@@ -5,7 +5,7 @@
 #ifndef VIDEOGIOCO_WAITER_H
 #define VIDEOGIOCO_WAITER_H
 
-#include "../Bill.h"
+#include "../Score.h"
 #include "../Dish/Dish.h"
 #include "../GameCharacter.h"
 #include "../Dish/Order.h"
@@ -54,7 +54,6 @@ public:
     void setReceiveState(const std::shared_ptr<ReceiveState>& rs);
     std::shared_ptr<Order>& getOrder();
     void setOrder(Order* o);
-    void setBill(std::shared_ptr<Bill>& b);
 
     void initStates(const std::shared_ptr<ActionsState>& as, const std::shared_ptr<ReceiveState>& rs, const std::shared_ptr<OrderState>& os);
 
@@ -75,7 +74,6 @@ protected:
     //Attributes to take an order
     std::shared_ptr<Order> order;
     bool hasOrder;
-    std::shared_ptr<Bill> bill;
 
     //Attributes to receive the customers
     bool isReceived;

@@ -34,6 +34,8 @@ public:
     //Table actions
     void receivingCustomers(std::vector<Customer>& customer);
     void ordering();
+    void updateHumor();
+    void reInitTable();
 
     //Getters & Setters
     int getTavNum();
@@ -59,10 +61,12 @@ public:
     bool getChosenTable();
     sf::RectangleShape getInteractionSquare();
     void restartTimer();
-    sf::Time getElapsedTime();
     std::vector<sf::RectangleShape> getDishesPlace();
     void setIsSit(bool t);
-    bool getIsSit();
+    bool getIsSetFinalScore();
+    void setIsSetFinalScore(bool t);
+    void setHumor(int i);
+    int getHumor();
 
     //Initialize table
     void initStoolTable();
@@ -71,8 +75,6 @@ public:
     void updateBox();
     void setTable();
     void setDishesPlace();
-
-
 
 private:
 
@@ -102,6 +104,9 @@ private:
     bool chosenTable;
     sf::Sprite cornerSprite;
 
+    int humor;
+    sf::Clock scoreTimer;
+    bool isSetFinalScore;
 };
 
 
