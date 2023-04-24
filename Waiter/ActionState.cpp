@@ -75,7 +75,7 @@ void ActionsState::pickUp(Table* table) {
 
         //Set the tray to empty plates
         tray->setState(TrayState::EMPTY_PLATES);
-
+        map->getWashbasin()->setTakenDirtyDish(true);
         //Set the table to the next instruction on the order
         table->setChosenTable(false);
         switch(table->getCourse())
@@ -143,6 +143,7 @@ void ActionsState::putDown(std::shared_ptr<Washbasin>& washbasin) {
             //update();
         }
         washbasin->setNumPlates(count);
+        washbasin->setTakenDirtyDish(false);
         //Set the tray in the right state
         tray->setState(TrayState::EMPTY_TRAY);
     }

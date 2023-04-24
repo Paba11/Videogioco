@@ -386,6 +386,8 @@ void Table::updateBar() {
     if(state == TableState::EATING){
         greenBar.setSize({greenBar.getSize().x+1, greenBar.getSize().y});
     }
+    if(state == TableState::ENDED)
+        greenBar.setSize({0, greenBar.getSize().y});
 }
 
 void Table::updateHumor() {

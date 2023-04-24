@@ -19,6 +19,8 @@ public:
 
     //Methods to update and render the tray
     void update();
+    void updateBox();
+
     void render(sf::RenderTarget& target);
 
     //Position of Washbasin
@@ -30,6 +32,8 @@ public:
     const sf::Sprite getSprite();
     int getNumPlates();
     void setNumPlates(int i);
+    void setTakenDirtyDish(bool t);
+
 
 private:
     //Set The texture and the sprite
@@ -38,6 +42,12 @@ private:
     void initSprite();
     bool isPlates;
     int numPlates;
+
+    sf::RectangleShape interactionSquare;
+    sf::Color boxOpacity = {253,202,78,255};
+    bool cicle;
+    bool takenDirtyDish;
+    sf::Sprite cornerSprite;
 
 };
 

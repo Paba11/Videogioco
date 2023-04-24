@@ -112,6 +112,7 @@ void Chef::checkOrder() {
         kitchen->getBottomBar()->setIsCooking(true, order->getTableNumber());
         setAnimation();
         createObjects();
+        greenBar.setSize({0,10});
         clock.restart();
     }
 }
