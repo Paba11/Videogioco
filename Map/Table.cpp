@@ -320,19 +320,19 @@ void Table::updateHumor() {
             break;
         case TableState::WAITING_TO_ORDER:
             if(scoreTimer.getElapsedTime().asSeconds() > 20)
-                humor -= 5;
+                humor -= (int)(5 * difficulty);
             else if(scoreTimer.getElapsedTime().asSeconds() > 40)
-                humor -= 7;
+                humor -= (int)(7 * difficulty);
             else
-                humor -= 3;
+                humor -= (int)(3 * difficulty);
             break;
         case TableState::WAITING_DISHES:
             if(scoreTimer.getElapsedTime().asSeconds() > 20)
-                humor -= 5;
+                humor -= (int)(5 * difficulty);
             else if(scoreTimer.getElapsedTime().asSeconds() > 40)
-                humor -= 7;
+                humor -= (int)(7 * difficulty);
             else
-                humor -= 3;
+                humor -= (int)(3 * difficulty);
             break;
         case TableState::EATING:
             break;
@@ -414,4 +414,9 @@ bool Table::getIsNotSatisfied() {
 void Table::setIsNotSatisfied(bool t) {
     isNotSatisfied = t;
 }
+
+void Table::setDifficulty(float i) {
+    difficulty = i;
+}
+
 
