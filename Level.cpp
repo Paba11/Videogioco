@@ -5,8 +5,9 @@
 #include "Level.h"
 
 Level::Level() {
-    this->lvl = FIRST;
-    this->isPassed = false;
+    lvl = Lvl::FIRST_TABLE;
+    clock.restart();
+    totalCustomerNumber = 0;
     initVariables();
 }
 
@@ -18,61 +19,73 @@ Level::~Level() {
 void Level::initVariables() {
     switch(lvl)
     {
-        case FIRST:
-            initialHumor = LEVEL_ONE_HUMOR;
+        case Lvl::FIRST_TABLE:
+            customerArrival = FIRST_TABLE_ARRIVAL;
+            difficulty = LEVEL_ONE_DIFFICULTY;
+            lvl = Lvl::FIRST;
+            break;
+        case Lvl::FIRST:
             customerArrival = LEVEL_ONE_ARRIVALS;
-            maxTables = LEVEL_ONE_MAX_TABLES;
-            totalCustomerNumber = LEVEL_ONE_TOT_CUSTOMERS;
+            difficulty = LEVEL_ONE_DIFFICULTY;
             break;
-        case SECOND:
-            initialHumor = LEVEL_TWO_HUMOR;
+        case Lvl::SECOND:
             customerArrival = LEVEL_TWO_ARRIVALS;
-            maxTables = LEVEL_TWO_MAX_TABLES;
-            totalCustomerNumber = LEVEL_TWO_TOT_CUSTOMERS;
+            difficulty = LEVEL_TWO_DIFFICULTY;
             break;
-        case THIRD:
-            initialHumor = LEVEL_THREE_HUMOR;
+        case Lvl::THIRD:
             customerArrival = LEVEL_THREE_ARRIVALS;
-            maxTables = LEVEL_THREE_MAX_TABLES;
-            totalCustomerNumber = LEVEL_THREE_TOT_CUSTOMERS;
+            difficulty = LEVEL_THREE_DIFFICULTY;
             break;
     }
 }
 
 void Level::initLevel(Lvl l) {
-    this->lvl = l;
+    lvl = l;
     initVariables();
 }
 
 Lvl Level::getLevel() {
-    return this->lvl;
+    return lvl;
 }
 
 void Level::setLevel(Lvl l) {
-    this->lvl = l;
-}
-
-bool Level::getIsPassed() {
-    return this->isPassed;
-}
-
-void Level::setIsPassed(bool t) {
-    this->isPassed = t;
+    lvl = l;
 }
 
 float Level::getCustomerArrival() {
-    return this->customerArrival;
+    return customerArrival;
 }
 
 void Level::setCustomerArrival(float c) {
-    this->customerArrival = c;
+    customerArrival = c;
 }
 
-void Level::reduceTotalCustomerNumber() {
-    this->totalCustomerNumber--;
+void Level::addTotalCustomerNumber() {
+    totalCustomerNumber++;
 }
 
 int Level::getTotalCustomerNumber() {
-    return this->totalCustomerNumber;
+    return totalCustomerNumber;
+}
+
+void Level::update() {
+    if(totalCustomerNumber > 20 && lvl == Lvl::FIRST)
+    {
+        lvl = Lvl::SECOND;
+        initVariables();
+    }
+    else if(totalCustomerNumber > 40 && lvl == Lvl::SECOND)
+    {
+        lvl = Lvl::THIRD;
+        initVariables();
+    }
+    if(clock.getElapsedTime().asSeconds() > 1200)
+    {
+        customerArrival = 40;
+    }
+}
+
+float Level::getDifficulty() {
+    return difficulty;
 }
 

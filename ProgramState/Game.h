@@ -117,7 +117,6 @@ private:
     //Generate random numbers
     std::random_device rd;
     int random;
-    int maxNumberCustomers;
     sf::Clock clock;
 
     //BackGround;

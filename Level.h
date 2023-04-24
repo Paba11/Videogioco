@@ -22,6 +22,7 @@
 #include <SFML/Window.hpp>
 #include <SFML/System.hpp>
 #include <SFML/Audio.hpp>
+#include "Score.h"
 #include <list>
 #include <random>
 
@@ -31,6 +32,9 @@ public:
     Level();
     ~Level();
 
+    //Updates
+    void update();
+
     //Set level Variables
     void initLevel(Lvl l);
     void initVariables();
@@ -38,23 +42,20 @@ public:
     //Getters & Setters
     Lvl getLevel();
     void setLevel(Lvl l);
-    bool getIsPassed();
-    void setIsPassed(bool t);
     float getCustomerArrival();
     void setCustomerArrival(float c);
     int getTotalCustomerNumber();
-    void reduceTotalCustomerNumber();
+    void addTotalCustomerNumber();
+    float getDifficulty();
 
 private:
     int totalCustomerNumber;
-    float initialHumor;
+    float difficulty;
     float customerArrival;
-    int maxTables;
     std::shared_ptr<Customer> customer;
     std::vector<Customer> customers;
     sf::Clock clock;
     Lvl lvl;
-    bool isPassed;
 
 };
 

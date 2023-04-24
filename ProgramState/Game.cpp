@@ -7,7 +7,6 @@
 Game::Game(sf::RenderWindow* window, std::stack <ProgramState*>* states, int waiterTexture) : ProgramState(window, states) {
     initLevel();
     this->waiterTexture = waiterTexture;
-    initVariables();
     initBackground();
     initMap();
     initTables();
@@ -43,6 +42,7 @@ void Game::update() {
     dishWasher->update();
     chef->update();
     score.update();
+    level->update();
     checkQuit();
 
     //this->updateMousePos();
@@ -76,9 +76,6 @@ void Game::render(sf::RenderTarget* target) {
 
 void Game::initVariables() {
 
-    maxNumberCustomers = level->getTotalCustomerNumber();
-    //initWaiter();
-    //initChef();
 
 }
 
@@ -171,6 +168,7 @@ void Game::initTables() {
       t.setTavNum(i);
       t.sprite.setTexture(*this->textures->getTexture("Table"));
       score.setTable(&t);
+      t.setDifficulty(level->getDifficulty());
       for(int j=0; j<4; j++)
           t.getStoolTable()[j].sprite.setTexture(*this->textures->getTexture("Stool"));
      // s.sprite.setTexture(*this->texture->getTexture("Stool"));
@@ -311,8 +309,7 @@ void Game::initChef() {
 
 void Game::generateCustomers() {
     if(clock.getElapsedTime().asSeconds() >= level->getCustomerArrival()
-    && !map->getEntrance()->getIsCustomer() && level->getTotalCustomerNumber() > 0
-    && isFreeTable())
+    && !map->getEntrance()->getIsCustomer() && isFreeTable())
     {
         sf::Vector2f dist = map->getEntrance()->getWelcomeSquare().getPosition();
         receiveState.reset();
@@ -327,11 +324,10 @@ void Game::generateCustomers() {
             customer = std::make_shared<Customer>(dist);
             receiveState->getCustomers().push_back(*this->customer);
             group.push_back(customer); //Puntatore ai customers
-            level->reduceTotalCustomerNumber();
-            receiveState->setGeneratedCustomers(random, this->maxNumberCustomers - this->level->getTotalCustomerNumber());
+            level->addTotalCustomerNumber();
+            receiveState->setGeneratedCustomers(random, level->getTotalCustomerNumber());
             random--;
         }
-        std::cout << "Total customers left: " << level->getTotalCustomerNumber() << std::endl;
         map->getEntrance()->setIsCustomer(true);
         map->getEntrance()->setCustomerReceived(true);
         //this->receivingCustomers->enterTheRestaurant();
@@ -352,18 +348,17 @@ void Game::initLevel() {
 }
 
 void Game::nextLevel() {
-    level->setIsPassed(false);
     Lvl current = level->getLevel();
     switch(current)
     {
-        case FIRST:
-            level->setLevel(SECOND);
+        case Lvl::FIRST:
+            level->setLevel(Lvl::SECOND);
             break;
-        case SECOND:
-            level->setLevel(THIRD);
+        case Lvl::SECOND:
+            level->setLevel(Lvl::THIRD);
             break;
-        case THIRD:
-            level->setLevel(GAME_END);
+        case Lvl::THIRD:
+            level->setLevel(Lvl::GAME_END);
             break;
     }
     clock.restart();
@@ -473,6 +468,7 @@ void Game::updateTables() {
     for(auto & it : map->getAllTables())
     {
         it.update();
+        it.setDifficulty(level->getDifficulty());
         if(it.getIsOccupied())
         {
             for(auto & i: it.getCustomers())

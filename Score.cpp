@@ -25,10 +25,11 @@ void Score::update() {
         {
             if(!i->getIsSetFinalScore())
             {
-                addPoints(i->getHumor());
+                addPoints((i->getHumor()/10));
                 i->setIsSetFinalScore(true);
                 i->setHumor(500);
             }
+            std::cout << "XP gained: " << i->getHumor()/10 << " XP total: " << totalPoints << std::endl;
         }
     }
 }

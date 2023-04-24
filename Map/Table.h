@@ -15,11 +15,12 @@
 #include "Stool.h"
 #include "../Dish/MealMenu.h"
 #include "../NPC/Customer.h"
+#include "../LevelHeader.h"
 #include <queue>
 
 enum class TableState {CHOOSING, WAITING_TO_ORDER, WAITING_DISHES, EATING, ENDED, IS_LEAVING, LEFT};
 
-#define TIME_TO_CHOOSE 5.f
+#define TIME_TO_CHOOSE 5.f  //fixme: delete?
 #define INITIAL_HUMOR 500000
 
 class Table {
@@ -93,6 +94,8 @@ public:
     void initBar();
 
 
+    void setDifficulty(float i);
+
 private:
 
     void initTexture();
@@ -127,6 +130,8 @@ private:
     sf::RectangleShape greenBar;
     float totalBarIteration = 30;
     float actualBarIteration = 0;
+
+    float difficulty;
 
     int humor;
     sf::Clock scoreTimer;
