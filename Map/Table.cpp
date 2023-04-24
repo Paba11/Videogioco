@@ -54,8 +54,8 @@ void Table::update() {
 void Table::render(sf::RenderTarget &target) {
     target.draw(sprite);
 
-    for(int i = 0 ;i < 4; i++)
-        target.draw(dishesPlace[i]);
+    //for(int i = 0 ;i < 4; i++)
+    //   target.draw(dishesPlace[i]);
 
     if(chosenTable || state == TableState::WAITING_TO_ORDER) {
         target.draw(interactionSquare);

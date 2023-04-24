@@ -26,7 +26,7 @@ void Counter::initSprite() {
 
 void Counter::render(sf::RenderTarget& target) {
     target.draw(sprite);
-    target.draw(placeForDirtyDishes);
+    //target.draw(placeForDirtyDishes);
     /*
     for(int i = 0; i < 4; i++)
         target.draw(chefDishes[i]);

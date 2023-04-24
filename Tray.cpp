@@ -34,8 +34,8 @@ void Tray::render(sf::RenderTarget &target) {
         if(orderTaken)
             target.draw(blockNotes);
     renderDishes(target);
-    for(int i = 0; i < 4; i++)
-        target.draw(dishesPos[i]);
+  //  for(int i = 0; i < 4; i++)
+  //      target.draw(dishesPos[i]);
 }
 
 void Tray::initRectangle() {
