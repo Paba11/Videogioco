@@ -41,6 +41,7 @@ void Game::update() {
     waiter->update();
     dishWasher->update();
     chef->update();
+    score.update();
     checkQuit();
 
     //this->updateMousePos();
@@ -168,6 +169,7 @@ void Game::initTables() {
       //Stool s;
       t.setTavNum(i);
       t.sprite.setTexture(*this->textures->getTexture("Table"));
+      score.setTable(&t);
       for(int j=0; j<4; j++)
           t.getStoolTable()[j].sprite.setTexture(*this->textures->getTexture("Stool"));
      // s.sprite.setTexture(*this->texture->getTexture("Stool"));
@@ -333,6 +335,7 @@ void Game::generateCustomers() {
         map->getEntrance()->setCustomerReceived(true);
         //this->receivingCustomers->enterTheRestaurant();
         clock.restart();
+        waiter->receivingTimer.restart();
     }
 }
 
@@ -474,6 +477,11 @@ void Game::updateTables() {
             for(auto & i: it.getCustomers())
                 i.update();
         }
+        if(it.getIsNotSatisfied())
+        {
+            score.addNotSatisfied();
+            it.setIsNotSatisfied(false);
+        }
     }
 }
 
@@ -497,11 +505,6 @@ bool Game::isFreeTable() {
     return free;
 }
 
-void Game::initBill() {
-    bill = std::make_shared<Bill>();
-    chef->setBill(bill);
-    waiter->setBill(bill);
-}
 
 void Game::initTray() {
 

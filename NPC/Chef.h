@@ -8,7 +8,7 @@
 #include "../GameCharacter.h"
 #include "../Dish/Dish.h"
 #include "../Dish/Order.h"
-#include "../Bill.h"
+#include "../Score.h"
 #include "../Dish/Appetizer.h"
 #include "../Dish/MainCourse.h"
 #include "../Dish/Dessert.h"
@@ -32,8 +32,6 @@ public:
     void cook();
     void checkOrder();
     void createObjects();
-
-    void setBill(std::shared_ptr<Bill>& b);
 
     //Update and render
     void update() override;
@@ -65,7 +63,6 @@ private:
     float time;
     sf::Clock clock;
     bool isReady;
-    std::shared_ptr<Bill> bill;
     float totalBarIteration = 30;
     float actualBarIteration = 0;
 };

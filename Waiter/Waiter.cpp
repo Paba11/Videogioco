@@ -162,7 +162,10 @@ void Waiter::interact(const std::shared_ptr<Map>& map, sf::Event ev) {
     else if(state == Actions::RECEIVING_CUSTOMERS && ev.key.code == sf::Keyboard::J)
     {
         if(map->distanceInteractionSquare(getSprite(), receiveState->getTable()))
+        {
+            receiveState->getTable()->setHumor(INITIAL_HUMOR - ((1000)*receivingTimer.getElapsedTime().asSeconds()));
             leaveAtTable();
+        }
     }
 }
 
@@ -330,11 +333,6 @@ void Waiter::updateState() {
     }
 }
 
-void Waiter::setBill(std::shared_ptr<Bill> &b) {
-    bill.reset();
-    bill = b;
-}
-
 void Waiter::setOrder(const std::shared_ptr<Map>& map, Table* t) {
     state = Actions::TAKING_ORDER;
     orderState.reset();
@@ -343,6 +341,7 @@ void Waiter::setOrder(const std::shared_ptr<Map>& map, Table* t) {
     order.reset();
     order = orderState->takeOrder();
     t->setState(TableState::WAITING_DISHES);
+    t->restartScoreTimer();
     actionsState->setIsOrder(true);
     actionsState->setOrder(order);
     orderState.reset();
@@ -357,10 +356,6 @@ void Waiter::setReceive(const std::shared_ptr<Map>& map, sf::Event ev) {
     map->getEntrance()->setCustomerReceived(false);
     receiveState->handleInput(gc, ev);
 }
-
-
-
-
 
 /*
 bool Waiter::getIsCustomer() {

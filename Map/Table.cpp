@@ -17,7 +17,9 @@ Table::Table() {
     chosenTable = false;
     initStoolTable();
     isSit = false;
-
+    humor = INITIAL_HUMOR;
+    isSetFinalScore = false;
+    isNotSatisfied = false;
 }
 
 Table::~Table() {
@@ -30,18 +32,24 @@ void Table::update() {
         if(state == TableState::CHOOSING)
             ordering();
 
+        if(state == TableState::IS_LEAVING)
+            leaveTable();
+
+        if(state == TableState::EATING)
+            eating();
+
+        if(state != TableState::CHOOSING && state != TableState::IS_LEAVING)
+
         if(customers.size() > 0){
 
             for(auto i : customers)
                 i.update();
         }
-
-        if(state == TableState::EATING)
-            eating();
-
-        updateCornerSprite();
+            updateCornerSprite();
     }
+        std::cout << "Table " << tavNum << " humor: " << humor << std::endl;
 }
+
 
 void Table::render(sf::RenderTarget &target) {
     target.draw(sprite);
@@ -268,16 +276,12 @@ void Table::restartTimer() {
     timer.restart();
 }
 
-sf::Time Table::getElapsedTime() {
-    return timer.getElapsedTime();
-}
-
 void Table::setIsSit(bool t) {
-    this->isSit = t;
+    isSit = t;
 }
 
-bool Table::getIsSit() {
-    return this->isSit;
+bool Table::getIsSetFinalScore() {
+    return isSetFinalScore;
 }
 
 void Table::initTexture() {
@@ -382,5 +386,107 @@ void Table::updateBar() {
     if(state == TableState::EATING){
         greenBar.setSize({greenBar.getSize().x+1, greenBar.getSize().y});
     }
+}
+
+void Table::updateHumor() {
+    switch(state)
+    {
+        case TableState::CHOOSING:
+            break;
+        case TableState::WAITING_TO_ORDER:
+            if(scoreTimer.getElapsedTime().asSeconds() > 20)
+                humor -= 5;
+            else if(scoreTimer.getElapsedTime().asSeconds() > 40)
+                humor -= 7;
+            else
+                humor -= 3;
+            break;
+        case TableState::WAITING_DISHES:
+            if(scoreTimer.getElapsedTime().asSeconds() > 20)
+                humor -= 5;
+            else if(scoreTimer.getElapsedTime().asSeconds() > 40)
+                humor -= 7;
+            else
+                humor -= 3;
+            break;
+        case TableState::EATING:
+            break;
+        case TableState::ENDED:
+            state = TableState::IS_LEAVING;
+            break;
+        case TableState::LEFT:
+            reInitTable();
+            break;
+    }
+    if(humor < 500 && state != TableState::IS_LEAVING)
+    {
+        isNotSatisfied = true;
+        state = TableState::IS_LEAVING;
+    }
+}
+
+void Table::setIsSetFinalScore(bool t) {
+    isSetFinalScore = t;
+}
+
+void Table::setHumor(int i) {
+    humor = i;
+}
+
+int Table::getHumor() {
+    return humor;
+}
+
+void Table::reInitTable() {
+    if(isSetFinalScore)
+    {
+        numStoolsTable = 4;
+        state = TableState::CHOOSING;
+        course = Current::APPETIZER;
+        isOccupied = false;
+        customerNumber = 0;
+        cicle = true;
+        chosenTable = false;
+        isSit = false;
+        humor = 500;
+        isSetFinalScore = false;
+        order.reset();
+        isNotSatisfied = false;
+        while (!dishes.empty())
+        {
+            dishes.pop();
+        }
+    }
+}
+
+void Table::leaveTable() {
+    //TODO: when customer exit the restaurant reset the customer vector
+    switch(tavNum)
+    {
+        case 0:
+            break;
+        case 1:
+            break;
+        case 2:
+            break;
+        case 3:
+            break;
+        case 4:
+            break;
+        case 5:
+            break;
+    }
+}
+
+void Table::restartScoreTimer() {
+    scoreTimer.restart();
+}
+
+bool Table::getIsNotSatisfied() {
+    return isNotSatisfied;
+}
+
+void Table::setIsNotSatisfied(bool t) {
+    isNotSatisfied = t;
 }
 

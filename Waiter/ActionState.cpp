@@ -82,14 +82,17 @@ void ActionsState::pickUp(Table* table) {
         {
             case Current::APPETIZER:
                 table->setState(TableState::WAITING_DISHES);
+                table->restartScoreTimer();
                 table->setCourse(Current::MAIN_DISH);
                 break;
             case Current::MAIN_DISH:
                 table->setState(TableState::WAITING_DISHES);
+                table->restartScoreTimer();
                 table->setCourse(Current::DESSERT);
                 break;
             case Current::DESSERT:
                 table->setState(TableState::ENDED);
+                table->restartScoreTimer();
                 table->setCourse(Current::END);
                 break;
         }

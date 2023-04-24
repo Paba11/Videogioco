@@ -49,7 +49,6 @@ public:
 private:
     sf::Vector2f actualPos;
     Mood mood;
-    int patience;
     bool moving;
     sf::Vector2f endingPos;
 
