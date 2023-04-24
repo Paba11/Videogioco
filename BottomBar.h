@@ -20,16 +20,28 @@ public:
     void updateOrders();
     void render(sf::RenderTarget& target);
     void setOrder(int n);
+    void setIsCooking(bool t, int n);
+    void setIsReady(bool t, int n);
 
 private:
     void initSprite();
     void initFont();
+    void initText();
     void setOrdersPosition();
     std::vector<int> orders;
     std::vector<sf::Text> numOrder;
     std::vector<sf::Sprite> ordersSprite;
     sf::Font font;
     sf::Sprite sprite;
+
+    sf::Sprite cookingSprite;
+    sf::Text cookingText;
+    bool isCooking;
+
+    sf::Sprite readySprite;
+    sf::Text readyText;
+    bool isReady;
+
     Textures* texture;
 
 };

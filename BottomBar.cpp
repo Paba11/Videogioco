@@ -9,6 +9,9 @@ BottomBar::BottomBar() {
     this->texture = new Textures();
     initSprite();
     initFont();
+    initText();
+    isCooking = false;
+    isReady = false;
 
 }
 
@@ -28,6 +31,14 @@ void BottomBar::render(sf::RenderTarget& target) {
         target.draw(*it);
         i++;
     }
+    if(isCooking){
+        target.draw(cookingSprite);
+        target.draw(cookingText);
+    }
+    if(isReady) {
+        target.draw(readySprite);
+        target.draw(readyText);
+    }
 
 }
 
@@ -45,6 +56,17 @@ void BottomBar::initSprite() {
         ordersSprite.push_back(order);
     }
     setOrdersPosition();
+
+    readySprite.setTexture(*texture->getTexture("BoxBottomBar"));
+    readySprite.setOrigin(37, 55);
+    readySprite.setScale(0.75f, 0.75f);
+    readySprite.setPosition(1100,1170);
+
+    cookingSprite.setTexture(*texture->getTexture("BoxBottomBar"));
+    cookingSprite.setOrigin(37, 55);
+    cookingSprite.setScale(0.75f, 0.75f);
+    cookingSprite.setPosition(720,1170);
+
 }
 
 void BottomBar::setOrder(int n) {
@@ -77,4 +99,28 @@ void BottomBar::initFont() {
     if(!this->font.loadFromFile("../Font/8-bit Arcade In.ttf")){
         std::cout << "ERROR::CAN'T LOAD FONT FILE" << std::endl;
     }
+}
+
+void BottomBar::initText() {
+
+    cookingText.setFont(font);
+    cookingText.setCharacterSize(80);
+    cookingText.setFillColor(sf::Color::Black);
+    cookingText.setPosition(710, 1095);
+
+    readyText.setFont(font);
+    readyText.setCharacterSize(80);
+    readyText.setFillColor(sf::Color::Black);
+    readyText.setPosition(1090,1095);
+
+}
+
+void BottomBar::setIsCooking(bool t, int n) {
+    isCooking = t;
+    cookingText.setString(std::to_string(n+1));
+}
+
+void BottomBar::setIsReady(bool t, int n) {
+    isReady = t;
+    readyText.setString(std::to_string(n+1));
 }

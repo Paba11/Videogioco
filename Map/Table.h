@@ -27,20 +27,27 @@ public:
     Table();
     ~Table();
     void update();
+    void updateBar();
+
     void render(sf::RenderTarget& target);
+    void renderDishes(sf::RenderTarget& target);
+    void renderBar(sf::RenderTarget& target);
+
+
 
     sf::Sprite sprite;
 
     //Table actions
     void receivingCustomers(std::vector<Customer>& customer);
     void ordering();
+    void eating();
 
     //Getters & Setters
     int getTavNum();
     void setTavNum(int tavNum);
     const sf::Vector2f& getPosition() const;
     Dish* getDish();
-    void setDish(Dish* dish);
+    void setDish(Dish* dish, int n);
     std::queue<Dish*> getDishes();
     TableState getState();
     void setState(TableState s);
@@ -64,6 +71,7 @@ public:
     void setIsSit(bool t);
     bool getIsSit();
 
+
     //Initialize table
     void initStoolTable();
     void posStool(float x, float y);
@@ -72,6 +80,8 @@ public:
     void setTable();
     void setDishesPlace();
 
+    void changeDishesSprite();
+    void initBar();
 
 
 private:
@@ -101,6 +111,13 @@ private:
     bool cicle;
     bool chosenTable;
     sf::Sprite cornerSprite;
+    float eatingTime = 10; //FIXME: set the right time to eat
+
+
+    sf::RectangleShape greyBar;
+    sf::RectangleShape greenBar;
+    float totalBarIteration = 30;
+    float actualBarIteration = 0;
 
 };
 

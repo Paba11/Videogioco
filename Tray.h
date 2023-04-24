@@ -27,6 +27,7 @@ public:
     //Methods to update and render the tray
     void update();
     void render(sf::RenderTarget &target);
+    void renderDishes(sf::RenderTarget& target);
     void updateAnimation();
     //Getters & Setters
 
@@ -34,7 +35,7 @@ public:
     void setState(TrayState ts);
     TrayState getState();
     Dish* getDish();
-    void setDish(Dish* dish);
+    void setDish(Dish* dish, int n);
     std::queue<Dish*>& getDishes();
     void setOrderTaken(bool t);
 
@@ -43,6 +44,7 @@ private:
     void initRectangle();
     void initSprite();
     void initTexture();
+    void initDishesPos();
     sf::RectangleShape rectangle;
     sf::Sprite blockNotes;
     bool orderTaken;
@@ -53,6 +55,9 @@ private:
 
     sf::IntRect currentFrame;
     sf::Clock animationTimer;
+
+    std::vector<sf::RectangleShape> dishesPos;
+    sf::Vector2f dishHitbox = {85.f,80.f};
 
 
 };

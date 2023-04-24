@@ -32,22 +32,25 @@ void ActionsState::update(std::shared_ptr<GameCharacter>& w) {
 
 void ActionsState::pickUp(std::shared_ptr<Kitchen>& kitchen) {
     //PICK UP THE PLATES FROM THE KITCHEN
-
+    std::cout << "take dish" << std::endl;
     Dish* d;
     if(tray->getState() == TrayState::EMPTY_TRAY && kitchen->getCounter()->getState() == DishState::FULL)
     {
+        int dishNum = 0;
         while (!kitchen->getCounter()->getDishes().empty())
         {
             d = kitchen->getCounter()->getDish();
-            tray->setDish(d);
+            tray->setDish(d, dishNum);
             tray->update();
             kitchen->update();
+            dishNum++;
             //this->update();
         }
         //Set the tray to filled
         tray->setState(TrayState::FILLED_TRAY);
         //Set the kitchen to empty
         kitchen->getCounter()->setState(DishState::EMPTY);
+        map->getTable(tray->getDishes().front()->getTavNum()).setChosenTable(true);
     }
 }
 
@@ -58,13 +61,15 @@ void ActionsState::pickUp(Table* table) {
     Dish* d;
     if(tray->getState() == TrayState::EMPTY_TRAY && table->getState() == TableState::ENDED)
     {
+        int dishNum = 0;
         while(!table->getDishes().empty())
         {
 
             d = table->getDish();
-            tray->setDish(d);
+            tray->setDish(d, dishNum);
             tray->update();
             table->update();
+            dishNum++;
             //update();
         }
 
@@ -72,6 +77,7 @@ void ActionsState::pickUp(Table* table) {
         tray->setState(TrayState::EMPTY_PLATES);
 
         //Set the table to the next instruction on the order
+        table->setChosenTable(false);
         switch(table->getCourse())
         {
             case Current::APPETIZER:
@@ -96,18 +102,23 @@ void ActionsState::putDown(Table* table) {
     if(tray->getState() == TrayState::FILLED_TRAY && table->getState() == TableState::WAITING_DISHES &&
        tray->getDishes().front()->getTavNum() == table->getTavNum())
     {
+        int dishNum = 0;
         while(!tray->getDishes().empty())
         {
-            table->setDish(tray->getDish());
+            table->setDish(tray->getDish(), dishNum);
             tray->update();
             table->update();
             //update();
+            dishNum++;
         }
 
         //Set the table in the right state
         table->setState(TableState::EATING);
+        table->restartTimer();
         //Set the tray in the right state
         tray->setState(TrayState::EMPTY_TRAY);
+
+        map->getTable(table->getTavNum()).setChosenTable(false);
     }
 }
 
@@ -179,6 +190,8 @@ void ActionsState::actionManagement() {
             waiter->setState(Actions::TAKING_DISHES);
             pickUp(map->getKitchen());
             std::cout << "PickUp kitchen works correctly" << std::endl;
+            map->getKitchen()->setReadyDishes(false);
+            map->getKitchen()->getBottomBar()->setIsReady(false, 0);
         }
     }
     else if(event.key.code == sf::Keyboard::L && !isOrder)

@@ -27,25 +27,19 @@ Table::~Table() {
 void Table::update() {
     if(isOccupied)
     {
-        switch(state)
-        {
-            case TableState::CHOOSING:
-                ordering();
-                updateCornerSprite();
-                break;
-            case TableState::WAITING_TO_ORDER:
-                updateCornerSprite();
-                break;
-            case TableState::WAITING_DISHES:
-                updateCornerSprite();
-                break;
-        }
+        if(state == TableState::CHOOSING)
+            ordering();
 
         if(customers.size() > 0){
 
             for(auto i : customers)
                 i.update();
         }
+
+        if(state == TableState::EATING)
+            eating();
+
+        updateCornerSprite();
     }
 }
 
@@ -64,8 +58,10 @@ void Table::render(sf::RenderTarget &target) {
         for(int i = customers.size() -1 ; i >= 0; i--)
             target.draw(customers[i].sprite);
     }
-
-
+    if(state == TableState::EATING) {
+        renderBar(target);
+    }
+    renderDishes(target);
 }
 
 void Table::initSprite() {
@@ -94,8 +90,10 @@ Dish *Table::getDish() {
     return d;
 }
 
-void Table::setDish(Dish *d) {
-    this->dishes.push(d);
+void Table::setDish(Dish *d, int n) {
+    d->setPosition(dishesPlace[n].getPosition());
+    d->setScale(1.2, 1.2);
+    dishes.push(d);
 }
 
 TableState Table::getState() {
@@ -260,10 +258,10 @@ void Table::setDishesPlace() {
     }
     float offSetX = 35;
     float offSetY = 25;
-    this->dishesPlace[0].setPosition(sprite.getPosition().x-offSetX, sprite.getPosition().y-offSetY);
-    this->dishesPlace[1].setPosition(sprite.getPosition().x+offSetX, sprite.getPosition().y-offSetY);
-    this->dishesPlace[2].setPosition(sprite.getPosition().x-offSetX, sprite.getPosition().y+offSetY);
-    this->dishesPlace[3].setPosition(sprite.getPosition().x+offSetX, sprite.getPosition().y+offSetY);
+    this->dishesPlace[0].setPosition(sprite.getPosition().x-offSetX, sprite.getPosition().y+offSetY);
+    this->dishesPlace[1].setPosition(sprite.getPosition().x+offSetX, sprite.getPosition().y+offSetY);
+    this->dishesPlace[2].setPosition(sprite.getPosition().x-offSetX, sprite.getPosition().y-offSetY);
+    this->dishesPlace[3].setPosition(sprite.getPosition().x+offSetX, sprite.getPosition().y-offSetY);
 }
 
 void Table::restartTimer() {
@@ -303,6 +301,86 @@ void Table::updateCornerSprite() {
             cornerSprite.setPosition(interactionSquare.getPosition().x + 31, interactionSquare.getPosition().y - 31);
             break;
 
+        case TableState::WAITING_DISHES:
+            cornerSprite.setTexture(*texture->getTexture("HAMBURGER"));
+            cornerSprite.setTextureRect({0,0,32,30});
+            cornerSprite.setScale(0.5, 0.5);
+            break;
+
+        case TableState::ENDED:
+            cornerSprite.setTexture(*texture->getTexture("EmptyDish"));
+            break;
+
+    }
+}
+
+
+
+void Table::renderDishes(sf::RenderTarget &target) {
+
+    std::queue<Dish*> tmp;
+    Dish* ptr;
+    for(int i = 0; i < dishes.size(); i++)
+    {
+        ptr = dishes.front();
+        dishes.pop();
+        ptr->render(target);
+        tmp.push(ptr);
+        tmp.pop();
+        dishes.push(ptr);
+    }
+}
+
+void Table::eating() {
+
+    if(this->timer.getElapsedTime().asSeconds() >= eatingTime) {
+        changeDishesSprite();
+        state = TableState::ENDED;
+        actualBarIteration = 0;
+        chosenTable = true;
+    }
+    if(timer.getElapsedTime().asSeconds() >= eatingTime * actualBarIteration/totalBarIteration){
+        actualBarIteration++;
+        updateBar();
+    }
+
+}
+
+void Table::changeDishesSprite() {
+
+    std::queue<Dish*> tmp;
+    Dish* ptr;
+    for(int i = 0; i < dishes.size(); i++)
+    {
+        ptr = dishes.front();
+        dishes.pop();
+        ptr->setEmptyDish();
+        tmp.push(ptr);
+        tmp.pop();
+        dishes.push(ptr);
+    }
+}
+
+void Table::initBar() {
+
+    greyBar.setSize({totalBarIteration,10});
+    greyBar.setPosition(sprite.getPosition().x - 10, sprite.getPosition().y + 90);
+    greyBar.setFillColor(sf::Color::Black);
+
+    greenBar.setSize({0,10});
+    greenBar.setPosition(sprite.getPosition().x - 10, sprite.getPosition().y + 90);
+    greenBar.setFillColor(sf::Color::Green);
+}
+
+void Table::renderBar(sf::RenderTarget &target) {
+    target.draw(greyBar);
+    target.draw(greenBar);
+}
+
+void Table::updateBar() {
+
+    if(state == TableState::EATING){
+        greenBar.setSize({greenBar.getSize().x+1, greenBar.getSize().y});
     }
 }
 

@@ -195,6 +195,7 @@ void Game::initPosTables() {
     for(int i=0; i<numTables; i++) {
         map->getAllTables()[i].setTable();
         map->getAllTables()[i].sprite.setScale(2, 2);
+        map->getAllTables()[i].initBar();
     }
 }
 

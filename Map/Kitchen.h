@@ -52,6 +52,7 @@ public:
     void setWaitingOrder();
 
 
+
     //Getters & Setters
     bool getIsEmptyPlates();
     void setIsEmptyPlates(bool t);
@@ -64,7 +65,7 @@ public:
     std::shared_ptr<BottomBar> getBottomBar() const;
     sf::RectangleShape& getInteractionSquare();
     void setWaiterOrder(bool t);
-
+    void setReadyDishes(bool t);
 
 private:
     //Initialize the Kitchen texture and sprite
@@ -93,6 +94,7 @@ private:
     bool cicle = true;
     bool waiterOrder;
     sf::Sprite cornerSprite;
+    bool dishesReady;
 
 };
 

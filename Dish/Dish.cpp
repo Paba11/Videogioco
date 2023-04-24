@@ -65,6 +65,16 @@ void Dish::setPosition(sf::Vector2f pos) {
     sprite.setPosition(pos);
 }
 
+void Dish::setScale(float x, float y) {
+
+    sprite.setScale(x,y);
+}
+
+void Dish::setEmptyDish() {
+
+    sprite.setTexture(*texture->getTexture("EmptyDish"));
+}
+
 
 
 

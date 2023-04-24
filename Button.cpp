@@ -12,7 +12,7 @@ Button::Button(float x, float y, float width, float height, sf::Font* font, std:
     this->shape.setPosition(sf::Vector2f(x,y));
     this->buttonState = IDLE;
     this->font = font;
-    this->text.setFont(*this->font);
+     this->text.setFont(*this->font);
     this->text.setString(text);
     this->text.setFillColor(sf::Color::White);
     this->text.setCharacterSize(50);

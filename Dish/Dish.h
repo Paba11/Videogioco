@@ -29,6 +29,7 @@ public:
     //Methods to initialize the texture and the sprite based on the dish type
 
     void initSprite();
+    void setEmptyDish();
 
     //Method to have the position of the dish
     const sf::FloatRect getBounds() const;
@@ -46,6 +47,7 @@ public:
     void setPosition(sf::Vector2f pos);
     virtual void calculatePrice() = 0;
     virtual void setTexture() = 0;
+    void setScale(float x, float y);
 
 protected:
     void initTexture();

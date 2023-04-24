@@ -11,6 +11,7 @@ Tray::Tray() {
     initSprite();
     orderTaken = false;
     initRectangle();
+    initDishesPos();
 }
 
 Tray::~Tray() {
@@ -32,6 +33,9 @@ void Tray::render(sf::RenderTarget &target) {
     target.draw(rectangle);
         if(orderTaken)
             target.draw(blockNotes);
+    renderDishes(target);
+    for(int i = 0; i < 4; i++)
+        target.draw(dishesPos[i]);
 }
 
 void Tray::initRectangle() {
@@ -60,7 +64,9 @@ Dish *Tray::getDish() {
     return d;
 }
 
-void Tray::setDish(Dish* d) {
+void Tray::setDish(Dish* d, int n) {
+    d->setPosition(dishesPos[n].getPosition());
+    d->setScale(2,2);
     this->dishes.push(d);
 }
 
@@ -98,5 +104,40 @@ void Tray::updateAnimation() {
         animationTimer.restart();
         blockNotes.setTextureRect(this->currentFrame);
     }
+}
+
+void Tray::renderDishes(sf::RenderTarget &target) {
+
+    std::queue<Dish*> tmp;
+    Dish* ptr;
+    for(int i = 0; i < dishes.size(); i++)
+    {
+        ptr = dishes.front();
+        dishes.pop();
+        ptr->render(target);
+        tmp.push(ptr);
+        tmp.pop();
+        dishes.push(ptr);
+    }
+}
+
+void Tray::initDishesPos() {
+
+
+    for(int i = 0; i < 4; i++){
+        sf::RectangleShape rectangle;
+
+        rectangle.setSize(this->dishHitbox);
+        rectangle.setOrigin(42.5f,40.f);
+        rectangle.setOutlineColor(sf::Color::White);    //Fixme set trasparent when finished
+        rectangle.setOutlineThickness(1.f);
+        rectangle.setFillColor(sf::Color::Transparent);
+        dishesPos.push_back(rectangle);
+    }
+
+    this->dishesPos[0].setPosition(200, 1290.f);
+    this->dishesPos[1].setPosition(300, 1290.f);
+    this->dishesPos[2].setPosition(400, 1290.f);
+    this->dishesPos[3].setPosition(500, 1290.f);
 }
 

@@ -71,6 +71,9 @@ void Chef::cook() {
         {
             kitchen->setWaitingOrder();
             std::cout << "Set the plate in the kitchen" << std::endl;
+            kitchen->setReadyDishes(true);
+            kitchen->getBottomBar()->setIsCooking(false, 0);
+            kitchen->getBottomBar()->setIsReady(true, order->getTableNumber());
         }
         else
             bill->setFinishedOrder(order);
@@ -108,6 +111,7 @@ void Chef::checkOrder() {
         setOrder(kitchen->getReadyOrder());
         state = Do::COOK;
         kitchen->setState(DishState::COOKING);
+        kitchen->getBottomBar()->setIsCooking(true, order->getTableNumber());
         setAnimation();
         createObjects();
         clock.restart();

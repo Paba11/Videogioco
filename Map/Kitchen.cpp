@@ -10,6 +10,7 @@ Kitchen::Kitchen() {
     counter = std::make_shared<Counter>();
     bottomBar = std::make_shared<BottomBar>();
     waiterOrder = false;
+    dishesReady = false;
     initTexture();
     initSprite();
 
@@ -64,10 +65,6 @@ void Kitchen::initSprite() {
     interactionSquare.setFillColor(sf::Color::Transparent);
     interactionSquare.setPosition(980.f,440.f);
 
-    cornerSprite.setTexture(*this->texture->getTexture("BlockNotes"));
-    cornerSprite.setTextureRect({0,0,480,480});
-    cornerSprite.setScale(0.05f,0.05f);
-    cornerSprite.setPosition(interactionSquare.getPosition().x - 31, interactionSquare.getPosition().y - 31);
 
     pan.setTexture(*this->texture->getTexture("Pan"));          //padella
     panFrame = sf::IntRect(0, 0, 30, 25);
@@ -108,7 +105,7 @@ void Kitchen::update() {
 
 void Kitchen::render(sf::RenderTarget& target) {
         target.draw(this->sprite);
-        if(waiterOrder) {
+        if(waiterOrder || dishesReady) {
             target.draw(interactionSquare);
             target.draw(cornerSprite);
         }
@@ -197,7 +194,7 @@ sf::RectangleShape &Kitchen::getInteractionSquare() {
 
 void Kitchen::updateBox() {
 
-    if(waiterOrder) {
+    if(waiterOrder || dishesReady) {
         interactionSquare.setFillColor(this->boxOpacity);
 
         if(boxOpacity.a == 255)
@@ -213,6 +210,10 @@ void Kitchen::updateBox() {
 
 void Kitchen::setWaiterOrder(bool t) {
 
+    cornerSprite.setTexture(*this->texture->getTexture("BlockNotes"));
+    cornerSprite.setTextureRect({0,0,480,480});
+    cornerSprite.setScale(0.05f,0.05f);
+    cornerSprite.setPosition(interactionSquare.getPosition().x - 31, interactionSquare.getPosition().y - 31);
     waiterOrder = t;
 }
 
@@ -253,4 +254,12 @@ void Kitchen::updateAnimations() {
 
 std::shared_ptr<BottomBar> Kitchen::getBottomBar() const {
     return bottomBar;
+}
+
+void Kitchen::setReadyDishes(bool t) {
+
+    cornerSprite.setTexture(*this->texture->getTexture("HAMBURGER"));
+    cornerSprite.setTextureRect({0,0,32,20});
+    cornerSprite.setScale(0.6f,0.6f);
+    dishesReady = t;
 }
