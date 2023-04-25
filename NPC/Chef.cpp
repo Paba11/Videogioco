@@ -8,7 +8,7 @@
 Chef::Chef() {
     initSprite();
     initBar();
-    this->state = Do::WAIT;
+    state = Do::WAIT;
     isReady = false;
 }
 
@@ -21,24 +21,24 @@ void Chef::initSprite() {
     /*
      * Set the texture on the sprite, resize it and locate the chef in the right position
      */
-    this->sprite.setTexture(*this->texture->getTexture("Chef"));
-    this->currentFrame = sf::IntRect (0,0,40,40);
-    this->sprite.setTextureRect(this->currentFrame);
-    this->sprite.setScale(3.5f, 3.5f);
-    this->sprite.setPosition(1100,400);
+    sprite.setTexture(*texture->getTexture("Chef"));
+    currentFrame = sf::IntRect (0,0,40,40);
+    sprite.setTextureRect(currentFrame);
+    sprite.setScale(3.5f, 3.5f);
+    sprite.setPosition(1100,400);
 
     //this->sprite.setPosition();
 }
 
 void Chef::setAnimation() {
 
-    if(this->state == Do::WAIT)
-        this->currentFrame.top = 0.f;
+    if(state == Do::WAIT)
+        currentFrame.top = 0.f;
 
-    else if(this->state == Do::COOK)
-        this->currentFrame.top = 40.f;
+    else if(state == Do::COOK)
+        currentFrame.top = 40.f;
 
-    this->sprite.setTextureRect(this->currentFrame);
+    sprite.setTextureRect(currentFrame);
 }
 
 void Chef::setDishes(Dish& d) {
@@ -53,7 +53,7 @@ Dish *Chef::getDish() {
 
 void Chef::cook() {
 
-    if (this->clock.getElapsedTime().asSeconds() >= time && kitchen->getCounter()->getState() != DishState::FULL
+    if (clock.getElapsedTime().asSeconds() >= time && kitchen->getCounter()->getState() != DishState::FULL
         && state == Do::COOK)
     {
         isReady = true;
@@ -155,6 +155,7 @@ void Chef::createObjects() {
             for(int i = 0; i < order->getPeopleNumber(); i++)
             {
                 dish = new Appetizer(order->getAppetizers().back());
+                dish->setTavNum(order->getTableNumber());
                 //setTextureDishes(dish, order->getAppetizers().back());
                 dishes.push_back(dish);
                 order->getAppetizers().pop_back();
@@ -165,6 +166,7 @@ void Chef::createObjects() {
             for(int i = 0; i < order->getPeopleNumber(); i++)
             {
                 dish = new MainCourse(order->getMainCourses().back());
+                dish->setTavNum(order->getTableNumber());
                 dishes.push_back(dish);
                 order->getMainCourses().pop_back();
             }
@@ -174,6 +176,7 @@ void Chef::createObjects() {
             for(int i = 0; i < order->getPeopleNumber(); i++)
             {
                 dish = new Dessert(order->getDesserts().back());
+                dish->setTavNum(order->getTableNumber());
                 dishes.push_back(dish);
                 order->getDesserts().pop_back();
             }

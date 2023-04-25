@@ -17,30 +17,20 @@ Kitchen::Kitchen() {
 }
 
 Kitchen::~Kitchen() {
-    /*
-    Dish* d;
-    for(int i=0; !dishes.empty(); i++)
-    {
-        d = dishes.front();
-        dishes.pop();
-        delete d;
-    }
-     */
+
 }
 
 void Kitchen::insertNewOrder(std::shared_ptr<Order>& o) {
     std::shared_ptr<Order> ord(o);
     bottomBar->setOrder(o->getTableNumber());
     readyOrders.push(ord);
-    std::cout << "Inserting Order" << std::endl;
+    std::cout << "Inserting Order Table: " << o->getTableNumber() << std::endl;
     std::queue<std::shared_ptr<Order>> tmp;
     for(int i = 0; i < readyOrders.size(); i++)
     {
         std::cout << "Order of table " << readyOrders.front()->getTableNumber() << std::endl;
         std::shared_ptr<Order> orde = readyOrders.front();
         readyOrders.pop();
-        tmp.push(orde);
-        tmp.pop();
         readyOrders.push(orde);
         orde.reset();
     }
@@ -77,12 +67,6 @@ void Kitchen::initSprite() {
     pot.setTextureRect(potFrame);
     pot.setScale(3.f, 3.f);
     pot.setPosition(1218,410);
-
-
-
-
-
-
 
 }
 

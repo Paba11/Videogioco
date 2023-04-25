@@ -47,7 +47,7 @@ void Table::update() {
         }
             updateCornerSprite();
     }
-        std::cout << "Table " << tavNum << " humor: " << humor << std::endl;
+        //std::cout << "Table " << tavNum << " humor: " << humor << std::endl;
 }
 
 

@@ -51,6 +51,7 @@ void ActionsState::pickUp(std::shared_ptr<Kitchen>& kitchen) {
         //Set the kitchen to empty
         kitchen->getCounter()->setState(DishState::EMPTY);
         map->getTable(tray->getDishes().front()->getTavNum()).setChosenTable(true);
+        std::cout << "Order for table: " << tray->getDishes().front()->getTavNum() << std::endl;
     }
 }
 
@@ -84,11 +85,13 @@ void ActionsState::pickUp(Table* table) {
                 table->setState(TableState::WAITING_DISHES);
                 table->restartScoreTimer();
                 table->setCourse(Current::MAIN_DISH);
+                map->getKitchen()->getWaitingOrder(table->getTavNum());
                 break;
             case Current::MAIN_DISH:
                 table->setState(TableState::WAITING_DISHES);
                 table->restartScoreTimer();
                 table->setCourse(Current::DESSERT);
+                map->getKitchen()->getWaitingOrder(table->getTavNum());
                 break;
             case Current::DESSERT:
                 table->setState(TableState::ENDED);
