@@ -9,6 +9,7 @@ Dessert::Dessert(Dsr d) {
     this->type = d;
     calculatePrice();
     calculateTime();
+    setTexture();
     //initTexture();
     //initSprite();
 }

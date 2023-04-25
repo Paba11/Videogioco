@@ -9,6 +9,7 @@ MainCourse::MainCourse(Mn t) {
     type = t;
     calculatePrice();
     calculateTime();
+    setTexture();
     //initTexture();
     //initSprite();
 }
