@@ -213,7 +213,8 @@ void ReceiveState::pathToTable() {
     int i = 0;
     for(auto & it: customers)                       //Set the path to the right amount of moves
     {
-        addToPathSingleCustomer(Move::STANDING, it);
+       // addToPathSingleCustomer(Move::STANDING, it);
+        //it.setBlock(true);
         //std::cout << "path to table" << std::endl;
         if(i == 0)
         {

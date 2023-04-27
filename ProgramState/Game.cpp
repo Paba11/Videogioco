@@ -7,6 +7,7 @@
 Game::Game(sf::RenderWindow* window, std::stack <ProgramState*>* states, int waiterTexture) : ProgramState(window, states) {
     initLevel();
     this->waiterTexture = waiterTexture;
+    initButton();
     initBackground();
     initMap();
     initTables();
@@ -44,7 +45,9 @@ void Game::update() {
     score.update();
     level->update();
     checkQuit();
-
+    updateButton();
+    if(score.getQuit())
+        gameOver();
     //this->updateMousePos();
 }
 
@@ -71,12 +74,20 @@ void Game::render(sf::RenderTarget* target) {
     waiter->render(*this->window);
     tray->render(*this->window);
     bottomBar->render(*this->window);
+    button->render(*this->window);
     window->display();
 }
 
-void Game::initVariables() {
+void Game::initButton() {
 
+    if(!this->font.loadFromFile("../Font/8-bit Arcade In.ttf")){
+        std::cout << "ERROR::CAN'T LOAD FONT FILE" << std::endl;
+    }
 
+    button = std::make_unique<Button>(0,0,150,50,&this->font, "QUIT",
+                                      sf::Color(70,70,70,200),
+                                      sf::Color(150,150,150,255),
+                                      sf::Color(20,20,20,200));
 }
 
 
@@ -112,7 +123,7 @@ void Game::updateMousePos() {
     /*
      * Set the variable mousePos to the pixel in which the mouse is pointing (respect to the game window)
      */
-    mousePos = sf::Mouse::getPosition(*this->window);
+    mousePos = window->mapPixelToCoords(sf::Mouse::getPosition(*this->window));
 }
 
 void Game::initWaiter() {
@@ -507,6 +518,19 @@ void Game::initTray() {
 
     tray = std::make_shared<Tray>();
     actionsState->setTray(tray);
+}
+
+void Game::gameOver() {
+    quit = true;
+    this->states->push(new EndGame(this->window, this->states, score.getTotalPoints()));
+}
+
+void Game::updateButton() {
+    updateMousePos();
+    button->update(mousePos);
+
+    if(button->isPressed())
+        gameOver();
 }
 
 
