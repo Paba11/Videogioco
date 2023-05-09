@@ -52,6 +52,7 @@ public:
     sf::Vector2f getPrevPos();
     sf::Vector2f getCurrPos();
     Move getDirection();
+    float getSpeed() const;
 
 protected:
     sf::Sprite sprite;
@@ -62,6 +63,7 @@ protected:
     sf::Vector2f prevPos, currPos;
     std::shared_ptr<Textures> texture = std::make_shared<Textures>();
     float speed;
+
     Move preMovingStatus, dir;
 
     Actions state;

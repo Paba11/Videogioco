@@ -109,3 +109,7 @@ void GameCharacter::setMovingStatus(Move m) {
     this->movingStatus = m;
 }
 
+float GameCharacter::getSpeed() const {
+    return speed;
+}
+

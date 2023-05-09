@@ -3,10 +3,11 @@
 //
 
 #include "gtest/gtest.h"
+#include "../Textures.h"
 #include "../Map/Map.h"
 #include "../Waiter/Waiter.h"
 
-
+/*
 Map* map = new Map();
 Waiter* waiter = new Waiter();
 Table* table = new Table();
@@ -21,7 +22,7 @@ TEST(MapTest, LongDistanceTableTest) {
     ASSERT_EQ(!IS_CLOSE_TABLE, map->getIsClose());
 }
 
-/*
+
 TEST(MapTest, ShortDistanceTableTest) {
     table.sprite.setPosition(100, 100);
     waiter.getSprite().setPosition(110, 110);
