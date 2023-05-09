@@ -7,6 +7,8 @@
 
 Customer::Customer() {
     initVariables();
+    leaving = false;
+    blockedSaved = false;
 }
 
 Customer::Customer(sf::Vector2f dist) {
@@ -22,6 +24,8 @@ void Customer::update() {
     setAnimation();
     updateAnimations();
     moveTo();
+    if(leaving)
+        leftTheRestaurant();
 }
 
 
@@ -53,25 +57,39 @@ void Customer::move() {
     switch (this->movingStatus)
     {
         case Move::MOVING_LEFT:
-            if (this->validMovement["Left"])
+            if (this->validMovement["Left"]) {
                 this->sprite.move(this->speed * (-0.15f), this->speed * (0.f));
+                if(!leaving)
+                    savePath(movingStatus);
+            }
             break;
 
         case Move::MOVING_RIGHT:
-            if (this->validMovement["Right"])
+            if (this->validMovement["Right"]) {
                 this->sprite.move(this->speed * (0.15f), this->speed * (0.f));
+                if(!leaving)
+                    savePath(movingStatus);
+            }
             break;
 
         case Move::MOVING_UP:
-            if (this->validMovement["Up"])
+            if (this->validMovement["Up"]) {
                 this->sprite.move(this->speed * (0.f), this->speed * (-0.15f));
+                if(!leaving)
+                    savePath(movingStatus);
+            }
             break;
 
         case Move::MOVING_DOWN:
-            if (this->validMovement["Down"])
+            if (this->validMovement["Down"]) {
                 this->sprite.move(this->speed * (0.f), this->speed * (0.15f));
+                if(!leaving)
+                    savePath(movingStatus);
+            }
             break;
         case Move::STANDING:
+            if(!leaving)
+                savePath(movingStatus);
             break;
     }
 }
@@ -186,6 +204,91 @@ void Customer::initTexture(std::string textureName) {
     sprite.setTexture(*this->texture->getTexture(textureName));
 
 }
+
+void Customer::setLeaving(bool t) {
+    std::cout <<"set Leaving" << std::endl;
+    leaving = t;
+}
+
+void Customer::savePath(Move m) {
+
+
+        if (m == Move::MOVING_LEFT)
+            invertedPath.push(Move::MOVING_RIGHT);
+        else if (m == Move::MOVING_RIGHT)
+            invertedPath.push(Move::MOVING_LEFT);
+        else if (m == Move::MOVING_UP)
+            invertedPath.push(Move::MOVING_DOWN);
+        else if (m == Move::MOVING_DOWN)
+            invertedPath.push(Move::MOVING_UP);
+        else
+            invertedPath.push(Move::STANDING);
+
+}
+;
+void Customer::leftTheRestaurant() {
+
+    std::cout << "Left The Restaurant" << std::endl;
+    if(invertedPath.size() > 0) {
+        movingStatus = invertedPath.top();
+        invertedPath.pop();
+        move();
+    }
+
+
+
+}
+
+void Customer::leftTheTable(int n) {
+
+    if(n==0 || n==2){
+        for(int m = 0; m < 15; m++)
+            savePath(Move::STANDING);
+    }
+
+
+
+
+    /*
+        if(n == 0)
+        {
+            for(int m = 0; m < 70; m++)
+                savePath(Move::MOVING_LEFT);
+            for(int m = 0; m < 100; m++)
+                savePath(Move::MOVING_DOWN);
+        }
+        else if(n == 1)
+        {
+            for(int m = 0; m < 70; m++)
+                savePath(Move::MOVING_RIGHT);
+            for(int m = 0; m < 100; m++)
+                savePath(Move::MOVING_DOWN);
+        }
+        else if(n == 2)
+        {
+            for(int m = 0; m < 70; m++)
+                savePath(Move::MOVING_LEFT);
+            for(int m = 0; m < 50; m++)
+                savePath(Move::MOVING_DOWN);
+        }
+        else if(n == 3)
+        {
+            for (int m = 0; m < 70; m++)
+                savePath(Move::MOVING_RIGHT);
+            for (int m = 0; m < 50; m++)
+                savePath(Move::MOVING_DOWN);
+        }
+*/
+}
+
+
+void Customer::setBlock(bool t) {
+    blockedSaved = t;
+}
+
+
+
+
 
 
 /*

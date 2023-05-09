@@ -42,7 +42,8 @@ set(SOURCE_FILES
         Map/Washbasin.h             Map/Washbasin.cpp
         BottomBar.cpp               BottomBar.h
         ProgramState/ChoosingCharacter.cpp ProgramState/ChoosingCharacter.h
-        ProgramState/HowToPlay.cpp  ProgramState/HowToPlay.h)
+        ProgramState/HowToPlay.cpp  ProgramState/HowToPlay.h
+        ProgramState/EndGame.cpp    ProgramState/EndGame.h)
 
 add_executable(videogioco                  main.cpp)
 

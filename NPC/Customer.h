@@ -9,6 +9,7 @@
 #include "../GameCharacter.h"
 #include "../Textures.h"
 #include <queue>
+#include <stack>
 
 #define TOTAL_OFFSET 50
 
@@ -45,15 +46,23 @@ public:
     std::queue<Move>& getPath();
     void setPath(Move m);
     bool isMoving();
+    void setLeaving(bool t);
+    void savePath(Move m);
+    void leftTheTable(int n);
+    void leftTheRestaurant();
+    void setBlock(bool t);
 
 private:
     sf::Vector2f actualPos;
     Mood mood;
     bool moving;
     sf::Vector2f endingPos;
+    bool leaving;
+    bool blockedSaved;
 
     //Road to move to the table
     std::queue<Move> path;
+    std::stack<Move> invertedPath;
 
 };
 

@@ -8,6 +8,7 @@
 Score::Score() {
     totalPoints = 0;
     notSatisfiedTables = 0;
+    quit = false;
 }
 
 Score::~Score() {
@@ -17,7 +18,7 @@ Score::~Score() {
 void Score::update() {
     if(notSatisfiedTables > 3)
     {
-        gameOver();
+        quit = true;
     }
     for(auto &i: table)
     {
@@ -46,10 +47,16 @@ void Score::setTable(Table *t) {
     table.push_back(t);
 }
 
-void Score::gameOver() {
-    //When the number of tables that left the restaurant is bigger than three, end the game
-}
+
 
 void Score::addNotSatisfied() {
     notSatisfiedTables += 1;
+}
+
+bool Score::getQuit() {
+    return quit;
+}
+
+int Score::getTotalPoints() {
+    return totalPoints;
 }

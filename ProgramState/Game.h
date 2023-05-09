@@ -24,6 +24,8 @@
 #include <SFML/Audio.hpp>
 #include <list>
 #include <random>
+#include "EndGame.h"
+#include "../Button.h"
 
 
 class Game : public ProgramState {
@@ -45,6 +47,7 @@ public:
     void updateOrderState();
     void updateTables();
     void updateTable();
+    void updateButton();
 
     //Methods to display the correct images
     void render(sf::RenderTarget* target) override;
@@ -78,13 +81,12 @@ public:
 
     //Getter & Setter for the attributes
 
-
 private:
     //Group of textures uploaded in a container, each one is accessible by his own name
     //std::map<std::string, sf::Texture*> textures;
     //std::vector<Table> allTables;
     //
-    sf::Vector2i mousePos;
+    sf::Vector2f mousePos;
     sf::Event ev;
 
     //GameCharacters and objects
@@ -128,7 +130,7 @@ private:
     sf::Text text;
 
     //Initialize all the game objects and attributes
-    void initVariables();
+    void initButton();
     void initWaiter();
     void initChef();
     void initBackground();
@@ -140,9 +142,11 @@ private:
     void initDishWasher();
     void initLevel();
     void setWaiterTexture(int waiterTexture);
+    void gameOver();
 
     int numTables=6;
     int waiterTexture;
+    std::unique_ptr<Button> button;
 
 };
 

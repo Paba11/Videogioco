@@ -42,10 +42,22 @@ void Table::update() {
 
         if(customers.size() > 0){
 
-            for(auto i : customers)
+            for(auto &i : customers)
                 i.update();
         }
-            updateCornerSprite();
+
+        updateCornerSprite();
+        /*
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::M)){   //fixme: use for testing
+            int n = 0;
+            for(auto &i : customers) {
+                i.leftTheTable(n);
+                i.setLeaving(true);
+                n++;
+            }
+
+        }
+        */
     }
         //std::cout << "Table " << tavNum << " humor: " << humor << std::endl;
 }
@@ -463,6 +475,12 @@ void Table::reInitTable() {
 
 void Table::leaveTable() {
     //TODO: when customer exit the restaurant reset the customer vector
+    int n = 0;
+    for(auto &i : customers) {
+        i.leftTheTable(n);
+        i.setLeaving(true);
+        n++;
+    }
     switch(tavNum)
     {
         case 0:
