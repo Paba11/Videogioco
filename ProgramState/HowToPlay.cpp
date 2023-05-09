@@ -75,7 +75,7 @@ void HowToPlay::endState() {
 
 void HowToPlay::initFont() {
 
-    if(!this->font.loadFromFile("../Font/8-bit Arcade In.ttf")){
+    if(!this->font.loadFromFile("./Font/8-bit Arcade In.ttf")){
         std::cout << "ERROR::CAN'T LOAD FONT FILE" << std::endl;
     }
 
