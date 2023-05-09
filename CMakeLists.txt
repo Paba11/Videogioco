@@ -50,6 +50,6 @@ add_executable(videogioco                  main.cpp)
 add_library(core ${SOURCE_FILES})
 target_link_libraries(core PRIVATE sfml-system sfml-network sfml-graphics sfml-window)
 
-target_link_libraries(videogioco PRIVATE sfml-system sfml-network sfml-graphics sfml-window CORE)
+target_link_libraries(videogioco PRIVATE sfml-system sfml-network sfml-graphics sfml-window core)
 
 add_subdirectory(Google_Tests)
