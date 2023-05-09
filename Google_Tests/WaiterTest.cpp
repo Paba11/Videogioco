@@ -3,6 +3,8 @@
 //
 
 #include "../Waiter/Waiter.h"
+#include "../Map/Map.h"
+#include <SFML/Graphics.hpp>
 #include <gtest/gtest.h>
 
 Waiter* w = new Waiter();
@@ -25,3 +27,32 @@ TEST(Waiter, waiterConstructor) {
     ASSERT_EQ(2.20f, w->getSprite().getScale().y);
 }
 
+TEST(Waiter, setOrder) {
+    std::shared_ptr<Map> m;
+    m = std::make_shared<Map>();
+
+    w->setOrder(m, &m->getTable(0));
+
+    ASSERT_EQ(TableState::WAITING_DISHES, m->getTable(0).getState());
+    ASSERT_EQ(true, w->getHasOrder());
+    ASSERT_EQ(Actions::DOING_NOTHING, w->getState());
+}
+
+TEST()
+
+
+/*
+TEST(Waiter, interactionFunction){
+    std::shared_ptr<Map> m;
+    m = std::make_shared<Map>();
+    sf::Event ev;
+
+    //Set to receive customers
+    ev.key.code = sf::Keyboard::J;
+    m->setIsClose(IS_CLOSE_ENTRANCE);
+    m->getEntrance()->setIsCustomer(true);
+    w->getReceiveState()->setPo;
+    w->interact(m, ev);
+    ASSERT_EQ()
+}
+ */

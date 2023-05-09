@@ -357,6 +357,10 @@ void Waiter::setReceive(const std::shared_ptr<Map>& map, sf::Event ev) {
     receiveState->handleInput(gc, ev);
 }
 
+bool Waiter::getHasOrder() {
+    return hasOrder;
+}
+
 /*
 bool Waiter::getIsCustomer() {
     return this->isCustomer;

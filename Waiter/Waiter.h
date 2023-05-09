@@ -54,6 +54,7 @@ public:
     void setReceiveState(const std::shared_ptr<ReceiveState>& rs);
     std::shared_ptr<Order>& getOrder();
     void setOrder(Order* o);
+    bool getHasOrder();
 
     void initStates(const std::shared_ptr<ActionsState>& as, const std::shared_ptr<ReceiveState>& rs, const std::shared_ptr<OrderState>& os);
 
