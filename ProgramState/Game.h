@@ -80,6 +80,8 @@ public:
     void nextLevel();
 
     //Getter & Setter for the attributes
+    std::shared_ptr<Map> getMap();
+    std::shared_ptr<Waiter> getWaiter();
 
 private:
     //Group of textures uploaded in a container, each one is accessible by his own name

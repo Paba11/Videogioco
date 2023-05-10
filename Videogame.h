@@ -23,6 +23,7 @@ public:
     void render();
     void renderState();
     const bool getQuitGame();
+
 private:
     void initWindow();
     void initStates();

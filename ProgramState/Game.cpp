@@ -533,6 +533,14 @@ void Game::updateButton() {
         gameOver();
 }
 
+std::shared_ptr<Map> Game::getMap() {
+    return map;
+}
+
+std::shared_ptr<Waiter> Game::getWaiter() {
+    return waiter;
+}
+
 
 
 
