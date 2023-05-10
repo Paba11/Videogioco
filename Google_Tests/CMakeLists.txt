@@ -9,6 +9,10 @@ set(GOOGLE_TEST_SOURCES
         MapTest.cpp
         WaiterTest.cpp)
 
+enable_testing()
+
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR})
+
 add_subdirectory(./lib/googletest-main)
 set(gtest_SOURCE_DIR, ./lib/googletest/)
 
