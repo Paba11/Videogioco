@@ -7,7 +7,9 @@
 #include <SFML/Graphics.hpp>
 #include <gtest/gtest.h>
 
+sf::RenderWindow* window = new sf::RenderWindow(sf::VideoMode(1100, 620), "Waiter", sf::Style::Close);
 Waiter* w = new Waiter();
+std::shared_ptr<Map> m = std::make_shared<Map>();
 
 TEST(Waiter, waiterConstructor) {
 
@@ -28,8 +30,6 @@ TEST(Waiter, waiterConstructor) {
 }
 
 TEST(Waiter, setOrder) {
-    std::shared_ptr<Map> m;
-    m = std::make_shared<Map>();
 
     w->setOrder(m, &m->getTable(0));
 
@@ -38,21 +38,52 @@ TEST(Waiter, setOrder) {
     ASSERT_EQ(Actions::DOING_NOTHING, w->getState());
 }
 
-TEST()
+TEST(Waiter, pickUpActionState) {
+    //Pick Up Testing
+    std::shared_ptr<ActionsState> act = std::make_shared<ActionsState>(m);
+    w->setActionState(act);
+    Appetizer* a;
+    int i;
+    for(i = 0; i < 4; i++)
+    {
+        a = new Appetizer(Apt::NACHOS);
+        m->getTable(0).setDish(a, i);
+    }
 
+    //Set the guard conditions
+    w->getActionState()->getTray()->setState(TrayState::EMPTY_TRAY);
+    m->getTable(0).setState(TableState::ENDED);
 
-/*
-TEST(Waiter, interactionFunction){
-    std::shared_ptr<Map> m;
-    m = std::make_shared<Map>();
-    sf::Event ev;
+    //Call the function
+    w->getActionState()->pickUp(&m->getTable(0));
 
-    //Set to receive customers
-    ev.key.code = sf::Keyboard::J;
-    m->setIsClose(IS_CLOSE_ENTRANCE);
-    m->getEntrance()->setIsCustomer(true);
-    w->getReceiveState()->setPo;
-    w->interact(m, ev);
-    ASSERT_EQ()
+    //Check the results
+    ASSERT_EQ(false, m->getTable(0).getChosenTable());
+    ASSERT_EQ(4, m->getTable(0).getDishes().size());
+    ASSERT_EQ(TrayState::EMPTY_PLATES, w->getActionState()->getTray()->getState());
 }
- */
+
+TEST(Waiter, putDownActionState) {
+    //Put down testing
+    std::shared_ptr<ActionsState> act = std::make_shared<ActionsState>(m);
+    w->setActionState(act);
+    Appetizer* a;
+    int i;
+    for(i = 0; i < 4; i++)
+    {
+        a = new Appetizer(Apt::NACHOS);
+        a->setTavNum(0);
+        w->getActionState()->getTray()->setDish(a, i);
+    }
+
+    //Set the guard conditions
+    w->getActionState()->getTray()->setState(TrayState::FILLED_TRAY);
+    m->getTable(0).setState(TableState::WAITING_DISHES);
+
+    //Check the results
+    ASSERT_EQ(4, m->getTable(0).getDishes().size());
+    ASSERT_EQ(TableState::EATING, m->getTable(0).getState());
+    ASSERT_EQ(TrayState::EMPTY_TRAY, w->getActionState()->getTray()->getState());
+
+}
+
