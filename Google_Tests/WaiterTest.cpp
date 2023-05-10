@@ -3,13 +3,16 @@
 //
 
 #include "../Waiter/Waiter.h"
+#include "../ProgramState/Game.h"
 #include "../Map/Map.h"
 #include <SFML/Graphics.hpp>
 #include <gtest/gtest.h>
 
-sf::RenderWindow* window = new sf::RenderWindow(sf::VideoMode(1100, 620), "Waiter", sf::Style::Close);
-Waiter* w = new Waiter();
-std::shared_ptr<Map> m = std::make_shared<Map>();
+sf::RenderWindow* window = new sf::RenderWindow(sf::VideoMode(1298, 1344), "WaiterTest", sf::Style::Close);
+std::stack<ProgramState*>* ps;
+Game* game = new Game(window, ps, 1);
+std::shared_ptr<Waiter> w = game->getWaiter();
+std::shared_ptr<Map> m = game->getMap();
 
 TEST(Waiter, waiterConstructor) {
 
