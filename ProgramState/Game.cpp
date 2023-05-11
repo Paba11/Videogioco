@@ -95,7 +95,7 @@ void Game::pollEvents() {
     /*
      * Manage the events
      */
-    //FIXME check after git update
+
     while (this->window->pollEvent(this->ev))
     {
 
@@ -293,7 +293,7 @@ void Game::initMap() {
     map = std::make_shared<Map>();
     kitchen.reset();
     kitchen = map->getKitchen();
-    washbasin.reset();                      //fixme controllare
+    washbasin.reset();
     washbasin = map->getWashbasin();
     counter.reset();
     counter = map->getKitchen()->getCounter();
@@ -343,6 +343,7 @@ void Game::generateCustomers() {
         map->getEntrance()->setCustomerReceived(true);
         //this->receivingCustomers->enterTheRestaurant();
         clock.restart();
+        int time = clock.getElapsedTime().asSeconds();
         waiter->receivingTimer.restart();
     }
 }
