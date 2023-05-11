@@ -7,16 +7,16 @@
 Videogame::Videogame() {
     initWindow();
     initStates();
-    this->quitGame = false;
+    quitGame = false;
 }
 
 
 Videogame::~Videogame() {
-    delete this->window;
+    delete window;
 
-    while(!this->states.empty()){
-        delete this->states.top();
-        this->states.pop();
+    while(!states.empty()){
+        delete states.top();
+        states.pop();
     }
 }
 
@@ -25,9 +25,9 @@ void Videogame::initWindow() {
     videoMode.width = 1298;
     videoMode.height = 1344;
     //this->window = new sf::RenderWindow;
-    this->window = new sf::RenderWindow(this->videoMode, "VideoGame");
-    this->window->setFramerateLimit(144);
-    this->window->setVerticalSyncEnabled(false);
+    window = new sf::RenderWindow(videoMode, "VideoGame");
+    window->setFramerateLimit(144);
+    window->setVerticalSyncEnabled(false);
 
 
 }
@@ -45,31 +45,31 @@ void Videogame::update() {
 
 
 void Videogame::initStates() {
-    this->states.push(new MainMenu(this->window, &this->states));
+    states.push(new MainMenu(window, &states));
 }
 
 void Videogame::updateState() {
 
-    if(!this->states.empty()) {
-        if(!this->states.top()->getQuit())
-            this->states.top()->update();
-        if(this->states.top()->getQuit()) {
-            this->states.top()->endState(); //FIXME check the terminal when close the game from the window
-            delete this->states.top();
-            this->states.pop();
+    if(!states.empty()) {
+        if(!states.top()->getQuit())
+            states.top()->update();
+        if(states.top()->getQuit()) {
+            states.top()->endState(); //FIXME check the terminal when close the game from the window
+            delete states.top();
+            states.pop();
         }
     }
     else
-        this->quitGame = true;
+        quitGame = true;
 
 }
 
 void Videogame::renderState() {
 
-    if(!this->states.empty() && !this->states.top()->getQuit())
-        this->states.top()->render();
+    if(!states.empty() && !states.top()->getQuit())
+        states.top()->render();
 }
 
 const bool Videogame::getQuitGame() {
-    return this->quitGame;
+    return quitGame;
 }

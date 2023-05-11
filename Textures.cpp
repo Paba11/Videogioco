@@ -9,9 +9,7 @@ Textures::Textures() {
     loadTexture();
 }
 
-Textures::~Textures() {
-
-}
+Textures::~Textures() = default;
 
 sf::Texture* Textures::getTexture(std::string name) {
     // See if we have already loaded this texture

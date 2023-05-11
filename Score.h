@@ -24,8 +24,8 @@ public:
     void addPoints(int i);
     void setTable(Table* t);
     void addNotSatisfied();
-    bool getQuit();
-    int getTotalPoints();
+    [[nodiscard]] bool getQuit() const;
+    [[nodiscard]] int getTotalPoints() const;
 
 private:
     std::vector<Table*> table;

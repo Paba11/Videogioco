@@ -6,7 +6,7 @@
 int main() {
     //Init game engine
     Videogame videogame;
-    srand(static_cast<unsigned>(time(0)));
+    srand(static_cast<unsigned>(time(nullptr)));
     while(!videogame.getQuitGame()){
 
         videogame.update();

@@ -15,7 +15,6 @@
 #include "Textures.h"
 #include <queue>
 
-#define MAX_DISHES 4
 enum class TrayState {EMPTY_TRAY, FILLED_TRAY, EMPTY_PLATES};
 
 class Tray {

@@ -6,7 +6,8 @@
 
 
 Tray::Tray() {
-    this->state = TrayState::EMPTY_TRAY;
+    texture = nullptr;
+    state = TrayState::EMPTY_TRAY;
     initTexture();
     initSprite();
     orderTaken = false;
@@ -16,10 +17,10 @@ Tray::Tray() {
 
 Tray::~Tray() {
     Dish* d;
-    for(int i = 0; !this->dishes.empty(); i++)
+    for(int i = 0; !dishes.empty(); i++)
     {
-        d = this->dishes.front();
-        this->dishes.pop();
+        d = dishes.front();
+        dishes.pop();
         delete d;
     }
 }
@@ -55,23 +56,23 @@ void Tray::setState(TrayState ts) {
 
 
 TrayState Tray::getState() {
-    return this->state;
+    return state;
 }
 
 Dish *Tray::getDish() {
-    Dish* d = this->dishes.front();
-    this->dishes.pop();
+    Dish* d = dishes.front();
+    dishes.pop();
     return d;
 }
 
 void Tray::setDish(Dish* d, int n) {
     d->setPosition(dishesPos[n].getPosition());
     d->setScale(2,2);
-    this->dishes.push(d);
+    dishes.push(d);
 }
 
 std::queue<Dish *>& Tray::getDishes() {
-    return this->dishes;
+    return dishes;
 }
 
 void Tray::setOrderTaken(bool t) {
@@ -80,9 +81,9 @@ void Tray::setOrderTaken(bool t) {
 
 void Tray::initSprite() {
 
-    blockNotes.setTexture(*this->texture->getTexture("BlockNotes"));
+    blockNotes.setTexture(*texture->getTexture("BlockNotes"));
     currentFrame = sf::IntRect (0,0,480,480);
-    blockNotes.setTextureRect(this->currentFrame);
+    blockNotes.setTextureRect(currentFrame);
     blockNotes.setTextureRect({0,0,480,480});
     blockNotes.setScale(0.2f,0.2f);
     blockNotes.setPosition(50,1240);
@@ -94,15 +95,15 @@ void Tray::initTexture() {
 
 void Tray::updateAnimation() {
 
-    if(this->animationTimer.getElapsedTime().asSeconds() >= 0.4f) {
+    if(animationTimer.getElapsedTime().asSeconds() >= 0.4f) {
         //Idle animation
 
-        this->currentFrame.left += 480.f;
-        if (this->currentFrame.left >= 960)
-            this->currentFrame.left = 0;
+        currentFrame.left += 480.f;
+        if (currentFrame.left >= 960)
+            currentFrame.left = 0;
 
         animationTimer.restart();
-        blockNotes.setTextureRect(this->currentFrame);
+        blockNotes.setTextureRect(currentFrame);
     }
 }
 
@@ -125,19 +126,19 @@ void Tray::initDishesPos() {
 
 
     for(int i = 0; i < 4; i++){
-        sf::RectangleShape rectangle;
+        sf::RectangleShape rect;
 
-        rectangle.setSize(this->dishHitbox);
-        rectangle.setOrigin(42.5f,40.f);
-        rectangle.setOutlineColor(sf::Color::White);    //Fixme set trasparent when finished
-        rectangle.setOutlineThickness(1.f);
-        rectangle.setFillColor(sf::Color::Transparent);
-        dishesPos.push_back(rectangle);
+        rect.setSize(dishHitbox);
+        rect.setOrigin(42.5f,40.f);
+        rect.setOutlineColor(sf::Color::White);    //Fixme set trasparent when finished
+        rect.setOutlineThickness(1.f);
+        rect.setFillColor(sf::Color::Transparent);
+        dishesPos.push_back(rect);
     }
 
-    this->dishesPos[0].setPosition(200, 1290.f);
-    this->dishesPos[1].setPosition(300, 1290.f);
-    this->dishesPos[2].setPosition(400, 1290.f);
-    this->dishesPos[3].setPosition(500, 1290.f);
+    dishesPos[0].setPosition(200, 1290.f);
+    dishesPos[1].setPosition(300, 1290.f);
+    dishesPos[2].setPosition(400, 1290.f);
+    dishesPos[3].setPosition(500, 1290.f);
 }
 

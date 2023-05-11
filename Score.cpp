@@ -11,9 +11,7 @@ Score::Score() {
     quit = false;
 }
 
-Score::~Score() {
-
-}
+Score::~Score() = default;
 
 void Score::update() {
     if(notSatisfiedTables > 3)
@@ -53,10 +51,10 @@ void Score::addNotSatisfied() {
     notSatisfiedTables += 1;
 }
 
-bool Score::getQuit() {
+bool Score::getQuit() const {
     return quit;
 }
 
-int Score::getTotalPoints() {
+int Score::getTotalPoints() const {
     return totalPoints;
 }
