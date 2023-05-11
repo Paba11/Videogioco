@@ -6,15 +6,15 @@
 //TODO: ELABORATE THE TIME TO WAIT FOR THE PREPARATION
 
 Chef::Chef() {
+    dish = nullptr;
     initSprite();
     initBar();
     state = Do::WAIT;
     isReady = false;
+    time = 0;
 }
 
-Chef::~Chef() {
-
-}
+Chef::~Chef() = default;
 
 
 void Chef::initSprite() {
@@ -43,12 +43,6 @@ void Chef::setAnimation() {
 
 void Chef::setDishes(Dish& d) {
     dishes.push_back(&d);
-}
-
-Dish *Chef::getDish() {
-    Dish* d = dishes.back();
-    dishes.pop_back();
-    return d;
 }
 
 void Chef::cook() {
@@ -143,10 +137,6 @@ void Chef::setKitchen(std::shared_ptr<Kitchen>& k) {
     kitchen = k;
 }
 
-const std::shared_ptr<Kitchen>& Chef::getKitchen() {
-    return kitchen;
-}
-
 void Chef::createObjects() {
     switch(order->getCurrent())
     {
@@ -191,7 +181,7 @@ void Chef::createObjects() {
         {
             time += it->getPreparationTime();
         }
-        time /= dishes.size();
+        time /= float(dishes.size());
     }
 }
 
@@ -233,7 +223,7 @@ Do Chef::getDo() {
     return state;
 }
 
-bool Chef::getIsReady() {
+bool Chef::getIsReady() const {
     return isReady;
 }
 

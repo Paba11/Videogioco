@@ -12,8 +12,7 @@ DishWasher::DishWasher() {
     this->numPlates = 0;
 }
 
-DishWasher::~DishWasher() {
-}
+DishWasher::~DishWasher() = default;
 
 
 void DishWasher::initSprite() {
@@ -38,7 +37,7 @@ void DishWasher::update() {
 
 void DishWasher::updateWashing() {
     //FIXME: CALCULATE THE TIME TO WASH PLATES, DEPENDING ON THE TOTAL NUMBER
-    if(this->timer * this->washbasin->getNumPlates() <= this->clock.getElapsedTime().asSeconds())
+    if(this->timer * float(this->washbasin->getNumPlates()) <= this->clock.getElapsedTime().asSeconds())
     {
         this->isWashing = false;
         this->numPlates = 0;
@@ -71,7 +70,6 @@ void DishWasher::updateVariables() {
         this->numPlates += this->washbasin->getNumPlates();
         this->washbasin->setNumPlates(0);
         this->clock.restart();
-        move();
     }
 }
 
@@ -80,13 +78,6 @@ void DishWasher::setWashbasin(const std::shared_ptr<Washbasin>& w) {
     washbasin = w;
 }
 
-void DishWasher::move() {
-    //TODO: MOVE THE DISHWASHER FROM THE TABLE TO THE WASHBASIN AND UPDATE THE ANIMATION
-}
-
-std::shared_ptr<Washbasin> DishWasher::getWashbasin() {
-    return washbasin;
-}
 
 void DishWasher::setAnimation() {
 
