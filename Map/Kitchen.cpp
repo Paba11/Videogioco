@@ -6,6 +6,7 @@
 
 
 Kitchen::Kitchen() {
+    texture = nullptr;
     state = DishState::EMPTY;
     counter = std::make_shared<Counter>();
     bottomBar = std::make_shared<BottomBar>();
@@ -16,12 +17,10 @@ Kitchen::Kitchen() {
 
 }
 
-Kitchen::~Kitchen() {
-
-}
+Kitchen::~Kitchen() = default;
 
 void Kitchen::insertNewOrder(std::shared_ptr<Order>& o) {
-    std::shared_ptr<Order> ord(o);
+    const std::shared_ptr<Order>& ord(o);
     bottomBar->setOrder(o->getTableNumber());
     readyOrders.push(ord);
     std::cout << "Inserting Order Table: " << o->getTableNumber() << std::endl;
@@ -37,11 +36,7 @@ void Kitchen::insertNewOrder(std::shared_ptr<Order>& o) {
 
 }
 
-std::shared_ptr<Order>& Kitchen::makeNewOrder() {
-    current = readyOrders.front();
-    readyOrders.pop();
-    return current;
-}
+
 
 void Kitchen::initSprite() {
 
@@ -70,15 +65,8 @@ void Kitchen::initSprite() {
 
 }
 
-bool Kitchen::getIsEmptyPlates() {
-    return this->isEmptyPlates;
-}
 
-void Kitchen::setIsEmptyPlates(bool t) {
-    this->isEmptyPlates = t;
-}
-
-const sf::Vector2f Kitchen::getPosition() const {
+sf::Vector2f Kitchen::getPosition() const {
     return this->sprite.getPosition();
 }
 
@@ -105,11 +93,9 @@ DishState Kitchen::getState() {
     return state;
 }
 
-const sf::FloatRect Kitchen::getBounds() const {
-    return this->sprite.getGlobalBounds();
-}
 
-const sf::Sprite Kitchen::getSprite() {
+
+sf::Sprite Kitchen::getSprite() {
     return this->sprite;
 }
 
@@ -231,7 +217,8 @@ void Kitchen::updateAnimations() {
             pan.setTextureRect(panFrame);
             break;
 
-
+        case DishState::FULL:
+            break;
     }
 
 }

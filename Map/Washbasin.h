@@ -29,8 +29,8 @@ public:
     bool getIsPlates() const;
     void setIsPlates(bool t);
     sf::Vector2f getPosition();
-    const sf::Sprite getSprite();
-    int getNumPlates();
+    sf::Sprite getSprite();
+    int getNumPlates() const;
     void setNumPlates(int i);
     void setTakenDirtyDish(bool t);
 

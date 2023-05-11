@@ -20,7 +20,6 @@
 #include <queue>
 
 
-#define MAX_TABLES 10
 
 
 
@@ -32,9 +31,7 @@ public:
 
     //Method to insert and remove orders
     void insertNewOrder(std::shared_ptr<Order>& order);
-    std::shared_ptr<Order>& makeNewOrder();
-    //void insertWaitingOrder(Order* order);
-    //Order* makeWaitingOrder();
+
 
     //Update and render of the kitchen textures
     void update();
@@ -52,13 +49,10 @@ public:
     void setWaitingOrder();
 
     //Getters & Setters
-    bool getIsEmptyPlates();
-    void setIsEmptyPlates(bool t);
-    const sf::Vector2f getPosition() const;
+    sf::Vector2f getPosition() const;
     void setState(DishState ds);
     DishState getState();
-    const sf::Sprite getSprite();
-    const sf::FloatRect getBounds() const;
+    sf::Sprite getSprite();
     std::shared_ptr<Counter> getCounter() const;
     std::shared_ptr<BottomBar> getBottomBar() const;
     sf::RectangleShape& getInteractionSquare();
@@ -78,12 +72,9 @@ private:
     void initTexture();
     void initSprite();
 
-    //std::queue<std::shared_ptr<Order>> newOrders;
     std::queue<std::shared_ptr<Order>> waitingOrders;
     std::queue<std::shared_ptr<Order>> readyOrders;
     std::shared_ptr<Order> current;
-    int count;
-    bool isEmptyPlates;
     DishState state;
     std::shared_ptr<Counter> counter;
     std::shared_ptr<BottomBar> bottomBar;

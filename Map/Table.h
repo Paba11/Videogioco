@@ -48,7 +48,7 @@ public:
     void leaveTable();
 
     //Getters & Setters
-    int getTavNum();
+    int getTavNum() const;
     void setTavNum(int tavNum);
     const sf::Vector2f& getPosition() const;
     Dish* getDish();
@@ -56,29 +56,26 @@ public:
     std::queue<Dish*> getDishes();
     TableState getState();
     void setState(TableState s);
-    std::shared_ptr<Order> getOrder();
     void setOrder(const std::shared_ptr<Order>& ord);
     Current getCourse() const;
     void setCourse(Current c);
     std::vector<Stool>& getStoolTable();
-    void setCustomerNumber(int i);
-    int getCustomerNumber();
+    int getCustomerNumber() const;
     void setCustomers(std::vector<Customer>& cust);
     std::vector<Customer>& getCustomers();
     void setIsOccupied(bool t);
-    bool getIsOccupied();
+    bool getIsOccupied() const;
     void setChosenTable(bool t);
-    bool getChosenTable();
+    bool getChosenTable() const;
     sf::RectangleShape getInteractionSquare();
     void restartTimer();
     void restartScoreTimer();
-    std::vector<sf::RectangleShape> getDishesPlace();
     void setIsSit(bool t);
-    bool getIsSetFinalScore();
+    bool getIsSetFinalScore() const;
     void setIsSetFinalScore(bool t);
     void setHumor(int i);
-    int getHumor();
-    bool getIsNotSatisfied();
+    int getHumor() const;
+    bool getIsNotSatisfied() const;
     void setIsNotSatisfied(bool t);
 
 

@@ -6,6 +6,9 @@
 
 Table::Table() {
 
+    tavNum = 0;
+    texture = nullptr;
+    difficulty = 0;
     initTexture();
     initSprite();
     numStoolsTable = 4;
@@ -22,9 +25,7 @@ Table::Table() {
     isNotSatisfied = false;
 }
 
-Table::~Table() {
-
-}
+Table::~Table() = default;
 
 void Table::update() {
     if(isOccupied)
@@ -40,13 +41,13 @@ void Table::update() {
 
         if(state != TableState::CHOOSING && state != TableState::IS_LEAVING)
 
-        if(customers.size() > 0){
+        if(!customers.empty()){
 
             for(auto &i : customers)
                 i.update();
         }
 
-        updateCornerSprite();
+            updateCornerSprite();
         /*
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::M)){   //fixme: use for testing
             int n = 0;
@@ -74,8 +75,8 @@ void Table::render(sf::RenderTarget &target) {
         target.draw(cornerSprite);
     }
 
-    if(customers.size() > 0){
-        for(int i = customers.size() -1 ; i >= 0; i--)
+    if(!customers.empty()){
+        for(int i = (int)customers.size() -1 ; i >= 0; i--)
             target.draw(customers[i].sprite);
     }
     if(state == TableState::EATING) {
@@ -92,7 +93,7 @@ void Table::initSprite() {
     interactionSquare.setFillColor(sf::Color::Transparent);
 }
 
-int Table::getTavNum() {
+int Table::getTavNum() const {
     return tavNum;
 }
 
@@ -122,10 +123,6 @@ TableState Table::getState() {
 
 void Table::setState(TableState s) {
     this->state = s;
-}
-
-std::shared_ptr<Order> Table::getOrder() {
-    return order;
 }
 
 void Table::setOrder(const std::shared_ptr<Order>& ord) {
@@ -160,28 +157,15 @@ std::queue<Dish *> Table::getDishes() {
     return this->dishes;
 }
 
-void Table::setCustomerNumber(int i) {
-    this->customerNumber = i;
-}
-
-int Table::getCustomerNumber() {
+int Table::getCustomerNumber() const {
     return this->customerNumber;
-}
-
-void Table::receivingCustomers(std::vector<Customer>& c) {
-    customers.reserve(c.size());
-    customerNumber += c.size();
-    isOccupied = true;
-    timer.restart();
-    std::move(c.begin(), c.end(), std::back_inserter(customers));
-    c.clear();
 }
 
 void Table::setIsOccupied(bool t) {
     isOccupied = t;
 }
 
-bool Table::getIsOccupied() {
+bool Table::getIsOccupied() const {
     return this->isOccupied;
 }
 
@@ -189,7 +173,7 @@ void Table::setCustomers(std::vector<Customer>& cust) {
     /*
      * Move all the elements of the passed vector to the one of te customer
      */
-    customerNumber = cust.size();
+    customerNumber = (int)cust.size();
     customers.reserve(cust.size());
     std::move(cust.begin(), cust.end(), std::back_inserter(customers));
     cust.clear();
@@ -256,12 +240,8 @@ sf::RectangleShape Table::getInteractionSquare() {
     return this->interactionSquare;
 }
 
-bool Table::getChosenTable() {
+bool Table::getChosenTable() const {
     return chosenTable;
-}
-
-std::vector<sf::RectangleShape> Table::getDishesPlace() {
-    return this->dishesPlace;
 }
 
 void Table::setDishesPlace() {
@@ -292,7 +272,7 @@ void Table::setIsSit(bool t) {
     isSit = t;
 }
 
-bool Table::getIsSetFinalScore() {
+bool Table::getIsSetFinalScore() const {
     return isSetFinalScore;
 }
 
@@ -326,7 +306,8 @@ void Table::updateCornerSprite() {
         case TableState::ENDED:
             cornerSprite.setTexture(*texture->getTexture("EmptyDish"));
             break;
-
+        default:
+            break;
     }
 }
 
@@ -431,6 +412,8 @@ void Table::updateHumor() {
         case TableState::LEFT:
             reInitTable();
             break;
+        default:
+            break;
     }
     if(humor < 500 && state != TableState::IS_LEAVING)
     {
@@ -447,7 +430,7 @@ void Table::setHumor(int i) {
     humor = i;
 }
 
-int Table::getHumor() {
+int Table::getHumor() const {
     return humor;
 }
 
@@ -502,7 +485,7 @@ void Table::restartScoreTimer() {
     scoreTimer.restart();
 }
 
-bool Table::getIsNotSatisfied() {
+bool Table::getIsNotSatisfied() const {
     return isNotSatisfied;
 }
 

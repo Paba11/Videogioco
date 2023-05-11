@@ -8,9 +8,7 @@ Stool::Stool() {
     initSprite();
 }
 
-Stool::~Stool() {
-
-}
+Stool::~Stool() = default;
 
 void Stool::initSprite() {
     sprite.setScale(2.f,2.f);
