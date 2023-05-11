@@ -12,9 +12,7 @@ HowToPlay::HowToPlay(sf::RenderWindow *window, std::stack<ProgramState *> *state
     initTexts();
 }
 
-HowToPlay::~HowToPlay() {
-
-}
+HowToPlay::~HowToPlay() = default;
 
 void HowToPlay::update() {
 

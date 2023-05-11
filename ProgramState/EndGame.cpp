@@ -11,9 +11,7 @@ EndGame::EndGame(sf::RenderWindow *window, std::stack<ProgramState *> *states, i
     initButtons();
 }
 
-EndGame::~EndGame() {
-
-}
+EndGame::~EndGame() = default;
 
 void EndGame::update() {
     updateMousePosition();

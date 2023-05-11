@@ -16,9 +16,7 @@ ChoosingCharacter::ChoosingCharacter(sf::RenderWindow* window, std::stack <Progr
 
 }
 
-ChoosingCharacter::~ChoosingCharacter() {
-
-}
+ChoosingCharacter::~ChoosingCharacter() = default;
 
 void ChoosingCharacter::update() {
     updateMousePosition();
@@ -119,7 +117,7 @@ void ChoosingCharacter::initSprite() {
     this->waiter.setTextureRect(this->currentFrame);
     this->waiter.setOrigin(25,25);
     this->waiter.setScale(4.f,4.f);
-    this->waiter.setPosition(1298/2,1344/2);
+    this->waiter.setPosition(1298.f/2.f,1344.f/2.f);
 
     this->background.setTexture(*this->textures->getTexture("ChoosingCharacterBackground"));
 
@@ -140,6 +138,8 @@ void ChoosingCharacter::pollEvents() {
             case sf::Event::KeyPressed:
                 if (this->ev.key.code == sf::Keyboard::Escape)
                     this->window->close();
+                break;
+            default:
                 break;
         }
     }
