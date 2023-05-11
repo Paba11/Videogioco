@@ -10,11 +10,10 @@
 #include <cmath>
 
 #define INITIAL_MOVES 70
-#define TOTAL_OFFSET 50
 
 class ReceiveState : public WaiterStates {
 public:
-    ReceiveState(const std::shared_ptr<Map>& map);
+    explicit ReceiveState(const std::shared_ptr<Map>& map);
     ~ReceiveState() override;
 
     void handleInput(std::shared_ptr<GameCharacter>& gc, sf::Event ev) override;
@@ -27,22 +26,16 @@ public:
     //Move to the table
     void move();
     void addToPath(Move dir);
-    void addToPathSingleCustomer(Move dir, Customer& c);
+    static void addToPathSingleCustomer(Move dir, Customer& c);
     void moveToTable();
     void pathToTable();
 
 
     //Getters & Setters
-    void setTable(Table* t);
     Table* getTable();
-    void setCustomer(const std::shared_ptr<Customer>& c);
-    const std::shared_ptr<Customer>& getCustomer();
-    void setCustomers(Customer& c);
     std::vector<Customer>& getCustomers();
-    void setIsAtTable(bool t);
-    bool getIsAtTable();
     bool checkPos();
-    bool getIsSit();
+    bool getIsSit() const;
     void setAtTable();
 
 private:

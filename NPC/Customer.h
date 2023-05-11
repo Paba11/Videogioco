@@ -11,9 +11,6 @@
 #include <queue>
 #include <stack>
 
-#define TOTAL_OFFSET 50
-
-enum Mood {EXCELLENT, GOOD, NORMAL, BAD};
 
 class Customer final : public GameCharacter {
 public:
@@ -38,28 +35,23 @@ public:
     void move();
     void moveTo();
     void setEndingPosition(sf::Vector2f endingPos, Move direction);
-    void setEndingPosition(sf::Vector2f endingPos);
     sf::Sprite sprite; //fixme create a function to set the texture from receivingCustomer.h
 
     //Getters & Setters
-    const sf::Vector2f& getPosition() const;
     std::queue<Move>& getPath();
     void setPath(Move m);
-    bool isMoving();
+    bool isMoving() const;
     void setLeaving(bool t);
     void savePath(Move m);
     void leftTheTable(int n);
     void leftTheRestaurant();
-    void setBlock(bool t);
     std::stack<Move>& getInvertedPath();
 
 private:
     sf::Vector2f actualPos;
-    Mood mood;
     bool moving;
     sf::Vector2f endingPos;
     bool leaving;
-    bool blockedSaved;
 
     //Road to move to the table
     std::queue<Move> path;

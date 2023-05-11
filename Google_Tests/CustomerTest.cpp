@@ -34,17 +34,20 @@ TEST(Customer, movingTest) {
         {
             it->setMovingStatus(Move::MOVING_UP);
             it->move();
-            ASSERT_EQ(Move::MOVING_UP, it->getInvertedPath().top());
+            ASSERT_EQ(Move::MOVING_DOWN, it->getInvertedPath().top());
             it->setMovingStatus(Move::MOVING_DOWN);
             it->move();
-            ASSERT_EQ(Move::MOVING_DOWN, it->getInvertedPath().top());
+            ASSERT_EQ(Move::MOVING_UP, it->getInvertedPath().top());
             it->setMovingStatus(Move::MOVING_LEFT);
             it->move();
-            ASSERT_EQ(Move::MOVING_LEFT, it->getInvertedPath().top());
+            ASSERT_EQ(Move::MOVING_RIGHT, it->getInvertedPath().top());
             it->setMovingStatus(Move::MOVING_RIGHT);
             it->move();
-            ASSERT_EQ(Move::MOVING_RIGHT, it->getInvertedPath().top());
+            ASSERT_EQ(Move::MOVING_LEFT, it->getInvertedPath().top());
         }
 
     }
+    delete windowCustomer;
+    delete psCustomer;
+    delete gameCustomer;
 }

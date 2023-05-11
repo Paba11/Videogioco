@@ -4,31 +4,16 @@
 
 #include "OrderState.h"
 
-#include <utility>
 
 OrderState::OrderState(Table& t) {
+    table = &t;
     initVariables(t);
+    current = Current::APPETIZER;
+    isTaken = false;
+    random = 0;
 }
 
-OrderState::~OrderState() {
-
-}
-
-std::shared_ptr<Order>& OrderState::getOrder() {
-    return order;
-}
-
-Table* OrderState::getTable() {
-    return table;
-}
-
-void OrderState::setTable(Table* t) {
-    table = t;
-}
-
-void OrderState::setOrderVariables(const std::shared_ptr<Table>& t) {
-
-}
+OrderState::~OrderState() = default;
 
 void OrderState::handleInput(std::shared_ptr<GameCharacter>& gc, sf::Event ev) {
 
@@ -63,6 +48,8 @@ void OrderState::randomChoices() {
                 order->setDessert(random);
             }
             break;
+        case Current::END:
+            break;
     }
 }
 
@@ -72,8 +59,6 @@ void OrderState::initVariables(Table& t) {
     order->setTableNumber(table->getTavNum());
     order->setPeopleNumber(table->getCustomerNumber());
     timer.restart();
-    isTaken = false;
-    current = Current::APPETIZER;
 }
 
 std::shared_ptr<Order>& OrderState::takeOrder() {
@@ -96,12 +81,8 @@ void OrderState::generateRandom(int max) {
     this->random = distrib(gen);
 }
 
-bool OrderState::getIsTaken() {
+bool OrderState::getIsTaken() const {
     return isTaken;
-}
-
-void OrderState::setIsTaken(bool t) {
-    isTaken = t;
 }
 
 void OrderState::setMap(const std::shared_ptr<Map>& m) {
@@ -110,61 +91,3 @@ void OrderState::setMap(const std::shared_ptr<Map>& m) {
     map = m;
 
 }
-
-/*
-void OrderState::setAppetizers() {
-    cursor = 0;
-    setAnimation();
-    while(this->order->getAppetizers().size() < this->table->getCustomerNumber())
-    {
-        while(!flag)
-        {
-            select();
-        }
-        this->order->setAppetizer(this->cursor);
-        this->flag = false;
-    }
-}
-
-void OrderState::setMainCourses() {
-    cursor = 0;
-    setAnimation();
-    while(this->order->getMainCourses().size() < this->table->getCustomerNumber())
-    {
-        while(!flag)
-        {
-            select();
-        }
-        this->order->setMainCourse(this->cursor);
-        this->flag = false;
-    }
-}
-
-void OrderState::setDesserts() {
-    cursor = 0;
-    setAnimation();
-    while(this->order->getDesserts().size() < this->table->getCustomerNumber())
-    {
-        while(!flag)
-        {
-            select();
-        }
-        this->order->setDessert(this->cursor);
-        this->flag = false;
-    }
-}
-
-void OrderState::setDrinks() {
-    cursor = 0;
-    setAnimation();
-    while(this->order->getDrinks().size() < this->table->getCustomerNumber())
-    {
-        while(!flag)
-        {
-            select();
-        }
-        this->order->setDrink(this->cursor);
-        this->flag = false;
-    }
-}
-*/

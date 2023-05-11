@@ -37,7 +37,7 @@ TEST(Chef, cookTest) {
     //Control the result
     ASSERT_EQ(Do::WAIT, cChef->getDo());
     ASSERT_EQ(true, cChef->getIsReady());
-    ASSERT_EQ(DishState::FULL, mChef->getKitchen()->getState());
+    ASSERT_EQ(DishState::FULL, mChef->getKitchen()->getCounter()->getState());
     ASSERT_EQ(true, cChef->getDishes().empty());
     ASSERT_EQ(nullptr, cChef->getOrder());
     ASSERT_EQ(false, mChef->getKitchen()->getWaitingOrders().empty());
@@ -69,4 +69,8 @@ TEST(Customer, createObjectTest) {
 
     //Check results
     ASSERT_EQ(false, cChef->getDishes().empty());
+
+    delete chefWindow;
+    delete chefPs;
+    delete gameChef;
 }

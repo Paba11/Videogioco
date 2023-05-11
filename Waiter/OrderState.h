@@ -27,17 +27,12 @@ public:
     void update(std::shared_ptr<GameCharacter>& gc) override;
 
     //Actions of the order state
-    void setOrderVariables(const std::shared_ptr<Table>& t);
     std::shared_ptr<Order>& takeOrder();
     void randomChoices();
     void generateRandom(int max);
 
     //Getters & Setters
-    std::shared_ptr<Order>& getOrder();
-    Table* getTable();
-    void setTable(Table* t);
-    bool getIsTaken();
-    void setIsTaken(bool t);
+    bool getIsTaken() const;
     void setMap(const std::shared_ptr<Map>& m);
 
 private:

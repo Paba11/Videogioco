@@ -70,7 +70,7 @@ void GameCharacter::setEvent(sf::Event e) {
 }
 
 const sf::Vector2f &GameCharacter::getPosition() const {
-    return this->sprite.getPosition();
+    return sprite.getPosition();
 }
 
 Move GameCharacter::getMovingStatus() {

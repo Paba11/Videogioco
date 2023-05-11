@@ -9,10 +9,10 @@ ReceiveState::ReceiveState(const std::shared_ptr<Map>& m) {
     map = m;
     isAtTable = false;
     isSit = false;
+    table = nullptr;
 }
 
-ReceiveState::~ReceiveState() {
-}
+ReceiveState::~ReceiveState() = default;
 
 void ReceiveState::handleInput(std::shared_ptr<GameCharacter>& gc, sf::Event ev) {
     if(!isAtTable)
@@ -67,25 +67,8 @@ void ReceiveState::move() {
     }
 }
 
-void ReceiveState::setTable(Table *t) {
-    table = t;
-}
-
 Table *ReceiveState::getTable() {
     return table;
-}
-
-void ReceiveState::setCustomer(const std::shared_ptr<Customer>& c) {
-    customer.reset();
-    customer = c;
-}
-
-const std::shared_ptr<Customer>& ReceiveState::getCustomer() {
-    return customer;
-}
-
-void ReceiveState::setCustomers(Customer& c) {
-    customers.push_back(c);
 }
 
 std::vector<Customer> &ReceiveState::getCustomers() {
@@ -124,16 +107,6 @@ void ReceiveState::setGeneratedCustomers(int numberCustomer, int textureNumber) 
         std::cout << "1" << std::endl;
 
     }
-    /*
-    if(textureNumber-1 % 4 == 0)
-        customers.back().sprite.setTexture(*texture->getTexture("Customer1"));
-    if(textureNumber-1 % 4 == 1)
-        customers.back().sprite.setTexture(*texture->getTexture("Customer2"));
-    if(textureNumber-1 % 4 == 2)
-        customers.back().sprite.setTexture(*texture->getTexture("Customer3"));
-    if(textureNumber-1 % 4 == 3)
-        customers.back().sprite.setTexture(*texture->getTexture("Customer4"));
-        */
     if( (textureNumber-1) % 4 == 0) {
         customers.back().initTexture("Customer1");
         std::cout << "Set Texture 1" << std::endl;
@@ -201,14 +174,6 @@ void ReceiveState::addToPathSingleCustomer(Move dir, Customer& c) {
     c.setPath(dir);
 }
 
-void ReceiveState::setIsAtTable(bool t) {
-    isAtTable = t;
-}
-
-bool ReceiveState::getIsAtTable() {
-    return isAtTable;
-}
-
 void ReceiveState::pathToTable() {
     int i = 0;
     for(auto & it: customers)                       //Set the path to the right amount of moves
@@ -262,7 +227,7 @@ void ReceiveState::setAtTable() {
     table->restartTimer();
 }
 
-bool ReceiveState::getIsSit() {
+bool ReceiveState::getIsSit() const {
     return isSit;
 }
 

@@ -22,11 +22,9 @@ public:
     void updateAnimations() override;
     void setAnimation();
     void updateVariables();
-    void move();
 
     //Getters & Setters
     void setWashbasin(const std::shared_ptr<Washbasin>& w);
-    std::shared_ptr<Washbasin> getWashbasin();
 
 private:
     //Methods' override to init the texture and the sprite

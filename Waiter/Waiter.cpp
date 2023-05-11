@@ -8,11 +8,11 @@
 Waiter::Waiter() {
     initSprite();
     initVariables();
+    hasOrder = false;
+    isReceived = false;
 }
 
-Waiter::~Waiter() {
-
-}
+Waiter::~Waiter() = default;
 
 void Waiter::initVariables() {
     state = Actions::DOING_NOTHING;
@@ -219,10 +219,6 @@ void Waiter::setAnimation() {
 
 }
 
-std::shared_ptr<OrderState> Waiter::getOrderState() {
-    return this->orderState;
-}
-
 Move Waiter::getMove() {
     return this->movingStatus;
 }
@@ -252,7 +248,7 @@ void Waiter::interactionManagement() {
 }
 */
 
-bool Waiter::getIsReceived() {
+bool Waiter::getIsReceived() const {
     return this->isReceived;
 }
 
@@ -264,9 +260,6 @@ std::shared_ptr<ActionsState> Waiter::getActionState() {
     return this->actionsState;
 }
 
-std::shared_ptr<ReceiveState> Waiter::getReceiveState() {
-    return this->receiveState;
-}
 
 void Waiter::initStates(const std::shared_ptr<ActionsState>& as, const std::shared_ptr<ReceiveState>& rs, const std::shared_ptr<OrderState>& os) {
     actionsState.reset();
@@ -280,11 +273,6 @@ void Waiter::initStates(const std::shared_ptr<ActionsState>& as, const std::shar
 void Waiter::setActionState(const std::shared_ptr<ActionsState>& as) {
     actionsState.reset();
     actionsState = as;
-}
-
-void Waiter::setOrderState(const std::shared_ptr<OrderState>& os) {
-    orderState.reset();
-    orderState = os;
 }
 
 void Waiter::setReceiveState(const std::shared_ptr<ReceiveState>& rs) {
@@ -355,7 +343,7 @@ void Waiter::setReceive(const std::shared_ptr<Map>& map, sf::Event ev) {
     receiveState->handleInput(gc, ev);
 }
 
-bool Waiter::getHasOrder() {
+bool Waiter::getHasOrder() const {
     return hasOrder;
 }
 

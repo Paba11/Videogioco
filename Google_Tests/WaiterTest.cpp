@@ -2,7 +2,6 @@
 // Created by Paolo Sbarzagli on 09/05/23.
 //
 
-#include "../Waiter/Waiter.h"
 #include "../ProgramState/Game.h"
 #include <SFML/Graphics.hpp>
 #include <gtest/gtest.h>
@@ -43,6 +42,7 @@ TEST(Waiter, setOrder) {
 TEST(Waiter, pickUpActionState) {
     //Pick Up Testing
     std::shared_ptr<ActionsState> act = std::make_shared<ActionsState>(mWaiter);
+    act->setTray(gameWaiter->getTray());
     wWaiter->setActionState(act);
     Appetizer* a;
     int i;
@@ -61,13 +61,18 @@ TEST(Waiter, pickUpActionState) {
 
     //Check the results
     ASSERT_EQ(false, mWaiter->getTable(0).getChosenTable());
-    ASSERT_EQ(4, mWaiter->getTable(0).getDishes().size());
+    ASSERT_EQ(0, mWaiter->getTable(0).getDishes().size());
     ASSERT_EQ(TrayState::EMPTY_PLATES, wWaiter->getActionState()->getTray()->getState());
 }
 
 TEST(Waiter, putDownActionState) {
     //Put down testing
     std::shared_ptr<ActionsState> act = std::make_shared<ActionsState>(mWaiter);
+    while(!gameWaiter->getTray()->getDishes().empty())
+    {
+        gameWaiter->getTray()->getDishes().pop();
+    }
+    act->setTray(gameWaiter->getTray());
     wWaiter->setActionState(act);
     Appetizer* a;
     int i;
@@ -81,11 +86,19 @@ TEST(Waiter, putDownActionState) {
     //Set the guard conditions
     wWaiter->getActionState()->getTray()->setState(TrayState::FILLED_TRAY);
     mWaiter->getTable(0).setState(TableState::WAITING_DISHES);
+    ASSERT_EQ(0, mWaiter->getTable(0).getDishes().size());
+    ASSERT_EQ(4, wWaiter->getActionState()->getTray()->getDishes().size());
+
+    //Call the function
+    wWaiter->getActionState()->putDown(&mWaiter->getTable(0));
 
     //Check the results
     ASSERT_EQ(4, mWaiter->getTable(0).getDishes().size());
     ASSERT_EQ(TableState::EATING, mWaiter->getTable(0).getState());
     ASSERT_EQ(TrayState::EMPTY_TRAY, wWaiter->getActionState()->getTray()->getState());
 
+    delete windowWaiter;
+    delete psWaiter;
+    delete gameWaiter;
 }
 

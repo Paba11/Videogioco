@@ -40,21 +40,18 @@ public:
 
     //Getters & Setters
     void setDishes(Dish& d);
-    Dish* getDish();
     void setOrder(std::shared_ptr<Order>& o);
     std::shared_ptr<Order>& getOrder();
     void setKitchen(std::shared_ptr<Kitchen>& k);
-    const std::shared_ptr<Kitchen>& getKitchen();
     void setTime(float f);
     void setState(Do d);
     Do getDo();
-    bool getIsReady();
+    bool getIsReady() const;
     std::vector<Dish*>& getDishes();
 
 private:
     //Methods' override to init the texture and the sprite
     void initSprite() override;
-    void setTextureDishes(Dish* d, Apt t);
     void initBar();
     sf::RectangleShape greyBar;
     sf::RectangleShape greenBar;

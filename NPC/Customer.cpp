@@ -6,19 +6,19 @@
 
 
 Customer::Customer() {
+    moving = false;
     initVariables();
     leaving = false;
-    blockedSaved = false;
 }
 
 Customer::Customer(sf::Vector2f dist) {
+    moving = false;
+    leaving = false;
     initVariables();
 }
 
 
-Customer::~Customer() {
-
-}
+Customer::~Customer() = default;
 
 void Customer::update() {
     setAnimation();
@@ -94,16 +94,12 @@ void Customer::move() {
     }
 }
 
-const sf::Vector2f &Customer::getPosition() const {
-    return this->sprite.getPosition();
-}
-
 
 void Customer::setAnimation() {
 
-    if(this->movingStatus == Move::STANDING)
-        this->currentFrame.top = 0.f;
-    else if(this->movingStatus == Move::MOVING_DOWN)
+    if(movingStatus == Move::STANDING)
+        currentFrame.top = 0.f;
+    else if(movingStatus == Move::MOVING_DOWN)
         this->currentFrame.top = 0.f;
     else if(this->movingStatus == Move::MOVING_LEFT)
         this->currentFrame.top = 33.f;
@@ -146,13 +142,13 @@ void Customer::setPath(Move m) {
 }
 
 void Customer::initVariables() {
-    this->mood = GOOD;
     this->movingStatus = Move::STANDING;
     this->preMovingStatus = Move::STANDING;
     this->speed = 8;
     this->moving = false;
 }
 
+/*
 void Customer::setEndingPosition(sf::Vector2f endPos) {
     this->endingPos = endPos;
     this->moving = true;
@@ -193,13 +189,13 @@ void Customer::setEndingPosition(sf::Vector2f endPos) {
             this->movingStatus = Move::MOVING_RIGHT;
     }
 }
+*/
 
-bool Customer::isMoving() {
+bool Customer::isMoving() const {
     return moving;
 }
 
 void Customer::initTexture(std::string textureName) {
-
 
     sprite.setTexture(*this->texture->getTexture(textureName));
 
@@ -225,11 +221,11 @@ void Customer::savePath(Move m) {
             invertedPath.push(Move::STANDING);
 
 }
-;
+
 void Customer::leftTheRestaurant() {
 
     std::cout << "Left The Restaurant" << std::endl;
-    if(invertedPath.size() > 0) {
+    if(!invertedPath.empty()) {
         movingStatus = invertedPath.top();
         invertedPath.pop();
         move();
@@ -279,11 +275,6 @@ void Customer::leftTheTable(int n) {
                 savePath(Move::MOVING_DOWN);
         }
 */
-}
-
-
-void Customer::setBlock(bool t) {
-    blockedSaved = t;
 }
 
 std::stack<Move> &Customer::getInvertedPath() {

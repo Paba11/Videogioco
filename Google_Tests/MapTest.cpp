@@ -62,4 +62,8 @@ TEST(Map, distanceInteractionSquare) {
     //Right position
     wMap->setPositionW(145,250);
     ASSERT_EQ(true, mMap->distanceInteractionSquare(wMap->getSprite(), &mMap->getTable(0)));
+
+    delete gameMap;
+    delete psMap;
+    delete rwMap;
 }

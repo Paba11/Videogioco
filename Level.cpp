@@ -15,7 +15,7 @@ Level::~Level() {
 
 }
 
-
+//TODO: CALL THIS FUNCTION AFTER A GIVEN TIME
 void Level::initVariables() {
     switch(lvl)
     {
