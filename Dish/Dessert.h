@@ -12,22 +12,19 @@
 class Dessert final : public Dish {
 public:
     //Constructor & Destructor
-    Dessert(Dsr d);
-    ~Dessert();
+    explicit Dessert(Dsr d);
+    ~Dessert() override;
 
     //Methods to initialize the texture and the sprite based on the dish type
     void setTexture() override;
 
     //Calculate the correct price & preparation time
-    void calculatePrice() override;
     void calculateTime() override;
 
 private:
     //Method to initialize the preparation time;
-    void initPreparationTime() override;
 
     Dsr type;
-    int price;
 
 };
 

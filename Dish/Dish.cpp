@@ -3,17 +3,16 @@
 //
 
 #include "Dish.h"
-#include "../Textures.h"
 
 Dish::Dish() {
     state = State::COOKING;
     initSprite();
     initTexture();
+    tavNum = 0;
+    preparationTime = 0;
 }
 
-Dish::~Dish() {
-    //delete this->texture;
-}
+Dish::~Dish() = default;
 
 void Dish::render(sf::RenderTarget& target) {
     target.draw(this->sprite);
@@ -28,15 +27,10 @@ void Dish::initSprite() {
     sprite.setScale(2.5f,2.5f);
 }
 
-const sf::FloatRect Dish::getBounds() const {
-    return this->sprite.getGlobalBounds();
-}
 
-void Dish::initPreparationTime() {
 
-}
 
-int Dish::getTavNum() {
+int Dish::getTavNum() const {
     return this->tavNum;
 }
 
@@ -44,7 +38,7 @@ void Dish::setTavNum(int i) {
     this->tavNum = i;
 }
 
-float Dish::getPreparationTime() {
+float Dish::getPreparationTime() const{
     return preparationTime;
 }
 
@@ -53,13 +47,8 @@ void Dish::initTexture() {
     texture = new Textures();
 
 }
-void Dish::setPrice(int i) {
-    price = i;
-}
 
-int Dish::getPrice() {
-    return price;
-}
+
 
 void Dish::setPosition(sf::Vector2f pos) {
     sprite.setPosition(pos);

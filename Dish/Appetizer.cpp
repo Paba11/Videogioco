@@ -7,14 +7,11 @@
 
 Appetizer::Appetizer(Apt t) {
     type = t;
-    calculatePrice();
     calculateTime();
     setTexture();
 }
 
-Appetizer::~Appetizer() {
-
-}
+Appetizer::~Appetizer() = default;
 
 void Appetizer::setTexture() {
     switch(type)
@@ -28,33 +25,7 @@ void Appetizer::setTexture() {
     }
 }
 
-
-void Appetizer::initPreparationTime() {
-    switch(type)
-    {
-        case Apt::NACHOS:
-            preparationTime = 10;
-            break;
-        case Apt::OMELETTE:
-            preparationTime = 20;
-            break;
-    }
-}
-
-void Appetizer::calculatePrice() {
-    switch(type)
-    {
-        case Apt::NACHOS:
-            price = 8;
-            break;
-        case Apt::OMELETTE:
-            price = 10;
-            break;
-    }
-}
-
 void Appetizer::calculateTime() {
-    preparationTime = 0;
     switch(type)
     {
         case Apt::NACHOS:
@@ -64,8 +35,4 @@ void Appetizer::calculateTime() {
             preparationTime = 20;
             break;
     }
-}
-
-Apt Appetizer::getType() {
-    return type;
 }

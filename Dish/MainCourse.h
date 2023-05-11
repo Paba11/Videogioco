@@ -11,23 +11,23 @@
 class MainCourse final : public Dish {
 public:
     //Constructor & Destructor
-    MainCourse(Mn t);
-    ~MainCourse();
+    explicit MainCourse(Mn t);
+    ~MainCourse() override;
 
     //Methods to initialize the texture and the sprite based on the dish type
-    void setTexture();
+    void setTexture() override;
 
     //Calculate the correct price & preparation time
-    void calculatePrice() override;
+
     void calculateTime() override;
 
 
 private:
     //Method to initialize the preparation time;
-    void initPreparationTime() override;
+
 
     Mn type;
-    int price;
+
 
 };
 

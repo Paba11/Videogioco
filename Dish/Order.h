@@ -17,29 +17,23 @@ class Order {
 public:
     //Constructor & Destructor
     Order();
-    Order(Order* o);
+    explicit Order(Order* o);
     ~Order();
 
-    void initPointersToNull();
 
     //Getters & Setters
-    Apt getAppetizer(int i);
     std::vector<Apt>& getAppetizers();
     void setAppetizer(int i);
-    Mn getMainCourse(int i);
     std::vector<Mn>& getMainCourses();
     void setMainCourse(int i);
-    Dsr getDessert(int i);
     std::vector<Dsr>& getDesserts();
     void setDessert(int i);
-    Drk getDrink(int i);
     std::vector<Drk>& getDrinks();
-    void setDrink(int i);
-    const int getTableNumber();
+    int getTableNumber() const;
     void setTableNumber(int i);
     Current getCurrent();
     void setCurrent(Current c);
-    int getPeopleNumber();
+    int getPeopleNumber() const;
     void setPeopleNumber(int i);
 
 private:

@@ -7,18 +7,15 @@
 
 MainCourse::MainCourse(Mn t) {
     type = t;
-    calculatePrice();
     calculateTime();
     setTexture();
     //initTexture();
     //initSprite();
 }
 
-MainCourse::~MainCourse() {
+MainCourse::~MainCourse() = default;
 
-}
-
-void MainCourse::setTexture() {
+void MainCourse:: setTexture() {
     switch(type)
     {
         case Mn::HAMBURGER:
@@ -36,41 +33,6 @@ void MainCourse::setTexture() {
     }
 }
 
-void MainCourse::initPreparationTime() {
-    switch(type)
-    {
-        case Mn::HAMBURGER:
-            preparationTime = 20;
-            break;
-        case Mn::MEAT:
-            preparationTime = 30;
-            break;
-        case Mn::CHICKEN:
-            preparationTime = 25;
-            break;
-        case Mn::MEATBALLS:
-            preparationTime = 30;
-            break;
-    }
-}
-
-void MainCourse::calculatePrice() {
-    switch(type)
-    {
-        case Mn::HAMBURGER:
-            price = 14;
-            break;
-        case Mn::MEAT:
-            price = 18;
-            break;
-        case Mn::MEATBALLS:
-            price = 15;
-            break;
-        case Mn::CHICKEN:
-            price = 12;
-            break;
-    }
-}
 
 
 void MainCourse::calculateTime() {
