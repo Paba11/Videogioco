@@ -4,28 +4,28 @@
 #include "../ProgramState/Game.h"
 #include <gtest/gtest.h>
 
-sf::RenderWindow* window = new sf::RenderWindow(sf::VideoMode(1298, 1344), "WaiterTest", sf::Style::Close);
-std::stack<ProgramState*>* ps;
-Game* game = new Game(window, ps, 1);
-std::shared_ptr<Waiter> w = game->getWaiter();
-std::shared_ptr<Map> m = game->getMap();
+sf::RenderWindow* windowCustomer = new sf::RenderWindow(sf::VideoMode(1298, 1344), "WaiterTest", sf::Style::Close);
+std::stack<ProgramState*>* psCustomer;
+Game* gameCustomer = new Game(windowCustomer, psCustomer, 1);
+std::shared_ptr<Waiter> wCustomer = gameCustomer->getWaiter();
+std::shared_ptr<Map> mCustomer = gameCustomer->getMap();
 
 TEST(Customer, generateCustomerTest) {
     //Test the way customers are generated
-    game->getLevel()->setCustomerArrival(0);
-    m->getEntrance()->setIsCustomer(false);
+    gameCustomer->getLevel()->setCustomerArrival(0);
+    mCustomer->getEntrance()->setIsCustomer(false);
 
-    game->generateCustomers();
+    gameCustomer->generateCustomers();
 
     //Check results
-    ASSERT_EQ(false, game->getGroup().empty());
-    ASSERT_EQ(game->getLevel()->getTotalCustomerNumber(), game->getGroup().size());
-    ASSERT_EQ(true, m->getEntrance()->getIsCustomer());
+    ASSERT_EQ(false, gameCustomer->getGroup().empty());
+    ASSERT_EQ(gameCustomer->getLevel()->getTotalCustomerNumber(), gameCustomer->getGroup().size());
+    ASSERT_EQ(true, mCustomer->getEntrance()->getIsCustomer());
 }
 
 TEST(Customer, movingTest) {
-    game->generateCustomers();
-    std::vector<std::shared_ptr<Customer>> customer = game->getGroup();
+    gameCustomer->generateCustomers();
+    std::vector<std::shared_ptr<Customer>> customer = gameCustomer->getGroup();
 
     //Call the moving functions and check is working
     for(int i = 0; i < 50; i ++)

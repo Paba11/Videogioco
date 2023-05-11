@@ -4,69 +4,69 @@
 #include "../ProgramState/Game.h"
 #include <gtest/gtest.h>
 
-sf::RenderWindow* window = new sf::RenderWindow(sf::VideoMode(1298, 1344), "WaiterTest", sf::Style::Close);
-std::stack<ProgramState*>* ps;
-Game* game = new Game(window, ps, 1);
-std::shared_ptr<Waiter> w = game->getWaiter();
-std::shared_ptr<Map> m = game->getMap();
-std::shared_ptr<Chef> c = game->getChef();
+sf::RenderWindow* chefWindow = new sf::RenderWindow(sf::VideoMode(1298, 1344), "WaiterTest", sf::Style::Close);
+std::stack<ProgramState*>* chefPs;
+Game* gameChef = new Game(chefWindow, chefPs, 1);
+std::shared_ptr<Waiter> wChef = gameChef->getWaiter();
+std::shared_ptr<Map> mChef = gameChef->getMap();
+std::shared_ptr<Chef> cChef = gameChef->getChef();
 
 TEST(Chef, cookTest) {
     auto* a = new Appetizer(Apt::NACHOS);
     std::shared_ptr<Order> o = std::make_shared<Order>();
     o->setCurrent(Current::MAIN_DISH);
     o->setTableNumber(0);
-    c->setOrder(o);
-    c->setDishes(*a);
-    c->setTime(1000);
-    m->getKitchen()->getCounter()->setState(DishState::EMPTY);
-    c->setState(Do::COOK);
+    cChef->setOrder(o);
+    cChef->setDishes(*a);
+    cChef->setTime(1000);
+    mChef->getKitchen()->getCounter()->setState(DishState::EMPTY);
+    cChef->setState(Do::COOK);
 
     //Execute the test
-    c->cook();
+    cChef->cook();
 
     //Control the results
-    ASSERT_EQ(Do::COOK, c->getDo());
+    ASSERT_EQ(Do::COOK, cChef->getDo());
 
     //Change the variables
-    c->setTime(0);
+    cChef->setTime(0);
 
     //Execute the test
-    c->cook();
+    cChef->cook();
 
     //Control the result
-    ASSERT_EQ(Do::WAIT, c->getDo());
-    ASSERT_EQ(true, c->getIsReady());
-    ASSERT_EQ(DishState::FULL, m->getKitchen()->getState());
-    ASSERT_EQ(true, c->getDishes().empty());
-    ASSERT_EQ(nullptr, c->getOrder());
-    ASSERT_EQ(false, m->getKitchen()->getWaitingOrders().empty());
-    ASSERT_EQ(true, m->getKitchen()->getBottomBar()->getIsReady());
+    ASSERT_EQ(Do::WAIT, cChef->getDo());
+    ASSERT_EQ(true, cChef->getIsReady());
+    ASSERT_EQ(DishState::FULL, mChef->getKitchen()->getState());
+    ASSERT_EQ(true, cChef->getDishes().empty());
+    ASSERT_EQ(nullptr, cChef->getOrder());
+    ASSERT_EQ(false, mChef->getKitchen()->getWaitingOrders().empty());
+    ASSERT_EQ(true, mChef->getKitchen()->getBottomBar()->getIsReady());
 }
 
 TEST(Chef, checkOrderTest) {
     std::shared_ptr<Order> o = std::make_shared<Order>();
-    m->getKitchen()->setReadyOrder(o);
-    c->setState(Do::WAIT);
+    mChef->getKitchen()->setReadyOrder(o);
+    cChef->setState(Do::WAIT);
 
     //ExecuteTest
-    c->checkOrder();
+    cChef->checkOrder();
 
     //Check results
-    ASSERT_EQ(Do::COOK, c->getDo());
-    ASSERT_EQ(DishState::COOKING, m->getKitchen()->getState());
+    ASSERT_EQ(Do::COOK, cChef->getDo());
+    ASSERT_EQ(DishState::COOKING, mChef->getKitchen()->getState());
 }
 
 TEST(Customer, createObjectTest) {
     std::shared_ptr<Order> o = std::make_shared<Order>();
     o->setPeopleNumber(1);
     o->setAppetizer(1);
-    c->setOrder(o);
+    cChef->setOrder(o);
     o->setCurrent(Current::APPETIZER);
 
     //Execute test
-    c->createObjects();
+    cChef->createObjects();
 
     //Check results
-    ASSERT_EQ(false, c->getDishes().empty());
+    ASSERT_EQ(false, cChef->getDishes().empty());
 }

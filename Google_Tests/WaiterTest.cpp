@@ -7,85 +7,85 @@
 #include <SFML/Graphics.hpp>
 #include <gtest/gtest.h>
 
-sf::RenderWindow* window = new sf::RenderWindow(sf::VideoMode(1298, 1344), "WaiterTest", sf::Style::Close);
-std::stack<ProgramState*>* ps;
-Game* game = new Game(window, ps, 1);
-std::shared_ptr<Waiter> w = game->getWaiter();
-std::shared_ptr<Map> m = game->getMap();
+sf::RenderWindow* windowWaiter = new sf::RenderWindow(sf::VideoMode(1298, 1344), "WaiterTest", sf::Style::Close);
+std::stack<ProgramState*>* psWaiter;
+Game* gameWaiter = new Game(windowWaiter, psWaiter, 1);
+std::shared_ptr<Waiter> wWaiter = gameWaiter->getWaiter();
+std::shared_ptr<Map> mWaiter = gameWaiter->getMap();
 
 TEST(Waiter, waiterConstructor) {
 
     //Test constructed variables
-    ASSERT_EQ(Actions::DOING_NOTHING, w->getState());
-    ASSERT_EQ(Move::STANDING, w->getMove());
-    ASSERT_EQ(8, w->getSpeed());
-    ASSERT_EQ(nullptr, w->getOrder());
-    ASSERT_EQ(false, w->getIsReceived());
+    ASSERT_EQ(Actions::DOING_NOTHING, wWaiter->getState());
+    ASSERT_EQ(Move::STANDING, wWaiter->getMove());
+    ASSERT_EQ(8, wWaiter->getSpeed());
+    ASSERT_EQ(nullptr, wWaiter->getOrder());
+    ASSERT_EQ(false, wWaiter->getIsReceived());
 
     //Test sprite
-    ASSERT_EQ(25, w->getSprite().getOrigin().x);
-    ASSERT_EQ(50, w->getSprite().getOrigin().y);
-    ASSERT_EQ(800, w->getSprite().getPosition().x);
-    ASSERT_EQ(400, w->getSprite().getPosition().y);
-    ASSERT_EQ(2.20f, w->getSprite().getScale().x);
-    ASSERT_EQ(2.20f, w->getSprite().getScale().y);
+    ASSERT_EQ(25, wWaiter->getSprite().getOrigin().x);
+    ASSERT_EQ(50, wWaiter->getSprite().getOrigin().y);
+    ASSERT_EQ(800, wWaiter->getSprite().getPosition().x);
+    ASSERT_EQ(400, wWaiter->getSprite().getPosition().y);
+    ASSERT_EQ(2.20f, wWaiter->getSprite().getScale().x);
+    ASSERT_EQ(2.20f, wWaiter->getSprite().getScale().y);
 }
 
 TEST(Waiter, setOrder) {
 
-    w->setOrder(m, &m->getTable(0));
+    wWaiter->setOrder(mWaiter, &mWaiter->getTable(0));
 
-    ASSERT_EQ(TableState::WAITING_DISHES, m->getTable(0).getState());
-    ASSERT_EQ(true, w->getHasOrder());
-    ASSERT_EQ(Actions::DOING_NOTHING, w->getState());
+    ASSERT_EQ(TableState::WAITING_DISHES, mWaiter->getTable(0).getState());
+    ASSERT_EQ(true, wWaiter->getHasOrder());
+    ASSERT_EQ(Actions::DOING_NOTHING, wWaiter->getState());
 }
 
 TEST(Waiter, pickUpActionState) {
     //Pick Up Testing
-    std::shared_ptr<ActionsState> act = std::make_shared<ActionsState>(m);
-    w->setActionState(act);
+    std::shared_ptr<ActionsState> act = std::make_shared<ActionsState>(mWaiter);
+    wWaiter->setActionState(act);
     Appetizer* a;
     int i;
     for(i = 0; i < 4; i++)
     {
         a = new Appetizer(Apt::NACHOS);
-        m->getTable(0).setDish(a, i);
+        mWaiter->getTable(0).setDish(a, i);
     }
 
     //Set the guard conditions
-    w->getActionState()->getTray()->setState(TrayState::EMPTY_TRAY);
-    m->getTable(0).setState(TableState::ENDED);
+    wWaiter->getActionState()->getTray()->setState(TrayState::EMPTY_TRAY);
+    mWaiter->getTable(0).setState(TableState::ENDED);
 
     //Call the function
-    w->getActionState()->pickUp(&m->getTable(0));
+    wWaiter->getActionState()->pickUp(&mWaiter->getTable(0));
 
     //Check the results
-    ASSERT_EQ(false, m->getTable(0).getChosenTable());
-    ASSERT_EQ(4, m->getTable(0).getDishes().size());
-    ASSERT_EQ(TrayState::EMPTY_PLATES, w->getActionState()->getTray()->getState());
+    ASSERT_EQ(false, mWaiter->getTable(0).getChosenTable());
+    ASSERT_EQ(4, mWaiter->getTable(0).getDishes().size());
+    ASSERT_EQ(TrayState::EMPTY_PLATES, wWaiter->getActionState()->getTray()->getState());
 }
 
 TEST(Waiter, putDownActionState) {
     //Put down testing
-    std::shared_ptr<ActionsState> act = std::make_shared<ActionsState>(m);
-    w->setActionState(act);
+    std::shared_ptr<ActionsState> act = std::make_shared<ActionsState>(mWaiter);
+    wWaiter->setActionState(act);
     Appetizer* a;
     int i;
     for(i = 0; i < 4; i++)
     {
         a = new Appetizer(Apt::NACHOS);
         a->setTavNum(0);
-        w->getActionState()->getTray()->setDish(a, i);
+        wWaiter->getActionState()->getTray()->setDish(a, i);
     }
 
     //Set the guard conditions
-    w->getActionState()->getTray()->setState(TrayState::FILLED_TRAY);
-    m->getTable(0).setState(TableState::WAITING_DISHES);
+    wWaiter->getActionState()->getTray()->setState(TrayState::FILLED_TRAY);
+    mWaiter->getTable(0).setState(TableState::WAITING_DISHES);
 
     //Check the results
-    ASSERT_EQ(4, m->getTable(0).getDishes().size());
-    ASSERT_EQ(TableState::EATING, m->getTable(0).getState());
-    ASSERT_EQ(TrayState::EMPTY_TRAY, w->getActionState()->getTray()->getState());
+    ASSERT_EQ(4, mWaiter->getTable(0).getDishes().size());
+    ASSERT_EQ(TableState::EATING, mWaiter->getTable(0).getState());
+    ASSERT_EQ(TrayState::EMPTY_TRAY, wWaiter->getActionState()->getTray()->getState());
 
 }
 

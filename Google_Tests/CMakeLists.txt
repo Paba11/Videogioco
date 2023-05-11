@@ -12,8 +12,12 @@ set(GOOGLE_TEST_SOURCES
         WaiterTest.cpp)
 enable_testing()
 
-add_subdirectory(./lib/googletest-main)
 set(gtest_SOURCE_DIR, ./lib/googletest/)
+
+set (CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/Prova)
+
+
+add_subdirectory(./lib/googletest-main)
 
 add_executable(Google_Tests ${GOOGLE_TEST_SOURCES})
 

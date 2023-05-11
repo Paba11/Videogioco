@@ -45,7 +45,11 @@ set(SOURCE_FILES
         ProgramState/HowToPlay.cpp  ProgramState/HowToPlay.h
         ProgramState/EndGame.cpp    ProgramState/EndGame.h)
 
-add_executable(videogioco main.cpp)
+set (CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/Prova)
+
+
+
+add_executable(videogioco                  main.cpp)
 
 add_library(core ${SOURCE_FILES})
 target_link_libraries(core PRIVATE sfml-system sfml-network sfml-graphics sfml-window)
