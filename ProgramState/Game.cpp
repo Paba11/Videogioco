@@ -5,6 +5,8 @@
 #include "Game.h"
 
 Game::Game(sf::RenderWindow* window, std::stack <ProgramState*>* states, int waiterTexture) : ProgramState(window, states) {
+    level = nullptr;
+    random = 0;
     initLevel();
     this->waiterTexture = waiterTexture;
     initButton();
@@ -23,9 +25,7 @@ Game::Game(sf::RenderWindow* window, std::stack <ProgramState*>* states, int wai
 
 }
 
-Game::~Game() {
-
-}
+Game::~Game() = default;
 
 void Game::update() {
     pollEvents();
@@ -115,6 +115,8 @@ void Game::pollEvents() {
                     waiter->interact(map, ev);
                 }
                 break;
+            default:
+                break;
         }
     }
 }
@@ -128,7 +130,7 @@ void Game::updateMousePos() {
 
 void Game::initWaiter() {
     waiter = std::make_shared<Waiter>();
-    setWaiterTexture(waiterTexture);
+    setWaiterTexture();
     gc = waiter;
 }
 
@@ -226,13 +228,13 @@ void Game::windowsCollision() {
     }
 
     //Right side of the map collision
-    if(waiter->getBounds().left + waiter->getBounds().width >= window->getSize().x)
+    if(waiter->getBounds().left + waiter->getBounds().width >= (float)window->getSize().x)
     {
         collisionManagement();
     }
 
     //Bottom side of the map collision
-    if(waiter->getBounds().top + waiter->getBounds().height >= window->getSize().y)
+    if(waiter->getBounds().top + waiter->getBounds().height >= (float)window->getSize().y)
     {
         collisionManagement();
     }
@@ -372,6 +374,8 @@ void Game::nextLevel() {
         case Lvl::THIRD:
             level->setLevel(Lvl::GAME_END);
             break;
+        default:
+            break;
     }
     clock.restart();
 }
@@ -426,10 +430,6 @@ void Game::customerCollisionManagement() {
     }
 }
 
-std::shared_ptr<ReceiveState> Game::getReceiveState() {
-    return this->receiveState;
-}
-
 
 void Game::updateCustomers() {
     for (auto & it : receiveState->getCustomers())
@@ -438,7 +438,7 @@ void Game::updateCustomers() {
     }
 }
 
-void Game::setWaiterTexture(int waiterTexture) {
+void Game::setWaiterTexture() {
     if(waiterTexture == 0)
         waiter->initTexture(textures->getTexture("Waiter"));
     else

@@ -68,7 +68,6 @@ public:
 
     //Method to manage the events
     void pollEvents();
-    std::shared_ptr<ReceiveState> getReceiveState();
 
     //Method that update the position of the mouse relative to the game window
     void updateMousePos();
@@ -99,7 +98,6 @@ private:
     std::shared_ptr<Waiter> waiter;
     std::shared_ptr<GameCharacter> gc;
     std::shared_ptr<Chef> chef;
-    Dish* dish;
     std::shared_ptr<Map> map;
     std::shared_ptr<Kitchen> kitchen;
     std::shared_ptr<Counter> counter;
@@ -147,7 +145,7 @@ private:
     void initMap();
     void initDishWasher();
     void initLevel();
-    void setWaiterTexture(int waiterTexture);
+    void setWaiterTexture();
     void gameOver();
 
     int numTables=6;

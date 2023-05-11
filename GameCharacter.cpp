@@ -6,15 +6,15 @@
 
 
 GameCharacter::GameCharacter() {
-    //initTexture();
-    //initSprite();
-    //setPositionW(100,100); //FiXME delete
+    movingStatus = Move::STANDING;
+    speed = 0;
+    preMovingStatus = Move::STANDING;
+    dir=Move::STANDING;
+    state = Actions::DOING_NOTHING;
     initValidMovement();
 }
 
-GameCharacter::~GameCharacter() {
-
-}
+GameCharacter::~GameCharacter() = default;
 
 void GameCharacter::render(sf::RenderTarget& target) {
     target.draw(this->sprite);
@@ -65,21 +65,15 @@ sf::FloatRect GameCharacter::getGlobalHitbox() {
     return this->sprite.getTransform().transformRect(hitbox);
 }
 
-void GameCharacter::setEvent(sf::Event e) {
-    this->ev = e;
-}
 
 const sf::Vector2f &GameCharacter::getPosition() const {
     return sprite.getPosition();
 }
 
-Move GameCharacter::getMovingStatus() {
+Move GameCharacter::getMovingStatus() const {
     return this->movingStatus;
 }
 
-sf::FloatRect& GameCharacter::getHitbox() {
-    return this->hitbox;
-}
 
 sf::Sprite &GameCharacter::getSprite() {
     return this->sprite;
@@ -91,18 +85,6 @@ Actions GameCharacter::getState() {
 
 void GameCharacter::setState(Actions a) {
     this->state = a;
-}
-
-sf::Vector2f GameCharacter::getPrevPos() {
-    return this->prevPos;
-}
-
-sf::Vector2f GameCharacter::getCurrPos() {
-    return this->currPos;
-}
-
-Move GameCharacter::getDirection() {
-    return this->dir;
 }
 
 void GameCharacter::setMovingStatus(Move m) {

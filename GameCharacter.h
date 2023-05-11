@@ -40,18 +40,13 @@ public:
     virtual void initTexture();
 
     //Getters & Setters
-    void setEvent(sf::Event ev);
-    Move getMovingStatus();
+    Move getMovingStatus() const;
     void setMovingStatus(Move m);
     Move movingStatus;
     const sf::Vector2f& getPosition() const;
-    sf::FloatRect& getHitbox();
     sf::Sprite& getSprite();
     Actions getState();
     void setState(Actions a);
-    sf::Vector2f getPrevPos();
-    sf::Vector2f getCurrPos();
-    Move getDirection();
     float getSpeed() const;
 
 protected:

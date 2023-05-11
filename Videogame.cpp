@@ -66,8 +66,8 @@ void Videogame::updateState() {
 
 void Videogame::renderState() {
 
-    if(!states.empty() && !states.top()->getQuit())
-        states.top()->render();
+    if(!this->states.empty() && !this->states.top()->getQuit())
+        this->states.top()->render(nullptr);
 }
 
 const bool Videogame::getQuitGame() {

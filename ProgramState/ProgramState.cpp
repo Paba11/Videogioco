@@ -12,9 +12,7 @@ ProgramState::ProgramState(sf::RenderWindow* window, std::stack <ProgramState*>*
     this->textures = new Textures();
 }
 
-ProgramState::~ProgramState() {
-
-}
+ProgramState::~ProgramState() = default;
 
 void ProgramState::checkQuit() {
 
@@ -24,6 +22,6 @@ void ProgramState::checkQuit() {
         this->quit = true;
 }
 
-const bool ProgramState::getQuit() const{
+bool ProgramState::getQuit() const{
     return this->quit;
 }

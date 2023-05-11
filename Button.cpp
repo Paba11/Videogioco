@@ -4,7 +4,7 @@
 
 #include "Button.h"
 
-Button::Button(float x, float y, float width, float height, sf::Font* font, std::string text,
+Button::Button(float x, float y, float width, float height, sf::Font* font, const std::string& text,
                sf::Color idleColor, sf::Color hoverColor, sf::Color pressColor) {
 
     this->buttonType = "Rectangle";
@@ -30,7 +30,6 @@ Button::Button(float x, float y, float width, float height, sf::Font* font, std:
 
 Button::Button(float x, float y,
                sf::Color idleColor, sf::Color hoverColor, sf::Color pressColor) {
-
     this->buttonType = "Triangle";
     this->triangle = sf::CircleShape (20,3);
     this->triangle.setOrigin(20,20);
@@ -44,9 +43,7 @@ Button::Button(float x, float y,
 
 }
 
-Button::~Button() {
-
-}
+Button::~Button() = default;
 
 void Button::render(sf::RenderTarget& target) {
 
@@ -113,7 +110,7 @@ void Button::changeColor() {
 
 }
 
-bool Button::isPressed() {
+bool Button::isPressed() const {
     if(this->buttonState == PRESSED)
         return true;
     else

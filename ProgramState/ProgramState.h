@@ -19,10 +19,10 @@ public:
     ProgramState(sf::RenderWindow* window, std::stack <ProgramState*>* states);
     virtual ~ProgramState();
     virtual void update() = 0;
-    virtual void render(sf::RenderTarget* target = nullptr) = 0;
+    virtual void render(sf::RenderTarget* target) = 0;
     virtual void endState() = 0;
     void checkQuit();
-    const bool getQuit() const;
+    bool getQuit() const;
 
 protected:
     std::stack <ProgramState*>* states;

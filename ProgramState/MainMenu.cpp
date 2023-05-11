@@ -5,7 +5,6 @@
 #include <iostream>
 #include <functional>
 #include "MainMenu.h"
-#include "Game.h"
 
 MainMenu::MainMenu(sf::RenderWindow* window, std::stack <ProgramState*>* states) : ProgramState(window, states){
 
@@ -19,7 +18,7 @@ MainMenu::MainMenu(sf::RenderWindow* window, std::stack <ProgramState*>* states)
 MainMenu::~MainMenu() {
 
 
-    for(auto it : this->buttons)
+    for(auto &it : this->buttons)
         delete it.second;
 }
 
