@@ -11,9 +11,7 @@ ActionsState::ActionsState(const std::shared_ptr<Map>& m) {
     isOrder = false;
 }
 
-ActionsState::~ActionsState() {
-
-}
+ActionsState::~ActionsState() = default;
 
 void ActionsState::handleInput(std::shared_ptr<GameCharacter>& w, sf::Event ev) {
     if(waiter == nullptr)
@@ -98,6 +96,8 @@ void ActionsState::pickUp(Table* table) {
                 table->restartScoreTimer();
                 table->setCourse(Current::END);
                 break;
+            case Current::END:
+                break;
         }
     }
 }
@@ -174,7 +174,7 @@ void ActionsState::setIsOrder(bool t) {
     isOrder = t;
 }
 
-bool ActionsState::getIsOrder() {
+bool ActionsState::getIsOrder() const {
     return isOrder;
 }
 

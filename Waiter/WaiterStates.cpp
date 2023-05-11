@@ -4,10 +4,6 @@
 
 #include "WaiterStates.h"
 
-WaiterStates::WaiterStates() {
+WaiterStates::WaiterStates() = default;
 
-}
-
-WaiterStates::~WaiterStates() {
-
-}
+WaiterStates::~WaiterStates() = default;

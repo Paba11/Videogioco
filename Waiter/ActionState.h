@@ -31,7 +31,7 @@ public:
     Tray* getTray();
     void setTray(const std::shared_ptr<Tray>& t);
     void setIsOrder(bool t);
-    bool getIsOrder();
+    bool getIsOrder() const;
     void setOrder(std::shared_ptr<Order>& o);
 
 private:

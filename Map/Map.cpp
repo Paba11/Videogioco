@@ -28,7 +28,7 @@ Map::~Map() {
 }
 
 Table& Map::getTable(int i) {
-    return this->allTables[i];
+    return allTables[i];
 }
 
 std::shared_ptr<Kitchen>& Map::getKitchen() {

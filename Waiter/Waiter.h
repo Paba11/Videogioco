@@ -17,9 +17,6 @@
 #include "ReceiveState.h"
 #include <cmath>
 
-#define INTERACT 1
-
-enum class Genre {BOY, GIRL};
 
 class Waiter final : public GameCharacter {
 public:
@@ -44,17 +41,14 @@ public:
 
     //Getters & Setters
     Move getMove();
-    bool getIsReceived();
+    bool getIsReceived() const;
     void initTexture(sf::Texture* textureW);
     std::shared_ptr<ActionsState> getActionState();
-    std::shared_ptr<OrderState> getOrderState();
-    std::shared_ptr<ReceiveState> getReceiveState();
     void setActionState(const std::shared_ptr<ActionsState>& as);
-    void setOrderState(const std::shared_ptr<OrderState>& os);
     void setReceiveState(const std::shared_ptr<ReceiveState>& rs);
     std::shared_ptr<Order>& getOrder();
     void setOrder(Order* o);
-    bool getHasOrder();
+    bool getHasOrder() const;
 
     void initStates(const std::shared_ptr<ActionsState>& as, const std::shared_ptr<ReceiveState>& rs, const std::shared_ptr<OrderState>& os);
 
@@ -66,7 +60,6 @@ protected:
     void initVariables();
 
     //Attributes of the waiter
-    Genre genre;
     std::shared_ptr<GameCharacter> gc;
 
     //State pattern

@@ -553,6 +553,10 @@ std::shared_ptr<Chef> &Game::getChef() {
     return chef;
 }
 
+std::shared_ptr<Tray> &Game::getTray() {
+    return tray;
+}
+
 
 
 

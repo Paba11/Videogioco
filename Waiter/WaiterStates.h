@@ -6,7 +6,6 @@
 #define VIDEOGIOCO_WAITERSTATES_H
 
 #include "../GameCharacter.h"
-//TODO:: CHANGE THE GAME CHARACTER IN A SHARED POINTER
 
 class WaiterStates {
 public:
