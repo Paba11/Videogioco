@@ -15,9 +15,7 @@ BottomBar::BottomBar() {
 
 }
 
-BottomBar::~BottomBar() {
-
-}
+BottomBar::~BottomBar() = default;
 
 void BottomBar::update() {
 
@@ -26,9 +24,9 @@ void BottomBar::update() {
 void BottomBar::render(sf::RenderTarget& target) {
     target.draw(this->sprite);
     int i=0;
-    for(auto it=numOrder.begin(); it != numOrder.end(); it++){
+    for(auto &it:numOrder){
         target.draw(ordersSprite[i]);
-        target.draw(*it);
+        target.draw(it);
         i++;
     }
     if(isCooking){
@@ -80,7 +78,7 @@ void BottomBar::updateOrders() {        //TODO: remove the number when the order
     text.setFont(font);
     text.setCharacterSize(80);
     text.setFillColor(sf::Color::Black);
-    float pos = 438 - numOrder.size() * 80;
+    float pos = 438 - (float)numOrder.size() * 80;
     text.setPosition(pos,1095);
     numOrder.push_back(text);
 }
@@ -125,6 +123,6 @@ void BottomBar::setIsReady(bool t, int n) {
     readyText.setString(std::to_string(n+1));
 }
 
-bool BottomBar::getIsReady() {
+bool BottomBar::getIsReady() const {
     return isReady;
 }

@@ -5,15 +5,15 @@
 #include "Level.h"
 
 Level::Level() {
+    difficulty = 0;
+    customerArrival = 0;
     lvl = Lvl::FIRST_TABLE;
     clock.restart();
     totalCustomerNumber = 0;
     initVariables();
 }
 
-Level::~Level() {
-
-}
+Level::~Level() = default;
 
 //TODO: CALL THIS FUNCTION AFTER A GIVEN TIME
 void Level::initVariables() {
@@ -36,6 +36,8 @@ void Level::initVariables() {
             customerArrival = LEVEL_THREE_ARRIVALS;
             difficulty = LEVEL_THREE_DIFFICULTY;
             break;
+        default:
+            break;
     }
 }
 
@@ -52,7 +54,7 @@ void Level::setLevel(Lvl l) {
     lvl = l;
 }
 
-float Level::getCustomerArrival() {
+float Level::getCustomerArrival() const {
     return customerArrival;
 }
 
@@ -64,7 +66,7 @@ void Level::addTotalCustomerNumber() {
     totalCustomerNumber++;
 }
 
-int Level::getTotalCustomerNumber() {
+int Level::getTotalCustomerNumber() const {
     return totalCustomerNumber;
 }
 
@@ -85,7 +87,7 @@ void Level::update() {
     }
 }
 
-float Level::getDifficulty() {
+float Level::getDifficulty() const {
     return difficulty;
 }
 

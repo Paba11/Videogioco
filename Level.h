@@ -42,11 +42,11 @@ public:
     //Getters & Setters
     Lvl getLevel();
     void setLevel(Lvl l);
-    float getCustomerArrival();
+    float getCustomerArrival() const;
     void setCustomerArrival(float c);
-    int getTotalCustomerNumber();
+    int getTotalCustomerNumber() const;
     void addTotalCustomerNumber();
-    float getDifficulty();
+    float getDifficulty() const;
 
 private:
     int totalCustomerNumber;

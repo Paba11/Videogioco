@@ -22,7 +22,7 @@ public:
     void setOrder(int n);
     void setIsCooking(bool t, int n);
     void setIsReady(bool t, int n);
-    bool getIsReady();
+    bool getIsReady() const;
 
 private:
     void initSprite();

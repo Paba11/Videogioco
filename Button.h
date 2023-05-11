@@ -15,7 +15,7 @@ enum BtnState {IDLE, PRESSED, HOVER};
 
 class Button {
 public:
-    Button(float x, float y, float width, float height, sf::Font* font, std::string text,
+    Button(float x, float y, float width, float height, sf::Font* font, const std::string& text,
            sf::Color idleColor, sf::Color hoverColor, sf::Color pressColor);
 
     Button(float x, float y, sf::Color idleColor, sf::Color hoverColor, sf::Color pressColor);
@@ -25,7 +25,7 @@ public:
     void update(sf::Vector2f mousePos);
     void changeColor();
 
-    bool isPressed();
+    bool isPressed() const;
     sf::CircleShape triangle;
 private:
     short unsigned buttonState;
