@@ -13,14 +13,14 @@
 #include "MealMenu.h"
 #include "../Textures.h"
 
-enum class State {READY, COOKING, WAITING, IN_QUEUE};
+enum class State {COOKING};   //READY, WAITING, IN_QUEUE removed
 
 
 class Dish {
 public:
     //Constructor & Destructor
     Dish();
-    ~Dish();
+    virtual ~Dish();
 
     //Methods to update and display the dish
     void render(sf::RenderTarget& target);
@@ -31,21 +31,12 @@ public:
     void initSprite();
     void setEmptyDish();
 
-    //Method to have the position of the dish
-    const sf::FloatRect getBounds() const;
-
-    //Method to initialize the preparation time of the dish
-    virtual void initPreparationTime() = 0;
-
     //Getters & Setters
-    int getTavNum();
+    int getTavNum() const;
     virtual void calculateTime() = 0;
     void setTavNum(int i);
-    float getPreparationTime();
-    void setPrice(int i);
-    int getPrice();
+    float getPreparationTime() const;
     void setPosition(sf::Vector2f pos);
-    virtual void calculatePrice() = 0;
     virtual void setTexture() = 0;
     void setScale(float x, float y);
 
@@ -56,7 +47,6 @@ protected:
     sf::Vector2f direction;
     int tavNum;
     float preparationTime;
-    int price;
     State state;
 };
 

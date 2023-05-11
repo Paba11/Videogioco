@@ -7,16 +7,13 @@
 
 Dessert::Dessert(Dsr d) {
     this->type = d;
-    calculatePrice();
     calculateTime();
     setTexture();
     //initTexture();
     //initSprite();
 }
 
-Dessert::~Dessert() {
-
-}
+Dessert::~Dessert() = default;
 
 void Dessert::setTexture() {
     switch(type)
@@ -29,36 +26,6 @@ void Dessert::setTexture() {
             break;
         case Dsr::JELLY:
             sprite.setTexture(*this->texture->getTexture("JELLY"));
-            break;
-    }
-}
-
-void Dessert::initPreparationTime() {
-    switch(type)
-    {
-        case Dsr::CHEESE_CAKE:
-            preparationTime = 10;
-            break;
-        case Dsr::CHOCOLATE_CAKE:
-            preparationTime = 5;
-            break;
-        case Dsr::JELLY:
-            preparationTime = 8;
-            break;
-    }
-}
-
-void Dessert::calculatePrice() {
-    switch(type)
-    {
-        case Dsr::CHOCOLATE_CAKE:
-            this->price = 5;
-            break;
-        case Dsr::CHEESE_CAKE:
-            this->price = 6;
-            break;
-        case Dsr::JELLY:
-            this->price = 4;
             break;
     }
 }

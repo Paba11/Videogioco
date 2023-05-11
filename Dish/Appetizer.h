@@ -11,21 +11,17 @@
 class Appetizer final : public Dish {
 public:
     //Constructor & Destructor
-    Appetizer(Apt type);
-    ~Appetizer();
+    explicit Appetizer(Apt type);
+    ~Appetizer() override;
 
 
     //Calculate the correct price & preparation time
-    void calculatePrice() override;
     void calculateTime() override;
-
-    Apt getType();
 
 private:
     Apt type;
 
     //Method to initialize the preparation time;
-    void initPreparationTime() override;
     void setTexture() override;
 };
 
