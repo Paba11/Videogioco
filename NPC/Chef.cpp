@@ -221,3 +221,23 @@ void Chef::updateBar() {
     }
 }
 
+void Chef::setTime(float f) {
+    time = f;
+}
+
+void Chef::setState(Do d) {
+    state = d;
+}
+
+Do Chef::getDo() {
+    return state;
+}
+
+bool Chef::getIsReady() {
+    return isReady;
+}
+
+std::vector<Dish *> &Chef::getDishes() {
+    return dishes;
+}
+

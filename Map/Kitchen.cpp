@@ -247,3 +247,8 @@ void Kitchen::setReadyDishes(bool t) {
     cornerSprite.setScale(0.6f,0.6f);
     dishesReady = t;
 }
+
+std::queue<std::shared_ptr<Order>> &Kitchen::getWaitingOrders() {
+    return waitingOrders;
+}
+

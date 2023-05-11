@@ -4,11 +4,8 @@
 
 #include "gtest/gtest.h"
 #include "../ProgramState/Game.h"
-#include "../Textures.h"
-#include "../Map/Map.h"
-#include "../Waiter/Waiter.h"
 
-sf::RenderWindow* window = new sf::RenderWindow(sf::VideoMode(1298, 1344), "Waiter", sf::Style::Close);
+sf::RenderWindow* window = new sf::RenderWindow(sf::VideoMode(1298, 1344), "MapTest", sf::Style::Close);
 std::stack<ProgramState*>* ps;
 Game* game = new Game(window, ps, 1);
 std::shared_ptr<Waiter> w = game->getWaiter();
@@ -52,4 +49,16 @@ TEST(MapTest, distanceKitchenTest) {
 
     //Check results
     ASSERT_EQ(IS_CLOSE_KITCHEN, m->getIsClose());
+}
+
+TEST(Map, distanceInteractionSquare) {
+    //Test the distance to the interaction square
+
+    //Wrong position
+    w->setPositionW(0,0);
+    ASSERT_EQ(false, m->distanceInteractionSquare(w->getSprite(), &m->getTable(0)));
+
+    //Right position
+    w->setPositionW(145,250);
+    ASSERT_EQ(true, m->distanceInteractionSquare(w->getSprite(), &m->getTable(0)));
 }

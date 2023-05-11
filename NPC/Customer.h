@@ -51,6 +51,7 @@ public:
     void leftTheTable(int n);
     void leftTheRestaurant();
     void setBlock(bool t);
+    std::stack<Move>& getInvertedPath();
 
 private:
     sf::Vector2f actualPos;

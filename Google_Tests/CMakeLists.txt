@@ -5,13 +5,12 @@ project(Google_tests)
 set(GOOGLETEST_VERSION 1.9.0)
 
 set(GOOGLE_TEST_SOURCES
-        RunTests.cpp
+        ChefTest.cpp
+        CustomerTest.cpp
         MapTest.cpp
+        RunTests.cpp
         WaiterTest.cpp)
-
 enable_testing()
-
-set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR})
 
 add_subdirectory(./lib/googletest-main)
 set(gtest_SOURCE_DIR, ./lib/googletest/)

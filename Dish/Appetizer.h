@@ -19,6 +19,8 @@ public:
     void calculatePrice() override;
     void calculateTime() override;
 
+    Apt getType();
+
 private:
     Apt type;
 

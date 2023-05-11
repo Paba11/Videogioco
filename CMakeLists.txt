@@ -45,15 +45,11 @@ set(SOURCE_FILES
         ProgramState/HowToPlay.cpp  ProgramState/HowToPlay.h
         ProgramState/EndGame.cpp    ProgramState/EndGame.h)
 
-
-set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR})
-
-
-add_executable(videogioco                  main.cpp)
+add_executable(videogioco main.cpp)
 
 add_library(core ${SOURCE_FILES})
 target_link_libraries(core PRIVATE sfml-system sfml-network sfml-graphics sfml-window)
 
 target_link_libraries(videogioco PRIVATE sfml-system sfml-network sfml-graphics sfml-window core)
 
-add_subdirectory(./Google_Tests)
+add_subdirectory(Google_Tests)

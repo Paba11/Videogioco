@@ -286,6 +286,10 @@ void Customer::setBlock(bool t) {
     blockedSaved = t;
 }
 
+std::stack<Move> &Customer::getInvertedPath() {
+    return invertedPath;
+}
+
 
 
 

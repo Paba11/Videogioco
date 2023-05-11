@@ -65,3 +65,7 @@ void Appetizer::calculateTime() {
             break;
     }
 }
+
+Apt Appetizer::getType() {
+    return type;
+}

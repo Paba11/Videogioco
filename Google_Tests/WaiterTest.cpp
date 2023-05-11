@@ -4,7 +4,6 @@
 
 #include "../Waiter/Waiter.h"
 #include "../ProgramState/Game.h"
-#include "../Map/Map.h"
 #include <SFML/Graphics.hpp>
 #include <gtest/gtest.h>
 

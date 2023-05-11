@@ -124,3 +124,7 @@ void BottomBar::setIsReady(bool t, int n) {
     isReady = t;
     readyText.setString(std::to_string(n+1));
 }
+
+bool BottomBar::getIsReady() {
+    return isReady;
+}

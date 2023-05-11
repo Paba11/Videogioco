@@ -541,6 +541,18 @@ std::shared_ptr<Waiter> Game::getWaiter() {
     return waiter;
 }
 
+Level *Game::getLevel() {
+    return level;
+}
+
+std::vector<std::shared_ptr<Customer>>& Game::getGroup() {
+    return group;
+}
+
+std::shared_ptr<Chef> &Game::getChef() {
+    return chef;
+}
+
 
 
 

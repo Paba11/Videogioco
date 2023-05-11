@@ -51,8 +51,6 @@ public:
     void getWaitingOrder(int tavNum);
     void setWaitingOrder();
 
-
-
     //Getters & Setters
     bool getIsEmptyPlates();
     void setIsEmptyPlates(bool t);
@@ -66,6 +64,7 @@ public:
     sf::RectangleShape& getInteractionSquare();
     void setWaiterOrder(bool t);
     void setReadyDishes(bool t);
+    std::queue<std::shared_ptr<Order>>& getWaitingOrders();
 
 private:
     //Initialize the Kitchen texture and sprite
