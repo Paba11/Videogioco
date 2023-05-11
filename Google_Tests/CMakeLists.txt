@@ -14,7 +14,7 @@ enable_testing()
 
 set(gtest_SOURCE_DIR, ./lib/googletest/)
 
-set (CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/Prova)
+set (CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/Build)
 
 
 add_subdirectory(./lib/googletest-main)

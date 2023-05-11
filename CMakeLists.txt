@@ -45,7 +45,7 @@ set(SOURCE_FILES
         ProgramState/HowToPlay.cpp  ProgramState/HowToPlay.h
         ProgramState/EndGame.cpp    ProgramState/EndGame.h)
 
-set (CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/Prova)
+set (CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/Build)
 
 
 
