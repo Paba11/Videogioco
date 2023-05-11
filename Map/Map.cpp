@@ -5,14 +5,14 @@
 #include "Map.h"
 
 Map::Map() {
-    this->kitchen = std::make_shared<Kitchen>();
-    this->washbasin = std::make_shared<Washbasin>();
-    this->entranceObj = new Entrance();
-    this->counter = new Counter();
-    this->isClose = IS_CLOSE_NOTHING;
+    table = nullptr;
+    kitchen = std::make_shared<Kitchen>();
+    washbasin = std::make_shared<Washbasin>();
+    entranceObj = new Entrance();
+    isClose = IS_CLOSE_NOTHING;
     initSprites();
     //Temporary code
-    this->entranceObj->setSprite(entrance);
+    entranceObj->setSprite(entrance);
     //TODO: DEFINE THE ENTRANCE AND MOVE HIS SPRITE IN THE PROPER CLASS
 
 }
@@ -101,39 +101,10 @@ Entrance *Map::getEntrance() const {
     return entranceObj;
 }
 
-Table& Map::selectFreeTable() {
-    if(!this->allTables.empty())
-    {
-    this->occupiedTables.push(this->allTables.back());
-    this->allTables.pop_back();
-    }
-    else
-    {
-        //TODO: INSERT A SCREEN MESSAGE (ALL THE TABLES OCCUPIED)
-    }
-
-    return this->occupiedTables.back();
-}
-
-bool Map::distanceSpecificTable(Table *t, sf::Sprite& gc) {
-    float dist;
-    bool isCloseTable = false;
-
-    dist = std::sqrt(std::pow(t->sprite.getPosition().x - gc.getPosition().x, 2) +
-                     std::pow(t->sprite.getPosition().y - gc.getPosition().y, 2));
-
-    if(dist <= 20)
-    {
-        isCloseTable = true;
-    }
-
-    return isCloseTable;
-}
-
 Entrance* Map::distanceEntrance(sf::Sprite& gc) {
     float dist;
 
-    dist = std::sqrt(std::pow(this->entranceObj->getWelcomeSquare().getPosition().x - gc.getPosition().x, 2) +
+    dist = (float)std::sqrt(std::pow(this->entranceObj->getWelcomeSquare().getPosition().x - gc.getPosition().x, 2) +
                      std::pow(this->entranceObj->getWelcomeSquare().getPosition().y - gc.getPosition().y, 2));
 
     std::cout << "Entrance distance: " << dist << std::endl;
@@ -155,7 +126,7 @@ const std::shared_ptr<Washbasin>& Map::distanceWashbasin(sf::Sprite& gc) {
     //std::cout << std::endl << " posX: " << w->getSprite().getPosition().x << " PosY: " <<
     //        w->getSprite().getPosition().y << std::endl;
 
-    dist = std::sqrt(std::pow(this->washbasin->getSprite().getPosition().x - gc.getPosition().x, 2) +
+    dist = (float)std::sqrt(std::pow(this->washbasin->getSprite().getPosition().x - gc.getPosition().x, 2) +
                      std::pow(this->washbasin->getSprite().getPosition().y - gc.getPosition().y, 2));
 
     std::cout << "Washbasin dist: " << dist << std::endl;
@@ -179,7 +150,7 @@ const std::shared_ptr<Kitchen>& Map::distanceKitchen(sf::Sprite& gc) {
     std::cout << "Kitchen Dist: " << dist << std::endl;
      */
 
-    dist = std::sqrt(std::pow(this->kitchen->getInteractionSquare().getPosition().x - gc.getPosition().x, 2) +
+    dist = (float)std::sqrt(std::pow(this->kitchen->getInteractionSquare().getPosition().x - gc.getPosition().x, 2) +
                      std::pow(this->kitchen->getInteractionSquare().getPosition().y - gc.getPosition().y, 2));
 
     std::cout << "Kitchen Dist: " << dist << std::endl;
@@ -208,7 +179,7 @@ Table* Map::distanceTable(sf::Sprite& gc) {
     {
 
         table = &getTable(i);
-        dist = std::sqrt(std::pow(table->sprite.getPosition().x - gc.getPosition().x, 2) +
+        dist = (float)std::sqrt(std::pow(table->sprite.getPosition().x - gc.getPosition().x, 2) +
                          std::pow(table->sprite.getPosition().y - gc.getPosition().y, 2));
 
         //std::cout << std::endl << "table " << i; //<< " posX: " << t->sprite.getPosition().x << " PosY:" <<
@@ -242,7 +213,7 @@ sf::RectangleShape *Map::distanceDirtyDishes(sf::Sprite &gc) {
 
     float dist;
 
-    dist = std::sqrt(std::pow(this->kitchen->getCounter()->getPlaceDirtyDishes().getPosition().x - gc.getPosition().x, 2) +
+    dist = (float)std::sqrt(std::pow(this->kitchen->getCounter()->getPlaceDirtyDishes().getPosition().x - gc.getPosition().x, 2) +
                      std::pow(this->kitchen->getCounter()->getPlaceDirtyDishes().getPosition().y - gc.getPosition().y, 2));
 
     std::cout << "Dirty Dish Dist: " << dist << std::endl;
@@ -255,8 +226,8 @@ sf::RectangleShape *Map::distanceDirtyDishes(sf::Sprite &gc) {
     return &this->kitchen->getCounter()->getPlaceDirtyDishes();
 }
 
-std::vector<sf::RectangleShape> Map::distanceChefDishes(sf::Sprite &gc) {
-
+std::vector<sf::RectangleShape> Map::distanceChefDishes() {   //Parameter sf::Sprite &gc
+    /*
     float dist;
     int i=0;
     for (auto &it: this->kitchen->getCounter()->getPlaceChefDishes()){
@@ -264,25 +235,26 @@ std::vector<sf::RectangleShape> Map::distanceChefDishes(sf::Sprite &gc) {
         dist = std::sqrt(std::pow(this->kitchen->getCounter()->getPlaceChefDishes()[i].getPosition().x - gc.getPosition().x, 2) +
                          std::pow(this->kitchen->getCounter()->getPlaceChefDishes()[i].getPosition().y - gc.getPosition().y, 2));
 
-        /*
+
         std::cout << "Chef Dish " << i <<" Dist: " << dist << std::endl;
-         */
+
         i++;
     }
-    /*
+
+
     if(dist <= 200)
     {
         this->isClose = IS_CLOSE_DIRTY_DISHES;
     }
     */ //TODO: create a new value for isClose
-    return this->kitchen->getCounter()->getPlaceChefDishes();
+    return kitchen->getCounter()->getPlaceChefDishes();
 }
 
 bool Map::distanceInteractionSquare(sf::Sprite &gc, Table *t) {
     bool ret = false;
     float dist;
     std::cout << "Table num: " << t->getTavNum();
-    dist = std::sqrt(std::pow(t->getInteractionSquare().getPosition().x - gc.getPosition().x, 2) +
+    dist = (float)std::sqrt(std::pow(t->getInteractionSquare().getPosition().x - gc.getPosition().x, 2) +
                      std::pow(t->getInteractionSquare().getPosition().y - gc.getPosition().y, 2));
 
     std::cout << "Square distance: " << dist << std::endl;

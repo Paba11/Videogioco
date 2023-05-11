@@ -12,9 +12,7 @@ Counter::Counter() {
     setChefDishes();
 }
 
-Counter::~Counter() {
-
-}
+Counter::~Counter() = default;
 
 void Counter::initSprite() {
 
@@ -35,7 +33,7 @@ void Counter::render(sf::RenderTarget& target) {
     renderDishes(target);
 }
 
-const sf::FloatRect Counter::getBounds() const {
+sf::FloatRect Counter::getBounds() const {
     return this->sprite.getGlobalBounds();
 }
 

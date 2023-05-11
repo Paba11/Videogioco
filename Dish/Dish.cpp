@@ -5,6 +5,7 @@
 #include "Dish.h"
 
 Dish::Dish() {
+    texture = nullptr;
     state = State::COOKING;
     initSprite();
     initTexture();

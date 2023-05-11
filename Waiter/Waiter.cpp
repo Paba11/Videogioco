@@ -131,7 +131,7 @@ void Waiter::interact(const std::shared_ptr<Map>& map, sf::Event ev) {
     map->distanceKitchen(sprite);
     map->distanceWashbasin(sprite);
     map->distanceDirtyDishes(sprite);
-    map->distanceChefDishes(sprite);
+    map->distanceChefDishes();    //Parameter sprite
 
     if(state == Actions::DOING_NOTHING)
     {

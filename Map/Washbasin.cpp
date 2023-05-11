@@ -6,13 +6,13 @@
 
 Washbasin::Washbasin() {
     initSprite();
+    isPlates = false;
+    numPlates = 0;
     cicle = false;
     takenDirtyDish = false;
 }
 
-Washbasin::~Washbasin() {
-
-}
+Washbasin::~Washbasin() = default;
 
 void Washbasin::initSprite() {
     sprite.setTexture(*this->texture->getTexture("Washbasin"));
@@ -52,11 +52,11 @@ sf::Vector2f Washbasin::getPosition() {
     return this->sprite.getPosition();
 }
 
-const sf::Sprite Washbasin::getSprite() {
+sf::Sprite Washbasin::getSprite() {
     return this->sprite;
 }
 
-int Washbasin::getNumPlates() {
+int Washbasin::getNumPlates() const {
     return this->numPlates;
 }
 

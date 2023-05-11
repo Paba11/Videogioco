@@ -16,7 +16,6 @@
 #include <SFML/System.hpp>
 #include <SFML/Audio.hpp>
 
-#define MAX_SIZE 10
 
 enum Position {IS_CLOSE_TABLE, IS_CLOSE_KITCHEN, IS_CLOSE_DISHWASHER, IS_CLOSE_NOTHING, IS_CLOSE_ENTRANCE, IS_CLOSE_DIRTY_DISHES};
 
@@ -32,7 +31,6 @@ public:
     std::shared_ptr<Kitchen>& getKitchen();
     std::shared_ptr<Washbasin>& getWashbasin();
     Entrance* getEntrance() const;
-    Table& selectFreeTable();
     //void setTables(std::vector<Table> allTable);
 
     //Initialize variables, update and render
@@ -43,15 +41,13 @@ public:
     int numTrees = 4;
 
     //Methods to calculate the distance with objects
-    void calculatePosition(sf::Sprite& gc);
     Table* distanceTable(sf::Sprite& gc);
     const std::shared_ptr<Kitchen>& distanceKitchen(sf::Sprite& gc);
     const std::shared_ptr<Washbasin>& distanceWashbasin(sf::Sprite& gc);   //fixme set the right sprite's origin
     Entrance* distanceEntrance(sf::Sprite& gc);
     sf::RectangleShape* distanceDirtyDishes(sf::Sprite& gc);
-    std::vector<sf::RectangleShape> distanceChefDishes(sf::Sprite &gc);
+    std::vector<sf::RectangleShape> distanceChefDishes(); //Parameter sf::Sprite &gc
     bool distanceInteractionSquare(sf::Sprite& gc, Table* table);
-    bool distanceSpecificTable(Table* t, sf::Sprite& gc);
     Position getIsClose();
     void setIsClose(Position pos);
     Table* getTableToPickUp();
@@ -69,7 +65,6 @@ private:
     std::shared_ptr<Washbasin> washbasin;
     std::shared_ptr<Kitchen> kitchen;
     Entrance* entranceObj;
-    Counter* counter;
     Textures* texture = new Textures;
 };
 

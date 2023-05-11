@@ -21,7 +21,7 @@ public:
     void setSprite(sf::Sprite& e);
     sf::Sprite getSprite();
     void setIsCustomer(bool t);
-    bool getIsCustomer();
+    bool getIsCustomer() const;
     void setCustomerReceived(bool t);
     void renderBarrier(sf::RenderTarget &target, int barrierNumber);
     void render(sf::RenderTarget &target);

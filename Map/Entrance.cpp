@@ -5,6 +5,7 @@
 #include "Entrance.h"
 
 Entrance::Entrance() {
+    texture = nullptr;
     initTexture();
     initSprite();
     this->isCustomer = false;
@@ -56,7 +57,7 @@ void Entrance::setIsCustomer(bool t) {
     this->isCustomer = t;
 }
 
-bool Entrance::getIsCustomer() {
+bool Entrance::getIsCustomer() const {
     return this->isCustomer;
 }
 
