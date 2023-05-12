@@ -59,13 +59,13 @@ void Chef::cook() {
             i++;
         }
         dishes.clear();
+        kitchen->setReadyDishes(true);
         state = Do::WAIT;
 
         if(order->getCurrent() != Current::END)
         {
             kitchen->setWaitingOrder();
             std::cout << "Set the plate in the kitchen" << std::endl;
-            kitchen->setReadyDishes(true);
             kitchen->getBottomBar()->setIsCooking(false, 0);
             kitchen->getBottomBar()->setIsReady(true, order->getTableNumber());
         }
