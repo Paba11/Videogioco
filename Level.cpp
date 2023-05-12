@@ -22,7 +22,6 @@ void Level::initVariables() {
         case Lvl::FIRST_TABLE:
             customerArrival = FIRST_TABLE_ARRIVAL;
             difficulty = LEVEL_ONE_DIFFICULTY;
-            lvl = Lvl::FIRST;
             break;
         case Lvl::FIRST:
             customerArrival = LEVEL_ONE_ARRIVALS;
@@ -71,19 +70,24 @@ int Level::getTotalCustomerNumber() const {
 }
 
 void Level::update() {
-    if(totalCustomerNumber > 20 && lvl == Lvl::FIRST)
+    if (totalCustomerNumber >= 1 && lvl == Lvl::FIRST_TABLE)
+    {
+        lvl = Lvl::FIRST;
+        initVariables();
+    }
+    else if(totalCustomerNumber > 15 && lvl == Lvl::FIRST)
     {
         lvl = Lvl::SECOND;
         initVariables();
     }
-    else if(totalCustomerNumber > 40 && lvl == Lvl::SECOND)
+    else if(totalCustomerNumber > 30 && lvl == Lvl::SECOND)
     {
         lvl = Lvl::THIRD;
         initVariables();
     }
     if(clock.getElapsedTime().asSeconds() > 1200)
     {
-        customerArrival = 40;
+        customerArrival = 31;
     }
 }
 
