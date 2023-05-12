@@ -107,6 +107,7 @@ void Chef::checkOrder() {
         setAnimation();
         createObjects();
         greenBar.setSize({0,10});
+        greenBar.setFillColor(sf::Color::Green);
         clock.restart();
     }
 }
@@ -206,7 +207,9 @@ void Chef::renderBar(sf::RenderTarget &target) {
 }
 
 void Chef::updateBar() {
-    if(state == Do::COOK){
+    if(greenBar.getSize().x == 30)
+        greenBar.setFillColor(sf::Color::Red);
+    else if(state == Do::COOK){
         greenBar.setSize({greenBar.getSize().x+1, greenBar.getSize().y});
     }
 }

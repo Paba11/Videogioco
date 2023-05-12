@@ -48,7 +48,7 @@ void BottomBar::initSprite() {
     sf::Sprite order;
     for(int i=0; i < 6 ; i++){
 
-        order.setTexture(*this->texture->getTexture("BlockNotesBottomBar"));
+        order.setTexture(*this->texture->getTexture("BoxBottomBar"));
         order.setOrigin(37,55);
         order.setScale(0.75f, 0.75f);
         ordersSprite.push_back(order);
@@ -78,8 +78,10 @@ void BottomBar::updateOrders() {        //TODO: remove the number when the order
     text.setFont(font);
     text.setCharacterSize(80);
     text.setFillColor(sf::Color::Black);
-    float pos = 438 - (float)numOrder.size() * 80;
-    text.setPosition(pos,1095);
+    sf::FloatRect textRect = text.getLocalBounds();
+    text.setOrigin(textRect.left + textRect.width/2.0f,
+                   textRect.top  + textRect.height/2.0f);
+    text.setPosition(ordersSprite[orders.back()-1].getPosition().x,ordersSprite[orders.back()-1].getPosition().y - 10);
     numOrder.push_back(text);
 }
 
@@ -116,11 +118,20 @@ void BottomBar::initText() {
 void BottomBar::setIsCooking(bool t, int n) {
     isCooking = t;
     cookingText.setString(std::to_string(n+1));
+    sf::FloatRect textRect = cookingText.getLocalBounds();
+    cookingText.setOrigin(textRect.left + textRect.width/2.0f,
+                   textRect.top  + textRect.height/2.0f);
+    cookingText.setPosition(cookingSprite.getPosition().x, cookingSprite.getPosition().y -10);
+
 }
 
 void BottomBar::setIsReady(bool t, int n) {
     isReady = t;
     readyText.setString(std::to_string(n+1));
+    sf::FloatRect textRect = readyText.getLocalBounds();
+    readyText.setOrigin(textRect.left + textRect.width/2.0f,
+                          textRect.top  + textRect.height/2.0f);
+    readyText.setPosition(readySprite.getPosition().x, readySprite.getPosition().y -10);
 }
 
 bool BottomBar::getIsReady() const {
