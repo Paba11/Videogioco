@@ -31,7 +31,7 @@ void DishWasher::update() {
     setAnimation();
     updateAnimations();
     updateVariables();
-    if(this->isWashing)
+    if(isWashing)
         updateWashing();
 }
 

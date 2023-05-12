@@ -44,13 +44,16 @@ void EndGame::initText() {
     text.setString("GAMEOVER");
     text.setCharacterSize(130);
     text.setFillColor(sf::Color::White);
-    text.setPosition(430, 450);
+    text.setPosition(390, 400);
 
     scorePoint.setFont(font);
     scorePoint.setString(std::to_string(score));
     scorePoint.setCharacterSize(90);
     scorePoint.setFillColor(sf::Color::White);
-    scorePoint.setPosition(550,600);
+    sf::FloatRect textRect = scorePoint.getLocalBounds();
+    scorePoint.setOrigin(textRect.left + textRect.width/2.0f,
+                         textRect.top  + textRect.height/2.0f);
+    scorePoint.setPosition(1298/2.f,1344/2.f);
 }
 
 void EndGame::initButtons() {

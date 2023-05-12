@@ -22,7 +22,7 @@ void Dessert::setTexture() {
             sprite.setTexture(*this->texture->getTexture("CHOCOLATE_CAKE"));
             break;
         case Dsr::CHEESE_CAKE:
-            sprite.setTexture(*this->texture->getTexture("CHEESECAKE"));
+            sprite.setTexture(*this->texture->getTexture("CHEESE_CAKE"));
             break;
         case Dsr::JELLY:
             sprite.setTexture(*this->texture->getTexture("JELLY"));
