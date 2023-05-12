@@ -161,7 +161,7 @@ void Waiter::interact(const std::shared_ptr<Map>& map, sf::Event ev) {
     {
         if(map->distanceInteractionSquare(getSprite(), receiveState->getTable()))
         {
-            receiveState->getTable()->setHumor(INITIAL_HUMOR - ((1000)*receivingTimer.getElapsedTime().asSeconds()));
+            receiveState->getTable()->setHumor(INITIAL_HUMOR - ((50)*receivingTimer.getElapsedTime().asSeconds()));
             leaveAtTable();
         }
     }

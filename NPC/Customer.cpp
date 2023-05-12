@@ -77,6 +77,8 @@ void Customer::move() {
                 this->sprite.move(this->speed * (0.f), this->speed * (-0.15f));
                 if(!leaving)
                     savePath(movingStatus);
+                else
+                    std::cout << "Up Ritorno" << std::endl;
             }
             break;
 
@@ -238,7 +240,7 @@ void Customer::leftTheRestaurant() {
 void Customer::leftTheTable(int n) {
 
     if(n==0 || n==2){
-        for(int m = 0; m < 15; m++)
+        for(int m = 0; m < 10; m++)
             savePath(Move::STANDING);
     }
 

@@ -4,11 +4,11 @@
 
 #include "Game.h"
 
-Game::Game(sf::RenderWindow* window, std::stack <ProgramState*>* states, int waiterTexture) : ProgramState(window, states) {
+Game::Game(sf::RenderWindow* window, std::stack <ProgramState*>* states, int waitTexture) : ProgramState(window, states) {
     level = nullptr;
     random = 0;
     initLevel();
-    waiterTexture = waiterTexture;
+    waiterTexture = waitTexture;
     initButton();
     initBackground();
     initMap();
@@ -486,10 +486,10 @@ void Game::updateTables() {
             for(auto & i: it.getCustomers())
                 i.update();
         }
-        if(it.getIsNotSatisfied())
+        if(it.getIsNotSatisfied() && !it.getIsMarked())
         {
             score.addNotSatisfied();
-            it.setIsNotSatisfied(false);
+            it.setIsMarked(true);
         }
     }
 }

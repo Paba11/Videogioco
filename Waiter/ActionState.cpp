@@ -93,7 +93,6 @@ void ActionsState::pickUp(Table* table) {
                 break;
             case Current::DESSERT:
                 table->setState(TableState::IS_LEAVING);
-                table->leaveTable();
                 table->restartScoreTimer();
                 table->setCourse(Current::END);
                 break;

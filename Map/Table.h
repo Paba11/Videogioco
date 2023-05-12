@@ -20,8 +20,7 @@
 
 enum class TableState {CHOOSING, WAITING_TO_ORDER, WAITING_DISHES, EATING, ENDED, IS_LEAVING, LEFT};
 
-#define TIME_TO_CHOOSE 5.f  //fixme: delete?
-#define INITIAL_HUMOR 500000
+#define INITIAL_HUMOR 10000
 
 class Table {
 public:
@@ -75,7 +74,8 @@ public:
     int getHumor() const;
     bool getIsNotSatisfied() const;
     void setIsNotSatisfied(bool t);
-
+    bool getIsMarked();
+    void setIsMarked(bool t);
 
     //Initialize table
     void initStoolTable();
@@ -118,7 +118,7 @@ private:
     bool cicle;
     bool chosenTable;
     sf::Sprite cornerSprite;
-    float eatingTime = 10; //FIXME: set the right time to eat
+    float eatingTime = 20;
 
 
     sf::RectangleShape greyBar;
@@ -129,6 +129,7 @@ private:
     float difficulty;
 
     int humor;
+    bool isMarked;
     sf::Clock scoreTimer;
     bool isSetFinalScore;
     bool isNotSatisfied;

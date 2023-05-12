@@ -3,6 +3,7 @@
 //
 
 #include "Table.h"
+#include <algorithm>
 
 Table::Table() {
 
@@ -23,6 +24,7 @@ Table::Table() {
     humor = INITIAL_HUMOR;
     isSetFinalScore = false;
     isNotSatisfied = false;
+    isMarked = false;
 }
 
 Table::~Table() = default;
@@ -30,6 +32,7 @@ Table::~Table() = default;
 void Table::update() {
     if(isOccupied)
     {
+        updateHumor();
         if(state == TableState::CHOOSING)
             ordering();
 
@@ -37,20 +40,17 @@ void Table::update() {
             if(customers.back().getInvertedPath().empty())
                 reInitTable();
         }
-
-
         if(state == TableState::EATING)
             eating();
 
-        if(state != TableState::CHOOSING && state != TableState::IS_LEAVING)
-
+        /*
         if(!customers.empty()){
-
             for(auto &i : customers)
                 i.update();
         }
+         */
 
-            updateCornerSprite();
+        updateCornerSprite();
 
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::M)){   //fixme: use for testing
             int n = 0;
@@ -235,12 +235,12 @@ void Table::setTable() {
 }
 
 void Table::setChosenTable(bool t) {
-    this->chosenTable = t;
+    chosenTable = t;
 
 }
 
 sf::RectangleShape Table::getInteractionSquare() {
-    return this->interactionSquare;
+    return interactionSquare;
 }
 
 bool Table::getChosenTable() const {
@@ -252,7 +252,7 @@ void Table::setDishesPlace() {
     for(int i = 0; i < 4; i++){
         sf::RectangleShape rectangle;
 
-        rectangle.setSize(this->dishHitbox);
+        rectangle.setSize(dishHitbox);
         rectangle.setOrigin(20.f,20.f);
         rectangle.setOutlineColor(sf::Color::White);    //Fixme set trasparent when finished
         rectangle.setOutlineThickness(1.f);
@@ -261,10 +261,10 @@ void Table::setDishesPlace() {
     }
     float offSetX = 35;
     float offSetY = 25;
-    this->dishesPlace[0].setPosition(sprite.getPosition().x-offSetX, sprite.getPosition().y+offSetY);
-    this->dishesPlace[1].setPosition(sprite.getPosition().x+offSetX, sprite.getPosition().y+offSetY);
-    this->dishesPlace[2].setPosition(sprite.getPosition().x-offSetX, sprite.getPosition().y-offSetY);
-    this->dishesPlace[3].setPosition(sprite.getPosition().x+offSetX, sprite.getPosition().y-offSetY);
+    dishesPlace[0].setPosition(sprite.getPosition().x-offSetX, sprite.getPosition().y+offSetY);
+    dishesPlace[1].setPosition(sprite.getPosition().x+offSetX, sprite.getPosition().y+offSetY);
+    dishesPlace[2].setPosition(sprite.getPosition().x-offSetX, sprite.getPosition().y-offSetY);
+    dishesPlace[3].setPosition(sprite.getPosition().x+offSetX, sprite.getPosition().y-offSetY);
 }
 
 void Table::restartTimer() {
@@ -288,13 +288,13 @@ void Table::updateCornerSprite() {
     switch(state){
 
         case TableState::CHOOSING:
-            cornerSprite.setTexture(*this->texture->getTexture("Customer1"));
+            cornerSprite.setTexture(*texture->getTexture("Customer1"));
             cornerSprite.setTextureRect({0, 0, 32, 32});
             cornerSprite.setOrigin(16,16);
             break;
 
         case TableState::WAITING_TO_ORDER:
-            cornerSprite.setTexture(*this->texture->getTexture("BlockNotes"));
+            cornerSprite.setTexture(*texture->getTexture("BlockNotes"));
             cornerSprite.setTextureRect({0,0,480,480});
             cornerSprite.setScale(0.05f,0.05f);
             cornerSprite.setPosition(interactionSquare.getPosition().x + 31, interactionSquare.getPosition().y - 31);
@@ -392,17 +392,17 @@ void Table::updateHumor() {
         case TableState::CHOOSING:
             break;
         case TableState::WAITING_TO_ORDER:
-            if(scoreTimer.getElapsedTime().asSeconds() > 20)
+            if(scoreTimer.getElapsedTime().asSeconds() > 10)
                 humor -= (int)(5 * difficulty);
-            else if(scoreTimer.getElapsedTime().asSeconds() > 40)
+            else if(scoreTimer.getElapsedTime().asSeconds() > 20)
                 humor -= (int)(7 * difficulty);
             else
                 humor -= (int)(3 * difficulty);
             break;
         case TableState::WAITING_DISHES:
-            if(scoreTimer.getElapsedTime().asSeconds() > 20)
+            if(scoreTimer.getElapsedTime().asSeconds() > 10)
                 humor -= (int)(5 * difficulty);
-            else if(scoreTimer.getElapsedTime().asSeconds() > 40)
+            else if(scoreTimer.getElapsedTime().asSeconds() > 20)
                 humor -= (int)(7 * difficulty);
             else
                 humor -= (int)(3 * difficulty);
@@ -410,19 +410,19 @@ void Table::updateHumor() {
         case TableState::EATING:
             break;
         case TableState::ENDED:
-            state = TableState::IS_LEAVING;
             break;
         case TableState::LEFT:
-            reInitTable();
             break;
         default:
             break;
     }
-    if(humor < 500 && state != TableState::IS_LEAVING)
+    if(humor <= 500 && !isNotSatisfied)
     {
         isNotSatisfied = true;
         state = TableState::IS_LEAVING;
+        leaveTable();
     }
+    std::cout << "Table: " << tavNum << " - Humor: " << humor << std::endl;
 }
 
 void Table::setIsSetFinalScore(bool t) {
@@ -448,14 +448,15 @@ void Table::reInitTable() {
         cicle = true;
         chosenTable = false;
         isSit = false;
-        humor = 500;
+        humor = INITIAL_HUMOR;
         isSetFinalScore = false;
         order.reset();
         isNotSatisfied = false;
+        isMarked = false;
+        while(!customers.empty())
+            customers.pop_back();
         while (!dishes.empty())
-        {
             dishes.pop();
-        }
     }
 }
 
@@ -467,6 +468,7 @@ void Table::leaveTable() {
         i.setLeaving(true);
         n++;
     }
+    std::reverse(customers.begin(),customers.end());
 
 }
 
@@ -484,6 +486,14 @@ void Table::setIsNotSatisfied(bool t) {
 
 void Table::setDifficulty(float i) {
     difficulty = i;
+}
+
+bool Table::getIsMarked() {
+    return isMarked;
+}
+
+void Table::setIsMarked(bool t) {
+    isMarked = t;
 }
 
 
