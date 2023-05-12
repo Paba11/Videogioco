@@ -8,7 +8,7 @@ Game::Game(sf::RenderWindow* window, std::stack <ProgramState*>* states, int wai
     level = nullptr;
     random = 0;
     initLevel();
-    this->waiterTexture = waiterTexture;
+    waiterTexture = waiterTexture;
     initButton();
     initBackground();
     initMap();
@@ -21,7 +21,8 @@ Game::Game(sf::RenderWindow* window, std::stack <ProgramState*>* states, int wai
     initDishWasher();
     generateCustomers();
     //initTexture();
-    this->ev.type = sf::Event::Closed;
+    score.setMap(map);
+    ev.type = sf::Event::Closed;
 
 }
 
@@ -174,22 +175,21 @@ void Game::updateCollision() {
 }
 
 void Game::initTables() {
+    std::shared_ptr<Table> t;
+    for(int i=0; i<numTables; i++)
+    {
+        t.reset();
+        t = std::make_shared<Table>();
 
-    for(int i=0; i<numTables; i++){
-      Table t;
-      //Stool s;
-      t.setTavNum(i);
-      t.sprite.setTexture(*this->textures->getTexture("Table"));
-      score.setTable(&t);
-      t.setDifficulty(level->getDifficulty());
-      for(int j=0; j<4; j++)
-          t.getStoolTable()[j].sprite.setTexture(*this->textures->getTexture("Stool"));
-     // s.sprite.setTexture(*this->texture->getTexture("Stool"));
-     // t.stoolTable.push_back(s);
-      map->getAllTables().push_back(t);
+        t->setTavNum(i);
+        t->sprite.setTexture(*textures->getTexture("Table"));
+        t->setDifficulty(level->getDifficulty());
+        for(int j=0; j<4; j++)
+          t->getStoolTable()[j].sprite.setTexture(*textures->getTexture("Stool"));
+
+        map->getAllTables().push_back(*t);
+        //score.setTable(t);
   }
-
-
 }
 
 void Game::initPosTables() {
@@ -556,6 +556,10 @@ std::shared_ptr<Chef> &Game::getChef() {
 
 std::shared_ptr<Tray> &Game::getTray() {
     return tray;
+}
+
+Score &Game::getScore() {
+    return score;
 }
 
 

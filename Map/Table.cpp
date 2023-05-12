@@ -122,7 +122,7 @@ TableState Table::getState() {
 }
 
 void Table::setState(TableState s) {
-    this->state = s;
+    state = s;
 }
 
 void Table::setOrder(const std::shared_ptr<Order>& ord) {

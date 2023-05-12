@@ -85,6 +85,7 @@ public:
     std::vector<std::shared_ptr<Customer>>& getGroup();
     std::shared_ptr<Chef>& getChef();
     std::shared_ptr<Tray>& getTray();
+    Score& getScore();
 
 private:
     //Group of textures uploaded in a container, each one is accessible by his own name

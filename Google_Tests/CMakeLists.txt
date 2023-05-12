@@ -9,6 +9,7 @@ set(GOOGLE_TEST_SOURCES
         CustomerTest.cpp
         MapTest.cpp
         RunTests.cpp
+        ScoreTest.cpp
         WaiterTest.cpp)
 enable_testing()
 

@@ -18,34 +18,25 @@ void Score::update() {
     {
         quit = true;
     }
-    for(auto &i: table)
+    for(auto &i: map->getAllTables())
     {
-        if(i->getState() == TableState::ENDED)
+        if(i.getState() == TableState::IS_LEAVING && !i.getIsSetFinalScore())
         {
-            if(!i->getIsSetFinalScore())
-            {
-                addPoints((i->getHumor()/10));
-                i->setIsSetFinalScore(true);
-                i->setHumor(500);
-            }
-            std::cout << "XP gained: " << i->getHumor()/10 << " XP total: " << totalPoints << std::endl;
+            addPoints((i.getHumor()/100));
+            i.setIsSetFinalScore(true);
+            i.setHumor(500);
+            std::cout << "XP gained: " << i.getHumor()/10 << " XP total: " << totalPoints << std::endl;
         }
     }
-}
-
-void Score::render() {
-
 }
 
 void Score::addPoints(int i) {
     totalPoints += i;
 }
 
-void Score::setTable(Table *t) {
+void Score::setTable(std::shared_ptr<Table>& t) {
     table.push_back(t);
 }
-
-
 
 void Score::addNotSatisfied() {
     notSatisfiedTables += 1;
@@ -57,4 +48,9 @@ bool Score::getQuit() const {
 
 int Score::getTotalPoints() const {
     return totalPoints;
+}
+
+void Score::setMap(std::shared_ptr<Map>& m) {
+    map.reset();
+    map = m;
 }

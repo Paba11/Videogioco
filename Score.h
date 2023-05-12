@@ -5,7 +5,7 @@
 #ifndef VIDEOGIOCO_SCORE_H
 #define VIDEOGIOCO_SCORE_H
 
-#include "Map/Table.h"
+#include "Map/Map.h"
 #include "Dish/Appetizer.h"
 #include "Dish/MainCourse.h"
 #include "Dish/Dessert.h"
@@ -18,19 +18,19 @@ public:
 
     //Set the animations to calculate the bill
     void update();
-    void render();
 
     //Getters & Setters
     void addPoints(int i);
-    void setTable(Table* t);
+    void setTable(std::shared_ptr<Table>& t);
+    void setMap(std::shared_ptr<Map>& m);
     void addNotSatisfied();
     [[nodiscard]] bool getQuit() const;
     [[nodiscard]] int getTotalPoints() const;
 
 private:
-    std::vector<Table*> table;
+    std::vector<std::shared_ptr<Table>> table;
     int totalPoints;
-
+    std::shared_ptr<Map> map;
     int notSatisfiedTables;
     bool quit;
 };

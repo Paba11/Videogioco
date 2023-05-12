@@ -35,8 +35,6 @@ public:
     void renderDishes(sf::RenderTarget& target);
     void renderBar(sf::RenderTarget& target);
 
-
-
     sf::Sprite sprite;
 
     //Table actions
