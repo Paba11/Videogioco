@@ -33,8 +33,11 @@ void Table::update() {
         if(state == TableState::CHOOSING)
             ordering();
 
-        if(state == TableState::IS_LEAVING)
-            leaveTable();
+        if(state == TableState::IS_LEAVING){
+            if(customers.back().getInvertedPath().empty())
+                reInitTable();
+        }
+
 
         if(state == TableState::EATING)
             eating();
@@ -48,7 +51,7 @@ void Table::update() {
         }
 
             updateCornerSprite();
-        /*
+
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::M)){   //fixme: use for testing
             int n = 0;
             for(auto &i : customers) {
@@ -56,9 +59,9 @@ void Table::update() {
                 i.setLeaving(true);
                 n++;
             }
-
+            state = TableState::IS_LEAVING;
         }
-        */
+
     }
         //std::cout << "Table " << tavNum << " humor: " << humor << std::endl;
 }
@@ -464,21 +467,7 @@ void Table::leaveTable() {
         i.setLeaving(true);
         n++;
     }
-    switch(tavNum)
-    {
-        case 0:
-            break;
-        case 1:
-            break;
-        case 2:
-            break;
-        case 3:
-            break;
-        case 4:
-            break;
-        case 5:
-            break;
-    }
+
 }
 
 void Table::restartScoreTimer() {

@@ -92,7 +92,8 @@ void ActionsState::pickUp(Table* table) {
                 map->getKitchen()->getWaitingOrder(table->getTavNum());
                 break;
             case Current::DESSERT:
-                table->setState(TableState::ENDED);
+                table->setState(TableState::IS_LEAVING);
+                table->leaveTable();
                 table->restartScoreTimer();
                 table->setCourse(Current::END);
                 break;
@@ -131,7 +132,7 @@ void ActionsState::putDown(Table* table) {
 void ActionsState::putDown(std::shared_ptr<Washbasin>& washbasin) {
     //Lave the plates at the washbasin
 
-    if(tray->getState() == TrayState::EMPTY_PLATES && !washbasin->getIsPlates())
+    if(tray->getState() == TrayState::EMPTY_PLATES)
     {
         //Set the table in the right state
         washbasin->setIsPlates(true);
