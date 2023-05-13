@@ -16,7 +16,7 @@ TEST(Score, finalScoreTest) {
         mScore->getAllTables()[i].setState(TableState::IS_LEAVING);
     gameScore->getScore().update();
 
-    ASSERT_EQ(20000, gameScore->getScore().getTotalPoints());
+    ASSERT_EQ(40000, gameScore->getScore().getTotalPoints());
 }
 
 TEST(Score, gameOverTest) {

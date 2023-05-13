@@ -20,7 +20,7 @@ void Score::update() {
     }
     for(auto &i: map->getAllTables())
     {
-        if(i.getState() == TableState::IS_LEAVING && !i.getIsSetFinalScore())
+        if(i.getState() == TableState::IS_LEAVING && !i.getIsSetFinalScore() && !i.getIsNotSatisfied())
         {
             addPoints((i.getHumor()/10));
             i.setIsSetFinalScore(true);
