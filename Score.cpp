@@ -28,7 +28,7 @@ void Score::update() {
             servedCustomer += i.getCustomerNumber();
             servedTable++;
             i.setIsSetFinalScore(true);
-            i.setHumor(15000);
+            i.setHumor(10000);
             i.leaveTable();
             std::cout << "XP gained: " << i.getHumor()/10 << " XP total: " << totalPoints << std::endl;
         }
