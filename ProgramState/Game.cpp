@@ -23,7 +23,6 @@ Game::Game(sf::RenderWindow* window, std::stack <ProgramState*>* states, int wai
     //initTexture();
     score.setMap(map);
     ev.type = sf::Event::Closed;
-
 }
 
 Game::~Game() = default;
@@ -523,7 +522,9 @@ void Game::initTray() {
 
 void Game::gameOver() {
     quit = true;
-    this->states->push(new EndGame(this->window, this->states, score.getTotalPoints()));
+    this->states->push(new EndGame(this->window, this->states, score.getTotalPoints(),
+                                   score.getServedCustomer(), score.getServedTable(),
+                                   score.getNotSatisfiedTable()));
 }
 
 void Game::updateButton() {

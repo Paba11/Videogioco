@@ -27,11 +27,17 @@ public:
     [[nodiscard]] bool getQuit() const;
     [[nodiscard]] int getTotalPoints() const;
 
+    int getServedCustomer() const;
+    int getServedTable() const;
+    int getNotSatisfiedTable() const;
+
 private:
     std::vector<std::shared_ptr<Table>> table;
     int totalPoints;
     std::shared_ptr<Map> map;
     int notSatisfiedTables;
+    int servedCustomer;
+    int servedTable;
     bool quit;
 };
 

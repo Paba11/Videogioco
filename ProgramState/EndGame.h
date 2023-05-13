@@ -17,7 +17,8 @@
 class EndGame : public ProgramState{
 
 public:
-    EndGame(sf::RenderWindow* window, std::stack <ProgramState*>* states, int score);
+    EndGame(sf::RenderWindow* window, std::stack <ProgramState*>* states, int score, int servedCustomer,
+            int servedTable, int goneTable);
     ~EndGame() override;
 
     void update() override;
@@ -28,17 +29,28 @@ public:
     void renderButtons();
     void endState() override;
 private:
-    sf::Text text;
+
+    void initText();
+    void initButtons();
+    void setExtraInfo();
+
+    sf::Text gameOver;
     sf::Font font;
     int score;
+
+    int servedCustomer;
+    sf::Text sCustomer;
+
+    int servedTable;
+    sf::Text sTable;
+
+    int goneTable;
+    sf::Text gTable;
+
     sf::Text scorePoint;
 
     std::map <std::string, Button*> buttons;
     sf::Vector2f mousePosView;
-
-
-    void initText();
-    void initButtons();
 };
 
 

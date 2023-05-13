@@ -5,10 +5,15 @@
 #include <iostream>
 #include "EndGame.h"
 
-EndGame::EndGame(sf::RenderWindow *window, std::stack<ProgramState *> *states, int score) : ProgramState(window, states) {
+EndGame::EndGame(sf::RenderWindow *window, std::stack<ProgramState *> *states, int score, int servedCustomer,
+                 int servedTable, int goneTable) : ProgramState(window, states) {
     this->score = score;
+    this->servedTable = servedTable;
+    this->servedCustomer = servedCustomer;
+    this->goneTable = goneTable;
     initText();
     initButtons();
+    setExtraInfo();
 }
 
 EndGame::~EndGame() = default;
@@ -22,8 +27,11 @@ void EndGame::update() {
 void EndGame::render(sf::RenderTarget *target) {
 
     window->clear();
-    window->draw(text);
+    window->draw(gameOver);
     window->draw(scorePoint);
+    window->draw(sCustomer);
+    window->draw(sTable);
+    window->draw(gTable);
     renderButtons();
 
 
@@ -40,11 +48,11 @@ void EndGame::initText() {
     if(!this->font.loadFromFile("./Font/8-bit Arcade In.ttf")){
         std::cout << "ERROR::CAN'T LOAD FONT FILE" << std::endl;
     }
-    text.setFont(font);
-    text.setString("GAMEOVER");
-    text.setCharacterSize(130);
-    text.setFillColor(sf::Color::White);
-    text.setPosition(390, 400);
+    gameOver.setFont(font);
+    gameOver.setString("GAMEOVER");
+    gameOver.setCharacterSize(130);
+    gameOver.setFillColor(sf::Color::White);
+    gameOver.setPosition(390, 200);
 
     scorePoint.setFont(font);
     scorePoint.setString(std::to_string(score));
@@ -53,7 +61,8 @@ void EndGame::initText() {
     sf::FloatRect textRect = scorePoint.getLocalBounds();
     scorePoint.setOrigin(textRect.left + textRect.width/2.0f,
                          textRect.top  + textRect.height/2.0f);
-    scorePoint.setPosition(1298/2.f,1344/2.f);
+    scorePoint.setPosition(1298/2.f,1344/2.f -200);
+
 }
 
 void EndGame::initButtons() {
@@ -93,6 +102,39 @@ void EndGame::renderButtons() {
 
     for(auto it : this->buttons)
         it.second->render(*this->window);
+}
+
+void EndGame::setExtraInfo() {
+
+    sf::FloatRect textRect;
+
+    sCustomer.setFont(font);
+    sCustomer.setString("Served Customer " + std::to_string(servedCustomer));
+    sCustomer.setCharacterSize(50);
+    sCustomer.setFillColor(sf::Color::White);
+    textRect = sCustomer.getLocalBounds();
+    sCustomer.setOrigin(textRect.left + textRect.width/2.0f,
+                        textRect.top  + textRect.height/2.0f);
+    sCustomer.setPosition(1298/2.f,700);
+
+    sTable.setFont(font);
+    sTable.setString("Served Table " + std::to_string(servedTable));
+    sTable.setCharacterSize(50);
+    sTable.setFillColor(sf::Color::White);
+    textRect = sTable.getLocalBounds();
+    sTable.setOrigin(textRect.left + textRect.width/2.0f,
+                        textRect.top  + textRect.height/2.0f);
+    sTable.setPosition(1298/2.f,800);
+
+    gTable.setFont(font);
+    gTable.setString("Gone Table " + std::to_string(goneTable));
+    gTable.setCharacterSize(50);
+    gTable.setFillColor(sf::Color::White);
+    textRect = gTable.getLocalBounds();
+    gTable.setOrigin(textRect.left + textRect.width/2.0f,
+                     textRect.top  + textRect.height/2.0f);
+    gTable.setPosition(1298/2.f,900);
+
 }
 
 
