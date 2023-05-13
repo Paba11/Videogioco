@@ -20,7 +20,7 @@
 
 enum class TableState {CHOOSING, WAITING_TO_ORDER, WAITING_DISHES, EATING, ENDED, IS_LEAVING, LEFT};
 
-#define TIME_TO_CHOOSE 10.f
+#define TIME_TO_CHOOSE 15.f
 #define INITIAL_HUMOR 100000
 #define MHIGH_HUMOR 80000   //8-10 Verde Scuro
 #define MEDIUM_HUMOR 60000  //6-8 Verde Chiaro
@@ -123,7 +123,7 @@ private:
     bool cicle;
     bool chosenTable;
     sf::Sprite cornerSprite;
-    float eatingTime = 20;
+    float eatingTime = 2;
 
 
     sf::RectangleShape greyBar;

@@ -16,7 +16,7 @@ Score::Score() {
 Score::~Score() = default;
 
 void Score::update() {
-    if(notSatisfiedTables > 2)
+    if(notSatisfiedTables >= 1)
     {
         quit = true;
     }
@@ -28,7 +28,8 @@ void Score::update() {
             servedCustomer += i.getCustomerNumber();
             servedTable++;
             i.setIsSetFinalScore(true);
-            i.setHumor(500);
+            i.setHumor(15000);
+            i.leaveTable();
             std::cout << "XP gained: " << i.getHumor()/10 << " XP total: " << totalPoints << std::endl;
         }
     }

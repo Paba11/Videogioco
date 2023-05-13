@@ -400,24 +400,25 @@ void Table::updateHumor() {
         case TableState::CHOOSING:
             break;
         case TableState::WAITING_TO_ORDER:
-            if(scoreTimer.getElapsedTime().asSeconds() > 10)
-                humor -= (int)(5 * difficulty);
-            else if(scoreTimer.getElapsedTime().asSeconds() > 20)
-                humor -= (int)(7 * difficulty);
-            else
+            if(scoreTimer.getElapsedTime().asSeconds() > 15)
                 humor -= (int)(3 * difficulty);
+            else if(scoreTimer.getElapsedTime().asSeconds() > 25)
+                humor -= (int)(5 * difficulty);
+            else
+                humor -= (int)(2 * difficulty);
             break;
         case TableState::WAITING_DISHES:
-            if(scoreTimer.getElapsedTime().asSeconds() > 10)
-                humor -= (int)(5 * difficulty);
-            else if(scoreTimer.getElapsedTime().asSeconds() > 20)
-                humor -= (int)(7 * difficulty);
-            else
+            if(scoreTimer.getElapsedTime().asSeconds() > 15)
                 humor -= (int)(3 * difficulty);
+            else if(scoreTimer.getElapsedTime().asSeconds() > 25)
+                humor -= (int)(5 * difficulty);
+            else
+                humor -= (int)(2 * difficulty);
             break;
         case TableState::EATING:
             break;
         case TableState::ENDED:
+            humor -= (int)(2 * difficulty);
             break;
         case TableState::LEFT:
             break;
