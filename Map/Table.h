@@ -123,7 +123,7 @@ private:
     bool cicle;
     bool chosenTable;
     sf::Sprite cornerSprite;
-    float eatingTime = 2;
+    float eatingTime = 25;
 
 
     sf::RectangleShape greyBar;
@@ -135,7 +135,7 @@ private:
 
     sf::CircleShape circle;
     sf::Color highHumor = {2,145,71};
-    sf::Color mHighHumor = {140,97, 64};
+    sf::Color mHighHumor = {124, 252, 0};
     sf::Color mediumHumor = {253,238,33};
     sf::Color mLowHumor = {246,145,29};
     sf::Color lowHumor = {236,28,36};
