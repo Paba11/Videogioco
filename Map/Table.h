@@ -20,9 +20,13 @@
 
 enum class TableState {CHOOSING, WAITING_TO_ORDER, WAITING_DISHES, EATING, ENDED, IS_LEAVING, LEFT};
 
-#define INITIAL_HUMOR 10000
-
-class Table {
+#define TIME_TO_CHOOSE 10.f
+#define INITIAL_HUMOR 100000
+#define MHIGH_HUMOR 80000   //8-10 Verde Scuro
+#define MEDIUM_HUMOR 60000  //6-8 Verde Chiaro
+#define MLOW_HUMOR 40000    //4-6   Giallo
+#define LOW_HUMOR 20000     //2-4   Arancione
+class Table {               //Restante Rosso
 public:
     //Constructor & Destructor
     Table();
@@ -82,6 +86,7 @@ public:
     void posStool(float x, float y);
 
     void updateBox();
+    void updateCircle();
     void setTable();
     void setDishesPlace();
 
@@ -128,6 +133,12 @@ private:
 
     float difficulty;
 
+    sf::CircleShape circle;
+    sf::Color highHumor = {2,145,71};
+    sf::Color mHighHumor = {140,97, 64};
+    sf::Color mediumHumor = {253,238,33};
+    sf::Color mLowHumor = {246,145,29};
+    sf::Color lowHumor = {236,28,36};
     int humor;
     bool isMarked;
     sf::Clock scoreTimer;

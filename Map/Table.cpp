@@ -33,6 +33,7 @@ void Table::update() {
     if(isOccupied)
     {
         updateHumor();
+        updateCircle();
         if(state == TableState::CHOOSING)
             ordering();
 
@@ -72,7 +73,8 @@ void Table::render(sf::RenderTarget &target) {
 
     //for(int i = 0 ;i < 4; i++)
     //   target.draw(dishesPlace[i]);
-
+    if(isOccupied)
+        target.draw(circle);
     if(chosenTable || state == TableState::WAITING_TO_ORDER) {
         target.draw(interactionSquare);
         target.draw(cornerSprite);
@@ -94,6 +96,11 @@ void Table::initSprite() {
     interactionSquare.setOrigin(31,31);
     interactionSquare.setOutlineThickness(1);
     interactionSquare.setFillColor(sf::Color::Transparent);
+
+    circle.setRadius(7);
+    circle.setOutlineThickness(1);
+    circle.setFillColor(highHumor);
+
 }
 
 int Table::getTavNum() const {
@@ -232,6 +239,7 @@ void Table::setTable() {
     cornerSprite.setPosition(interactionSquare.getPosition().x + 31, interactionSquare.getPosition().y - 31);
     setDishesPlace();
 
+    circle.setPosition(sprite.getPosition().x - 48 ,sprite.getPosition().y + 68);
 }
 
 void Table::setChosenTable(bool t) {
@@ -455,13 +463,13 @@ void Table::reInitTable() {
         isMarked = false;
         while(!customers.empty())
             customers.pop_back();
+        circle.setFillColor(highHumor);
         while (!dishes.empty())
             dishes.pop();
     }
 }
 
 void Table::leaveTable() {
-    //TODO: when customer exit the restaurant reset the customer vector
     int n = 0;
     for(auto &i : customers) {
         i.leftTheTable(n);
@@ -494,6 +502,20 @@ bool Table::getIsMarked() {
 
 void Table::setIsMarked(bool t) {
     isMarked = t;
+}
+
+void Table::updateCircle() {
+
+    if(humor>MHIGH_HUMOR)
+        circle.setFillColor(highHumor);
+    else if(humor<MHIGH_HUMOR && humor>MEDIUM_HUMOR)
+        circle.setFillColor(mHighHumor);
+    else if(humor<MEDIUM_HUMOR && humor>MLOW_HUMOR)
+        circle.setFillColor(mediumHumor);
+    else if(humor<MLOW_HUMOR && humor>LOW_HUMOR)
+        circle.setFillColor(mLowHumor);
+    else
+        circle.setFillColor(lowHumor);
 }
 
 
