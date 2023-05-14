@@ -73,7 +73,7 @@ void Table::render(sf::RenderTarget &target) {
 
     //for(int i = 0 ;i < 4; i++)
     //   target.draw(dishesPlace[i]);
-    if(isOccupied)
+    if(isOccupied && state != TableState::IS_LEAVING)
         target.draw(circle);
     if(chosenTable || state == TableState::WAITING_TO_ORDER) {
         target.draw(interactionSquare);
