@@ -22,12 +22,10 @@ void BottomBar::update() {
 }
 
 void BottomBar::render(sf::RenderTarget& target) {
-    target.draw(this->sprite);
-    int i=0;
-    for(auto &it:numOrder){
+    target.draw(sprite);
+    for(int i=0; i<orders.size() ; i++){
         target.draw(ordersSprite[i]);
-        target.draw(it);
-        i++;
+        target.draw(numOrder[i]);
     }
     if(isCooking){
         target.draw(cookingSprite);
@@ -81,8 +79,11 @@ void BottomBar::updateOrders() {        //TODO: remove the number when the order
     sf::FloatRect textRect = text.getLocalBounds();
     text.setOrigin(textRect.left + textRect.width/2.0f,
                    textRect.top  + textRect.height/2.0f);
-    text.setPosition(ordersSprite[orders.back()-1].getPosition().x,ordersSprite[orders.back()-1].getPosition().y - 10);
-    numOrder.push_back(text);
+    text.setPosition(ordersSprite[orders.size()-1].getPosition().x,ordersSprite[orders.size()-1].getPosition().y - 10);
+    if(numOrder.size() != orders.size())
+        numOrder.push_back(text);
+    else
+        numOrder[orders.size()-1] = text;
 }
 
 void BottomBar::setOrdersPosition() {
@@ -136,4 +137,20 @@ void BottomBar::setIsReady(bool t, int n) {
 
 bool BottomBar::getIsReady() const {
     return isReady;
+}
+
+void BottomBar::delOrder(int n) {
+
+    orders.erase(find(orders.begin(),orders.end(),n+1));
+
+    for(int i = 0; i < orders.size(); i++){
+        numOrder[i].setString(std::to_string(orders[i]));
+        sf::FloatRect textRect = numOrder[i].getLocalBounds();
+        numOrder[i].setOrigin(textRect.left + textRect.width/2.0f,
+                       textRect.top  + textRect.height/2.0f);
+        numOrder[i].setPosition(ordersSprite[i].getPosition().x,ordersSprite[i].getPosition().y - 10);
+    }
+
+
+
 }

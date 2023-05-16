@@ -95,6 +95,7 @@ void ActionsState::pickUp(Table* table) {
                 table->setState(TableState::IS_LEAVING);
                 table->restartScoreTimer();
                 table->setCourse(Current::END);
+                map->getKitchen()->getBottomBar()->delOrder(table->getTavNum());
                 break;
             case Current::END:
                 break;
