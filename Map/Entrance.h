@@ -31,7 +31,7 @@ public:
 
 
 private:
-    sf::Sprite sprite; //fixme move here the sprite of the entrance
+    sf::Sprite sprite;
     Textures* texture;
     sf::RectangleShape welcomeSquare;
     sf::Sprite cornerSprite;

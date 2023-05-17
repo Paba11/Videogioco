@@ -35,14 +35,13 @@ public:
     void move();
     void moveTo();
     void setEndingPosition(sf::Vector2f endingPos, Move direction);
-    sf::Sprite sprite; //fixme create a function to set the texture from receivingCustomer.h
+    sf::Sprite sprite;
 
     //Getters & Setters
     std::queue<Move>& getPath();
     void setPath(Move m);
     bool isMoving() const;
     void setLeaving(bool t);
-    void savePath(Move m);
     void leftTheTable(int n);
     void leftTheRestaurant();
     std::stack<Move>& getInvertedPath();

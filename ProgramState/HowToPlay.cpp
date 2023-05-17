@@ -27,7 +27,7 @@ void HowToPlay::updateButtons() {
     for (auto it: this->buttons)
         it.second->update(this->mousePosView);
 
-    if (buttons["BACK"]->isPressed()) {   //Fixme it close the app
+    if (buttons["BACK"]->isPressed()) {
         this->quit = true;
     }
 

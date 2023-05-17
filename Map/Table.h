@@ -41,7 +41,6 @@ public:
     sf::Sprite sprite;
 
     //Table actions
-    void receivingCustomers(std::vector<Customer>& customer);
     void ordering();
     void eating();
     void updateHumor();
@@ -78,7 +77,7 @@ public:
     int getHumor() const;
     bool getIsNotSatisfied() const;
     void setIsNotSatisfied(bool t);
-    bool getIsMarked();
+    bool getIsMarked() const;
     void setIsMarked(bool t);
 
     //Initialize table

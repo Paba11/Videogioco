@@ -60,7 +60,7 @@ void Customer::move() {
             if (this->validMovement["Left"]) {
                 this->sprite.move(this->speed * (-0.15f), this->speed * (0.f));
                 if(!leaving)
-                    savePath(movingStatus);
+                    invertedPath.push(Move::MOVING_RIGHT);
             }
             break;
 
@@ -68,7 +68,7 @@ void Customer::move() {
             if (this->validMovement["Right"]) {
                 this->sprite.move(this->speed * (0.15f), this->speed * (0.f));
                 if(!leaving)
-                    savePath(movingStatus);
+                    invertedPath.push(Move::MOVING_LEFT);
             }
             break;
 
@@ -76,9 +76,7 @@ void Customer::move() {
             if (this->validMovement["Up"]) {
                 this->sprite.move(this->speed * (0.f), this->speed * (-0.15f));
                 if(!leaving)
-                    savePath(movingStatus);
-                else
-                    std::cout << "Up Ritorno" << std::endl;
+                    invertedPath.push(Move::MOVING_DOWN);
             }
             break;
 
@@ -86,12 +84,12 @@ void Customer::move() {
             if (this->validMovement["Down"]) {
                 this->sprite.move(this->speed * (0.f), this->speed * (0.15f));
                 if(!leaving)
-                    savePath(movingStatus);
+                    invertedPath.push(Move::MOVING_UP);
             }
             break;
         case Move::STANDING:
             if(!leaving)
-                savePath(movingStatus);
+                invertedPath.push(Move::STANDING);
             break;
     }
 }
@@ -208,21 +206,6 @@ void Customer::setLeaving(bool t) {
     leaving = t;
 }
 
-void Customer::savePath(Move m) {
-
-
-        if (m == Move::MOVING_LEFT)
-            invertedPath.push(Move::MOVING_RIGHT);
-        else if (m == Move::MOVING_RIGHT)
-            invertedPath.push(Move::MOVING_LEFT);
-        else if (m == Move::MOVING_UP)
-            invertedPath.push(Move::MOVING_DOWN);
-        else if (m == Move::MOVING_DOWN)
-            invertedPath.push(Move::MOVING_UP);
-        else
-            invertedPath.push(Move::STANDING);
-
-}
 
 void Customer::leftTheRestaurant() {
 
@@ -241,7 +224,7 @@ void Customer::leftTheTable(int n) {
 
     if(n==0 || n==2){
         for(int m = 0; m < 10; m++)
-            savePath(Move::STANDING);
+            invertedPath.push(Move::STANDING);
     }
 
 

@@ -36,7 +36,6 @@ void DishWasher::update() {
 }
 
 void DishWasher::updateWashing() {
-    //FIXME: CALCULATE THE TIME TO WASH PLATES, DEPENDING ON THE TOTAL NUMBER
     if(this->timer * float(this->washbasin->getNumPlates()) <= this->clock.getElapsedTime().asSeconds())
     {
         this->isWashing = false;
@@ -62,7 +61,6 @@ void DishWasher::updateAnimations() {
 }
 
 void DishWasher::updateVariables() {
-    //FIXME: SET THE VARIABLES
     if(!this->isWashing && this->washbasin->getIsPlates())
     {
         this->isWashing = true;

@@ -32,7 +32,7 @@ void ChoosingCharacter::updateButtons() {
     for(auto it : this->buttons)
         it.second->update(this->mousePosView);
 
-    if(buttons["EXIT"]->isPressed()) {   //FIXME close the application
+    if(buttons["EXIT"]->isPressed()) {
         this->quit = true;
         this->window->close();
     }
@@ -53,7 +53,7 @@ void ChoosingCharacter::updateButtons() {
 
 void ChoosingCharacter::render(sf::RenderTarget* target) {
 
-    if(!this->quit) { //fixme
+    if(!this->quit) {
         this->window->clear();
         this->window->draw(this->background);
         this->window->draw(this->text);
@@ -78,7 +78,6 @@ void ChoosingCharacter::endState() {
 
 void ChoosingCharacter::initButtons() {
 
-    //TODO: move the play/exit button to the bottom of the window
     this->buttons["PLAY"] = new Button(800,1200,150,50,&this->font, "Play",
                                        sf::Color(70,70,70,200),
                                        sf::Color(150,150,150,255),
