@@ -24,7 +24,7 @@ The customers' mood will decrease every time they have to wait, this could lead 
 
 ## Screenshots
 
-![](<img src="imgReadme/MainMenu.png">)
+![plot](./imgReadme/MainMenu.png)
 ![](https://github.com/Paba11/Videogioco/blob/main/img%20readme/MaleWaiter.png)
 ![](https://github.com/Paba11/Videogioco/blob/main/img%20readme/FemaleWaiter.png)
 
