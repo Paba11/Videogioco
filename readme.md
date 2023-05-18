@@ -25,14 +25,13 @@ The customers' mood will decrease every time they have to wait, this could lead 
 ## Screenshots
 
 ![plot](./imgReadme/MainMenu.png)
-![](https://github.com/Paba11/Videogioco/blob/main/img%20readme/MaleWaiter.png)
-![](https://github.com/Paba11/Videogioco/blob/main/img%20readme/FemaleWaiter.png)
-
+![plot](./imgReadme/MaleWaiter.png)
+![plot](./imgReadme/FemaleWaiter.png)
 ### GIF
 
-![](https://github.com/Paba11/Videogioco/blob/main/img%20readme/CustomersToTable.gif)
-![](https://github.com/Paba11/Videogioco/blob/main/img%20readme/CookingChef.gif)
-![](https://github.com/Paba11/Videogioco/blob/main/img%20readme/LeavingCustomers.gif)
+![plot](./imgReadme/CustomersToTable.gif)
+![plot](./imgReadme/CookingChef.gif)
+![plot](./imgReadme/LeavingCustomers.gif)
 ## How To Play
 ### Move the character: 
 - A -> left 
