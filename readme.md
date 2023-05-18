@@ -24,15 +24,15 @@ The customers' mood will decrease every time they have to wait, this could lead 
 
 ## Screenshots
 
-<img src="imgReadme/MainMenu.png" width="700">
-<img src="imgReadme/MaleWaiter.png" width="700">
-<img src="imgReadme/FemaleWaiter.png" width="700">
+<img src="imgReadme/MainMenu.png" width="500">
+<img src="imgReadme/MaleWaiter.png" width="500">
+<img src="imgReadme/FemaleWaiter.png" width="500">
 
 ### GIF
 
-<img src="imgReadme/CustomersToTable.gif" width="700">
-<img src="imgReadme/CookingChef.gif" width="700">
-<img src="imgReadme/LeavingCustomers.gif" width="700">
+<img src="imgReadme/CustomersToTable.gif" width="500">
+<img src="imgReadme/CookingChef.gif" width="500">
+<img src="imgReadme/LeavingCustomers.gif" width="500">
 
 ## How To Play
 ### Move the character: 
