@@ -6,7 +6,6 @@
 * [Features](#features)
 * [Screenshots](#screenshots)
 * [How To Play](#how-to-play)
-* [Setup](#setup)
 * [Project Status](#project-status)
 * [Acknowledgements](#acknowledgements)
 * [Contact](#contact)
@@ -45,9 +44,6 @@ The customers' mood will decrease every time they have to wait, this could lead 
 - K -> pick up
 - L -> put down.
 ![](imgReadme/HowTo.png)
-
-## Setup
-Scrivere cosa serve per avviare il progetto (Sfml)
 
 ## Project Status
 <span style="color:green">Completed</span>.
