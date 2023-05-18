@@ -24,15 +24,15 @@ The customers' mood will decrease every time they have to wait, this could lead 
 
 ## Screenshots
 
-![](./img readme/MainMenu.png)
-![](./img readme/MaleWaiter.png)
-![](./img readme/FemaleWaiter.png)
+![](<img src="imgReadme/MainMenu.png">)
+![](https://github.com/Paba11/Videogioco/blob/main/img%20readme/MaleWaiter.png)
+![](https://github.com/Paba11/Videogioco/blob/main/img%20readme/FemaleWaiter.png)
 
 ### GIF
 
-![](./img readme/CustomersToTable.gif)
-![](./img readme/CookingChef.gif)
-![](./img readme/LeavingCustomers.gif)
+![](https://github.com/Paba11/Videogioco/blob/main/img%20readme/CustomersToTable.gif)
+![](https://github.com/Paba11/Videogioco/blob/main/img%20readme/CookingChef.gif)
+![](https://github.com/Paba11/Videogioco/blob/main/img%20readme/LeavingCustomers.gif)
 ## How To Play
 ### Move the character: 
 - A -> left 
@@ -43,7 +43,7 @@ The customers' mood will decrease every time they have to wait, this could lead 
 - J -> receive customers/take orders
 - K -> pick up
 - L -> put down.
-![](./img readme/HowTo.png)
+![](imgReadme/HowTo.png)
 
 ## Setup
 Scrivere cosa serve per avviare il progetto (Sfml)
