@@ -52,8 +52,8 @@ void Table::update() {
          */
 
         updateCornerSprite();
-
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::M)){   //fixme: use for testing
+        /*
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::M)){
             int n = 0;
             for(auto &i : customers) {
                 i.leftTheTable(n);
@@ -62,6 +62,7 @@ void Table::update() {
             }
             state = TableState::IS_LEAVING;
         }
+         */
 
     }
         //std::cout << "Table " << tavNum << " humor: " << humor << std::endl;
@@ -262,7 +263,7 @@ void Table::setDishesPlace() {
 
         rectangle.setSize(dishHitbox);
         rectangle.setOrigin(20.f,20.f);
-        rectangle.setOutlineColor(sf::Color::White);    //Fixme set trasparent when finished
+        rectangle.setOutlineColor(sf::Color::White);
         rectangle.setOutlineThickness(1.f);
         rectangle.setFillColor(sf::Color::Transparent);
         dishesPlace.push_back(rectangle);
@@ -497,7 +498,7 @@ void Table::setDifficulty(float i) {
     difficulty = i;
 }
 
-bool Table::getIsMarked() {
+bool Table::getIsMarked() const {
     return isMarked;
 }
 

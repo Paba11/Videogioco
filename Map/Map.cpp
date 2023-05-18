@@ -13,7 +13,6 @@ Map::Map() {
     initSprites();
     //Temporary code
     entranceObj->setSprite(entrance);
-    //TODO: DEFINE THE ENTRANCE AND MOVE HIS SPRITE IN THE PROPER CLASS
 
 }
 
@@ -246,7 +245,7 @@ std::vector<sf::RectangleShape> Map::distanceChefDishes() {   //Parameter sf::Sp
     {
         this->isClose = IS_CLOSE_DIRTY_DISHES;
     }
-    */ //TODO: create a new value for isClose
+    */ //
     return kitchen->getCounter()->getPlaceChefDishes();
 }
 
