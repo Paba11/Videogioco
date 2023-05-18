@@ -431,7 +431,7 @@ void Table::updateHumor() {
         state = TableState::IS_LEAVING;
         leaveTable();
     }
-    std::cout << "Table: " << tavNum << " - Humor: " << humor << std::endl;
+    //std::cout << "Table: " << tavNum << " - Humor: " << humor << std::endl;
 }
 
 void Table::setIsSetFinalScore(bool t) {

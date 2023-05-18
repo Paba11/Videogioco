@@ -10,6 +10,7 @@ set(GOOGLE_TEST_SOURCES
         MapTest.cpp
         RunTests.cpp
         ScoreTest.cpp
+        TestFixture.h
         WaiterTest.cpp)
 enable_testing()
 

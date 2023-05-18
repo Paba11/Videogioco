@@ -3,67 +3,60 @@
 //
 
 #include "gtest/gtest.h"
+#include "TestFixture.h"
 #include "../ProgramState/Game.h"
 
-sf::RenderWindow* rwMap = new sf::RenderWindow(sf::VideoMode(1298, 1344), "MapTest", sf::Style::Close);
-std::stack<ProgramState*>* psMap;
-Game* gameMap = new Game(rwMap, psMap, 1);
-std::shared_ptr<Waiter> wMap = gameMap->getWaiter();
-std::shared_ptr<Map> mMap = gameMap->getMap();
+TEST_F(GameTest, distanceTableTest) {
 
-TEST(MapTest, distanceTableTest) {
     //Test the table distance algorithm
-    mMap->setIsClose(IS_CLOSE_NOTHING);
+    map->setIsClose(IS_CLOSE_NOTHING);
 
     //Distance from every table > than needed
-    wMap->setPositionW(0, 0);
-    mMap->distanceTable(gameMap->getWaiter()->getSprite());
+    waiter->setPositionW(0, 0);
+    map->distanceTable(game->getWaiter()->getSprite());
 
     //Check results
-    ASSERT_EQ(IS_CLOSE_NOTHING, mMap->getIsClose());
+    ASSERT_EQ(IS_CLOSE_NOTHING, map->getIsClose());
 
     //Short distance from table 0
-    wMap->setPositionW(150, 330);
-    mMap->distanceTable(wMap->getSprite());
+    waiter->setPositionW(150, 330);
+    map->distanceTable(waiter->getSprite());
 
     //Check results
-    ASSERT_EQ(IS_CLOSE_TABLE, mMap->getIsClose());
-    ASSERT_EQ(&mMap->getTable(0), mMap->distanceTable(gameMap->getWaiter()->getSprite()));
+    ASSERT_EQ(IS_CLOSE_TABLE, map->getIsClose());
+    ASSERT_EQ(&map->getTable(0), map->distanceTable(game->getWaiter()->getSprite()));
 }
 
 
-TEST(MapTest, distanceKitchenTest) {
+TEST_F(GameTest, distanceKitchenTest) {
     //Test the kitchen distance algorithm
-    mMap->setIsClose(IS_CLOSE_NOTHING);
+    map->setIsClose(IS_CLOSE_NOTHING);
 
     //Distance from the kitchen > than needed
-    wMap->setPositionW(0, 0);
-    mMap->distanceKitchen(gameMap->getWaiter()->getSprite());
+    waiter->setPositionW(0, 0);
+    map->distanceKitchen(game->getWaiter()->getSprite());
 
     //Check Results
-    ASSERT_EQ(IS_CLOSE_NOTHING, mMap->getIsClose());
+    ASSERT_EQ(IS_CLOSE_NOTHING, map->getIsClose());
 
     //Short distance from the kitchen
-    wMap->setPositionW(990,450);
-    mMap->distanceKitchen(wMap->getSprite());
+    waiter->setPositionW(990,450);
+    map->distanceKitchen(waiter->getSprite());
 
     //Check results
-    ASSERT_EQ(IS_CLOSE_KITCHEN, mMap->getIsClose());
+    ASSERT_EQ(IS_CLOSE_KITCHEN, map->getIsClose());
 }
 
 
-TEST(Map, distanceInteractionSquare) {
+TEST_F(GameTest, distanceInteractionSquare) {
     //Test the distance to the interaction square
 
     //Wrong position
-    wMap->setPositionW(0,0);
-    ASSERT_EQ(false, mMap->distanceInteractionSquare(wMap->getSprite(), &mMap->getTable(0)));
+    waiter->setPositionW(0,0);
+    ASSERT_EQ(false, map->distanceInteractionSquare(waiter->getSprite(), &map->getTable(0)));
 
     //Right position
-    wMap->setPositionW(145,250);
-    ASSERT_EQ(true, mMap->distanceInteractionSquare(wMap->getSprite(), &mMap->getTable(0)));
+    waiter->setPositionW(145,250);
+    ASSERT_EQ(true, map->distanceInteractionSquare(waiter->getSprite(), &map->getTable(0)));
 
-    delete gameMap;
-    delete psMap;
-    delete rwMap;
 }
